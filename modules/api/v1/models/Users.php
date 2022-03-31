@@ -171,13 +171,15 @@ class Users extends \yii\db\ActiveRecord
     public function recoverUser($email)
     {
         $user = self::find()->where(['email' => $email])->one();
+        $userSite =  User::find()->where(['email' => $email])->one();
         if (empty($user)) {
             $this->addError('email', 'user email not found');
         }
         $password = Yii::$app->security->generateRandomString(8);
         $user->pass = $password;
         $user->reset_pass = $password;
-        if ($user->save()) {
+        $userSite->passwordHash = Yii::$app->security->generatePasswordHash($password);
+        if ($user->save() && $userSite->save()) {
             $subject = 'Восстановления пароль пользователя в vpnMax.org';
             $body = 'Ваш новый пароль: ' . $password;
             $this->sendMail($subject, $body);
