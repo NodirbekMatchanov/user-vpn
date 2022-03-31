@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'adminEmail' => 'admin@example.com',
+    'adminEmail' => 'welcome@vpnmax.org',
     'senderEmail' => 'noreply@example.com',
     'senderName' => 'Example.com mailer',
 ];

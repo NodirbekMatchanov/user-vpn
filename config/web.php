@@ -2,6 +2,7 @@
 
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
+$db2 = require __DIR__ . '/db2.php';
 
 $config = [
     'id' => 'basic',
@@ -11,6 +12,7 @@ $config = [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
+    'language' => 'ru',
     'homeUrl' => '/',
     'components' => [
 
@@ -37,9 +39,20 @@ $config = [
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
             // send all mails to a file by default. You have to set
-            // 'useFileTransport' to false and configure transport
+            // 'useFileTransport' to false and configure a transport
             // for the mailer to send real emails.
-            'useFileTransport' => true,
+            'useFileTransport' => false,
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'smtp.timeweb.ru',
+                'username' => 'welcome@vpnmax.org',
+                'password' => 'FZ2PTXVz',
+//                'username' => 'no-reply@mpclick.ru',
+//                'password' => 'frisky_noreply',
+//                yWK8$c=DT[/w5gp
+                'port' => '465',
+                'encryption' => 'ssl',
+            ],
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -51,6 +64,7 @@ $config = [
             ],
         ],
         'db' => $db,
+        'db2' => $db2,
 
         'urlManager' => [
             'enablePrettyUrl' => true,
@@ -58,6 +72,7 @@ $config = [
             'rules' => [
             ],
         ],
+
 
     ],
     'modules' => [
@@ -71,6 +86,10 @@ $config = [
             'modelMap' => [
                 'User' => 'app\models\user\User',
             ],
+            'controllerMap' => [
+                'security' => 'app\controllers\user\SecurityController',
+                'registration' => 'app\controllers\user\RegistrationController'
+            ],
         ],
         'rbac' => 'dektrium\rbac\RbacWebModule',
         'api' => [
@@ -78,6 +97,7 @@ $config = [
         ],
     ],
     'params' => $params,
+
 ];
 
 if (YII_ENV_DEV) {
