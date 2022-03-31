@@ -12,14 +12,14 @@ class m220320_181905_create_vpn_user_settings_table extends Migration
      */
     public function safeUp()
     {
-        $this->createTable('{{%vpn_user_settings}}', [
-            'id' => $this->primaryKey(),
-            'user_id' => $this->integer(),
-            'vpnlogin' => $this->string(255),
-            'vpnpassword' => $this->string(255),
-            'until' => $this->datetime(),
-            'status' => $this->string(50),
-        ]);
+//        $this->createTable('{{%vpn_user_settings}}', [
+//            'id' => $this->primaryKey(),
+//            'user_id' => $this->integer(),
+//            'vpnlogin' => $this->string(255),
+//            'vpnpassword' => $this->string(255),
+//            'until' => $this->datetime(),
+//            'status' => $this->string(50),
+//        ]);
     }
 
     /**
@@ -27,6 +27,6 @@ class m220320_181905_create_vpn_user_settings_table extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable('{{%vpn_user_settings}}');
+//        $this->dropTable('{{%vpn_user_settings}}');
     }
 }

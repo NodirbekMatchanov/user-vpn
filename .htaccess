@@ -1,0 +1,28 @@
+
+Options +FollowSymLinks
+
+IndexIgnore */*
+
+RewriteEngine on
+
+
+
+# if request dosn't start with web add it
+
+# if request dosn't start with web add it
+
+RewriteCond %{REQUEST_URI} !^/(web)
+RewriteCond %{REQUEST_URI} !^/(api)
+RewriteCond %{REQUEST_URI} !^/(api2)
+
+RewriteRule (.*) /web/$1
+
+
+
+# if file or directory dosn't exists go to /web/index.php
+
+RewriteCond %{REQUEST_FILENAME} !-f
+
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule . /web/index.php

@@ -7,7 +7,15 @@ main > .container {
     font-size: .9em;
     height: 60px;
 }
-
+html, body{
+    height: 100%;
+}
+.wrap {
+    min-height: 100%;
+    height: auto;
+    margin: 0 auto -60px;
+    padding: 0 0 60px;
+}
 .footer > .container {
     padding-right: 15px;
     padding-left: 15px;

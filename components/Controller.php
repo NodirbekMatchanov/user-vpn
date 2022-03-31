@@ -23,10 +23,10 @@ class Controller extends \yii\rest\Controller
     public function behaviors()
     {
         $behaviors = parent::behaviors();
-//        $behaviors['authenticator'] = [
-//            'class' => HttpBearerAuth::className(),
+        $behaviors['authenticator'] = [
+            'class' => HttpBearerAuth::className(),
 //            'except' => ['calculate/index'],
-//        ];
+        ];
         $behaviors['contentNegotiator']['formats'] = [
             'application/json' => Response::FORMAT_JSON
         ];

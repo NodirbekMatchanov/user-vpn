@@ -23,13 +23,14 @@ AppAsset::register($this);
     <?php $this->head() ?>
 </head>
 <body class="d-flex flex-column h-100">
+<div class="wrap">
 <?php $this->beginBody() ?>
 
 <header>
     <?php
     NavBar::begin([
         'brandLabel' => "Vpn",
-        'brandUrl' => Yii::$app->homeUrl,
+        'brandUrl' => '/',
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
@@ -37,7 +38,12 @@ AppAsset::register($this);
     $item=[];
     if(!Yii::$app->user->isGuest){
         $item = [
-            ['label' => 'admin', 'url' => ['/user/admin/index']]
+//            ['label' => 'admin', 'url' => ['/user/admin/index']],
+            ['label' => 'Пользователи', 'url' => ['/web/vpn-user-settings/index']],
+            ['label' => 'Cерверы', 'url' => ['/web/vpn-ips/index']],
+            ['label' => 'Справочник', 'url' => ['/web/support/index']],
+            ['label' => 'Шаблоны', 'url' => ['/web/mail-template/index']],
+            ['label' => 'История отправки', 'url' => ['/mail-history/index']]
         ];
     }
 
@@ -45,8 +51,8 @@ AppAsset::register($this);
         Yii::$app->user->isGuest ? (
         ['label' => 'Login', 'url' => ['/site/login']]
         ) : (
-            '<li>'
-            . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
+            '<li class="form-inline my-2 my-lg-0" style="padding: 8px;">'
+            . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline my-2 my-lg-0'])
             . Html::submitButton(
                 'Logout (' . Yii::$app->user->identity->username . ')',
                 ['class' => 'btn btn-link logout']
@@ -55,11 +61,13 @@ AppAsset::register($this);
             . '</li>'
         )
     ];
-
+    if(Yii::$app->user->isGuest){
+        $items[]  = ['label' => 'Sign', 'url' => ['/user/register']];
+    }
     $items = array_merge($item,$items);
 
     echo Nav::widget([
-        'options' => ['class' => 'navbar-nav'],
+        'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => $items,
     ]);
     NavBar::end();
@@ -76,14 +84,16 @@ AppAsset::register($this);
     </div>
 </main>
 
-<footer class="footer mt-auto py-3 text-muted" style="bottom:0px; position: fixed; width: 100%">
-    <div class="container">
-        <p class="float-left">&copy; My Company <?= date('Y') ?></p>
-        <p class="float-right"><?= Yii::powered() ?></p>
-    </div>
-</footer>
 
 <?php $this->endBody() ?>
+</div>
+
+<footer class="footer mt-auto py-3 text-muted" >
+    <div class="container">
+        <br>
+        <p class="float-right">VPN MAX</p>
+    </div>
+</footer>
 </body>
 </html>
 <?php $this->endPage() ?>
