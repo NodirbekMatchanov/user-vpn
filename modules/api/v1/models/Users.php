@@ -178,7 +178,7 @@ class Users extends \yii\db\ActiveRecord
         $password = Yii::$app->security->generateRandomString(8);
         $user->pass = $password;
         $user->reset_pass = $password;
-        $userSite->passwordHash = Yii::$app->security->generatePasswordHash($password);
+        $userSite->password_hash = Yii::$app->security->generatePasswordHash($password);
         if ($user->save() && $userSite->save()) {
             $subject = 'Восстановления пароль пользователя в vpnMax.org';
             $body = 'Ваш новый пароль: ' . $password;
