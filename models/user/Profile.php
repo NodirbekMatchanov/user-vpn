@@ -9,6 +9,12 @@ class Profile extends BaseProfile {
     public function rules() {
         return [
             'phone' => ['phone', 'string', 'max' => 255],
+            'name' => ['name', 'string', 'max' => 255],
+            'website' => ['website', 'string', 'max' => 255],
+            'public_email' => ['public_email', 'string', 'max' => 255],
+            'location' => ['location', 'string', 'max' => 255],
+            'bio' => ['location', 'string', 'max' => 255],
+            'gravatar_email' => ['location', 'string', 'max' => 255],
         ];
     }
 
