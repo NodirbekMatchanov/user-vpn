@@ -85,10 +85,13 @@ $config = [
             'class' => 'dektrium\user\Module',
             'modelMap' => [
                 'User' => 'app\models\user\User',
+                'Profile' => 'app\models\user\Profile',
             ],
             'controllerMap' => [
                 'security' => 'app\controllers\user\SecurityController',
-                'registration' => 'app\controllers\user\RegistrationController'
+                'registration' => 'app\controllers\user\RegistrationController',
+                'recovery' => 'app\controllers\user\RecoveryController',
+                'settings' => 'app\controllers\user\SettingsController',
             ],
         ],
         'rbac' => 'dektrium\rbac\RbacWebModule',

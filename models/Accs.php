@@ -24,10 +24,12 @@ class Accs extends \yii\db\ActiveRecord
     {
         return 'accs';
     }
+
     public static function getDb()
     {
         return \Yii::$app->get('db2');
     }
+
     /**
      * {@inheritdoc}
      */
@@ -35,10 +37,10 @@ class Accs extends \yii\db\ActiveRecord
     {
         return [
             [['email', 'pass', 'vpnid', 'untildate', 'datecreate', 'status'], 'required'],
-            [['vpnid', 'untildate', 'datecreate','test_user','use_android','visit_count','use_ios','verifyCode'], 'integer'],
-            [['comment','use_ios','fcm_token'], 'string'],
-            [['email', 'pass','role','tariff','promocode'], 'string', 'max' => 255],
-            [['status','reset_pass'], 'string', 'max' => 50],
+            [['vpnid', 'untildate', 'datecreate', 'test_user', 'use_android', 'visit_count', 'use_ios', 'verifyCode'], 'integer'],
+            [['comment', 'use_ios', 'fcm_token'], 'string'],
+            [['email', 'pass', 'role', 'tariff', 'promocode'], 'string', 'max' => 255],
+            [['status', 'reset_pass'], 'string', 'max' => 50],
             [['last_date_visit'], 'safe'],
         ];
     }
@@ -57,5 +59,12 @@ class Accs extends \yii\db\ActiveRecord
             'datecreate' => 'Datecreate',
             'status' => 'Status',
         ];
+    }
+
+    public static function getAccs()
+    {
+        $userId = Yii::$app->user->identity->getId();
+        $accs = Accs::find()->where(['user_id' => $userId])->one();
+        return $accs;
     }
 }

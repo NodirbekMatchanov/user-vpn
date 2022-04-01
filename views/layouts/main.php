@@ -36,35 +36,47 @@ AppAsset::register($this);
         ],
     ]);
     $item=[];
-    if(!Yii::$app->user->isGuest){
-        $item = [
-//            ['label' => 'admin', 'url' => ['/user/admin/index']],
-            ['label' => 'Пользователи', 'url' => ['/web/vpn-user-settings/index']],
-            ['label' => 'Cерверы', 'url' => ['/web/vpn-ips/index']],
-            ['label' => 'Справочник', 'url' => ['/web/support/index']],
-            ['label' => 'Шаблоны', 'url' => ['/web/mail-template/index']],
-            ['label' => 'История отправки', 'url' => ['/mail-history/index']]
-        ];
-    }
 
-    $items = [
-        Yii::$app->user->isGuest ? (
-        ['label' => 'Login', 'url' => ['/site/login']]
-        ) : (
-            '<li class="form-inline my-2 my-lg-0" style="padding: 8px;">'
-            . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline my-2 my-lg-0'])
-            . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
-                ['class' => 'btn btn-link logout']
+        if (!Yii::$app->user->isGuest) {
+            $userId = Yii::$app->user->identity->getId();
+            if(!empty(Yii::$app->authManager->getRolesByUser($userId)['admin'])) {
+
+
+                $item = [
+                ['label' => 'Пользователи', 'url' => ['/web/vpn-user-settings/index']],
+                ['label' => 'Cерверы', 'url' => ['/web/vpn-ips/index']],
+                ['label' => 'Справочник', 'url' => ['/web/support/index']],
+                ['label' => 'Шаблоны', 'url' => ['/web/mail-template/index']],
+                ['label' => 'История отправки', 'url' => ['/mail-history/index']]
+            ];
+        } else {
+                $item = [
+                    ['label' => 'Мой профиль', 'url' => ['/user/settings/profile']],
+                    ['label' => 'VPN', 'url' => ['/vpn-user-settings/my-vpn']],
+                    ['label' => 'Серверы', 'url' => ['/vpn-ips/list']],
+                ];
+            }
+        }
+
+        $items = [
+            Yii::$app->user->isGuest ? (
+            ['label' => 'Login', 'url' => ['/site/login']]
+            ) : (
+                '<li class="form-inline my-2 my-lg-0" style="padding: 8px;">'
+                . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline my-2 my-lg-0'])
+                . Html::submitButton(
+                    'Logout (' . Yii::$app->user->identity->username . ')',
+                    ['class' => 'btn btn-link logout']
+                )
+                . Html::endForm()
+                . '</li>'
             )
-            . Html::endForm()
-            . '</li>'
-        )
-    ];
-    if(Yii::$app->user->isGuest){
-        $items[]  = ['label' => 'Sign', 'url' => ['/user/register']];
-    }
-    $items = array_merge($item,$items);
+        ];
+        if (Yii::$app->user->isGuest) {
+            $items[] = ['label' => 'Sign', 'url' => ['/user/register']];
+        }
+    $items = array_merge($item, $items);
+
 
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],

@@ -16,9 +16,16 @@ if(!empty($model->tags)){
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'question')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'question')->widget(\kartik\editors\Summernote::class, [
+        'useKrajeePresets' => true,
+        // other widget settings
+    ]);
+    ?> <?= $form->field($model, 'answer')->widget(\kartik\editors\Summernote::class, [
+        'useKrajeePresets' => true,
+        // other widget settings
+    ]);
+    ?>
 
-    <?= $form->field($model, 'answer')->textarea(['rows' => 6]) ?>
 
 
     <?= $form->field($model, 'is_active')->textInput() ?>

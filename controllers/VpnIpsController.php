@@ -8,6 +8,7 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use Yii;
 
 /**
  * VpnIpsController implements the CRUD actions for VpnIps model.
@@ -25,6 +26,11 @@ class VpnIpsController extends Controller
                 'rules' => [
                     [
                         'actions' => ['index','create', 'update', 'delete'],
+                        'allow' => Yii::$app->user->identity->checkAccess(),
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['list'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -50,6 +56,22 @@ class VpnIpsController extends Controller
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * Lists all VpnIps models.
+     *
+     * @return string
+     */
+    public function actionList()
+    {
+        $searchModel = new VpnIpsSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+
+        return $this->render('user/index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);

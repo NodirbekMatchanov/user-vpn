@@ -9,6 +9,7 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use Yii;
 
 /**
  * VpnUserSettingsController implements the CRUD actions for VpnUserSettings model.
@@ -26,6 +27,11 @@ class VpnUserSettingsController extends Controller
                 'rules' => [
                     [
                         'actions' => ['index','create', 'update', 'view','delete'],
+                        'allow' => Yii::$app->user->identity->checkAccess(),
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['my-vpn'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -51,6 +57,22 @@ class VpnUserSettingsController extends Controller
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * Lists all VpnUserSettings models.
+     *
+     * @return string
+     */
+    public function actionMyVpn()
+    {
+        $searchModel = new VpnUserSettingsSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+
+        return $this->render('user/index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);

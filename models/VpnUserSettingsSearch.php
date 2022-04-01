@@ -5,7 +5,7 @@ namespace app\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\VpnUserSettings;
-
+use Yii;
 /**
  * VpnUserSettingsSearch represents the model behind the search form of `app\models\VpnUserSettings`.
  */
@@ -45,6 +45,9 @@ class VpnUserSettingsSearch extends VpnUserSettings
     public function search($params)
     {
         $query = VpnUserSettings::find();
+        if(!Yii::$app->user->identity->isAdmin()){
+            $query->andWhere(['radcheck.id' => (Accs::getAccs()->vpnid ?? 0)]);
+        }
         $query->joinWith('accs');
 
         // add conditions that should always apply here

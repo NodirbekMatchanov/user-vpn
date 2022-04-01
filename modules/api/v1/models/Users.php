@@ -5,6 +5,7 @@ namespace app\modules\api\v1\models;
 use app\components\DateFormat;
 use app\models\Accs;
 use app\models\MailHistory;
+use app\models\user\Profile;
 use dektrium\user\models\LoginForm;
 use http\Message;
 use Yii;
@@ -18,6 +19,7 @@ class Users extends \yii\db\ActiveRecord
 {
     public $vpnLogin;
     public $vpnPassword;
+    public $phone;
 
     /**
      * {@inheritdoc}
@@ -36,7 +38,7 @@ class Users extends \yii\db\ActiveRecord
     {
         return [
             [['email', 'pass'], 'required'],
-            [['role', 'promocode', 'status', 'email',], 'string', 'max' => 255],
+            [['role', 'promocode', 'phone','status', 'email',], 'string', 'max' => 255],
             [['vpnid', 'verifyCode', 'user_id'], 'integer'],
             ['email', 'unique'],
             ['datecreate', 'safe'],
@@ -70,6 +72,14 @@ class Users extends \yii\db\ActiveRecord
                 $this->datecreate = time();
                 $this->untildate = time();
                 $this->verifyCode = $this->getVeriFyCode();
+                if($this->phone){
+                    if(!($profile = Profile::find()->where(['user_id' => $user->id])->one())){
+                        $profile = new Profile();
+                        $profile->user_id = $user->id;
+                    }
+                    $profile->phone = $this->phone;
+                    $profile->save();
+                }
                 if ($this->save()) {
                     return $this;
                 } else {
@@ -125,7 +135,7 @@ class Users extends \yii\db\ActiveRecord
         }
         /*если юзер в статусе не активирован пытается сменить пароль, то менять ему пароль, и если он по нему залогинится,
          то автоматически ставить статус активирован.*/
-        if ($user->reset_pass == $this->pas) {
+        if ($user->reset_pass == $this->pass) {
             $user->status = VpnUserSettings::$statuses['ACTIVE'];
             $user->reset_pass = '';
             $user->save();
