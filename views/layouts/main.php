@@ -43,10 +43,10 @@ AppAsset::register($this);
 
 
                 $item = [
-                ['label' => 'Пользователи', 'url' => ['/web/vpn-user-settings/index']],
-                ['label' => 'Cерверы', 'url' => ['/web/vpn-ips/index']],
-                ['label' => 'Справочник', 'url' => ['/web/support/index']],
-                ['label' => 'Шаблоны', 'url' => ['/web/mail-template/index']],
+                ['label' => 'Пользователи', 'url' => ['/vpn-user-settings/index']],
+                ['label' => 'Cерверы', 'url' => ['/vpn-ips/index']],
+                ['label' => 'Справочник', 'url' => ['/support/index']],
+                ['label' => 'Шаблоны', 'url' => ['/mail-template/index']],
                 ['label' => 'История отправки', 'url' => ['/mail-history/index']]
             ];
         } else {
