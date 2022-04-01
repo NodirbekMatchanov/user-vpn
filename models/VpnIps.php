@@ -101,7 +101,7 @@ class VpnIps extends \yii\db\ActiveRecord
                    'city' => $server->city,
                    'ip' => $server->ip,
                    'cert' => 'https://www.vpnmax.org/web/certs/' .$server->cert,
-                   'load' => $server->load,
+                   'load' => $server->load_serv,
                ];
            }
         }
