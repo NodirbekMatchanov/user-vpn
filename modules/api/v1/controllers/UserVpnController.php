@@ -72,7 +72,7 @@ class UserVpnController extends Controller
     {
         $user = new Users();
         $request = json_decode(Yii::$app->request->getRawBody(),true);
-        if (isset($request['email']) && $user->load($request,"") && $res = $user->recoverUser($request['email'])) {
+        if (isset($request['email']) && $user->load($request,"") && $res = $user->getCode()) {
             return $this->apiItem($res);
         }
         return $this->apiError($user->errors);
