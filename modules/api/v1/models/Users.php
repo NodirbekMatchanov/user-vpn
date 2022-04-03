@@ -265,7 +265,7 @@ class Users extends \yii\db\ActiveRecord
 
     public function getCode()
     {
-        $user = self::find()->where(['email' => $this->email, 'pass' => $this->pass])->one();
+        $user = self::find()->where(['email' => $this->email])->one();
         if (empty($user)) {
             return false;
         }
