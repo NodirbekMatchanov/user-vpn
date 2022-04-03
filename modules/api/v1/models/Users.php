@@ -267,13 +267,14 @@ class Users extends \yii\db\ActiveRecord
     {
         $user = self::find()->where(['email' => $this->email])->one();
         if (empty($user)) {
-            return false;
+            return $user->errors;
         }
         $user->verifyCode = $this->getVeriFyCode();
         if ($user->save()) {
             $this->sendMail('Код активации', 'Новый код активации: ' . $user->verifyCode);
+            return "Код активации отправлен на почту";
         }
-        return true;
+        return false;
     }
 
     public function getVeriFyCode()
