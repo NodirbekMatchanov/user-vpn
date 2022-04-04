@@ -6,10 +6,10 @@ use kartik\sidenav;
 // use kartik\sidenav\SideNav;
 use yii\helpers\Url;
 $items = [];
-$items [] = ['label' => 'Все',  'url' => ['/support/categories'], 'active' => false];
+$items [] = ['label' => 'Все',  'url' => ['support/categories'], 'active' => false];
 foreach ($data as $cayegory => $item) {
     if($cayegory == 'other') continue;
-    $items[] = ['label' => $cayegory,  'url' => ['/support/categories?category='.$cayegory], 'active' => false];
+    $items[] = ['label' => $cayegory,  'url' => ['support/categories?category='.$cayegory], 'active' => false];
 }
 echo sidenav\SideNav::widget([
     'type' => sidenav\SideNav::TYPE_DEFAULT,
