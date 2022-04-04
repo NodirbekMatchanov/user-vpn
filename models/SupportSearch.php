@@ -18,7 +18,7 @@ class SupportSearch extends Support
     {
         return [
             [['id', 'is_active'], 'integer'],
-            [['question', 'answer', 'datecreate', 'tags'], 'safe'],
+            [['question','category' ,'answer', 'datecreate', 'tags'], 'safe'],
         ];
     }
 
@@ -49,6 +49,47 @@ class SupportSearch extends Support
         ]);
 
         $this->load($params);
+        $this->load($params,'');
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'id' => $this->id,
+            'datecreate' => $this->datecreate,
+            'category' => $this->category,
+            'is_active' => $this->is_active,
+        ]);
+
+        $query->andFilterWhere(['like', 'question', $this->question])
+            ->andFilterWhere(['like', 'answer', $this->answer])
+            ->andFilterWhere(['like', 'tags', $this->tags]);
+
+        return $dataProvider;
+    }
+
+
+    /**
+     * Creates data provider instance with search query applied
+     *
+     * @param array $params
+     *
+     * @return ActiveDataProvider
+     */
+    public function searchByCategory($params)
+    {
+        $query = Support::find();
+
+        // add conditions that should always apply here
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($params);
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
@@ -60,13 +101,21 @@ class SupportSearch extends Support
         $query->andFilterWhere([
             'id' => $this->id,
             'datecreate' => $this->datecreate,
+            'category' => $this->category,
             'is_active' => $this->is_active,
         ]);
-
         $query->andFilterWhere(['like', 'question', $this->question])
             ->andFilterWhere(['like', 'answer', $this->answer])
             ->andFilterWhere(['like', 'tags', $this->tags]);
-
-        return $dataProvider;
+        $supportList = [];
+        $result = $query->asArray()->all();
+        foreach ($result as $item)
+        {
+            $supportList[($item['category'] ?? 'other')][] = $item;
+        }
+        return $supportList;
     }
+
+
+
 }

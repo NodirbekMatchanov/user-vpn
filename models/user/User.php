@@ -9,6 +9,7 @@ use yii\helpers\ArrayHelper;
 use yii\web\IdentityInterface;
 use yii\web\Application as WebApplication;
 use Yii;
+
 class User extends \dektrium\user\models\User
 {
 
@@ -26,6 +27,7 @@ class User extends \dektrium\user\models\User
             ]
         );
     }
+
     public function attributeLabels()
     {
         return array_merge(parent::attributeLabels(),
@@ -35,6 +37,7 @@ class User extends \dektrium\user\models\User
             ]
         );
     }
+
     /** @inheritdoc */
     public function beforeSave($insert)
     {
@@ -52,10 +55,13 @@ class User extends \dektrium\user\models\User
         return parent::beforeSave($insert);
     }
 
-    public function checkAccess() {
-        $userId = Yii::$app->user->identity->getId();
-        if(!empty(Yii::$app->authManager->getRolesByUser($userId)['admin'])){
-            return true;
+    public static function checkAccess()
+    {
+        if (!Yii::$app->user->isGuest) {
+            $userId = Yii::$app->user->identity->getId();
+            if (!empty(Yii::$app->authManager->getRolesByUser($userId)['admin'])) {
+                return true;
+            }
         }
         return false;
 //        $accs = Accs::find()->where(['user_id' => $userId])->one();
@@ -63,9 +69,11 @@ class User extends \dektrium\user\models\User
 //
 //        }
     }
-    public function isAdmin() {
+
+    public function isAdmin()
+    {
         $userId = Yii::$app->user->identity->getId();
-        if(!empty(Yii::$app->authManager->getRolesByUser($userId)['admin'])){
+        if (!empty(Yii::$app->authManager->getRolesByUser($userId)['admin'])) {
             return true;
         }
         return false;

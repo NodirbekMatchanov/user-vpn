@@ -37,11 +37,14 @@ AppAsset::register($this);
     ]);
     $item=[];
 
+        if (Yii::$app->user->isGuest) {
+            $item = [
+                ['label' => 'Справочник', 'url' => ['/support/categories']],
+            ];
+        }
         if (!Yii::$app->user->isGuest) {
             $userId = Yii::$app->user->identity->getId();
             if(!empty(Yii::$app->authManager->getRolesByUser($userId)['admin'])) {
-
-
                 $item = [
                 ['label' => 'Пользователи', 'url' => ['/vpn-user-settings/index']],
                 ['label' => 'Cерверы', 'url' => ['/vpn-ips/index']],
@@ -54,6 +57,8 @@ AppAsset::register($this);
                     ['label' => 'Мой профиль', 'url' => ['/user/settings/profile']],
                     ['label' => 'VPN', 'url' => ['/vpn-user-settings/my-vpn']],
                     ['label' => 'Серверы', 'url' => ['/vpn-ips/list']],
+                    ['label' => 'Справочник', 'url' => ['/support/categories']],
+                    ['label' => 'Тариф', 'url' => ['/tariff/index']],
                 ];
             }
         }

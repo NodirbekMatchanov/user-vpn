@@ -66,6 +66,8 @@ class VpnIps extends \yii\db\ActiveRecord
             'expire' => 'Действует до',
             'file' => 'Файл сертификата',
             'load_serv' => 'Нагрузка %',
+            'la' => 'Нагрузка %',
+            'desc' => 'Описание',
         ];
     }
 
@@ -106,5 +108,13 @@ class VpnIps extends \yii\db\ActiveRecord
            }
         }
         return $data;
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getServerLoad()
+    {
+        return $this->hasOne(Serverload::className(), ['ipaddr' => 'ip']);
     }
 }

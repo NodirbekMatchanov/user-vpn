@@ -16,11 +16,9 @@ if(!empty($model->tags)){
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'question')->widget(\kartik\editors\Summernote::class, [
-        'useKrajeePresets' => true,
-        // other widget settings
-    ]);
-    ?> <?= $form->field($model, 'answer')->widget(\kartik\editors\Summernote::class, [
+
+    <?=$form->field($model, 'question')->textInput()?>
+ <?= $form->field($model, 'answer')->widget(\kartik\editors\Summernote::class, [
         'useKrajeePresets' => true,
         // other widget settings
     ]);
@@ -29,6 +27,8 @@ if(!empty($model->tags)){
 
 
     <?= $form->field($model, 'is_active')->textInput() ?>
+
+    <?= $form->field($model, 'category')->textInput() ?>
 
     <?= $form->field($model, 'tagsList')->widget(\kartik\select2\Select2::className(),[
         'maintainOrder' => true,

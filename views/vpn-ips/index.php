@@ -33,7 +33,18 @@ $this->params['breadcrumbs'][] = $this->title;
             'city',
             'host',
             'login',
-            'load_serv',
+            [
+                'attribute' => 'la',
+                'content' => function ($data) {
+                    return $data->serverLoad->la ?? '';
+                }
+            ],
+            [
+                'attribute' => 'desc',
+                'content' => function ($data) {
+                    return $data->serverLoad->descr ?? '';
+                }
+            ],
             'password',
             'expire',
             [

@@ -7,6 +7,9 @@ main > .container {
     font-size: .9em;
     height: 60px;
 }
+.question {
+    color: #56b366;
+}
 html, body{
     height: 100%;
 }

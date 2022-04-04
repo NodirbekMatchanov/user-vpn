@@ -22,7 +22,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'city')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'cert')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'host')->textInput(['maxlength' => true]) ?>
 

@@ -30,7 +30,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'question:ntext',
-            'answer:ntext',
             'datecreate',
             'is_active',
             //'tags',

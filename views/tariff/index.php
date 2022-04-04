@@ -1,9 +1,6 @@
 <?php
-
-/** @var yii\web\View $this */
-
-$this->title = 'Vpn';
 ?>
+
 
 <style>body {
         background: #B1EA86;
@@ -188,7 +185,7 @@ $this->title = 'Vpn';
                         <i class="fa fa-briefcase"></i>
                         <div class="price-value"> 1000 рублей <span class="month">на год</span> </div>
                     </div>
-                    <h3 class="heading">Business</h3>
+                    <h3 class="heading">Годовой</h3>
                     <div class="pricing-content">
                         <ul>
                             <li><b>60GB</b> Disk Space</li>
