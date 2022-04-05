@@ -11,6 +11,7 @@
 
 namespace app\controllers\user;
 
+use app\models\Accs;
 use dektrium\user\Finder;
 use dektrium\user\models\Profile;
 use dektrium\user\models\SettingsForm;
@@ -130,7 +131,7 @@ class SettingsController extends Controller
                 'rules' => [
                     [
                         'allow'   => true,
-                        'actions' => ['profile', 'account', 'networks', 'disconnect', 'delete'],
+                        'actions' => ['profile', 'account', 'networks', 'disconnect', 'delete','tariff'],
                         'roles'   => ['@'],
                     ],
                     [
@@ -234,6 +235,19 @@ class SettingsController extends Controller
     {
         return $this->render('networks', [
             'user' => \Yii::$app->user->identity,
+        ]);
+    }
+
+    /**
+     * Displays list of connected Tariff accounts.
+     *
+     * @return string
+     */
+    public function actionTariff()
+    {
+        return $this->render('tariff', [
+            'user' => \Yii::$app->user->identity,
+            'accs' => Accs::find()->where(['user_id' => \Yii::$app->user->identity->getId()])->one(),
         ]);
     }
 

@@ -78,5 +78,9 @@ class User extends \dektrium\user\models\User
         }
         return false;
     }
+    public function getEmail()
+    {
+      return $this->email;
+    }
 
 }

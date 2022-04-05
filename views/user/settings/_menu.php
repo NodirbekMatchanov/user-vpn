@@ -10,7 +10,7 @@
  */
 
 use yii\helpers\Html;
-use dektrium\user\widgets\UserMenu;
+use app\widgets;
 
 /**
  * @var dektrium\user\models\User $user
@@ -29,6 +29,6 @@ $user = Yii::$app->user->identity;
         </h3>
     </div>
     <div class="panel-body">
-        <?= UserMenu::widget() ?>
+        <?= widgets\UserMenu::widget() ?>
     </div>
 </div>

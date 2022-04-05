@@ -2,11 +2,15 @@
 
 namespace app\controllers;
 
+use app\models\Accs;
+use app\models\Payments;
 use app\models\Support;
 use app\models\SupportSearch;
 use app\models\user\User;
+use app\models\VpnUserSettings;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use yii\web\BadRequestHttpException;
 use yii\web\NotFoundHttpException;
 use yii\web\Controller;
 
@@ -22,7 +26,7 @@ class TariffController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index','create', 'update', 'delete','view','categories'],
+                        'actions' => ['index', 'payment', 'get-price','payment-success'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -52,6 +56,56 @@ class TariffController extends Controller
 
         return $this->render('index', [
         ]);
+    }
+
+    public function actionPayment()
+    {
+        return $this->render('payment', [
+        ]);
+    }
+
+    /**
+     * @return int
+     * @throws BadRequestHttpException
+     */
+    public function actionGetPrice()
+    {
+        $type = \Yii::$app->request->get('type');
+        if ($type) {
+            switch ($type) {
+                case 'basic' :
+                    return 100;
+                    break;
+                case 'premium' :
+                    return 1000;
+            }
+        }
+        throw new BadRequestHttpException('not type');
+    }
+
+
+    public function actionPaymentSuccess()
+    {
+        $status = \Yii::$app->request->post('status');
+        if ($status) {
+
+            $payment = new Payments();
+            $payment->status = $status ? Payments::PAYED : Payments::ERROR;
+            $payment->orderId = \Yii::$app->request->post('orderId') ;
+            $payment->user_id = \Yii::$app->user->identity->getId() ;
+            $payment->tariff = \Yii::$app->request->post('tariff') ;
+            $payment->amount =  \Yii::$app->request->post('amount') ;
+            $payment->save();
+
+            if($payment->status == Payments::PAYED){
+                $accs = Accs::find()->where(['user_id' => \Yii::$app->user->identity->getId()])->one();
+                $accs->untildate = strtotime("+30 days");
+                $accs->tariff = VpnUserSettings::$tariffs['Premium'];
+                $accs->save();
+            }
+            return true;
+        }
+        throw new BadRequestHttpException('not payed');
     }
 
 
