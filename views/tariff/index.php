@@ -1,6 +1,7 @@
 <?php
 $email = Yii::$app->user->identity->email;
 $url = \yii\helpers\Url::to(['tariff/get-price?type=']);
+$paymentSuccessUrl = \yii\helpers\Url::to(['tariff/payment-success']);
 $script = <<<JS
   function orderNumber() {
       let now = Date.now().toString() // '1492341545873'
@@ -68,7 +69,7 @@ $(document).on('click', '.pay', function (e) {
     function (options) { // success
         console.log(options);
         $.ajax({
-            url: "/tariff/payment-success",
+            url: "$paymentSuccessUrl",
             method: "POST",
             data: {
                 tariff: type,
