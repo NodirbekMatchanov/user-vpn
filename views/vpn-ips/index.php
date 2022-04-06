@@ -26,7 +26,7 @@ $(document).on('change', '[name="serv_status"]', function (e) {
     });
 })
 
-    setTimeout(function(){
+    setInterval(function(){
          $.pjax.reload({container:"#my_pjax"});
     },6000)
 JS;
