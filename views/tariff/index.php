@@ -257,7 +257,7 @@ $this->registerJs($script, $this::POS_END);
                         <i class="fa fa-adjust"></i>
                         <div class="price-value"> 100 рублей <span class="month">на 1 месяц</span></div>
                     </div>
-                    <h3 class="heading">Стандарт</h3>
+                    <h3 class="heading">PREMIUM</h3>
                     <div class="pricing-content">
                         <ul>
                             <li><b>50GB</b> Disk Space</li>
@@ -278,7 +278,7 @@ $this->registerJs($script, $this::POS_END);
                         <i class="fa fa-briefcase"></i>
                         <div class="price-value"> 1000 рублей <span class="month">на год</span></div>
                     </div>
-                    <h3 class="heading">Годовой</h3>
+                    <h3 class="heading">VIP</h3>
                     <div class="pricing-content">
                         <ul>
                             <li><b>60GB</b> Disk Space</li>

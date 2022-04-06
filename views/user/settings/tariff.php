@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= Html::encode($this->title) ?>
             </div>
             <div class="panel-body">
-               <div class="alert alert-info"> <?= (!empty($accs)) ? $accs->tariff : 'free'?></div>
+               <div class="alert alert-info"> <?= (!empty($accs)) ? $accs->tariff.' подписка до '. date("d.m.Y", $accs->untildate) : 'free'?></div>
             </div>
         </div>
     </div>

@@ -99,8 +99,8 @@ class TariffController extends Controller
 
             if($payment->status == Payments::PAYED){
                 $accs = Accs::find()->where(['user_id' => \Yii::$app->user->identity->getId()])->one();
-                $accs->untildate = strtotime("+30 days");
-                $accs->tariff = VpnUserSettings::$tariffs['Premium'];
+                $accs->untildate = $payment->tariff == 'basic' ? strtotime("+30 days") : strtotime("+365 days");
+                $accs->tariff = $payment->tariff == 'basic' ? VpnUserSettings::$tariffs['Premium'] : VpnUserSettings::$tariffs['VIP'];
                 $accs->save();
             }
             return true;
