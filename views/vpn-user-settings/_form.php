@@ -25,12 +25,18 @@ use kartik\date\DatePicker;
             'format' => 'yyyy-mm-dd hh:ii'
         ]
     ]) ?>
+    <?= $form->field($model, 'phone')->textInput() ?>
 
     <?= $form->field($model, 'status')->dropDownList(\app\models\VpnUserSettings::$statuses) ?>
 
     <?= $form->field($model, 'tariff')->dropDownList(\app\models\VpnUserSettings::$tariffs) ?>
 
+
     <?= $form->field($model, 'role')->dropDownList(\app\models\VpnUserSettings::$roles) ?>
+
+    <?= $form->field($model, 'comment')->textarea() ?>
+
+    <?= $form->field($model, 'test_user')->checkbox() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>

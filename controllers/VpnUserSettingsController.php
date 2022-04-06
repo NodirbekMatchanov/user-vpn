@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Accs;
+use app\models\user\Profile;
 use app\models\VpnUserSettings;
 use app\models\VpnUserSettingsSearch;
 use yii\filters\AccessControl;
@@ -174,6 +175,14 @@ class VpnUserSettingsController extends Controller
                 $model->email = $accs->email;
                 $model->pass = $accs->pass;
                 $model->sccId = $accs->id;
+                $model->promocode = $accs->promocode;
+                $model->test_user = $accs->test_user;
+                $model->tariff = $accs->tariff;
+                $model->comment = $accs->comment;
+                $profile = Profile::find()->where(['user_id' => $accs->user_id])->one();
+                if(!empty($profile)){
+                    $model->phone = $profile->phone;
+                }
             }
             return $model;
         }

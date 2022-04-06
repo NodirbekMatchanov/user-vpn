@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\models\user\Profile;
 use Yii;
 
 /**
@@ -37,7 +38,7 @@ class Accs extends \yii\db\ActiveRecord
     {
         return [
             [['email', 'pass', 'vpnid', 'untildate', 'datecreate', 'status'], 'required'],
-            [['vpnid', 'untildate', 'datecreate', 'test_user', 'use_android', 'visit_count', 'use_ios', 'verifyCode'], 'integer'],
+            [['vpnid', 'untildate', 'datecreate', 'test_user','user_id', 'use_android', 'visit_count', 'use_ios', 'verifyCode'], 'integer'],
             [['comment', 'use_ios', 'fcm_token'], 'string'],
             [['email', 'pass', 'role', 'tariff', 'promocode'], 'string', 'max' => 255],
             [['status', 'reset_pass'], 'string', 'max' => 50],
@@ -66,5 +67,12 @@ class Accs extends \yii\db\ActiveRecord
         $userId = Yii::$app->user->identity->getId();
         $accs = Accs::find()->where(['user_id' => $userId])->one();
         return $accs;
+    }
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProfil()
+    {
+        return $this->hasOne(Profile::className(), ['user_id' => 'user_id']);
     }
 }

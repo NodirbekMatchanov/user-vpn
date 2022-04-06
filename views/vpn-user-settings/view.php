@@ -57,6 +57,60 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $data->accs->datecreate ? date("d.m.Y", $data->accs->datecreate) : '';
                 }
             ],
+            [
+                'attribute' => 'tariff',
+                'content' => function ($data) {
+                    return $data->accs->tariff ;
+                }
+            ],
+            [
+                'attribute' => 'comment',
+                'content' => function ($data) {
+                    return $data->accs->comment ;
+                }
+            ],
+            [
+                'attribute' => 'test_user',
+                'content' => function ($data) {
+                    return $data->accs->test_user ? 'Да' : 'Нет' ;
+                }
+            ],
+            [
+                'attribute' => 'use_ios',
+                'content' => function ($data) {
+                    return $data->accs->use_ios;
+                }
+            ],
+            [
+                'attribute' => 'use_android',
+                'content' => function ($data) {
+                    return $data->accs->use_android;
+                }
+            ],
+            [
+                'attribute' => 'last_date_visit',
+                'content' => function ($data) {
+                    return $data->accs->last_date_visit;
+                }
+            ],
+            [
+                'attribute' => 'visit_count',
+                'content' => function ($data) {
+                    return $data->accs->visit_count;
+                }
+            ],
+            [
+                'attribute' => 'fcm_token',
+                'content' => function ($data) {
+                    return $data->accs->fcm_token;
+                }
+            ],
+            [
+                'attribute' => 'phone',
+                'content' => function ($data) {
+                    return $data->accsp->profile->phone ?? '-' ;
+                }
+            ],
         ],
     ]) ?>
 
