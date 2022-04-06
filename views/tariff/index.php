@@ -1,5 +1,6 @@
 <?php
 $email = Yii::$app->user->identity->email;
+$url = \yii\helpers\Url::to(['tariff/get-price?type=']);
 $script = <<<JS
   function orderNumber() {
       let now = Date.now().toString() // '1492341545873'
@@ -14,7 +15,7 @@ $(document).on('click', '.pay', function (e) {
     let orderId = orderNumber();
     promise = new Promise((resolve, reject) =>{
         $.ajax({
-        url: "/tariff/get-price?type=" + type
+        url: "$url" + type
          }).done(function(data){
              resolve(data);
          }).fail(function(err){
