@@ -101,9 +101,11 @@ class TariffController extends Controller
                 $accs = Accs::find()->where(['user_id' => \Yii::$app->user->identity->getId()])->one();
                 $accs->untildate = $payment->tariff == 'basic' ? strtotime("+30 days") : strtotime("+365 days");
                 $accs->tariff = $payment->tariff == 'basic' ? VpnUserSettings::$tariffs['Premium'] : VpnUserSettings::$tariffs['VIP'];
-                $accs->save();
+                if($accs->save()) {
+                    echo json_encode($accs->tariff); die;
+                }
+                echo json_encode($accs->errors); die;
             }
-            return true;
         }
         throw new BadRequestHttpException('not payed');
     }
