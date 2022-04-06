@@ -86,6 +86,7 @@ $config = [
             'modelMap' => [
                 'User' => 'app\models\user\User',
                 'Profile' => 'app\models\user\Profile',
+                'RegistrationForm' => 'app\models\user\RegistrationForm',
             ],
             'controllerMap' => [
                 'security' => 'app\controllers\user\SecurityController',

@@ -36,6 +36,8 @@ class VpnUserSettings extends \yii\db\ActiveRecord
     public $last_date_visit;
     public $visit_count;
     public $verifyCode;
+    public $createAdmin;
+    public $user_id;
     public static $statuses = ['ACTIVE' => 'ACTIVE','NOACTIVE' => 'NOACTIVE','EXPIRE' =>'EXPIRE','DELETED' => 'DELETED'];
     public static $roles = ['user' => 'user','moderator' => 'moderator','admin' =>'admin'];
     public static $tariffs = ['Free' => 'Free','Premium' => 'Premium','VIP' =>'VIP'];
@@ -78,33 +80,42 @@ class VpnUserSettings extends \yii\db\ActiveRecord
 
     public function afterSave($insert, $changedAttributes)
     {
+
         if(!$acc = Accs::findOne($this->sccId)) {
             $acc = new Accs();
-            $user = new User();
-            $user->email = $this->email;
-            $user->username = $this->email;
-            $user->password = $this->pass;
-            $user->register();
-            $acc->user_id = $user->id;
+            if($this->createAdmin){
+                $user = new User();
+                $user->email = $this->email;
+                $user->username = $this->email;
+                $user->password = $this->pass;
+                $user->register();
+                $acc->user_id = $user->id;
+            } else {
+                $user = User::find()->where(['email' => $this->email])->one();
+                $acc->user_id = $user->id;
+            }
         }
         $user =  User::find()->where(['id' => $acc->user_id])->one();
         if(!empty($user)){
             $user->password_hash = Yii::$app->security->generatePasswordHash($this->pass);
             $user->save();
         }
+
         $acc->email = $this->email;
         $acc->pass = $this->pass;
         $acc->vpnid = $this->id;
         $acc->status = $this->status;
         $acc->untildate = strtotime($this->untildate);
         $acc->datecreate = time();
+        $acc->promocode = Yii::$app->security->generateRandomString(6);
         $acc->tariff = $this->tariff;
         $acc->role = $this->role;
         $acc->comment = $this->comment;
         $acc->test_user = $this->test_user;
-        $profile = Profile::find()->where(['user_id' => $acc->user_id])->one();
         if (!$acc->save()) {
+            print_r($acc->errors); die;
         }
+        $profile = Profile::find()->where(['user_id' => $acc->user_id])->one();
         if(empty($profile)){
            $profile = new Profile();
            $profile->user_id = $acc->user_id;

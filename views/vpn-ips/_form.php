@@ -29,8 +29,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'password')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'load_serv')->textInput(['maxlength' => true,'type' => "number",'max' => 100, 'min' => 0]) ?>
-
     <?= $form->field($model, 'expire')->widget(\kartik\date\DatePicker::className(),[
         'model' => $model,
         'attribute' => 'expire',

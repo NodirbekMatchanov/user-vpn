@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\VpnIps;
 use app\models\VpnIpsSearch;
 use yii\filters\AccessControl;
+use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
@@ -26,7 +27,7 @@ class VpnIpsController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index','create', 'update', 'delete'],
+                        'actions' => ['index','create', 'update', 'delete','status'],
                         'allow' => Yii::$app->user->identity->checkAccess(),
                         'roles' => ['@'],
                     ],
@@ -97,6 +98,19 @@ class VpnIpsController extends Controller
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
+    }
+
+    public function actionStatus()
+    {
+        if(($status = Yii::$app->request->post('status')) && ($id = Yii::$app->request->post('id'))){
+            $server = VpnIps::find()->where(['id' => $id])->one();
+            $server->status = $status;
+            if($server->save()){
+                return true;
+            } else {
+                throw new BadRequestHttpException(json_encode($server->errors));
+            }
+        }
     }
 
     /**

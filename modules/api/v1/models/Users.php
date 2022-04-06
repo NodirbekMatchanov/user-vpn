@@ -71,6 +71,7 @@ class Users extends \yii\db\ActiveRecord
                 $this->role = 'user';
                 $this->datecreate = time();
                 $this->untildate = time();
+                $this->promocode = Yii::$app->security->generateRandomString(6);
                 $this->verifyCode = $this->getVeriFyCode();
                 if($this->phone){
                     if(!($profile = Profile::find()->where(['user_id' => $user->id])->one())){
@@ -97,7 +98,7 @@ class Users extends \yii\db\ActiveRecord
      */
     public function generateVpnKey()
     {
-        $this->vpnPassword = $this->RandomToken();
+        $this->vpnPassword = self::RandomToken();
         $this->vpnLogin = Yii::$app->security->generateRandomString(16);
     }
 
@@ -213,7 +214,7 @@ class Users extends \yii\db\ActiveRecord
      * @return string|void
      * @throws \Exception
      */
-    public function RandomToken($length = 16)
+    public static function RandomToken($length = 16)
     {
         if (!isset($length) || intval($length) <= 8) {
             $length = 32;

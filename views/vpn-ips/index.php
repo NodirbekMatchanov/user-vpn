@@ -11,6 +11,26 @@ use yii\grid\GridView;
 
 $this->title = 'Cерверы';
 $this->params['breadcrumbs'][] = $this->title;
+$url = Url::to(['/vpn-ips/status']);
+$script = <<<JS
+$(document).on('change', '[name="serv_status"]', function (e) {
+    $.ajax({
+        url: '$url',
+        method: "POST",
+        data: {
+            id: $(this).data('id'),
+            status: $(this).val()
+        }
+    }).done(function(){
+        alert('status changed')
+    });
+})
+
+    setTimeout(function(){
+         $.pjax.reload({container:"#my_pjax"});
+    },6000)
+JS;
+$this->registerJs($script, $this::POS_END);
 ?>
 <div class="vpn-ips-index">
 
@@ -21,14 +41,19 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+    <?php \yii\widgets\Pjax::begin(['id' => 'my_pjax']); ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'ip',
-            'status',
+            [
+                'attribute' => 'status',
+                'content' => function ($data) {
+                    return Html::dropDownList('serv_status',$data->status,['ACTIVE' => 'активен', 'NOACTIVE' => 'отключен'],['data-id' => $data->id]);
+                }
+            ],
             'country',
             'city',
             'host',
@@ -36,7 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'la',
                 'content' => function ($data) {
-                    return $data->serverLoad->la ?? '';
+                    return $data->serverLoad->la.' %' ?? '';
                 }
             ],
             [
@@ -53,7 +78,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     return ($data->cert != '') ? Html::a($data->cert,  '/web/certs/'.$data->cert) : null;
                 }
             ],
-            'status',
             [
                 'header' => 'Действия',
                 'class' => 'yii\grid\ActionColumn',
@@ -62,6 +86,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]); ?>
-
+    <?php \yii\widgets\Pjax::end(); ?>
 
 </div>
