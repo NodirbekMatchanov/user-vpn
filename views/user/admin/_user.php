@@ -18,7 +18,3 @@ use \app\models\user\User;
 <?= $form->field($user, 'email')->textInput(['maxlength' => 255]) ?>
 <?= $form->field($user, 'username')->textInput(['maxlength' => 255]) ?>
 <?= $form->field($user, 'password')->passwordInput() ?>
-<?= $form->field($user, 'vpnlogin')->textInput(['maxlength' => 255]) ?>
-<?= $form->field($user, 'vpnpassword')->textInput(['maxlength' => 255]) ?>
-<?= $form->field($user, 'until')->textInput(['maxlength' => 255]) ?>
-<?= $form->field($user, 'status')->dropDownList([User::ACTIVE => 'ACTIVE',User::NOACTIVE => 'NOACTIVE',User::EXPIRE =>'EXPIRE',User::DELETED => 'DELETED']) ?>

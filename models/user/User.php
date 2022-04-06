@@ -17,16 +17,8 @@ class User extends \dektrium\user\models\User
     public const ACTIVE = 1;
     public const EXPIRE = 3;
     public const DELETED = 4;
+    public $name;
 
-    public function rules()
-    {
-        return array_merge(parent::rules(),
-            [
-                [['name', 'email'], 'required'],
-                [['phone', 'phone', 'access_user'], 'string'],
-            ]
-        );
-    }
 
     public function attributeLabels()
     {
