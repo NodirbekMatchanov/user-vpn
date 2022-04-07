@@ -98,6 +98,7 @@ class VpnIps extends \yii\db\ActiveRecord
 
         if(!empty($vpnIps)){
            foreach($vpnIps as $server) {
+               if($server->status == \app\models\VpnUserSettings::$statuses['NOACTIVE']) continue;
                $data[] = [
                    'country' => $server->country,
                    'city' => $server->city,
