@@ -16,6 +16,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'ip')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'host')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'status')->dropDownList(\app\models\VpnUserSettings::$statuses) ?>
 
     <?= $form->field($model, 'country')->textInput(['maxlength' => true]) ?>
@@ -23,7 +25,6 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'city')->textInput(['maxlength' => true]) ?>
 
 
-    <?= $form->field($model, 'host')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'login')->textInput(['maxlength' => true]) ?>
 

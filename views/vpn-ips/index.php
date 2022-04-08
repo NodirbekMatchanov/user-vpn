@@ -71,7 +71,8 @@ $this->registerJs($script, $this::POS_END);
                 }
             ],
             'password',
-            'expire',
+            'ikev2',
+            'openvpn',
             [
                 'attribute' => 'cert',
                 'content' => function ($data) {

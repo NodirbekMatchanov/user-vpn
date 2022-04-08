@@ -19,6 +19,8 @@ use yii\web\UploadedFile;
 * @property string|null $login
 * @property string|null $password
 * @property string|null $expire
+* @property int|null $openvpn
+* @property int|null $ikev2
 */
 class VpnIps extends \yii\db\ActiveRecord
 {
@@ -40,6 +42,7 @@ class VpnIps extends \yii\db\ActiveRecord
             [['ip', 'status'], 'required'],
             [['expire'], 'safe'],
             [['load_serv'], 'integer','max' => 100, 'min' => 0],
+            [['ikev2','openvpn'], 'integer'],
             [['ip', 'cert', 'host', 'login', 'password'], 'string', 'max' => 255],
             [['file'], 'safe'],
             [['file'], 'file'],
@@ -103,6 +106,7 @@ class VpnIps extends \yii\db\ActiveRecord
                    'country' => $server->country,
                    'city' => $server->city,
                    'ip' => $server->ip,
+                   'host' => $server->host,
                    'cert' => 'https://www.vpnmax.org/web/certs/' .$server->cert,
                    'load' => $server->load_serv,
                ];
@@ -117,5 +121,26 @@ class VpnIps extends \yii\db\ActiveRecord
     public function getServerLoad()
     {
         return $this->hasOne(Serverload::className(), ['ipaddr' => 'ip']);
+    }
+
+    /**
+     * @return void
+     */
+    public static function updateActiveConnection() {
+        $servers = VpnIps::find()->all();
+        $connections = Activeconn::find()->all();
+        foreach($servers as $server){
+            $server->openvpn = 0;
+            $server->ikev2 = 0;
+            foreach($connections as $connection) {
+                if($connection->serv_ip == $server->ip && $connection->ipsec_conn){
+                    $server->ikev2++;
+                }
+                if($connection->serv_ip == $server->ip && $connection->opvn_conn){
+                    $server->openvpn++;
+                }
+            }
+            $server->save();
+        }
     }
 }

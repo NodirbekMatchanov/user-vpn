@@ -55,7 +55,6 @@ AppAsset::register($this);
         } else {
                 $item = [
                     ['label' => 'Мой профиль', 'url' => ['/user/settings/profile']],
-                    ['label' => 'VPN', 'url' => ['/vpn-user-settings/my-vpn']],
                     ['label' => 'Серверы', 'url' => ['/vpn-ips/list']],
                     ['label' => 'Справочник', 'url' => ['/support/categories']],
                     ['label' => 'Тариф', 'url' => ['/tariff/index']],

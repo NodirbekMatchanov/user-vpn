@@ -18,7 +18,7 @@ class UserVpnController extends Controller
         $behaviors = parent::behaviors();
         $behaviors['authenticator'] = [
             'class' => HttpBearerAuth::className(),
-            'except' => ['create','activate','recover','login','get-verify-code','check-login'],
+            'except' => ['create','activate','recover','login','get-verify-code','check-login','push'],
         ];
         $behaviors['contentNegotiator']['formats'] = [
             'application/json' => Response::FORMAT_JSON
@@ -60,6 +60,19 @@ class UserVpnController extends Controller
         $user = new Users();
         $request = json_decode(Yii::$app->request->getRawBody(),true);
         if (isset($request['email']) && $user->load($request,"") && $res = $user->recoverUser($request['email'])) {
+            return $this->apiItem($res);
+        }
+        return $this->apiError($user->errors);
+    }
+
+    /** push user
+     * @return array
+     */
+    public function actionPush()
+    {
+        $user = new Users();
+        $request = json_decode(Yii::$app->request->getRawBody(),true);
+        if ($user->load($request,"") && $res = $user->push()) {
             return $this->apiItem($res);
         }
         return $this->apiError($user->errors);

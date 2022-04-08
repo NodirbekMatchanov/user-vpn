@@ -38,8 +38,8 @@ class Users extends \yii\db\ActiveRecord
     {
         return [
             [['email', 'pass'], 'required'],
-            [['role', 'promocode', 'phone','status', 'email',], 'string', 'max' => 255],
-            [['vpnid', 'verifyCode', 'user_id'], 'integer'],
+            [['role', 'promocode','fcm_token','ios_token', 'phone','status', 'email',], 'string', 'max' => 255],
+            [['vpnid','id', 'verifyCode', 'user_id'], 'integer'],
             ['email', 'unique'],
             ['datecreate', 'safe'],
 //            ['avtoNumber', 'match', 'pattern' => '/^[а-яА-Я]{1}\s?[0-9]{3}\s?[а-яА-Я]{2}\s?[0-9]{2,3}$/ui', 'message' => 'Введите гос номер автомобиля на русском без пробелов'],
@@ -141,11 +141,21 @@ class Users extends \yii\db\ActiveRecord
             $user->reset_pass = '';
             $user->save();
         }
+
+        if($this->fcm_token || $this->ios_token){
+            $user->fcm_token = $this->fcm_token;
+            $user->ios_token = $this->ios_token;
+            $user->save();
+        }
+
         $userData = [
+            'id' => $user->id,
             'email' => $user->email,
             'pass' => $user->pass,
             'tariff' => $user->tariff,
             'status' => $user->status,
+            'ios_token' => $user->ios_token,
+            'fcm_token' => $user->fcm_token,
             'untildate' => $user->untildate,
             'vpnLogin' => $user->radcheck->username,
             'vpnPassword' => $user->radcheck->value,
@@ -177,6 +187,16 @@ class Users extends \yii\db\ActiveRecord
         ];
 
         return $userData;
+    }
+
+    public function push(){
+        $user = self::find()->where(['id' => $this->id,'pass' => $this->pass])->one();
+        if(!empty($user)){
+            $user->fcm_token = $this->fcm_token;
+            $user->ios_token = $this->ios_token;
+            $user->save();
+            return true;
+        }
     }
 
     public function recoverUser($email)

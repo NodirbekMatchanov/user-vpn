@@ -35,6 +35,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'country',
             'city',
             'cert',
+            'ikev2',
+            'openvpn',
         ],
     ]) ?>
 
