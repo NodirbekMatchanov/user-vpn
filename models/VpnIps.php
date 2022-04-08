@@ -58,7 +58,7 @@ class VpnIps extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'ip' => 'Ип',
+            'ip' => 'ip',
             'status' => 'Статус',
             'country' => 'Страна',
             'city' => 'Город',
