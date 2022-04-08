@@ -6,6 +6,8 @@ use app\models\Accs;
 use app\models\Payments;
 use app\models\Support;
 use app\models\SupportSearch;
+use app\models\Tariff;
+use app\models\TariffSearch;
 use app\models\user\User;
 use app\models\VpnUserSettings;
 use yii\filters\AccessControl;
@@ -25,6 +27,11 @@ class TariffController extends Controller
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
+                    [
+                        'actions' => ['list','create', 'update', 'delete','view'],
+                        'allow' => User::checkAccess(),
+                        'roles' => ['@'],
+                    ],
                     [
                         'actions' => ['index', 'payment', 'get-price','payment-success'],
                         'allow' => true,
@@ -109,6 +116,105 @@ class TariffController extends Controller
         }
         throw new BadRequestHttpException('not payed');
     }
+    /**
+     * Lists all Tariff models.
+     *
+     * @return string
+     */
+    public function actionList()
+    {
+        $searchModel = new TariffSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
 
+        return $this->render('control/index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * Displays a single Tariff model.
+     * @param int $id ID
+     * @return string
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionView($id)
+    {
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
+    }
+
+    /**
+     * Creates a new Tariff model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return string|\yii\web\Response
+     */
+    public function actionCreate()
+    {
+        $model = new Tariff();
+
+        if ($this->request->isPost) {
+            if ($model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+        } else {
+            $model->loadDefaultValues();
+        }
+
+        return $this->render('control/create', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Updates an existing Tariff model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param int $id ID
+     * @return string|\yii\web\Response
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionUpdate($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
+
+        return $this->render('control/update', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Deletes an existing Tariff model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param int $id ID
+     * @return \yii\web\Response
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionDelete($id)
+    {
+        $this->findModel($id)->delete();
+
+        return $this->redirect(['control/index']);
+    }
+
+    /**
+     * Finds the Tariff model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param int $id ID
+     * @return Tariff the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModel($id)
+    {
+        if (($model = Tariff::findOne(['id' => $id])) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
 
 }

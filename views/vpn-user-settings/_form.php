@@ -31,7 +31,6 @@ use kartik\date\DatePicker;
 
     <?= $form->field($model, 'tariff')->dropDownList(\app\models\VpnUserSettings::$tariffs) ?>
 
-
     <?= $form->field($model, 'role')->dropDownList(\app\models\VpnUserSettings::$roles) ?>
 
     <?= $form->field($model, 'comment')->textarea() ?>

@@ -50,7 +50,8 @@ AppAsset::register($this);
                 ['label' => 'Cерверы', 'url' => ['/vpn-ips/index']],
                 ['label' => 'Справочник', 'url' => ['/support/index']],
                 ['label' => 'Шаблоны', 'url' => ['/mail-template/index']],
-                ['label' => 'История отправки', 'url' => ['/mail-history/index']]
+                ['label' => 'История отправки', 'url' => ['/mail-history/index']],
+                ['label' => 'Тариф', 'url' => ['/tariff/list']]
             ];
         } else {
                 $item = [
