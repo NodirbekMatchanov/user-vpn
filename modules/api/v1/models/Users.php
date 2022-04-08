@@ -197,6 +197,7 @@ class Users extends \yii\db\ActiveRecord
             $user->save();
             return true;
         }
+        return false;
     }
 
     public function recoverUser($email)
