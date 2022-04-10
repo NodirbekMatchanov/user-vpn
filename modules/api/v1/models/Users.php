@@ -57,6 +57,7 @@ class Users extends \yii\db\ActiveRecord
         $vpnModel = new VpnUserSettings();
         $vpnModel->username = $this->vpnLogin;
         $vpnModel->value = $this->vpnPassword;
+        $vpnModel->createAdmin = false;
         if ($vpnModel->save()) {
 
             $user = new User();
