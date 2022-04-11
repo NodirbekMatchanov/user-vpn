@@ -1,14 +1,16 @@
 <?php
-namespace app\commands;
+defined('YII_DEBUG') or define('YII_DEBUG', true);
+defined('YII_ENV') or define('YII_ENV', 'dev');
+require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/../vendor/yiisoft/yii2/Yii.php';
+$config = require __DIR__ . '/../config/console.php';
+$application = new yii\console\Application($config);
 
-use app\models\User;
-use app\models\VpnIps;
-use Yii;
-use yii\console\Controller;
-
-class ServerController extends Controller
+class ServerController
 {
     public function actionUpdateActiveUser(){
-        VpnIps::updateActiveConnection();
+        \app\models\VpnIps::updateActiveConnection();
     }
 }
+ $run = new ServerController();
+$run->actionUpdateActiveUser();
