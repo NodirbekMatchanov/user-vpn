@@ -45,7 +45,7 @@ class VpnIps extends \yii\db\ActiveRecord
             [['expire'], 'safe'],
             [['load_serv'], 'integer','max' => 100, 'min' => 0],
             [['ikev2','openvpn'], 'integer'],
-            [['ip', 'cert', 'host', 'login', 'password'], 'string', 'max' => 255],
+            [['ip', 'cert', 'host','provider', 'login', 'password'], 'string', 'max' => 255],
             [['file'], 'safe'],
             [['file'], 'file'],
             [['file'], 'file', 'maxSize' => '20000000'],
