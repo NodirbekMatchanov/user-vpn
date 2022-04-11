@@ -132,22 +132,28 @@ class VpnIps extends \yii\db\ActiveRecord
      * @return void
      */
     public static function updateActiveConnection() {
-        echo "start";
-        $servers = VpnIps::find()->all();
-        $connections = Activeconn::find()->all();
-        foreach($servers as $server){
-            $server->openvpn = 0;
-            $server->ikev2 = 0;
-            foreach($connections as $connection) {
-                if($connection->serv_ip == $server->ip && $connection->ipsec_conn){
-                    $server->ikev2++;
+        $count = 0;
+        while ($count != 4) {
+            echo "\n start";
+            $servers = VpnIps::find()->all();
+            $connections = Activeconn::find()->all();
+            $count++;
+            foreach($servers as $server) {
+                $server->openvpn = 0;
+                $server->ikev2 = 0;
+                foreach($connections as $connection) {
+                    if($connection->serv_ip == $server->ip && $connection->ipsec_conn){
+                        $server->ikev2++;
+                    }
+                    if($connection->serv_ip == $server->ip && $connection->opvn_conn){
+                        $server->openvpn++;
+                    }
                 }
-                if($connection->serv_ip == $server->ip && $connection->opvn_conn){
-                    $server->openvpn++;
-                }
+                $server->save();
             }
-            $server->save();
+            echo "\n end";
+            sleep(15);
         }
-        echo "end";
+
     }
 }
