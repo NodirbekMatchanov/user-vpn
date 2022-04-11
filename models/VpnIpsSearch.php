@@ -20,7 +20,7 @@ class VpnIpsSearch extends VpnIps
     {
         return [
             [['id','load_serv'], 'integer'],
-            [['ip', 'status','la','ikev2','openvpn','desc', 'country', 'city', 'cert', 'host', 'login', 'password','expire'], 'safe'],
+            [['ip', 'status','la','type','ikev2','openvpn','provider','desc', 'country', 'city', 'cert', 'host', 'login', 'password','expire'], 'safe'],
         ];
     }
 
@@ -76,8 +76,12 @@ class VpnIpsSearch extends VpnIps
                     'desc' => ['cert' => SORT_DESC],
                 ],
                 'host' => [
-                    'host' => ['host' => SORT_ASC],
+                    'asc' => ['host' => SORT_ASC],
                     'desc' => ['host' => SORT_DESC],
+                ],
+                'provider' => [
+                    'asc' => ['provider' => SORT_ASC],
+                    'desc' => ['provider' => SORT_DESC],
                 ],
                 'password' => [
                     'asc' => ['password' => SORT_ASC],
@@ -94,6 +98,10 @@ class VpnIpsSearch extends VpnIps
                 'desc' => [
                     'asc' => ['ServerLoad.desc' => SORT_ASC],
                     'desc' => ['ServerLoad.desc' => SORT_DESC],
+                ],
+                'type' => [
+                    'asc' => ['ServerLoad.type' => SORT_ASC],
+                    'desc' => ['ServerLoad.type' => SORT_DESC],
                 ],
                 'ikev2' => [
                     'asc' => ['ServerLoad.ikev2' => SORT_ASC],
@@ -124,12 +132,14 @@ class VpnIpsSearch extends VpnIps
             ->andFilterWhere(['like', 'country', $this->country])
             ->andFilterWhere(['like', 'city', $this->city])
             ->andFilterWhere(['like', 'host', $this->host])
+            ->andFilterWhere(['like', 'provider', $this->provider])
             ->andFilterWhere(['like', 'login', $this->login])
             ->andFilterWhere(['like', 'load_serv', $this->login])
             ->andFilterWhere(['like', 'password', $this->password])
             ->andFilterWhere(['like', 'expire', $this->expire])
-            ->andFilterWhere(['like', 'openvpn', $this->expire])
-            ->andFilterWhere(['like', 'ikev2', $this->expire])
+            ->andFilterWhere(['like', 'openvpn', $this->openvpn])
+            ->andFilterWhere(['like', 'ikev2', $this->ikev2])
+            ->andFilterWhere(['like', 'type', $this->type])
             ->andFilterWhere(['like', 'cert', $this->cert]);
 
         return $dataProvider;

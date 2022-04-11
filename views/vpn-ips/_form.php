@@ -18,13 +18,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'host')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'provider')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'status')->dropDownList(\app\models\VpnUserSettings::$statuses) ?>
 
     <?= $form->field($model, 'country')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'city')->textInput(['maxlength' => true]) ?>
 
-
+    <?= $form->field($model, 'type')->dropDownList(\app\models\VpnUserSettings::$types) ?>
 
     <?= $form->field($model, 'login')->textInput(['maxlength' => true]) ?>
 

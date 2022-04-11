@@ -23,32 +23,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'ip',
-            'status',
             'country',
             'city',
-            'host',
-            'login',
             [
                 'attribute' => 'la',
                 'content' => function ($data) {
-                    return $data->serverLoad->la ?? '';
+                    return $data->serverLoad->la.' %' ?? '';
                 }
             ],
-            [
-                'attribute' => 'desc',
-                'content' => function ($data) {
-                    return $data->serverLoad->descr ?? '';
-                }
-            ],
-            'password',
-            'expire',
-            [
-                'attribute' => 'cert',
-                'content' => function ($data) {
-                    return ($data->cert != '') ? Html::a($data->cert,  '/web/certs/'.$data->cert) : null;
-                }
-            ],
-            'status',
 
         ],
     ]); ?>

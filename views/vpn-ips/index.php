@@ -47,38 +47,53 @@ $this->registerJs($script, $this::POS_END);
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            'ip',
             [
-                'attribute' => 'status',
+                'attribute' => 'ip',
                 'content' => function ($data) {
-                    return Html::dropDownList('serv_status',$data->status,['ACTIVE' => 'активен', 'NOACTIVE' => 'отключен'],['data-id' => $data->id]);
+                    return  Html::a($data->ip,'view?id='.$data->id);
                 }
             ],
-            'country',
-            'city',
             'host',
-            'login',
             [
                 'attribute' => 'la',
                 'content' => function ($data) {
                     return $data->serverLoad->la.' %' ?? '';
                 }
             ],
-            [
-                'attribute' => 'desc',
-                'content' => function ($data) {
-                    return $data->serverLoad->descr ?? '';
-                }
-            ],
-            'password',
             'ikev2',
             'openvpn',
+            'country',
+            'city',
+            'provider',
             [
-                'attribute' => 'cert',
+                'attribute' => 'expire',
                 'content' => function ($data) {
-                    return ($data->cert != '') ? Html::a($data->cert,  '/web/certs/'.$data->cert) : null;
+                    if(empty($data->expire)){
+                        return '';
+                    }
+                    return $data->expire ? date("d.m.Y", strtotime($data->expire)) : '';
                 }
             ],
+            [
+                'attribute' => 'status',
+                'content' => function ($data) {
+                    return Html::dropDownList('serv_status',$data->status,['ACTIVE' => 'активен', 'NOACTIVE' => 'отключен'],['data-id' => $data->id]);
+                }
+            ],
+            'type',
+//            [
+//                'attribute' => 'desc',
+//                'content' => function ($data) {
+//                    return $data->serverLoad->descr ?? '';
+//                }
+//            ],
+//            'password',
+//            [
+//                'attribute' => 'cert',
+//                'content' => function ($data) {
+//                    return ($data->cert != '') ? Html::a($data->cert,  '/web/certs/'.$data->cert) : null;
+//                }
+//            ],
             [
                 'header' => 'Действия',
                 'class' => 'yii\grid\ActionColumn',

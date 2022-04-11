@@ -29,7 +29,7 @@ AppAsset::register($this);
 <header>
     <?php
     NavBar::begin([
-        'brandLabel' => "Vpn",
+        'brandLabel' => "VPN MAX",
         'brandUrl' => '/',
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
@@ -49,7 +49,7 @@ AppAsset::register($this);
                 ['label' => 'Пользователи', 'url' => ['/vpn-user-settings/index']],
                 ['label' => 'Cерверы', 'url' => ['/vpn-ips/index']],
                 ['label' => 'Справочник', 'url' => ['/support/index']],
-                ['label' => 'Шаблоны', 'url' => ['/mail-template/index']],
+                ['label' => 'Шаблоны уведомлений', 'url' => ['/mail-template/index']],
                 ['label' => 'История отправки', 'url' => ['/mail-history/index']],
                 ['label' => 'Тариф', 'url' => ['/tariff/list']]
             ];

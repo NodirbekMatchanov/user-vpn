@@ -41,6 +41,7 @@ class VpnUserSettings extends \yii\db\ActiveRecord
     public static $statuses = ['ACTIVE' => 'ACTIVE','NOACTIVE' => 'NOACTIVE','EXPIRE' =>'EXPIRE','DELETED' => 'DELETED'];
     public static $roles = ['user' => 'user','moderator' => 'moderator','admin' =>'admin'];
     public static $tariffs = ['Free' => 'Free','Premium' => 'Premium','VIP' =>'VIP'];
+    public static $types = ['Free' => 'Free','Paid' =>'Paid'];
     /**
      * {@inheritdoc}
      */

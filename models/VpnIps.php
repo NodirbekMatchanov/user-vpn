@@ -19,6 +19,8 @@ use yii\web\UploadedFile;
 * @property string|null $login
 * @property string|null $password
 * @property string|null $expire
+* @property string|null $provider
+* @property string|null $type
 * @property int|null $openvpn
 * @property int|null $ikev2
 */
@@ -47,7 +49,7 @@ class VpnIps extends \yii\db\ActiveRecord
             [['file'], 'safe'],
             [['file'], 'file'],
             [['file'], 'file', 'maxSize' => '20000000'],
-            [['status', 'country', 'city'], 'string', 'max' => 50],
+            [['status', 'country', 'type', 'city'], 'string', 'max' => 50],
         ];
     }
 
@@ -64,7 +66,9 @@ class VpnIps extends \yii\db\ActiveRecord
             'city' => 'Город',
             'cert' => 'Сертификат',
             'host' => 'Хостинг',
+            'provider' => 'Провайдер',
             'login' => 'Логин',
+            'type' => 'Тип',
             'password' => 'Пароль',
             'expire' => 'Действует до',
             'file' => 'Файл сертификата',
@@ -107,6 +111,7 @@ class VpnIps extends \yii\db\ActiveRecord
                    'city' => $server->city,
                    'ip' => $server->ip,
                    'host' => $server->host,
+                   'provider' => $server->provider,
                    'cert' => 'https://www.vpn-max.com/web/certs/' .$server->cert,
                    'load' => $server->load_serv,
                ];

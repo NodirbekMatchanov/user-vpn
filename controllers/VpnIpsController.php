@@ -27,7 +27,7 @@ class VpnIpsController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index','create', 'update', 'delete','status'],
+                        'actions' => ['index','create', 'update', 'delete','status','view'],
                         'allow' => Yii::$app->user->identity->checkAccess(),
                         'roles' => ['@'],
                     ],
