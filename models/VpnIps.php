@@ -132,6 +132,7 @@ class VpnIps extends \yii\db\ActiveRecord
      * @return void
      */
     public static function updateActiveConnection() {
+        echo "start";
         $servers = VpnIps::find()->all();
         $connections = Activeconn::find()->all();
         foreach($servers as $server){
@@ -147,5 +148,6 @@ class VpnIps extends \yii\db\ActiveRecord
             }
             $server->save();
         }
+        echo "end";
     }
 }
