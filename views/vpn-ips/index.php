@@ -28,7 +28,7 @@ $(document).on('change', '[name="serv_status"]', function (e) {
 
     setInterval(function(){
          $.pjax.reload({container:"#my_pjax"});
-    },60000)
+    },10000)
 JS;
 $this->registerJs($script, $this::POS_END);
 ?>
