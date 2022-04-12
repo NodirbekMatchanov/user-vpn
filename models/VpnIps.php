@@ -120,6 +120,7 @@ class VpnIps extends \yii\db\ActiveRecord
                     'provider' => $server->provider,
                     'cert' => 'https://www.vpn-max.com/web/certs/' . $server->cert,
                     'load' => $server->load_serv,
+                    'type' => $server->type,
                 ];
             }
         }
