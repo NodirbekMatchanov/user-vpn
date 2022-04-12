@@ -38,6 +38,7 @@ class RegistrationForm extends Model
     public $username;
 
     public $phone;
+    public $promocode;
 
     /**
      * @var string Password
@@ -53,16 +54,8 @@ class RegistrationForm extends Model
 
         return [
             // username rules
-            'usernameTrim'     => ['username', 'trim'],
-            'usernameLength'   => [['username','phone'], 'string', 'min' => 3, 'max' => 255],
-            'usernamePattern'  => ['username', 'match', 'pattern' => $user::$usernameRegexp],
-            'usernameRequired' => ['username', 'required'],
-            'usernameUnique'   => [
-                'username',
-                'unique',
-                'targetClass' => $user,
-                'message' => Yii::t('user', 'This username has already been taken')
-            ],
+            'usernameLength'   => [['username','phone','promocode'], 'string', 'min' => 3, 'max' => 255],
+
             // email rules
             'emailTrim'     => ['email', 'trim'],
             'emailRequired' => ['email', 'required'],
@@ -89,6 +82,7 @@ class RegistrationForm extends Model
             'username' => Yii::t('user', 'Username'),
             'password' => Yii::t('user', 'Password'),
             'phone' => Yii::t('user', 'Телефон'),
+            'promocode' => Yii::t('user', 'Промокод'),
         ];
     }
 
@@ -107,10 +101,11 @@ class RegistrationForm extends Model
      */
     public function register()
     {
+        $this->username = $this->email;
+
         if (!$this->validate()) {
             return false;
         }
-
         /** @var User $user */
         $user = Yii::createObject(User::className());
         $user->setScenario('register');
@@ -125,6 +120,7 @@ class RegistrationForm extends Model
         $vpnModel->value = Users::RandomToken();
         $vpnModel->email = $this->email;
         $vpnModel->pass = $this->password;
+        $vpnModel->promocode = $this->promocode;
         $vpnModel->status = 'ACTIVE';
         $vpnModel->untildate = date('Y-m-d');
         $vpnModel->tariff = "Free";

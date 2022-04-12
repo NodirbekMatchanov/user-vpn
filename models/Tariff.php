@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "tariff".
@@ -58,5 +59,10 @@ class Tariff extends \yii\db\ActiveRecord
             'currency' => 'Валюта',
             'expire' => 'Действует до',
         ];
+    }
+
+    public static function getAllList(){
+        $tariffs = Tariff::find()->all();
+        return !empty($tariffs) ? ArrayHelper::map($tariffs,'id','name') : [] ;
     }
 }

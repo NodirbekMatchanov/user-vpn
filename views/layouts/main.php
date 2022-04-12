@@ -23,7 +23,7 @@ AppAsset::register($this);
     <?php $this->head() ?>
 </head>
 <body class="d-flex flex-column h-100">
-<div class="wrap">
+<div class="wrap_">
 <?php $this->beginBody() ?>
 
 <header>
@@ -51,6 +51,7 @@ AppAsset::register($this);
                 ['label' => 'Справочник', 'url' => ['/support/index']],
                 ['label' => 'Шаблоны уведомлений', 'url' => ['/mail-template/index']],
                 ['label' => 'История отправки', 'url' => ['/mail-history/index']],
+                ['label' => 'Промокоды', 'url' => ['/promocodes/index']],
                 ['label' => 'Тариф', 'url' => ['/tariff/list']]
             ];
         } else {
@@ -59,6 +60,7 @@ AppAsset::register($this);
                     ['label' => 'Серверы', 'url' => ['/vpn-ips/list']],
                     ['label' => 'Справочник', 'url' => ['/support/categories']],
                     ['label' => 'Тариф', 'url' => ['/tariff/index']],
+                    ['label' => 'Промокоды', 'url' => ['/used-promocodes/index']],
                 ];
             }
         }

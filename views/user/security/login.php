@@ -54,7 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <?= $form->field($model, 'login',
                         ['inputOptions' => ['autofocus' => 'autofocus', 'class' => 'form-control', 'tabindex' => '1']]
-                    );
+                    )->label('Email');
                     ?>
 
                 <?php endif ?>

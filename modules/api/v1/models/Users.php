@@ -70,6 +70,7 @@ class Users extends \yii\db\ActiveRecord
                 $this->vpnid = $vpnModel->id;
                 $this->user_id = $user->id;
                 $this->role = 'user';
+                $this->tariff = 'Free';
                 $this->datecreate = time();
                 $this->untildate = time();
                 $this->promocode = Yii::$app->security->generateRandomString(6);

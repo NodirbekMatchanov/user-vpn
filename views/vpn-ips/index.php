@@ -57,7 +57,7 @@ $this->registerJs($script, $this::POS_END);
             [
                 'attribute' => 'la',
                 'content' => function ($data) {
-                    return $data->serverLoad->la.' %' ?? '';
+                    return ($data->serverLoad->la ?? '0') .' %';
                 }
             ],
             'ikev2',

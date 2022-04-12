@@ -13,7 +13,7 @@ main > .container {
 html, body{
     height: 100%;
 }
-.wrap {
+.wrap_ {
     min-height: 100%;
     height: auto;
     margin: 0 auto -60px;
@@ -52,7 +52,7 @@ a.desc:after {
 }
 
 .grid-view th {
-    white-space: nowrap;
+    white-space: nowrap_;
 }
 
 .hint-block {

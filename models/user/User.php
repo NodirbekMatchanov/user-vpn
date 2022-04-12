@@ -70,9 +70,23 @@ class User extends \dektrium\user\models\User
         }
         return false;
     }
+
     public function getEmail()
     {
-      return $this->email;
+        return $this->email;
     }
 
+    public static function getUserList()
+    {
+        $accs = Accs::find()->where(['role' => 'user'])->all();
+        if(empty($accs)){
+           return [];
+        }
+        $ids = [];
+        foreach($accs  as $acc) {
+            $ids[] = $acc['user_id'];
+        }
+        $users = User::find()->where(['IN','id', $ids])->all();
+        return !empty($users) ? ArrayHelper::map($users,'id','email') : [];
+    }
 }

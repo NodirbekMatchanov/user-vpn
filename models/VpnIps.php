@@ -100,7 +100,11 @@ class VpnIps extends \yii\db\ActiveRecord
         $request = json_decode(Yii::$app->request->getRawBody(), true);
         $user = new Users();
         if ($user->load($request, "") && $user->login()) {
-            $vpnIps = VpnIps::find()->orderBy('id desc')->all();
+            if(isset($request['vpnLogin']) && VpnUserSettings::find()->where(['username' => $request['vpnLogin']])->one() && !$user->tariff && $user->tariff != 'Free') {
+                $vpnIps = VpnIps::find()->orderBy('type desc')->all();
+            } else {
+                $vpnIps = VpnIps::find()->orderBy('id desc')->all();
+            }
         } else {
             $vpnIps = VpnIps::find()->orderBy('id desc')->limit(5)->all();
         }
@@ -109,10 +113,10 @@ class VpnIps extends \yii\db\ActiveRecord
             foreach ($vpnIps as $server) {
                 if ($server->status == \app\models\VpnUserSettings::$statuses['NOACTIVE']) continue;
                 $data[] = [
-                    'country' => $server->country,
-                    'city' => $server->city,
                     'ip' => $server->ip,
                     'host' => $server->host,
+                    'country' => $server->country,
+                    'city' => $server->city,
                     'provider' => $server->provider,
                     'cert' => 'https://www.vpn-max.com/web/certs/' . $server->cert,
                     'load' => $server->load_serv,
