@@ -43,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'updated_at',
             [
                 'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Promocodes $model, $key, $index, $column) {
+                'urlCreator' => function ($action, \app\models\Promocodes $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                  }
             ],
