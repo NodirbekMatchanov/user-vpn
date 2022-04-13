@@ -89,4 +89,10 @@ class User extends \dektrium\user\models\User
         $users = User::find()->where(['IN','id', $ids])->all();
         return !empty($users) ? ArrayHelper::map($users,'id','email') : [];
     }
+
+    public function getStatus(){
+        $userId = Yii::$app->user->identity->getId();
+        $accs = Accs::find()->where(['user_id' => $userId])->one();
+        return $accs->status ?? 0;
+    }
 }
