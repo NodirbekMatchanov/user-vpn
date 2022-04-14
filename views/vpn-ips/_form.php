@@ -48,17 +48,17 @@ $this->registerJsFile(
             'format' => 'yyyy-mm-dd'
         ]
     ]) ?>
-    <?=
-    $form->field($model, 'file_core')->widget(\kartik\file\FileInput::className(), [
-        'language' => 'ru',
-        'pluginOptions' => [
-            'showPreview' => false,
-            'showCaption' => true,
-            'showRemove' => true,
-            'showUpload' => false
-        ],
-        'options' => ['multiple' => false],
-    ]) ?>
+
+//    $form->field($model, 'file_core')->widget(\kartik\file\FileInput::className(), [
+//        'language' => 'ru',
+//        'pluginOptions' => [
+//            'showPreview' => false,
+//            'showCaption' => true,
+//            'showRemove' => true,
+//            'showUpload' => false
+//        ],
+//        'options' => ['multiple' => false],
+//    ])
 <!--    file_core-->
 
     <label class=" " style="display: block; margin-bottom: 15px">Файл сертификата:</label>
