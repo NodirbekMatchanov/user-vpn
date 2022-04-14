@@ -137,8 +137,8 @@ class VpnIps extends \yii\db\ActiveRecord
         } else {
             $vpnIps = VpnIps::find()->where(['type' => VpnUserSettings::$types['Free']])->joinWith('certs')->orderBy('id desc')->all();
         }
-        $core_cert = CoreCert::find()->one();
-        $data['core_cert'] = $core_cert->file ? 'https://www.vpn-max.com/web/certs/' .$core_cert->file: '';
+        $core_cert = Settings::find()->where(['name' => 'core_cert'])->one();
+        $data['core_cert'] = $core_cert->value ? 'https://www.vpn-max.com/web/certs/' .$core_cert->value: '';
         if (!empty($vpnIps)) {
             foreach ($vpnIps as $server) {
                 if ($server->status == \app\models\VpnUserSettings::$statuses['NOACTIVE']) continue;

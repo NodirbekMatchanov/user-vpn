@@ -52,6 +52,7 @@ AppAsset::register($this);
                 ['label' => 'Шаблоны уведомлений', 'url' => ['/mail-template/index']],
                 ['label' => 'История отправки', 'url' => ['/mail-history/index']],
                 ['label' => 'Промокоды', 'url' => ['/promocodes/index']],
+                ['label' => 'Настройки', 'url' => ['/settings/index']],
                 ['label' => 'Тариф', 'url' => ['/tariff/list']]
             ];
         } else {
