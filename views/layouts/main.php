@@ -109,9 +109,9 @@ AppAsset::register($this);
 </div>
 
 <footer class="footer mt-auto py-3 text-muted" >
-    <div class="container">
-        <br>
-        <p class="float-right">VPN MAX</p>
+    <div class="container" style="    padding-top: 23px;">
+        <span class="float-right">VPN MAX</span>
+       <a class="pull-right" href="/site/privacy" target="_blank">Помощь в оформлении</a>
     </div>
 </footer>
 </body>
