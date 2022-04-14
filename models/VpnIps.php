@@ -151,7 +151,7 @@ class VpnIps extends \yii\db\ActiveRecord
                         ];
                     }
                 }
-                $data[] = [
+                $data['list'][] = [
                     'id' => $server->id,
                     'ip' => $server->ip,
                     'host' => $server->host,
