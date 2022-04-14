@@ -38,8 +38,6 @@ $this->registerJs($script, $this::POS_END);
 
     <p>
         <?= Html::a('Добавить сервер', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>   <p>
-        <?= Html::a('Добавить корневой сертификат', ['/core-cert/create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
