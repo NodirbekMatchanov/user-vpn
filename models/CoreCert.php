@@ -48,6 +48,10 @@ class CoreCert extends \yii\db\ActiveRecord
     {
         $this->file_core = UploadedFile::getInstance($this, 'file_core');
         if (!empty($this->file_core)) {
+            $oldCert = CoreCert::find()->one();
+            if(!empty($oldCert)){
+                $oldCert->delete();
+            }
             $fileName = $this->file_core->name;
             if (!is_dir(Yii::getAlias('@app') . '/web/certs/')) {
                 mkdir(Yii::getAlias('@app') . '/web/certs/');
