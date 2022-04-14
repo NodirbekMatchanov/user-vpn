@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\CoreCert */
 
-$this->title = 'Create Core Cert';
-$this->params['breadcrumbs'][] = ['label' => 'Core Certs', 'url' => ['index']];
+$this->title = 'Корневой сертификат';
+$this->params['breadcrumbs'][] = ['label' => 'Cерверы', 'url' => ['/vpn-ips']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="core-cert-create">
