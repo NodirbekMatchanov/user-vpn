@@ -38,6 +38,11 @@ class VpnUserSettings extends \yii\db\ActiveRecord
     public $verifyCode;
     public $createAdmin = true;
     public $user_id;
+    public $utm_source;
+    public $utm_medium;
+    public $utm_campaign;
+    public $utm_term;
+    public $used_promocode;
     public static $statuses = ['ACTIVE' => 'ACTIVE','FREE' => 'FREE','NOACTIVE' => 'NOACTIVE','EXPIRE' =>'EXPIRE','DELETED' => 'DELETED'];
     public static $roles = ['user' => 'user','moderator' => 'moderator','admin' =>'admin'];
     public static $tariffs = ['Free' => 'Free','Premium' => 'Premium','VIP' =>'VIP'];
@@ -68,7 +73,7 @@ class VpnUserSettings extends \yii\db\ActiveRecord
             [['comment','use_ios','fcm_token'], 'string'],
             [['vpnid', 'test_user','datecreate','test_user','use_android','visit_count','use_ios','verifyCode'], 'integer'],
             [['last_date_visit'], 'safe'],
-            [['value','phone','tariff', 'promocode','email', 'pass', 'status', 'username', 'attribute', 'op'], 'string', 'max' => 255],
+            [['value','phone','used_promocode','tariff', 'promocode','email', 'pass', 'status', 'username', 'attribute', 'op'], 'string', 'max' => 255],
         ];
     }
 
@@ -107,8 +112,13 @@ class VpnUserSettings extends \yii\db\ActiveRecord
         $acc->pass = $this->pass;
         $acc->vpnid = $this->id;
         $acc->status = $this->status;
+        $acc->utm_source = $this->utm_source;
+        $acc->utm_medium = $this->utm_medium;
+        $acc->utm_campaign = $this->utm_campaign;
+        $acc->utm_term = $this->utm_term;
         $acc->untildate = strtotime($this->untildate);
         $acc->datecreate = time();
+        $acc->used_promocode = $this->used_promocode;
         $acc->promocode = Yii::$app->security->generateRandomString(6);
         $acc->tariff = $this->tariff;
         $acc->role = $this->role;
@@ -160,6 +170,7 @@ class VpnUserSettings extends \yii\db\ActiveRecord
             'tariff' => 'Тариф',
             'role' => 'Роль',
             'comment' => 'Комментарий',
+            'expire' => 'Дней до окончании подписки',
         ];
     }
 

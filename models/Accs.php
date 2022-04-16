@@ -14,7 +14,13 @@ use Yii;
  * @property int $vpnid
  * @property int $untildate
  * @property int $datecreate
+ * @property int $promo_share
  * @property string $status
+ * @property string $utm_source
+ * @property string $utm_medium
+ * @property string $utm_campaign
+ * @property string $utm_term
+ * @property string $used_promocode
  */
 class Accs extends \yii\db\ActiveRecord
 {
@@ -38,9 +44,9 @@ class Accs extends \yii\db\ActiveRecord
     {
         return [
             [['email', 'pass', 'vpnid', 'untildate', 'datecreate', 'status'], 'required'],
-            [['vpnid', 'untildate', 'datecreate', 'test_user','user_id', 'use_android', 'visit_count', 'use_ios', 'verifyCode'], 'integer'],
-            [['comment', 'use_ios', 'fcm_token'], 'string'],
-            [['email', 'pass', 'role', 'tariff', 'promocode'], 'string', 'max' => 255],
+            [['vpnid', 'untildate', 'datecreate','promo_share', 'test_user','user_id', 'use_android', 'visit_count', 'use_ios', 'verifyCode'], 'integer'],
+            [['comment','used_promocode', 'use_ios', 'fcm_token'], 'string'],
+            [['email','utm_term','utm_campaign','utm_medium','utm_source', 'pass', 'role', 'tariff', 'promocode'], 'string', 'max' => 255],
             [['status', 'reset_pass'], 'string', 'max' => 50],
             [['last_date_visit'], 'safe'],
         ];
@@ -74,5 +80,15 @@ class Accs extends \yii\db\ActiveRecord
     public function getProfil()
     {
         return $this->hasOne(Profile::className(), ['user_id' => 'user_id']);
+    }
+
+    public static function setPromoShareCount($promocode){
+        $user = Accs::find()->where(['promocode' => $promocode])->one();
+        if(!empty($user)){
+           $count = $user->promo_share;
+           $user->promo_share = $count + 1;
+           return $user->save();
+        }
+        return false;
     }
 }

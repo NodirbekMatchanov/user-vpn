@@ -38,7 +38,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
                 <?= $form->field($model, 'phone') ?>
-                <?= $form->field($model, 'promocode') ?>
+                <?= $form->field($model, 'utm_source')->textInput(['value' => Yii::$app->request->get('utm_source')])->hiddenInput()->label(false) ?>
+                <?= $form->field($model, 'utm_term')->textInput(['value' => Yii::$app->request->get('utm_term')])->hiddenInput()->label(false) ?>
+                <?= $form->field($model, 'utm_campaign')->textInput(['value' => Yii::$app->request->get('utm_campaign')])->hiddenInput()->label(false) ?>
+                <?= $form->field($model, 'utm_medium')->textInput(['value' => Yii::$app->request->get('utm_medium')])->hiddenInput()->label(false) ?>
+
+                <?= $form->field($model, 'promocode')->textInput(['value' => (Yii::$app->request->get('ref'))]) ?>
 
                 <?php if ($module->enableGeneratingPassword == false): ?>
                     <?= $form->field($model, 'password')->passwordInput() ?>

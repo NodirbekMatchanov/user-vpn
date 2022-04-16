@@ -30,18 +30,39 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 //            'id',
             [
-                'attribute' => 'username',
+                'attribute' => 'email',
                 'content' => function ($data) {
-                    return  Html::a($data->username,'view?id='.$data->id);
+                    if(empty($data->accs)){
+                        return '';
+                    }
+                    return  $data->accs ? Html::a($data->accs->email,'view?id='.$data->id) : '';
+                }
+            ],
+            [
+                'attribute' => 'tariff',
+                'content' => function ($data) {
+                    if(empty($data->accs)){
+                        return '';
+                    }
+                    return  $data->accs->tariff ?? $data->accs->tariff;
+                }
+            ],
+            [
+                'attribute' => 'expire',
+                'content' => function ($data) {
+                    if(empty($data->accs)){
+                        return '';
+                    }
+                    return $data->accs->untildate ? \app\components\DateFormat::countDaysBetweenDates($data->accs->untildate, time()) : '';
                 }
             ],
 //            'op',
 //            'attribute',
             'value',
             [
-                'attribute' => 'email',
+                'attribute' => 'username',
                 'content' => function ($data) {
-                    return $data->accs->email ?? '';
+                    return $data->username ?? '';
                 }
             ],
             [

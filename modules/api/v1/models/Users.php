@@ -38,8 +38,8 @@ class Users extends \yii\db\ActiveRecord
     {
         return [
             [['email', 'pass'], 'required'],
-            [['role', 'promocode','fcm_token','ios_token', 'phone','status', 'email',], 'string', 'max' => 255],
-            [['vpnid','id', 'verifyCode', 'user_id'], 'integer'],
+            [['role', 'promocode','used_promocode','fcm_token','ios_token', 'phone','status', 'email',], 'string', 'max' => 255],
+            [['vpnid','id','promo_share', 'verifyCode', 'user_id'], 'integer'],
             ['email', 'unique'],
             ['datecreate', 'safe'],
 //            ['avtoNumber', 'match', 'pattern' => '/^[а-яА-Я]{1}\s?[0-9]{3}\s?[а-яА-Я]{2}\s?[0-9]{2,3}$/ui', 'message' => 'Введите гос номер автомобиля на русском без пробелов'],
@@ -73,6 +73,7 @@ class Users extends \yii\db\ActiveRecord
                 $this->tariff = 'Free';
                 $this->datecreate = time();
                 $this->untildate = time();
+                $this->used_promocode = $this->promocode;
                 $this->promocode = Yii::$app->security->generateRandomString(6);
                 $this->verifyCode = $this->getVeriFyCode();
                 if($this->phone){
@@ -84,6 +85,8 @@ class Users extends \yii\db\ActiveRecord
                     $profile->save();
                 }
                 if ($this->save()) {
+                    /* +1 promocode */
+                    Accs::setPromoShareCount($this->promocode);
                     return $this;
                 } else {
                     return false;

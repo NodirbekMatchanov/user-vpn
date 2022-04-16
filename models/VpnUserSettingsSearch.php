@@ -15,14 +15,16 @@ class VpnUserSettingsSearch extends VpnUserSettings
     public $status;
     public $datecreate;
     public $untildate;
+    public $tariff;
+    public $expire;
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['op','datecreate','untildate'], 'safe'],
-            [['value','username','attribute', 'op','email','status'], 'string', 'max' => 255],
+            [['op','datecreate','expire','untildate'], 'safe'],
+            [['value','username','tariff','attribute', 'op','email','status'], 'string', 'max' => 255],
         ];
     }
 
@@ -80,6 +82,14 @@ class VpnUserSettingsSearch extends VpnUserSettings
                     'asc' => ['accs.untildate' => SORT_ASC],
                     'desc' => ['accs.untildate' => SORT_DESC],
                 ],
+                'expire' => [
+                    'asc' => ['accs.untildate' => SORT_ASC],
+                    'desc' => ['accs.untildate' => SORT_DESC],
+                ],
+                'tariff' => [
+                    'asc' => ['accs.tariff' => SORT_ASC],
+                    'desc' => ['accs.tariff' => SORT_DESC],
+                ],
                 'datecreate' => [
                     'asc' => ['accs.datecreate' => SORT_ASC],
                     'desc' => ['accs.datecreate' => SORT_DESC],
@@ -98,7 +108,9 @@ class VpnUserSettingsSearch extends VpnUserSettings
             ->andFilterWhere(['like', 'accs.email', $this->email])
             ->andFilterWhere(['like', 'accs.status', $this->status])
             ->andFilterWhere(['like', 'accs.datecreate', $this->datecreate])
+            ->andFilterWhere(['like', 'accs.tariff', $this->tariff])
             ->andFilterWhere(['like', 'accs.untildate', $this->untildate])
+            ->andFilterWhere(['like', 'accs.untildate', $this->expire])
             ->andFilterWhere(['like', 'value', $this->value]);
 
 

@@ -39,6 +39,10 @@ class RegistrationForm extends Model
 
     public $phone;
     public $promocode;
+    public $utm_source;
+    public $utm_medium;
+    public $utm_campaign;
+    public $utm_term;
 
     /**
      * @var string Password
@@ -54,7 +58,7 @@ class RegistrationForm extends Model
 
         return [
             // username rules
-            'usernameLength'   => [['username','phone','promocode'], 'string', 'min' => 3, 'max' => 255],
+            'usernameLength'   => [['username','utm_source','utm_term','utm_campaign','utm_medium','phone','promocode'], 'string', 'min' => 3, 'max' => 255],
 
             // email rules
             'emailTrim'     => ['email', 'trim'],
@@ -120,14 +124,19 @@ class RegistrationForm extends Model
         $vpnModel->value = Users::RandomToken();
         $vpnModel->email = $this->email;
         $vpnModel->pass = $this->password;
-        $vpnModel->promocode = $this->promocode;
+        $vpnModel->utm_campaign = $this->utm_campaign;
+        $vpnModel->utm_term = $this->utm_term;
+        $vpnModel->utm_source = $this->utm_source;
+        $vpnModel->utm_medium = $this->utm_medium;
+        $vpnModel->used_promocode = $this->promocode;
         $vpnModel->status = 'ACTIVE';
         $vpnModel->untildate = date('Y-m-d');
         $vpnModel->tariff = "Free";
         $vpnModel->role = "user";
         $vpnModel->createAdmin = false;
         if ($vpnModel->save()) {
-
+            /* +1 promocode */
+            Accs::setPromoShareCount($this->promocode);
         }
         $user = User::find()->where(['email' => $this->email])->one();
         $profile = Profile::findOne($user->id);
