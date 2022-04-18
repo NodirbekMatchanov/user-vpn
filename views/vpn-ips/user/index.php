@@ -28,6 +28,9 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'la',
                 'content' => function ($data) {
+                if(empty($data->serverLoad->la)){
+                    return '';
+                }
                     return $data->serverLoad->la.' %' ?? '';
                 }
             ],

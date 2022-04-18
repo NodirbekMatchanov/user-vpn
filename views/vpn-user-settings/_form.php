@@ -13,11 +13,11 @@ use kartik\date\DatePicker;
 <div class="vpn-user-settings-form">
 
     <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
-    <?= $form->field($model, 'value')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'pass')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'status')->dropDownList(\app\models\VpnUserSettings::$statuses) ?>
+    <?= $form->field($model, 'tariff')->dropDownList(\app\models\VpnUserSettings::$tariffs) ?>
+
     <?= $form->field($model, 'untildate')->widget(\kartik\datetime\DateTimePicker::className(),[
         'type' => \kartik\date\DatePicker::TYPE_INPUT,
         'pluginOptions' => [
@@ -25,17 +25,13 @@ use kartik\date\DatePicker;
             'format' => 'yyyy-mm-dd hh:ii'
         ]
     ]) ?>
-    <?= $form->field($model, 'phone')->textInput() ?>
-
-    <?= $form->field($model, 'status')->dropDownList(\app\models\VpnUserSettings::$statuses) ?>
-
-    <?= $form->field($model, 'tariff')->dropDownList(\app\models\VpnUserSettings::$tariffs) ?>
-
     <?= $form->field($model, 'role')->dropDownList(\app\models\VpnUserSettings::$roles) ?>
-
+    <?= $form->field($model, 'phone')->textInput() ?>
     <?= $form->field($model, 'comment')->textarea() ?>
-
     <?= $form->field($model, 'test_user')->checkbox() ?>
+
+    <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'value')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>

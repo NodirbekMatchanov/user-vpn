@@ -81,6 +81,14 @@ class Accs extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Profile::className(), ['user_id' => 'user_id']);
     }
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+
+    public function getVpn()
+    {
+        return $this->hasOne(VpnUserSettings::className(), ['id' => 'vpnid']);
+    }
 
     public static function setPromoShareCount($promocode){
         $user = Accs::find()->where(['promocode' => $promocode])->one();

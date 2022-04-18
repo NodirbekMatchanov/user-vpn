@@ -21,8 +21,10 @@ use yii\web\UploadedFile;
  * @property string|null $expire
  * @property string|null $provider
  * @property string|null $type
+ * @property string|null $last_ping_time
  * @property int|null $openvpn
  * @property int|null $ikev2
+ * @property int|null $connection
  */
 class VpnIps extends \yii\db\ActiveRecord
 {
@@ -46,8 +48,8 @@ class VpnIps extends \yii\db\ActiveRecord
     {
         return [
             [['ip', 'status'], 'required'],
-            [['expire'], 'safe'],
-            [['load_serv'], 'integer', 'max' => 100, 'min' => 0],
+            [['expire','last_ping_time'], 'safe'],
+            [['load_serv','connection'], 'integer', 'max' => 100, 'min' => 0],
             [['ikev2', 'openvpn'], 'integer'],
             [['ip', 'cert', 'host', 'provider', 'login', 'password'], 'string', 'max' => 255],
             [['file','certType','file_core'], 'safe'],
@@ -81,6 +83,8 @@ class VpnIps extends \yii\db\ActiveRecord
             'desc' => 'Описание',
             'certType' => 'Тип сертификата',
             'file_core' => 'Корневой сертификат',
+            'connection' => 'Доступность',
+            'last_ping_time' => 'Доступность',
         ];
     }
 
@@ -204,5 +208,23 @@ class VpnIps extends \yii\db\ActiveRecord
             $server->save();
         }
         echo "\n end";
+    }
+    /**
+     * @return void
+     */
+    public static function pingServers()
+    {
+        $servers = VpnIps::find()->all();
+        foreach ($servers as $server) {
+            exec("ping -c 3 ". $server->ip, $output, $status);
+            if($status == 0){
+                $server->last_ping_time = date("Y-m-d H:i:s");
+                $server->connection = 1;
+                $server->save();
+            } else {
+                $server->connection = 0;
+                $server->save();
+            }
+        }
     }
 }

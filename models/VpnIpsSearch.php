@@ -19,7 +19,7 @@ class VpnIpsSearch extends VpnIps
     public function rules()
     {
         return [
-            [['id','load_serv'], 'integer'],
+            [['id','load_serv','connection'], 'integer'],
             [['ip', 'status','la','type','ikev2','openvpn','provider','desc', 'country', 'city', 'cert', 'host', 'login', 'password','expire'], 'safe'],
         ];
     }
@@ -111,6 +111,10 @@ class VpnIpsSearch extends VpnIps
                     'asc' => ['ServerLoad.openvpn' => SORT_ASC],
                     'desc' => ['ServerLoad.openvpn' => SORT_DESC],
                 ],
+                'connection' => [
+                    'asc' => ['connection' => SORT_ASC],
+                    'desc' => ['connection' => SORT_DESC],
+                ],
             ]]);
         $this->load($params);
         $query->joinWith('serverLoad');
@@ -130,6 +134,7 @@ class VpnIpsSearch extends VpnIps
             ->andFilterWhere(['like', 'ServerLoad.la', $this->la])
             ->andFilterWhere(['like', 'ServerLoad.desc', $this->desc])
             ->andFilterWhere(['like', 'country', $this->country])
+            ->andFilterWhere(['like', 'connection', $this->connection])
             ->andFilterWhere(['like', 'city', $this->city])
             ->andFilterWhere(['like', 'host', $this->host])
             ->andFilterWhere(['like', 'provider', $this->provider])

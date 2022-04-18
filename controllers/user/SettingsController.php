@@ -187,7 +187,7 @@ class SettingsController extends Controller
         $event = $this->getFormEvent($model);
 
         $this->performAjaxValidation($model);
-
+        $accs = Accs::find()->where(['user_id' => \Yii::$app->user->identity->getId()])->joinWith('vpn')->one();
         $this->trigger(self::EVENT_BEFORE_ACCOUNT_UPDATE, $event);
         if ($model->load(\Yii::$app->request->post()) && $model->save()) {
             \Yii::$app->session->setFlash('success', \Yii::t('user', 'Your account details have been updated'));
@@ -197,6 +197,7 @@ class SettingsController extends Controller
 
         return $this->render('account', [
             'model' => $model,
+            'accs' => $accs,
         ]);
     }
 

@@ -57,7 +57,7 @@ AppAsset::register($this);
             ];
         } else {
                 $item = [
-                    ['label' => 'Мой профиль', 'url' => ['/user/settings/profile']],
+                    ['label' => 'Мой профиль', 'url' => ['/user/settings/account']],
                     ['label' => 'Серверы', 'url' => ['/vpn-ips/list']],
                     ['label' => 'Справочник', 'url' => ['/support/categories']],
                     ['label' => 'Тариф', 'url' => ['/tariff/index']],
@@ -68,7 +68,7 @@ AppAsset::register($this);
 
         $items = [
             Yii::$app->user->isGuest ? (
-            ['label' => 'Login', 'url' => ['/site/login']]
+            ['label' => 'Вход', 'url' => ['/site/login']]
             ) : (
                 '<li class="form-inline my-2 my-lg-0" style="padding: 8px;">'
                 . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline my-2 my-lg-0'])
@@ -81,7 +81,7 @@ AppAsset::register($this);
             )
         ];
         if (Yii::$app->user->isGuest) {
-            $items[] = ['label' => 'Sign', 'url' => ['/user/register']];
+            $items[] = ['label' => 'Регистрация', 'url' => ['/user/register']];
         }
     $items = array_merge($item, $items);
 

@@ -81,6 +81,17 @@ $this->registerJs($script, $this::POS_END);
                 }
             ],
             'type',
+            [
+                'attribute' => 'connection',
+                'content' => function ($data) {
+                    if($data->connection) {
+                        $html = "<div class='alert alert-success'>сервер доступен <p>".($data->last_ping_time ? date("d.m.Y H:i",$data->last_ping_time) : '')."</p></div>";
+                    } else {
+                        $html = "<div class='alert alert-danger'>сервер недоступен <p>".($data->last_ping_time ? date("d.m.Y H:i",$data->last_ping_time) : '')."</p></div>";
+                    }
+                    return $html;
+                }
+            ],
 //            [
 //                'attribute' => 'desc',
 //                'content' => function ($data) {

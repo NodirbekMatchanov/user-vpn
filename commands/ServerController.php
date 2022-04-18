@@ -10,6 +10,7 @@ class ServerController
 {
     public function actionUpdateActiveUser(){
         \app\models\VpnIps::updateActiveConnection();
+        \app\models\VpnIps::pingServers();
     }
 }
  $run = new ServerController();

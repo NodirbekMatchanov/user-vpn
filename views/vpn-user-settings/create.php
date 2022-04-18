@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model app\models\VpnUserSettings */
 
 $this->title = 'Добавить пользователя';
-$this->params['breadcrumbs'][] = ['label' => 'Vpn User Settings', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Список пользователей', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="vpn-user-settings-create">
