@@ -62,6 +62,7 @@ AppAsset::register($this);
                     ['label' => 'Справочник', 'url' => ['/support/categories']],
                     ['label' => 'Тариф', 'url' => ['/tariff/index']],
                     ['label' => 'Промокоды', 'url' => ['/used-promocodes/index']],
+                    ['label' => 'Покупки', 'url' => ['/payment/index']],
                 ];
             }
         }

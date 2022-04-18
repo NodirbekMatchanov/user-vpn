@@ -80,7 +80,7 @@ class SiteController extends Controller
             if(Yii::$app->user->identity->isAdmin()){
                 $this->redirect('/user/admin/index');
             } else {
-                $this->redirect('/user/settings/profile');
+                $this->redirect('/user/settings/account');
             }
         }
 
