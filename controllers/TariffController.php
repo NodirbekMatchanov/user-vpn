@@ -60,8 +60,9 @@ class TariffController extends Controller
      */
     public function actionIndex()
     {
-
+        $tariffs = Tariff::find()->where(['status' => Tariff::ACTIVE])->all();
         return $this->render('index', [
+            'model' => $tariffs
         ]);
     }
 
@@ -77,31 +78,32 @@ class TariffController extends Controller
      */
     public function actionGetPrice()
     {
-        $type = \Yii::$app->request->get('type');
-        if ($type) {
-            switch ($type) {
-                case 'basic' :
-                    return 100;
-                    break;
-                case 'premium' :
-                    return 1000;
+        $id = \Yii::$app->request->get('id');
+        if ($id) {
+            $tarif = Tariff::findOne($id);
+            if(!empty($tarif)){
+                return $tarif->price;
             }
         }
-        throw new BadRequestHttpException('not type');
+        throw new BadRequestHttpException('not found tariff');
     }
 
 
     public function actionPaymentSuccess()
     {
         $status = \Yii::$app->request->post('status');
-        if ($status) {
-
+        $amount = \Yii::$app->request->post('amount');
+        if ($status && $id = \Yii::$app->request->post('tariff')) {
+            $tariff = Tariff::findOne($id);
+            if(empty($tariff) || $tariff->price != $amount) {
+                throw new BadRequestHttpException('not payed');
+            }
             $payment = new Payments();
             $payment->status = $status ? Payments::PAYED : Payments::ERROR;
             $payment->orderId = \Yii::$app->request->post('orderId') ;
             $payment->user_id = \Yii::$app->user->identity->getId() ;
             $payment->tariff = \Yii::$app->request->post('tariff') ;
-            $payment->amount =  \Yii::$app->request->post('amount') ;
+            $payment->amount =   $amount;
             $payment->save();
 
             if($payment->status == Payments::PAYED){

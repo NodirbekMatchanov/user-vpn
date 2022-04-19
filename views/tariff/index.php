@@ -1,6 +1,6 @@
 <?php
 $email = Yii::$app->user->identity->email;
-$url = \yii\helpers\Url::to(['tariff/get-price?type=']);
+$url = \yii\helpers\Url::to(['tariff/get-price?id=']);
 $paymentSuccessUrl = \yii\helpers\Url::to(['tariff/payment-success']);
 $script = <<<JS
   function orderNumber() {
@@ -11,12 +11,13 @@ $script = <<<JS
       return  [now.slice(0, 4), now.slice(4, 10), now.slice(10, 14)].join('-')
     }
 $(document).on('click', '.pay', function (e) {
-    let type = $(this).data('type');
+    let id = $(this).data('id');
+    let monthTariff = $(this).data('period');
     var self = this;
     let orderId = orderNumber();
     promise = new Promise((resolve, reject) =>{
         $.ajax({
-        url: "$url" + type
+        url: "$url" + id
          }).done(function(data){
              resolve(data);
          }).fail(function(err){
@@ -29,7 +30,6 @@ $(document).on('click', '.pay', function (e) {
         self.pay = function () {
     var widget = new cp.CloudPayments();
     var price = parseFloat(amount);
-    var monthTariff = type == 'basic' ? 1 : 12;
     var receipt = {
             Items: [//товарные позиции
                  {
@@ -72,7 +72,7 @@ $(document).on('click', '.pay', function (e) {
             url: "$paymentSuccessUrl",
             method: "POST",
             data: {
-                tariff: type,
+                tariff: id,
                 status : true,
                 orderId: orderId,
                 amount: price
@@ -251,49 +251,25 @@ $this->registerJs($script, $this::POS_END);
 <div class="demo">
     <div class="container text-center">
         <div class="row">
-            <div class="col-md-3 col-sm-6"></div>
-            <div class="col-md-3 col-sm-6">
-                <div class="pricingTable">
-                    <div class="pricingTable-header">
-                        <i class="fa fa-adjust"></i>
-                        <div class="price-value"> 100 рублей <span class="month">на 1 месяц</span></div>
-                    </div>
-                    <h3 class="heading">PREMIUM</h3>
-                    <div class="pricing-content">
-                        <ul>
-                            <li><b>50GB</b> Disk Space</li>
-                            <li><b>50</b> Email Accounts</li>
-                            <li><b>50GB</b> Monthly Bandwidth</li>
-                            <li><b>10</b> subdomains</li>
-                            <li><b>15</b> Domains</li>
-                        </ul>
-                    </div>
-                    <div class="pricingTable-signup">
-                        <a class="pay" data-type="basic" href="#">Купить</a>
-                    </div>
-                </div>
-            </div>
+            <?php foreach ($model as $item): ?>
             <div class="col-md-3 col-sm-6">
                 <div class="pricingTable green">
                     <div class="pricingTable-header">
                         <i class="fa fa-briefcase"></i>
-                        <div class="price-value"> 1000 рублей <span class="month">на год</span></div>
+                        <div class="price-value"> <?=$item->price.' '.$item->currency ?> <span class="month"><?=$item->period?> дней</span></div>
                     </div>
-                    <h3 class="heading">VIP</h3>
+                    <h3 class="heading"><?=$item->name?></h3>
                     <div class="pricing-content">
                         <ul>
-                            <li><b>60GB</b> Disk Space</li>
-                            <li><b>60</b> Email Accounts</li>
-                            <li><b>60GB</b> Monthly Bandwidth</li>
-                            <li><b>15</b> subdomains</li>
-                            <li><b>20</b> Domains</li>
+                            <li><b>Страна: </b> <?=$item->country?></li>
                         </ul>
                     </div>
                     <div class="pricingTable-signup">
-                        <a class="pay" data-type="premium" href="#">Купить</a>
+                        <a class="pay" data-id="<?=$item->id?>" data-period="<?=$item->period?>" data-price="<?=$item->price?>" data-type="premium" href="#">Купить</a>
                     </div>
                 </div>
             </div>
+            <?php endforeach;?>
         </div>
     </div>
 </div>
