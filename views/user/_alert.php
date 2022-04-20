@@ -9,7 +9,6 @@
  * file that was distributed with this source code.
  */
 
-use \kartik\alert\Alert;
 
 /**
  * @var dektrium\user\Module $module
@@ -21,10 +20,7 @@ use \kartik\alert\Alert;
         <div class="col-xs-12">
             <?php foreach (Yii::$app->session->getAllFlashes() as $type => $message): ?>
                 <?php if (in_array($type, ['success', 'danger', 'warning', 'info'])): ?>
-                    <?= Alert::widget([
-                        'type' => 'alert-' . $type,
-                        'body' => $message,
-                    ]); ?>
+
                 <?php endif ?>
             <?php endforeach ?>
         </div>
