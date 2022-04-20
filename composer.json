@@ -26,7 +26,8 @@
         "kartik-v/yii2-editors": "dev-master",
         "kartik-v/yii2-widget-select2": "dev-master",
         "kartik-v/yii2-widget-sidenav": "dev-master",
-        "troytft/cloud-payments-client": "^0.1.0"
+        "troytft/cloud-payments-client": "^0.1.0",
+        "kartik-v/yii2-widget-alert": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
