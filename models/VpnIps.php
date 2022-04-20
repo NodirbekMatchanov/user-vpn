@@ -71,7 +71,7 @@ class VpnIps extends \yii\db\ActiveRecord
             'country' => 'Страна',
             'city' => 'Город',
             'cert' => 'Сертификат',
-            'host' => 'Хостинг',
+            'host' => 'Хост',
             'provider' => 'Провайдер',
             'login' => 'Логин',
             'type' => 'Тип',

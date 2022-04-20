@@ -89,6 +89,15 @@ $config = [
                 'Profile' => 'app\models\user\Profile',
                 'RegistrationForm' => 'app\models\user\RegistrationForm',
             ],
+            'mailer' => [
+                'class' => 'app\models\Mailer',
+                'sender' => ['welcome@vpnmax.org' => 'Сервис VPN MAX'], // or ['no-reply@myhost.com' => 'Sender name']
+                'viewPath' => '@app/views/user/mail',
+                'welcomeSubject' => 'Добро пожаловать в VPN MAX',
+                'confirmationSubject' => 'Confirmation subject',
+                'reconfirmationSubject' => 'Email change subject',
+                'recoverySubject' => 'Восстановление пароля',
+            ],
             'controllerMap' => [
                 'security' => 'app\controllers\user\SecurityController',
                 'registration' => 'app\controllers\user\RegistrationController',

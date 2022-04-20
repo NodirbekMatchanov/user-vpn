@@ -11,6 +11,7 @@
 
 namespace app\controllers\user;
 
+use app\models\user\VerifyCode;
 use dektrium\user\Finder;
 use app\models\user\RegistrationForm;
 use dektrium\user\models\ResendForm;
@@ -86,10 +87,10 @@ class RegistrationController extends Controller
     protected $finder;
 
     /**
-     * @param string           $id
+     * @param string $id
      * @param \yii\base\Module $module
-     * @param Finder           $finder
-     * @param array            $config
+     * @param Finder $finder
+     * @param array $config
      */
     public function __construct($id, $module, Finder $finder, $config = [])
     {
@@ -104,7 +105,7 @@ class RegistrationController extends Controller
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
-                    ['allow' => true, 'actions' => ['register', 'connect'], 'roles' => ['?']],
+                    ['allow' => true, 'actions' => ['register', 'connect','verify-code'], 'roles' => ['?']],
                     ['allow' => true, 'actions' => ['confirm', 'resend'], 'roles' => ['?', '@']],
                 ],
             ],
@@ -136,15 +137,31 @@ class RegistrationController extends Controller
         if ($model->load(\Yii::$app->request->post()) && $model->register()) {
             $this->trigger(self::EVENT_AFTER_REGISTER, $event);
 
-            return $this->render('/message', [
-                'title'  => \Yii::t('user', 'Your account has been created'),
+            return $this->render('veriFyCode', [
+                'title' => \Yii::t('user', 'Your account has been created'),
                 'module' => $this->module,
+                'verifyCode' => new VerifyCode(),
             ]);
         }
 
         return $this->render('register', [
-            'model'  => $model,
+            'model' => $model,
             'module' => $this->module,
+        ]);
+    }
+
+    public function actionVerifyCode()
+    {
+
+        $verifyCode = new VerifyCode();
+
+        if($verifyCode->load(\Yii::$app->request->post()) && $verifyCode->validate()){
+            $this->redirect('/site/login');
+        }
+        return $this->render('veriFyCode', [
+            'title' => \Yii::t('user', 'Your account has been created'),
+            'module' => $this->module,
+            'verifyCode' => $verifyCode,
         ]);
     }
 
@@ -166,10 +183,10 @@ class RegistrationController extends Controller
 
         /** @var User $user */
         $user = \Yii::createObject([
-            'class'    => User::className(),
+            'class' => User::className(),
             'scenario' => 'connect',
             'username' => $account->username,
-            'email'    => $account->email,
+            'email' => $account->email,
         ]);
 
         $event = $this->getConnectEvent($account, $user);
@@ -184,7 +201,7 @@ class RegistrationController extends Controller
         }
 
         return $this->render('connect', [
-            'model'   => $user,
+            'model' => $user,
             'account' => $account,
         ]);
     }
@@ -193,7 +210,7 @@ class RegistrationController extends Controller
      * Confirms user's account. If confirmation was successful logs the user and shows success message. Otherwise
      * shows error message.
      *
-     * @param int    $id
+     * @param int $id
      * @param string $code
      *
      * @return string
@@ -216,7 +233,7 @@ class RegistrationController extends Controller
         $this->trigger(self::EVENT_AFTER_CONFIRM, $event);
 
         return $this->render('/message', [
-            'title'  => \Yii::t('user', 'Account confirmation'),
+            'title' => \Yii::t('user', 'Account confirmation'),
             'module' => $this->module,
         ]);
     }
@@ -245,7 +262,7 @@ class RegistrationController extends Controller
             $this->trigger(self::EVENT_AFTER_RESEND, $event);
 
             return $this->render('/message', [
-                'title'  => \Yii::t('user', 'A new confirmation link has been sent'),
+                'title' => \Yii::t('user', 'A new confirmation link has been sent'),
                 'module' => $this->module,
             ]);
         }

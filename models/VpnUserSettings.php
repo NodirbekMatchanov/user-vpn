@@ -124,7 +124,7 @@ class VpnUserSettings extends \yii\db\ActiveRecord
         $acc->comment = $this->comment;
         $acc->test_user = $this->test_user;
         if (!$acc->save()) {
-            print_r($acc->errors); die;
+            return false;
         }
         $profile = Profile::find()->where(['user_id' => $acc->user_id])->one();
         if(empty($profile)){
