@@ -129,7 +129,7 @@ class RegistrationForm extends Model
         $vpnModel->utm_source = $this->utm_source;
         $vpnModel->utm_medium = $this->utm_medium;
         $vpnModel->used_promocode = $this->promocode;
-        $vpnModel->status = 'ACTIVE';
+        $vpnModel->status = \app\models\VpnUserSettings::$statuses['NOACTIVE'];
         $vpnModel->untildate = date('Y-m-d');
         $vpnModel->tariff = "Free";
         $vpnModel->role = "user";

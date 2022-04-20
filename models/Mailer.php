@@ -172,7 +172,7 @@ class Mailer extends Component
         $accs = Accs::find()->where(['user_id' => $user->id])->one();
         if(!empty($accs)){
             $accs->verifyCode = $code;
-            $accs->save();
+            $accs->save(false);
         }
         return $this->sendMessage(
             $user->email,

@@ -6,7 +6,9 @@ use yii\widgets\ActiveForm;
 
 ?>
 <div class="row">
-
+    <div class="alert alert-success" role="alert">
+        Код активации отправлено на почту!
+    </div>
     <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
         <h3>Подтверждения код активации</h3>
             <?php $form = ActiveForm::begin([

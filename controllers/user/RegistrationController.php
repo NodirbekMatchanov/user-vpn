@@ -137,11 +137,7 @@ class RegistrationController extends Controller
         if ($model->load(\Yii::$app->request->post()) && $model->register()) {
             $this->trigger(self::EVENT_AFTER_REGISTER, $event);
 
-            return $this->render('veriFyCode', [
-                'title' => \Yii::t('user', 'Your account has been created'),
-                'module' => $this->module,
-                'verifyCode' => new VerifyCode(),
-            ]);
+            return $this->redirect('verify-code');
         }
 
         return $this->render('register', [
