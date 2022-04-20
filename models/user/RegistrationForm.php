@@ -116,32 +116,32 @@ class RegistrationForm extends Model
         $this->loadAttributes($user);
 
 
-//        if (!$user->register()) {
-//            return false;
-//        }
+        if (!$user->register()) {
+            return false;
+        }
         $vpnModel = new VpnUserSettings();
-//        $vpnModel->username = Yii::$app->security->generateRandomString(16);
-//        $vpnModel->value = Users::RandomToken();
-//        $vpnModel->email = $this->email;
-//        $vpnModel->pass = $this->password;
-//        $vpnModel->utm_campaign = $this->utm_campaign;
-//        $vpnModel->utm_term = $this->utm_term;
-//        $vpnModel->utm_source = $this->utm_source;
-//        $vpnModel->utm_medium = $this->utm_medium;
-//        $vpnModel->used_promocode = $this->promocode;
-//        $vpnModel->status = 'ACTIVE';
-//        $vpnModel->untildate = date('Y-m-d');
-//        $vpnModel->tariff = "Free";
-//        $vpnModel->role = "user";
-//        $vpnModel->createAdmin = false;
-//        if ($vpnModel->save()) {
-//            /* +1 promocode */
-//            Accs::setPromoShareCount($this->promocode);
-//        }
-//        $user = User::find()->where(['email' => $this->email])->one();
-//        $profile = Profile::findOne($user->id);
-//        $profile->phone = $this->phone;
-//        $profile->save();
+        $vpnModel->username = Yii::$app->security->generateRandomString(16);
+        $vpnModel->value = Users::RandomToken();
+        $vpnModel->email = $this->email;
+        $vpnModel->pass = $this->password;
+        $vpnModel->utm_campaign = $this->utm_campaign;
+        $vpnModel->utm_term = $this->utm_term;
+        $vpnModel->utm_source = $this->utm_source;
+        $vpnModel->utm_medium = $this->utm_medium;
+        $vpnModel->used_promocode = $this->promocode;
+        $vpnModel->status = 'ACTIVE';
+        $vpnModel->untildate = date('Y-m-d');
+        $vpnModel->tariff = "Free";
+        $vpnModel->role = "user";
+        $vpnModel->createAdmin = false;
+        if ($vpnModel->save()) {
+            /* +1 promocode */
+            Accs::setPromoShareCount($this->promocode);
+        }
+        $user = User::find()->where(['email' => $this->email])->one();
+        $profile = Profile::findOne($user->id);
+        $profile->phone = $this->phone;
+        $profile->save();
 
         Yii::$app->session->setFlash(
             'info',
