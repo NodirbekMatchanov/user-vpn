@@ -3,7 +3,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use yii\bootstrap\Alert;
+use yii\bootstrap4\Alert;
 
 
 ?>
