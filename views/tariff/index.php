@@ -77,6 +77,8 @@ $(document).on('click', '.pay', function (e) {
                 orderId: orderId,
                 amount: price
             }
+        }).done(function (data){
+            swal("Покупка прошла успешно!"), "success";
         })
     },
     function (reason, options) { // fail
