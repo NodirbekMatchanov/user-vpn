@@ -3,7 +3,6 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use \kartik\alert\Alert;
 
 ?>
 <?php if ($module->enableFlashMessages): ?>
@@ -11,10 +10,9 @@ use \kartik\alert\Alert;
         <div class="col-xs-12">
             <?php foreach (Yii::$app->session->getAllFlashes() as $type => $message): ?>
                 <?php if (in_array($type, ['success', 'danger', 'warning', 'info'])): ?>
-                    <?= Alert::widget([
-                        'type' => 'alert-' . $type,
-                        'body' => $message,
-                    ]); ?>
+                <div class="alert alert-<?=$type?>">
+                    <?=$message?>
+                </div>
                 <?php endif ?>
             <?php endforeach ?>
         </div>
