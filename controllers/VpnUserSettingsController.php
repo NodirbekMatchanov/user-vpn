@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Accs;
+use app\models\User;
 use app\models\user\Profile;
 use app\models\VpnUserSettings;
 use app\models\VpnUserSettingsSearch;
@@ -153,7 +154,14 @@ class VpnUserSettingsController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-
+        $accs = Accs::find()->where(['vpnid' => $id])->one();
+        if(!empty($accs)){
+            $accs->delete();
+            $user = User::find()->where(['id' => $accs->user_id])->one();
+            if(!empty($user)){
+                $user->delete();
+            }
+        }
         return $this->redirect(['index']);
     }
 

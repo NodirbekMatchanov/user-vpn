@@ -12,7 +12,7 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use yii\helpers\Json;
-use app\models\VpnUserSettings;
+use app\modules\api\v1\models\VpnUserSettings;
 use dektrium\user\models\User;
 
 class Users extends \yii\db\ActiveRecord

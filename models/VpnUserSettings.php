@@ -97,7 +97,6 @@ class VpnUserSettings extends \yii\db\ActiveRecord
                 $user->register();
                 $acc->user_id = $user->id;
             } else {
-                return true;
                 $user = User::find()->where(['email' => $this->email])->one();
                 $acc->user_id = $user->id;
             }
