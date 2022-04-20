@@ -6,6 +6,7 @@ $db2 = require __DIR__ . '/db2.php';
 
 $config = [
     'id' => 'basic',
+    'name' => 'VPN MAX',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [
