@@ -12,6 +12,7 @@
 namespace app\controllers\user;
 
 use app\models\user\VerifyCode;
+use app\modules\api\v1\models\VpnUserSettings;
 use dektrium\user\Finder;
 use app\models\user\RegistrationForm;
 use dektrium\user\models\ResendForm;
@@ -137,7 +138,7 @@ class RegistrationController extends Controller
         if ($model->load(\Yii::$app->request->post()) && $model->register()) {
             $this->trigger(self::EVENT_AFTER_REGISTER, $event);
 
-            return $this->redirect('verify-code');
+            return $this->redirect(['/registration/verify-code']);
         }
 
         return $this->render('register', [
@@ -226,6 +227,9 @@ class RegistrationController extends Controller
 
         $user->attemptConfirmation($code);
 
+        $user->status = VpnUserSettings::$statuses['ACTIVE'];
+        $user->untildate = strtotime('+ 3 days');
+        $user->save();
         $this->trigger(self::EVENT_AFTER_CONFIRM, $event);
 
         return $this->render('/message', [
