@@ -168,12 +168,7 @@ class Mailer extends Component
      */
     public function sendWelcomeMessage(User $user, Token $token = null, $showPassword = false)
     {
-        $code = $this->getVeriFyCode();
-        $accs = Accs::find()->where(['user_id' => $user->id])->one();
-        if(!empty($accs)){
-            $accs->verifyCode = $code;
-            $accs->save(false);
-        }
+        $code = $_SESSION['code'] ?? 0;
         return $this->sendMessage(
             $user->email,
             $this->getWelcomeSubject(),
@@ -182,10 +177,6 @@ class Mailer extends Component
         );
     }
 
-    public function getVeriFyCode()
-    {
-        return rand(111111, 999999);
-    }
 
     /**
      * Sends a new generated password to a user.

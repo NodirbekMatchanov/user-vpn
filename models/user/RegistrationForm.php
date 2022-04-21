@@ -143,6 +143,14 @@ class RegistrationForm extends Model
         $profile->phone = $this->phone;
         $profile->save();
 
+        $code = $this->getVeriFyCode();
+        $accs = Accs::find()->where(['user_id' => $user->id])->one();
+        if(!empty($accs)){
+            $_SESSION['code'] = $code;
+            $accs->verifyCode = $code;
+            $accs->save(false);
+        }
+
         Yii::$app->session->setFlash(
             'info',
             Yii::t(
@@ -154,6 +162,10 @@ class RegistrationForm extends Model
         return true;
     }
 
+    public function getVeriFyCode()
+    {
+        return rand(111111, 999999);
+    }
     /**
      * Loads attributes to the user model. You should override this method if you are going to add new fields to the
      * registration form. You can read more in special guide.
