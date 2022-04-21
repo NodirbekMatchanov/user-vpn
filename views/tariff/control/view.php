@@ -36,7 +36,15 @@ $this->params['breadcrumbs'][] = $this->title;
             'period',
             'country',
             'currency',
-            'expire',
+            [
+                'attribute' => 'expire',
+                'content' => function ($data) {
+                    if (empty($data->expire)) {
+                        return '';
+                    }
+                    return $data->expire ? date("d.m.Y", strtotime($data->expire)) : '';
+                }
+            ],
         ],
     ]) ?>
 
