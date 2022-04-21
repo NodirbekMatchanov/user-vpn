@@ -89,6 +89,7 @@ $config = [
                 'Profile' => 'app\models\user\Profile',
                 'RegistrationForm' => 'app\models\user\RegistrationForm',
                 'SettingsForm' => 'app\models\user\SettingsForm',
+                'RecoveryForm' => 'app\models\user\RecoveryForm',
             ],
             'mailer' => [
                 'class' => 'app\models\Mailer',

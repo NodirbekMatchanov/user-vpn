@@ -153,6 +153,8 @@ class RegistrationController extends Controller
         $verifyCode = new VerifyCode();
 
         if($verifyCode->load(\Yii::$app->request->post()) && $verifyCode->validate()){
+            \Yii::$app->getSession()->setFlash('success', 'successfully got on to the payment page');
+            $this->user->login();
             $this->redirect('/site/login');
         }
         return $this->render('veriFyCode', [

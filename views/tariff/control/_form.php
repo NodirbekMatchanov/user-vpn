@@ -24,8 +24,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'currency')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'expire')->textInput() ?>
-
+    <?= $form->field($model, 'expire')->widget(\kartik\date\DatePicker::className(),[
+        'model' => $model,
+        'attribute' => 'expire',
+        'type' => \kartik\date\DatePicker::TYPE_INPUT,
+        'pluginOptions' => [
+            'autoclose'=>true,
+            'format' => 'yyyy-mm-dd'
+        ]
+    ]) ?>
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
     </div>

@@ -19,6 +19,7 @@ class VerifyCode extends Model
 {
     public $code;
     public $email;
+    public $user;
 
 
     /**
@@ -45,14 +46,14 @@ class VerifyCode extends Model
     }
 
     function check() {
-        $user = Accs::find()->where(['email' => $this->email, 'verifyCode' => $this->code])->one();
-        if(empty($user)){
+        $this->user = Accs::find()->where(['email' => $this->email, 'verifyCode' => $this->code])->one();
+        if(empty($this->user)){
            $this->addError('code','Не корректный код');
             return false;
         }
-        $user->status = VpnUserSettings::$statuses['ACTIVE'];
-        $user->untildate = strtotime('+ 3 days');
-        $user->save();
+        $this->user->status = VpnUserSettings::$statuses['ACTIVE'];
+        $this->user->untildate = strtotime('+ 3 days');
+        $this->user->save();
 
         return true;
     }

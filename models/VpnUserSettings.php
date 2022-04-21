@@ -167,6 +167,7 @@ class VpnUserSettings extends \yii\db\ActiveRecord
             'pass' => 'Пароль (доступа к сайту)',
             'phone' => 'Телефон',
             'tariff' => 'Тариф',
+            'promocode' => 'Промокод',
             'role' => 'Роль',
             'comment' => 'Комментарий',
             'expire' => 'Дней до окончании подписки',

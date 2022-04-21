@@ -56,6 +56,12 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         <p class="text-center">
             <?= Html::a(Yii::t('user', 'Already registered? Sign in!'), ['/user/security/login']) ?>
+            <br>
+            <?=  Html::a(
+                Yii::t('user', 'Forgot password?'),
+                ['/user/recovery/request'],
+                ['tabindex' => '5']
+            ) ?>
         </p>
     </div>
 </div>

@@ -76,6 +76,36 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             [
+                'attribute' => 'promocode',
+                'content' => function ($data) {
+                    return $data->accs->promocode ?? '' ;
+                }
+            ],
+            [
+                'attribute' => 'utm_source',
+                'content' => function ($data) {
+                    return $data->accs->utm_source ?? '' ;
+                }
+            ],
+            [
+                'attribute' => 'utm_medium',
+                'content' => function ($data) {
+                    return $data->accs->utm_medium ?? '' ;
+                }
+            ],
+            [
+                'attribute' => 'utm_campaign',
+                'content' => function ($data) {
+                    return $data->accs->utm_campaign ?? '' ;
+                }
+            ],
+            [
+                'attribute' => 'utm_term',
+                'content' => function ($data) {
+                    return $data->accs->utm_term ?? '' ;
+                }
+            ],
+            [
                 'attribute' => 'use_ios',
                 'content' => function ($data) {
                     return $data->accs->use_ios;
