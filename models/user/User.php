@@ -3,6 +3,7 @@
 namespace app\models\user;
 
 use app\models\Accs;
+use app\models\Settings;
 use dektrium\user\helpers\Password;
 use dektrium\user\models\Token;
 use yii\db\ActiveRecord;
@@ -95,6 +96,18 @@ class User extends \dektrium\user\models\User
         $userId = Yii::$app->user->identity->getId();
         $accs = Accs::find()->where(['user_id' => $userId])->one();
         return $accs->status ?? 0;
+    }
+
+    public function getSettings(){
+        $settings = Settings::find()->asArray()->all();
+        if(empty($settings)){
+            return [];
+        }
+        $settingMap = [];
+        foreach ($settings as $setting){
+            $settingMap[$setting['name']] = $setting['value'];
+        }
+        return $settingMap;
     }
 
     /**
