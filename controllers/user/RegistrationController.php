@@ -11,6 +11,8 @@
 
 namespace app\controllers\user;
 
+use app\models\Accs;
+use app\models\LoginForm;
 use app\models\user\VerifyCode;
 use app\modules\api\v1\models\VpnUserSettings;
 use dektrium\user\Finder;
@@ -151,10 +153,14 @@ class RegistrationController extends Controller
     {
 
         $verifyCode = new VerifyCode();
+        $model = new LoginForm();
 
         if($verifyCode->load(\Yii::$app->request->post()) && $verifyCode->validate()){
             \Yii::$app->getSession()->setFlash('success', 'successfully got on to the payment page');
-            $this->user->login();
+            $accs = Accs::find()->where(['user_id' => $verifyCode->user->id])->one();
+            if(!empty($accs) && $model->load(['username' => $accs->email, 'password' => $accs->password],'') && $model->login()){
+                $this->redirect('/user/profile');
+            }
             $this->redirect('/site/login');
         }
         return $this->render('veriFyCode', [
