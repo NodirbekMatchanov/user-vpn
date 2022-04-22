@@ -11,7 +11,7 @@
 
 namespace app\models;
 
-use dektrium\user\models\Token;
+use app\models\user\Token;
 use dektrium\user\models\User;
 use Yii;
 use yii\base\Component;
