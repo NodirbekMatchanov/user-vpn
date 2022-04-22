@@ -90,6 +90,7 @@ $config = [
                 'RegistrationForm' => 'app\models\user\RegistrationForm',
                 'SettingsForm' => 'app\models\user\SettingsForm',
                 'RecoveryForm' => 'app\models\user\RecoveryForm',
+                'Token' => 'app\models\user\Token',
             ],
             'mailer' => [
                 'class' => 'app\models\Mailer',
