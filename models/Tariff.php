@@ -21,6 +21,7 @@ class Tariff extends \yii\db\ActiveRecord
 {
     const ACTIVE = 1;
     const ARCHIVE = 0;
+
     /**
      * {@inheritdoc}
      */
@@ -39,7 +40,7 @@ class Tariff extends \yii\db\ActiveRecord
             [['status', 'period'], 'integer'],
             [['price'], 'number'],
             [['expire'], 'safe'],
-            [['country','name'], 'string', 'max' => 255],
+            [['country', 'name'], 'string', 'max' => 255],
             [['currency'], 'string', 'max' => 10],
         ];
     }
@@ -61,8 +62,15 @@ class Tariff extends \yii\db\ActiveRecord
         ];
     }
 
-    public static function getAllList(){
+    public static function getAllList()
+    {
         $tariffs = Tariff::find()->all();
-        return !empty($tariffs) ? ArrayHelper::map($tariffs,'id','name') : [] ;
+        return !empty($tariffs) ? ArrayHelper::map($tariffs, 'id', 'name') : [];
+    }
+
+    public static function getTariffs()
+    {
+        $tariffs = Tariff::find()->all();
+        return $tariffs;
     }
 }
