@@ -110,6 +110,7 @@ class TariffController extends Controller
                 $accs = Accs::find()->where(['user_id' => \Yii::$app->user->identity->getId()])->one();
                 $accs->untildate = strtotime("+".$tariff->period." days");
                 $accs->tariff = $tariff->name;
+                $accs->background_work = true;
                 if($accs->save()) {
                     echo json_encode($accs->tariff); die;
                 }
@@ -200,7 +201,7 @@ class TariffController extends Controller
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['control/index']);
+        return $this->redirect(['list']);
     }
 
     /**

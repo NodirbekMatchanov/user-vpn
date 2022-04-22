@@ -21,6 +21,7 @@ use Yii;
  * @property string $utm_campaign
  * @property string $utm_term
  * @property string $used_promocode
+ * @property string $background_work
  */
 class Accs extends \yii\db\ActiveRecord
 {
@@ -44,7 +45,7 @@ class Accs extends \yii\db\ActiveRecord
     {
         return [
             [['email', 'pass', 'vpnid', 'untildate', 'datecreate', 'status'], 'required'],
-            [['vpnid', 'untildate', 'datecreate','promo_share', 'test_user','user_id', 'use_android', 'visit_count', 'use_ios', 'verifyCode'], 'integer'],
+            [['vpnid','background_work', 'untildate', 'datecreate','promo_share', 'test_user','user_id', 'use_android', 'visit_count', 'use_ios', 'verifyCode'], 'integer'],
             [['comment','used_promocode', 'use_ios', 'fcm_token'], 'string'],
             [['email','utm_term','utm_campaign','utm_medium','utm_source', 'pass', 'role', 'tariff', 'promocode'], 'string', 'max' => 255],
             [['status', 'reset_pass'], 'string', 'max' => 50],

@@ -29,6 +29,7 @@ use kartik\date\DatePicker;
     <?= $form->field($model, 'phone')->textInput() ?>
     <?= $form->field($model, 'comment')->textarea() ?>
     <?= $form->field($model, 'test_user')->checkbox() ?>
+    <?= $form->field($model, 'background_work')->checkbox() ?>
 
     <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'value')->textInput(['maxlength' => true]) ?>

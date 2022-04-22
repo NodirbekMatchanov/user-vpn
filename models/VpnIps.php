@@ -130,6 +130,7 @@ class VpnIps extends \yii\db\ActiveRecord
     public static function getVpnServerList()
     {
         $data = null;
+        $domain =(self::getSettings()['domain'] ?? 'vpn-max.com');
         $request = json_decode(Yii::$app->request->getRawBody(), true);
         $user = new Users();
         if ($user->load($request, "") && $user->login() && Yii::$app->user->identity->getStatus() == VpnUserSettings::$statuses['ACTIVE']) {
@@ -142,7 +143,7 @@ class VpnIps extends \yii\db\ActiveRecord
             $vpnIps = VpnIps::find()->where(['type' => VpnUserSettings::$types['Free']])->joinWith('certs')->orderBy('id desc')->all();
         }
         $core_cert = Settings::find()->where(['name' => 'core_cert'])->one();
-        $data['core_cert'] = $core_cert->value ? 'https://www.'.(Yii::$app->user->identity->getSettings()['domain'] ?? 'vpn-max.com').'/web/certs/' .$core_cert->value: '';
+        $data['core_cert'] = $core_cert->value ? 'https://www.'.$domain.'/web/certs/' .$core_cert->value: '';
         if (!empty($vpnIps)) {
             foreach ($vpnIps as $server) {
                 if ($server->status == \app\models\VpnUserSettings::$statuses['NOACTIVE']) continue;
@@ -151,7 +152,7 @@ class VpnIps extends \yii\db\ActiveRecord
                     foreach($server['certs'] as $cert) {
                         $certs[] = [
                             'type' => $cert->cert_type,
-                            'link' => 'https://www.'.(Yii::$app->user->identity->getSettings()['domain'] ?? 'vpn-max.com').'/web/certs/' . $cert->file
+                            'link' => 'https://www.'.$domain.'/web/certs/' . $cert->file
                         ];
                     }
                 }
@@ -169,6 +170,19 @@ class VpnIps extends \yii\db\ActiveRecord
             }
         }
         return $data;
+    }
+
+    public static function getSettings()
+    {
+        $settings = Settings::find()->asArray()->all();
+        if (empty($settings)) {
+            return [];
+        }
+        $settingMap = [];
+        foreach ($settings as $setting) {
+            $settingMap[$setting['name']] = $setting['value'];
+        }
+        return $settingMap;
     }
 
     /**

@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Tariff */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Tariffs', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Тарифы', 'url' => ['list']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>

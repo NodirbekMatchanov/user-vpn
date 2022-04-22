@@ -2,6 +2,7 @@
 
 namespace app\modules\api\v1\models;
 
+use app\models\Accs;
 use app\models\user\Profile;
 use dektrium\user\models\User;
 use Yii;

@@ -81,30 +81,32 @@ class User extends \dektrium\user\models\User
     public static function getUserList()
     {
         $accs = Accs::find()->where(['role' => 'user'])->all();
-        if(empty($accs)){
-           return [];
+        if (empty($accs)) {
+            return [];
         }
         $ids = [];
-        foreach($accs  as $acc) {
+        foreach ($accs as $acc) {
             $ids[] = $acc['user_id'];
         }
-        $users = User::find()->where(['IN','id', $ids])->all();
-        return !empty($users) ? ArrayHelper::map($users,'id','email') : [];
+        $users = User::find()->where(['IN', 'id', $ids])->all();
+        return !empty($users) ? ArrayHelper::map($users, 'id', 'email') : [];
     }
 
-    public function getStatus(){
+    public function getStatus()
+    {
         $userId = Yii::$app->user->identity->getId();
         $accs = Accs::find()->where(['user_id' => $userId])->one();
         return $accs->status ?? 0;
     }
 
-    public function getSettings(){
+    public function getSettings()
+    {
         $settings = Settings::find()->asArray()->all();
-        if(empty($settings)){
+        if (empty($settings)) {
             return [];
         }
         $settingMap = [];
-        foreach ($settings as $setting){
+        foreach ($settings as $setting) {
             $settingMap[$setting['name']] = $setting['value'];
         }
         return $settingMap;

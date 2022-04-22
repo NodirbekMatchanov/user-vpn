@@ -42,6 +42,7 @@ class VpnUserSettings extends \yii\db\ActiveRecord
     public $utm_medium;
     public $utm_campaign;
     public $utm_term;
+    public $background_work;
     public $used_promocode;
     public static $statuses = ['ACTIVE' => 'ACTIVE','FREE' => 'FREE','NOACTIVE' => 'NOACTIVE','EXPIRE' =>'EXPIRE','DELETED' => 'DELETED'];
     public static $roles = ['user' => 'user','moderator' => 'moderator','admin' =>'admin'];
@@ -71,7 +72,7 @@ class VpnUserSettings extends \yii\db\ActiveRecord
             ['username', 'unique'],
             ['email', 'check'],
             [['comment','use_ios','fcm_token'], 'string'],
-            [['vpnid', 'test_user','datecreate','test_user','use_android','visit_count','use_ios','verifyCode'], 'integer'],
+            [['vpnid','background_work', 'test_user','datecreate','test_user','use_android','visit_count','use_ios','verifyCode'], 'integer'],
             [['last_date_visit'], 'safe'],
             [['value','phone','used_promocode','tariff', 'promocode','email', 'pass', 'status', 'username', 'attribute', 'op'], 'string', 'max' => 255],
         ];
@@ -123,6 +124,7 @@ class VpnUserSettings extends \yii\db\ActiveRecord
         $acc->role = $this->role;
         $acc->comment = $this->comment;
         $acc->test_user = $this->test_user;
+        $acc->background_work = $this->background_work;
         if (!$acc->save()) {
             return false;
         }
