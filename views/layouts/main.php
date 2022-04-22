@@ -1,6 +1,7 @@
 <?php
 
 /** @var yii\web\View $this */
+
 /** @var string $content */
 
 use app\assets\AppAsset;
@@ -24,18 +25,19 @@ AppAsset::register($this);
 </head>
 <body class="d-flex flex-column h-100">
 <div class="wrap_">
-<?php $this->beginBody() ?>
+    <?php $this->beginBody() ?>
 
-<header>
-    <?php
-    NavBar::begin([
-        'brandLabel' => "VPN MAX",
-        'brandUrl' => '/',
-        'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
-        ],
-    ]);
-    $item=[];
+    <header>
+        <?php
+        NavBar::begin([
+            'brandLabel' => "VPN MAX",
+            'brandUrl' => '/',
+            'innerContainerOptions' => ['class' => 'container-fluid'],
+            'options' => [
+                'class' => 'navbar-inverse navbar-fixed-top',
+            ],
+        ]);
+        $item = [];
 
         if (Yii::$app->user->isGuest) {
             $item = [
@@ -44,18 +46,24 @@ AppAsset::register($this);
         }
         if (!Yii::$app->user->isGuest) {
             $userId = Yii::$app->user->identity->getId();
-            if(!empty(Yii::$app->authManager->getRolesByUser($userId)['admin'])) {
+            if (!empty(Yii::$app->authManager->getRolesByUser($userId)['admin'])) {
                 $item = [
-                ['label' => 'Пользователи', 'url' => ['/vpn-user-settings/index']],
-                ['label' => 'Cерверы', 'url' => ['/vpn-ips/index']],
-                ['label' => 'Справочник', 'url' => ['/support/index']],
-                ['label' => 'Шаблоны уведомлений', 'url' => ['/mail-template/index']],
-                ['label' => 'История отправки', 'url' => ['/mail-history/index']],
-                ['label' => 'Промокоды', 'url' => ['/promocodes/index']],
-                ['label' => 'Настройки', 'url' => ['/settings/index']],
-                ['label' => 'Тариф', 'url' => ['/tariff/list']]
-            ];
-        } else {
+                    ['label' => 'Пользователи', 'url' => ['/vpn-user-settings/index']],
+                    ['label' => 'Cерверы', 'url' => ['/vpn-ips/index']],
+                    ['label' => 'Справочник', 'url' => ['/support/index']],
+                    ['label' => 'Шаблоны уведомлений', 'url' => ['/mail-template/index']],
+                    ['label' => 'История отправки', 'url' => ['/mail-history/index']],
+                    ['label' => 'Промокоды', 'url' => ['/promocodes/index']],
+                    ['label' => 'Настройки', 'url' => ['/settings/index']],
+                    ['label' => 'Тариф', 'url' => ['/tariff/list']],
+                    [
+                        'label' => 'Справочник',
+                        'items' => [
+                            ['label' => 'Страны', 'url' => ['/country/index']],
+                         ],
+                    ],
+                ];
+            } else {
                 $item = [
                     ['label' => 'Мой профиль', 'url' => ['/user/settings/account']],
                     ['label' => 'Серверы', 'url' => ['/vpn-ips/list']],
@@ -84,35 +92,35 @@ AppAsset::register($this);
         if (Yii::$app->user->isGuest) {
             $items[] = ['label' => 'Регистрация', 'url' => ['/user/register']];
         }
-    $items = array_merge($item, $items);
+        $items = array_merge($item, $items);
 
 
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => $items,
-    ]);
-    NavBar::end();
-    ?>
-</header>
+        echo Nav::widget([
+            'options' => ['class' => 'navbar-nav navbar-right'],
+            'items' => $items,
+        ]);
+        NavBar::end();
+        ?>
+    </header>
 
-<main role="main" class="flex-shrink-0">
-    <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= Alert::widget() ?>
-        <?= $content ?>
-    </div>
-</main>
+    <main role="main" class="flex-shrink-0">
+        <div class="container">
+            <?= Breadcrumbs::widget([
+                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+            ]) ?>
+            <?= Alert::widget() ?>
+            <?= $content ?>
+        </div>
+    </main>
 
 
-<?php $this->endBody() ?>
+    <?php $this->endBody() ?>
 </div>
 
-<footer class="footer mt-auto py-3 text-muted" >
+<footer class="footer mt-auto py-3 text-muted">
     <div class="container" style="    padding-top: 23px;">
         <span class="float-right">VPN MAX</span>
-       <a class="pull-right" href="/web/site/privacy" target="_blank"> Политика конфиденциальности</a>
+        <a class="pull-right" href="/web/site/privacy" target="_blank"> Политика конфиденциальности</a>
     </div>
 </footer>
 </body>
