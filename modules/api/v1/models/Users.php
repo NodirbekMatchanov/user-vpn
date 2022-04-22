@@ -158,6 +158,7 @@ class Users extends \yii\db\ActiveRecord
             'email' => $user->email,
             'pass' => $user->pass,
             'tariff' => $user->tariff,
+            'background_work' => $user->background_work,
             'status' => $user->status,
             'ios_token' => $user->ios_token,
             'fcm_token' => $user->fcm_token,
