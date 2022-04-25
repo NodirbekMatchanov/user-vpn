@@ -29,7 +29,7 @@ $this->registerJsFile(
 
     <?= $form->field($model, 'status')->dropDownList(\app\models\VpnUserSettings::$statuses) ?>
 
-    <?= $form->field($model, 'country')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'country')->dropDownList(\app\models\Country::getAll()) ?>
 
     <?= $form->field($model, 'city')->textInput(['maxlength' => true]) ?>
 

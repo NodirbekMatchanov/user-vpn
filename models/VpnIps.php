@@ -143,6 +143,14 @@ class VpnIps extends \yii\db\ActiveRecord
         } else {
             $vpnIps = VpnIps::find()->where(['type' => VpnUserSettings::$types['Free']])->joinWith('certs')->orderBy('id desc')->all();
         }
+        /*country*/
+        $countryPng = '';
+        if($vpnIps->country){
+            $country = Country::find()->where(['title' => $vpnIps->country])->one();
+            if(!empty($country)) {
+                $countryPng = 'https://www.'.$domain.'/web/'.$country->code.'.png';
+            }
+        }
         $core_cert = Settings::find()->where(['name' => 'core_cert'])->one();
         $data['core_cert'] = $core_cert->value ? 'https://www.'.$domain.'/web/certs/' .$core_cert->value: '';
         if (!empty($vpnIps)) {
@@ -162,6 +170,7 @@ class VpnIps extends \yii\db\ActiveRecord
                     'ip' => $server->ip,
                     'host' => $server->host,
                     'country' => $server->country,
+                    'countryPng' => $countryPng,
                     'city' => $server->city,
 //                    'core_cert' => 'https://www.vpn-max.com/web/certs/' .$server->cert,
                     'cert' => $certs,

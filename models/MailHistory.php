@@ -49,4 +49,20 @@ class MailHistory extends \yii\db\ActiveRecord
             'email' => 'Email',
         ];
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(Accs::className(), ['email' => 'email']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAccs()
+    {
+        return $this->hasOne(Accs::className(), ['email' => 'email']);
+    }
 }

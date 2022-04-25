@@ -3,12 +3,13 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "country".
  *
- * @property int $id
- * @property string $name
+ * @property string $code
+ * @property string $title
  */
 class Country extends \yii\db\ActiveRecord
 {
@@ -17,7 +18,7 @@ class Country extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'country';
+        return 'countries_codes';
     }
 
     /**
@@ -26,8 +27,8 @@ class Country extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
-            [['name'], 'string', 'max' => 255],
+            [['title'], 'required'],
+            [['title','code'], 'string', 'max' => 255],
         ];
     }
 
@@ -38,7 +39,14 @@ class Country extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Наименование страны',
+            'title' => 'Наименование страны',
+            'code' => 'Код',
         ];
+    }
+
+    public static  function getAll() {
+        $countries = Country::find()->all();
+        $countries = ArrayHelper::map($countries,'title','title');
+        return !empty($countries) ? $countries : [];
     }
 }

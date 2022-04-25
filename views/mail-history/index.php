@@ -9,7 +9,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\MailHistorySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Mail Histories';
+$this->title = 'История отправки';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="mail-history-index">
@@ -26,10 +26,18 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
+            [
+                'attribute' => 'email',
+                'content' => function ($data) {
+                    if(empty($data->accs)){
+                        return '';
+                    }
+                    return  $data->accs ? Html::a($data->accs->email,['/vpn-user-settings/view?id='.$data->accs->vpnid]) : '';
+                }
+            ],
             'subject',
             'body:ntext',
             'datecreate',
-            'email:email',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, \app\models\MailHistory $model, $key, $index, $column) {

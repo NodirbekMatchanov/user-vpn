@@ -35,6 +35,7 @@ class VpnUserSettings extends \yii\db\ActiveRecord
     public $promocode;
     public $last_date_visit;
     public $visit_count;
+    public $country;
     public $verifyCode;
     public $createAdmin = true;
     public $user_id;
@@ -116,6 +117,7 @@ class VpnUserSettings extends \yii\db\ActiveRecord
         $acc->utm_medium = $this->utm_medium;
         $acc->utm_campaign = $this->utm_campaign;
         $acc->utm_term = $this->utm_term;
+        $acc->country = $this->country;
         $acc->untildate = strtotime($this->untildate);
         $acc->datecreate = time();
         $acc->used_promocode = $this->used_promocode;
@@ -172,7 +174,9 @@ class VpnUserSettings extends \yii\db\ActiveRecord
             'promocode' => 'Промокод',
             'role' => 'Роль',
             'comment' => 'Комментарий',
+            'background_work' => 'Фоновой режим',
             'expire' => 'Дней до окончании подписки',
+            'country' => 'Страна',
         ];
     }
 

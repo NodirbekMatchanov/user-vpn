@@ -50,7 +50,6 @@ AppAsset::register($this);
                 $item = [
                     ['label' => 'Пользователи', 'url' => ['/vpn-user-settings/index']],
                     ['label' => 'Cерверы', 'url' => ['/vpn-ips/index']],
-                    ['label' => 'Справочник', 'url' => ['/support/index']],
                     ['label' => 'Шаблоны уведомлений', 'url' => ['/mail-template/index']],
                     ['label' => 'История отправки', 'url' => ['/mail-history/index']],
                     ['label' => 'Промокоды', 'url' => ['/promocodes/index']],
@@ -59,6 +58,7 @@ AppAsset::register($this);
                     [
                         'label' => 'Справочник',
                         'items' => [
+                            ['label' => 'Справочник', 'url' => ['/support/index']],
                             ['label' => 'Страны', 'url' => ['/country/index']],
                          ],
                     ],

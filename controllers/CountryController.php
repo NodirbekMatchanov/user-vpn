@@ -49,14 +49,14 @@ class CountryController extends Controller
 
     /**
      * Displays a single Country model.
-     * @param int $id ID
+     * @param int $code ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    public function actionView($code)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $this->findModel($code),
         ]);
     }
 
@@ -71,7 +71,7 @@ class CountryController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['view', 'code' => $model->code]);
             }
         } else {
             $model->loadDefaultValues();
@@ -89,12 +89,12 @@ class CountryController extends Controller
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate($code)
     {
-        $model = $this->findModel($id);
+        $model = $this->findModel($code);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->code]);
         }
 
         return $this->render('update', [
@@ -109,9 +109,9 @@ class CountryController extends Controller
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    public function actionDelete($code)
     {
-        $this->findModel($id)->delete();
+        $this->findModel($code)->delete();
 
         return $this->redirect(['index']);
     }
@@ -123,9 +123,9 @@ class CountryController extends Controller
      * @return Country the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel($code)
     {
-        if (($model = Country::findOne(['id' => $id])) !== null) {
+        if (($model = Country::findOne(['code' => $code])) !== null) {
             return $model;
         }
 
