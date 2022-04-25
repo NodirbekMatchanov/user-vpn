@@ -60,6 +60,7 @@ AppAsset::register($this);
                         'items' => [
                             ['label' => 'Справочник', 'url' => ['/support/index']],
                             ['label' => 'Страны', 'url' => ['/country/index']],
+                            ['label' => 'DNS', 'url' => ['/dns-servers/index']],
                          ],
                     ],
                 ];
