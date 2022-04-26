@@ -5,9 +5,9 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\VpnUserSettings */
 
-$this->title = 'Update Vpn User Settings: ' . $model->id;
+$this->title = 'Update Vpn User Settings: ' . $model->accs->email ?? '';
 $this->params['breadcrumbs'][] = ['label' => 'Vpn User Settings', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => $model->accs->email ?? '', 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="vpn-user-settings-update">

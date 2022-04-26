@@ -50,8 +50,7 @@ AppAsset::register($this);
                 $item = [
                     ['label' => 'Пользователи', 'url' => ['/vpn-user-settings/index']],
                     ['label' => 'Cерверы', 'url' => ['/vpn-ips/index']],
-                    ['label' => 'Шаблоны уведомлений', 'url' => ['/mail-template/index']],
-                    ['label' => 'История отправки', 'url' => ['/mail-history/index']],
+
                     ['label' => 'Промокоды', 'url' => ['/promocodes/index']],
                     ['label' => 'Настройки', 'url' => ['/settings/index']],
                     ['label' => 'Тариф', 'url' => ['/tariff/list']],
@@ -61,6 +60,8 @@ AppAsset::register($this);
                             ['label' => 'Справочник', 'url' => ['/support/index']],
                             ['label' => 'Страны', 'url' => ['/country/index']],
                             ['label' => 'DNS', 'url' => ['/dns-servers/index']],
+                            ['label' => 'История отправки', 'url' => ['/mail-history/index']],
+                            ['label' => 'Шаблоны уведомлений', 'url' => ['/mail-template/index']]
                          ],
                     ],
                 ];
@@ -72,6 +73,7 @@ AppAsset::register($this);
                     ['label' => 'Тариф', 'url' => ['/tariff/index']],
                     ['label' => 'Промокоды', 'url' => ['/used-promocodes/index']],
                     ['label' => 'Покупки', 'url' => ['/payment/index']],
+
                 ];
             }
         }

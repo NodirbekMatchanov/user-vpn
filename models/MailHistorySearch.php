@@ -49,7 +49,6 @@ class MailHistorySearch extends MailHistory
         ]);
 
         $this->load($params);
-        $query->joinWith('accs');
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
