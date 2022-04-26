@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'email',
                 'content' => function ($data) {
                     $accs = \app\models\Accs::find()->where(['email' => $data->email])->one();
-                    return  $data->accs ? Html::a($data->accs->email,['/vpn-user-settings/view?id='.($accs->vpnid ?? '')]) : '';
+                    return  Html::a($data->accs->email,['/vpn-user-settings/view?id='.($accs->vpnid ?? '')]);
                 }
             ],
             'subject',
