@@ -3,7 +3,7 @@
 
 $this->title = 'Политика конфиденциальности';
 $this->params['breadcrumbs'][] = $this->title;
-$domain =(self::getSettings()['domain'] ?? 'vpn-max.com');
+$domain =(\app\models\VpnIps::getSettings()['domain'] ?? 'vpn-max.com');
 
 ?>
 
