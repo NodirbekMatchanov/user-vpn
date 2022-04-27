@@ -46,4 +46,12 @@ class UsedPromocodes extends \yii\db\ActiveRecord
             'date' => 'Дата применения',
         ];
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCode()
+    {
+        return $this->hasOne(Promocodes::className(), ['promocode' => 'promocode']);
+    }
 }

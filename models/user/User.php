@@ -3,7 +3,9 @@
 namespace app\models\user;
 
 use app\models\Accs;
+use app\models\Promocodes;
 use app\models\Settings;
+use app\models\UsedPromocodes;
 use dektrium\user\helpers\Password;
 use dektrium\user\models\Token;
 use yii\db\ActiveRecord;
@@ -110,6 +112,13 @@ class User extends \dektrium\user\models\User
             $settingMap[$setting['name']] = $setting['value'];
         }
         return $settingMap;
+    }
+
+    public function getPromoCodes()
+    {
+        $usedCodes = UsedPromocodes::find()->andwhere(['user_id' => Yii::$app->user->identity->getId()])
+            ->joinWith('code')->asArray()->one();
+        return $usedCodes;
     }
 
     /**

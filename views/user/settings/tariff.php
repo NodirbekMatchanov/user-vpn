@@ -22,6 +22,7 @@ use yii\helpers\ArrayHelper;
 
 $this->title = Yii::t('user', 'Тариф');
 $this->params['breadcrumbs'][] = $this->title;
+$code = Yii::$app->user->identity->promoCodes;
 ?>
 
 <?= $this->render('/_alert', ['module' => Yii::$app->getModule('user')]) ?>
@@ -38,6 +39,13 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="panel-body">
                <div class="alert alert-info"> <?= (!empty($accs)) ? $accs->tariff.' подписка до '. date("d.m.Y", $accs->untildate) : 'free'?></div>
             </div>
+            <div class="container" style="margin: 25px 15px">
+                <label>Промокод</label>
+                <input name="promocode" placeholder="code" value="<?=$code['promocode'] ?? ''?>" class="input-sm" style="width: 400px" type="text" >
+                <button id="usePromocode" class="btn btn-primary <?=(!empty($code) ? 'hidden' : '' )?>"> Применить</button>
+                <button id="cancelPromocode" class="btn btn-danger <?=(empty($code) ? 'hidden' : '' )?>"> Отменить</button>
+            </div>
         </div>
+
     </div>
 </div>

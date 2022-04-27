@@ -80,9 +80,11 @@ class TariffController extends Controller
     {
         $id = \Yii::$app->request->get('id');
         if ($id) {
+            $code = \Yii::$app->user->identity->promoCodes;
+            $discount = $code['code']['discount'] ?? 0;
             $tarif = Tariff::findOne($id);
             if(!empty($tarif)){
-                return $tarif->price;
+                return $tarif->price - (($tarif->price * $discount) / 100);
             }
         }
         throw new BadRequestHttpException('not found tariff');

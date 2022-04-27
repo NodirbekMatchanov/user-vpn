@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\Promocodes;
 use app\models\PromocodesSearch;
 use app\models\TariffPromocode;
+use app\models\UsedPromocodes;
 use app\models\UsersPromocode;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
@@ -28,12 +29,12 @@ class PromocodesController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index','create', 'update', 'delete','status','view'],
+                        'actions' => ['index', 'create', 'update', 'delete', 'status', 'view'],
                         'allow' => Yii::$app->user->identity->checkAccess(),
                         'roles' => ['@'],
                     ],
                     [
-                        'actions' => ['list'],
+                        'actions' => ['list', 'use-code', 'cancel-code'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -42,7 +43,7 @@ class PromocodesController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['post'],
+                    'delete' => ['post', 'use-code'],
                 ],
             ],
         ];
@@ -145,15 +146,49 @@ class PromocodesController extends Controller
         if (($model = Promocodes::findOne(['id' => $id])) !== null) {
             $tariffList = TariffPromocode::find()->where(['promocode_id' => $model->id])->all();
             $userPromocode = UsersPromocode::find()->where(['promocode_id' => $model->id])->all();
-            if(!empty($tariffList)){
-                $model->tariffs = ArrayHelper::map($tariffList,'tariff_id','tariff_id');
+            if (!empty($tariffList)) {
+                $model->tariffs = ArrayHelper::map($tariffList, 'tariff_id', 'tariff_id');
             }
-            if(!empty($userPromocode)){
-                $model->users = ArrayHelper::map($userPromocode,'user_id','user_id');
+            if (!empty($userPromocode)) {
+                $model->users = ArrayHelper::map($userPromocode, 'user_id', 'user_id');
             }
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionUseCode()
+    {
+        if (Yii::$app->request->isAjax && $code = Yii::$app->request->post('code')) {
+            $usedCodes = UsedPromocodes::find()->where(['promocode' => $code, 'user_id' => Yii::$app->user->identity->getId()])->one();
+            $usedCodeCounts = UsedPromocodes::find()->where(['promocode' => $code])->count();
+            $promoCode = Promocodes::find()->where(['promocode' => $code, 'status' => \app\models\Tariff::ACTIVE])->one();
+            if (empty($usedCodes) && !empty($promoCode)) {
+                if ($promoCode->user_limit < $usedCodeCounts) {
+                    return json_encode(['result' => 'error', 'error' => 'Промокод уже использован']);
+                }
+                $usedCode = new UsedPromocodes();
+                $usedCode->user_id = Yii::$app->user->identity->getId();
+                $usedCode->promocode = $code;
+                $usedCode->date = date("Y-m-d");
+                if ($usedCode->save()) {
+                    return json_encode(['result' => 'Промокод принят']);
+                }
+            }
+        }
+        return json_encode(['result' => 'error', 'error' => 'Промокод не найден']);
+    }
+
+    public function actionCancelCode()
+    {
+        if (Yii::$app->request->isAjax && $code = Yii::$app->request->post('code')) {
+            $usedCodes = UsedPromocodes::find()->where(['promocode' => $code, 'user_id' => Yii::$app->user->identity->getId()])->one();
+            if (!empty($usedCodes)) {
+                $usedCodes->delete();
+                return json_encode(['result' => 'Промокод отменен']);
+            }
+        }
+
     }
 }

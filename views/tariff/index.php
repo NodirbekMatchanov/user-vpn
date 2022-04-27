@@ -94,7 +94,8 @@ $(document).on('click', '.pay', function (e) {
     });
 JS;
 $this->registerJs($script, $this::POS_END);
-
+$code = Yii::$app->user->identity->promoCodes;
+$discount = $code['code']['discount'] ?? 0;
 ?>
 
 
@@ -253,12 +254,14 @@ $this->registerJs($script, $this::POS_END);
 <div class="demo">
     <div class="container text-center">
         <div class="row">
-            <?php foreach ($model as $item): ?>
+            <?php foreach ($model as $item):
+                $price = $item->price - (($item->price * $discount) /100);
+                ?>
             <div class="col-md-3 col-sm-6">
                 <div class="pricingTable green">
                     <div class="pricingTable-header">
                         <i class="fa fa-briefcase"></i>
-                        <div class="price-value"> <?=$item->price.' '.$item->currency ?> <span class="month"><?=$item->period?> дней</span></div>
+                        <div class="price-value"> <?=$price.' '.$item->currency ?> <span class="month"><?=$item->period?> дней</span></div>
                     </div>
                     <h3 class="heading"><?=$item->name?></h3>
                     <div class="pricing-content">
@@ -267,7 +270,7 @@ $this->registerJs($script, $this::POS_END);
                         </ul>
                     </div>
                     <div class="pricingTable-signup">
-                        <a class="pay" data-id="<?=$item->id?>" data-period="<?=$item->period?>" data-price="<?=$item->price?>" data-type="premium" href="#">Купить</a>
+                        <a class="pay" data-id="<?=$item->id?>" data-period="<?=$item->period?>" data-price="<?=$price?>" data-type="premium" href="#">Купить</a>
                     </div>
                 </div>
             </div>
