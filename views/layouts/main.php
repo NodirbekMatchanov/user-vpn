@@ -61,7 +61,8 @@ AppAsset::register($this);
                             ['label' => 'Страны', 'url' => ['/country/index']],
                             ['label' => 'DNS', 'url' => ['/dns-servers/index']],
                             ['label' => 'История отправки', 'url' => ['/mail-history/index']],
-                            ['label' => 'Шаблоны уведомлений', 'url' => ['/mail-template/index']]
+                            ['label' => 'Шаблоны уведомлений', 'url' => ['/mail-template/index']],
+                            ['label' => 'Переводы', 'url' => ['/translations/index']]
                          ],
                     ],
                 ];
