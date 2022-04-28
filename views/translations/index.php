@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'date',
             [
                 'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Translations $model, $key, $index, $column) {
+                'urlCreator' => function ($action, \app\models\Translations $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                  }
             ],
