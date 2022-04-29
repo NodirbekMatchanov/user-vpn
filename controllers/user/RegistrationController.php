@@ -234,9 +234,10 @@ class RegistrationController extends Controller
 
         $user->attemptConfirmation($code);
 
-        $user->status = VpnUserSettings::$statuses['ACTIVE'];
-        $user->untildate = strtotime('+ 3 days');
-        $user->save();
+        $accs = Accs::find()->where(['user_id' => $user->id])->one();
+        $accs->status = VpnUserSettings::$statuses['ACTIVE'];
+        $accs->untildate = strtotime('+ 3 days');
+        $accs->save();
         $this->trigger(self::EVENT_AFTER_CONFIRM, $event);
 
         return $this->render('/message', [
