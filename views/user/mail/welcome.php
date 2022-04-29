@@ -57,6 +57,6 @@ $template = \app\models\MailTemplate::find()->where(['tmp_key' => 'welcome'])->o
     $templateStr = str_replace('$url',$token->url,$templateStr);
     ?>
 test
-    <?= $template?>
+    <?= $templateStr?>
 <?php endif;?>
 
