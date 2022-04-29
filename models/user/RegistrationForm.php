@@ -115,6 +115,8 @@ class RegistrationForm extends Model
         $user->setScenario('register');
         $this->loadAttributes($user);
 
+        $code = $this->getVeriFyCode();
+        $_SESSION['code'] = $code;
 
         if (!$user->register()) {
             return false;
@@ -143,10 +145,8 @@ class RegistrationForm extends Model
         $profile->phone = $this->phone;
         $profile->save();
 
-        $code = $this->getVeriFyCode();
         $accs = Accs::find()->where(['user_id' => $user->id])->one();
         if(!empty($accs)){
-            $_SESSION['code'] = $code;
             $accs->verifyCode = $code;
             $accs->save(false);
         }
