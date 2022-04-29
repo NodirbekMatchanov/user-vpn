@@ -27,8 +27,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'datecreate',
             'tariff',
             //'amount',
-            //'status',
-
+            'status',
+            [
+                'attribute' => 'status',
+                'content' => function ($data) {
+                    return $data->status == 2 ? 'Success' : 'error';
+                }
+            ],
         ],
     ]); ?>
 

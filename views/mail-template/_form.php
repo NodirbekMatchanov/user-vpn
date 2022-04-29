@@ -13,6 +13,7 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'subject')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'tmp_key')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'body')->widget(\kartik\editors\Summernote::class, [
         'useKrajeePresets' => true,

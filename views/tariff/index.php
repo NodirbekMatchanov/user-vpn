@@ -2,6 +2,7 @@
 $email = Yii::$app->user->identity->email;
 $url = \yii\helpers\Url::to(['tariff/get-price?id=']);
 $paymentSuccessUrl = \yii\helpers\Url::to(['tariff/payment-success']);
+$paymentErrorUrl = \yii\helpers\Url::to(['tariff/payment-error']);
 $script = <<<JS
   function orderNumber() {
       let now = Date.now().toString() // '1492341545873'
@@ -83,8 +84,18 @@ $(document).on('click', '.pay', function (e) {
     },
     function (reason, options) { // fail
         //действие при неуспешной оплате
-        console.log(reason);
-        console.log(options);
+          $.ajax({
+            url: "$paymentErrorUrl",
+            method: "POST",
+            data: {
+                tariff: id,
+                status : false,
+                orderId: orderId,
+                amount: price
+            }
+        }).done(function (data){
+            swal("Покупка прошла не успешно!"), "error";
+        })
     });
 };
         e.preventDefault();

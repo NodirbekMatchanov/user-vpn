@@ -24,7 +24,7 @@ use yii\base\Component;
 class Mailer extends Component
 {
     /** @var string */
-    public $viewPath = '@dektrium/user/views/mail';
+    public $viewPath = '@app/views/user/mail';
 
     /** @var string|array Default: `Yii::$app->params['adminEmail']` OR `no-reply@example.com` */
     public $sender;
@@ -174,6 +174,17 @@ class Mailer extends Component
             $this->getWelcomeSubject(),
             'welcome',
             ['user' => $user, 'token' => $token, 'module' => $this->module, 'showPassword' => $showPassword, 'verifyCode' => $code]
+        );
+    }
+
+
+    public function sendErrorPaymentMessage($user)
+    {
+        return $this->sendMessage(
+            $user->email,
+            $this->getWelcomeSubject(),
+            'errorPayment',
+            ['user' => $user]
         );
     }
 

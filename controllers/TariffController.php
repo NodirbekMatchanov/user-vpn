@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Accs;
+use app\models\Mailer;
 use app\models\Payments;
 use app\models\Support;
 use app\models\SupportSearch;
@@ -28,12 +29,12 @@ class TariffController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['list','create', 'update', 'delete','view'],
+                        'actions' => ['list', 'create', 'update', 'delete', 'view'],
                         'allow' => User::checkAccess(),
                         'roles' => ['@'],
                     ],
                     [
-                        'actions' => ['index', 'payment', 'get-price','payment-success'],
+                        'actions' => ['index', 'payment', 'get-price', 'payment-success', 'payment-error'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -83,7 +84,7 @@ class TariffController extends Controller
             $code = \Yii::$app->user->identity->promoCodes;
             $discount = $code['code']['discount'] ?? 0;
             $tarif = Tariff::findOne($id);
-            if(!empty($tarif)){
+            if (!empty($tarif)) {
                 return $tarif->price - (($tarif->price * $discount) / 100);
             }
         }
@@ -99,30 +100,50 @@ class TariffController extends Controller
 
         if ($status && $id = \Yii::$app->request->post('tariff')) {
             $tariff = Tariff::findOne($id);
-            if(empty($tariff) || $tariff->price != $amount) {
+            if (empty($tariff) || $tariff->price != $amount) {
                 throw new BadRequestHttpException('not payed');
             }
             $payment = new Payments();
             $payment->status = $status ? Payments::PAYED : Payments::ERROR;
-            $payment->orderId = \Yii::$app->request->post('orderId') ;
-            $payment->user_id = \Yii::$app->user->identity->getId() ;
-            $payment->tariff = \Yii::$app->request->post('tariff') ;
-            $payment->amount =   $amount;
+            $payment->orderId = \Yii::$app->request->post('orderId');
+            $payment->user_id = \Yii::$app->user->identity->getId();
+            $payment->tariff = \Yii::$app->request->post('tariff');
+            $payment->amount = $amount;
             $payment->save();
 
-            if($payment->status == Payments::PAYED){
+            if ($payment->status == Payments::PAYED) {
                 $accs = Accs::find()->where(['user_id' => \Yii::$app->user->identity->getId()])->one();
-                $accs->untildate = strtotime("+".$tariff->period." days");
+                $accs->untildate = strtotime("+" . $tariff->period . " days");
                 $accs->tariff = $tariff->name;
                 $accs->background_work = true;
-                if($accs->save()) {
-                    echo json_encode($accs->tariff); die;
+                if ($accs->save()) {
+                    echo json_encode($accs->tariff);
+                    die;
                 }
-                echo json_encode($accs->errors); die;
+                echo json_encode($accs->errors);
+                die;
             }
         }
         throw new BadRequestHttpException('not payed');
     }
+
+    public function actionPaymentError()
+    {
+        $status = \Yii::$app->request->post('status');
+        $amount = \Yii::$app->request->post('amount');
+        $code = \Yii::$app->user->identity->promoCodes;
+        $payment = new Payments();
+        $payment->status = Payments::ERROR;
+        $payment->orderId = \Yii::$app->request->post('orderId');
+        $payment->user_id = \Yii::$app->user->identity->getId();
+        $payment->tariff = \Yii::$app->request->post('tariff');
+        $payment->amount = $amount;
+        $payment->save();
+        $mailer = new Mailer();
+        $user = User::find()->where(['id' => \Yii::$app->user->identity->getId()])->one();
+        $mailer->sendErrorPaymentMessage($user);
+    }
+
     /**
      * Lists all Tariff models.
      *

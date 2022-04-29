@@ -17,7 +17,7 @@ use yii\helpers\Html;
  * @var dektrium\user\models\Token $token
  * @var bool $showPassword
  */
-$template = \app\models\MailTemplate::find()->where(['event' => 'welcome'])->one();
+$template = \app\models\MailTemplate::find()->where(['tmp_key' => 'welcome'])->one();
 
 ?>
 
