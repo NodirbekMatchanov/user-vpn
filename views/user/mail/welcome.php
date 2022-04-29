@@ -53,8 +53,8 @@ $template = \app\models\MailTemplate::find()->where(['tmp_key' => 'welcome'])->o
         <?= Yii::t('user', 'If you did not make this request you can ignore this email') ?>.
     </p>
 <?php else:
-    $template = str_replace('$verifyCode',$verifyCode,$template->body);
-    $template = str_replace('$url',$token->url,$template->body);
+    $templateStr = str_replace('$verifyCode',$verifyCode,$template->body);
+    $templateStr = str_replace('$url',$token->url,$templateStr);
     ?>
 test
     <?= $template?>
