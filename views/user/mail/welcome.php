@@ -54,9 +54,10 @@ $template = \app\models\MailTemplate::find()->where(['tmp_key' => 'welcome'])->o
     </p>
 <?php else:
     $templateStr = str_replace('$verifyCode',$verifyCode,$template->body);
-    $templateStr = str_replace('$url',$token->url,$templateStr);
+    $templateStr = str_replace('$url',Html::a(Html::encode($token->url), $token->url),$templateStr);
+    $templateStr = str_replace('$username',$user->email,$templateStr);
     ?>
-test
+
     <?= $templateStr?>
 <?php endif;?>
 
