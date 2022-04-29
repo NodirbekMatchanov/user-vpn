@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model app\models\Settings */
 
 $this->title = 'Добавить параметр';
-$this->params['breadcrumbs'][] = ['label' => 'Settings', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Настройки', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="settings-create">

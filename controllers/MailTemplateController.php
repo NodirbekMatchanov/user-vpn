@@ -25,7 +25,7 @@ class MailTemplateController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index','create', 'update', 'delete'],
+                        'actions' => ['index','create', 'update', 'view','delete'],
                         'allow' => \Yii::$app->user->identity->checkAccess(),
                         'roles' => ['@'],
                     ],

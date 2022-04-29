@@ -95,6 +95,8 @@ class TariffController extends Controller
     {
         $status = \Yii::$app->request->post('status');
         $amount = \Yii::$app->request->post('amount');
+        $code = \Yii::$app->user->identity->promoCodes;
+
         if ($status && $id = \Yii::$app->request->post('tariff')) {
             $tariff = Tariff::findOne($id);
             if(empty($tariff) || $tariff->price != $amount) {
