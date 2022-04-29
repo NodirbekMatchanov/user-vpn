@@ -16,7 +16,6 @@ use yii\helpers\Html;
  * @var dektrium\user\models\Token $token
  */
 $template = \app\models\MailTemplate::find()->where(['tmp_key' => 'errorPayment'])->one();
-
 ?>
 <?php if(empty($template)): ?>
     <table width="100%" cellspacing="0" cellpadding="0" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
@@ -74,5 +73,5 @@ $template = \app\models\MailTemplate::find()->where(['tmp_key' => 'errorPayment'
     </table>
 <?php else:
     ?>
-    <?= $template?>
+    <?= $template->body?>
 <?php endif;?>

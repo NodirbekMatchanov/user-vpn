@@ -74,5 +74,5 @@ $template = \app\models\MailTemplate::find()->where(['tmp_key' => 'errorPayment'
     </table>
 <?php else:
     ?>
-    <?= $template?>
+    <?= $template->body?>
 <?php endif;?>
