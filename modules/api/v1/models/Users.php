@@ -64,6 +64,8 @@ class Users extends \yii\db\ActiveRecord
             $user->email = $this->email;
             $user->username = $this->email;
             $user->password = $this->pass;
+            $code = $this->getVeriFyCode();
+            $_SESSION['code'] = $code;
 
             if ($user->register()) {
                 $this->status = \app\models\VpnUserSettings::$statuses['NOACTIVE'];
@@ -75,7 +77,7 @@ class Users extends \yii\db\ActiveRecord
                 $this->untildate = time();
                 $this->used_promocode = $this->promocode;
                 $this->promocode = Yii::$app->security->generateRandomString(6);
-                $this->verifyCode = $this->getVeriFyCode();
+                $this->verifyCode = $code;
                 if($this->phone){
                     if(!($profile = Profile::find()->where(['user_id' => $user->id])->one())){
                         $profile = new Profile();
