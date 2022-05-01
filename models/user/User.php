@@ -131,9 +131,10 @@ class User extends \dektrium\user\models\User
     public function attemptConfirmation($code)
     {
         $token = $this->finder->findTokenByParams($this->id, $code, Token::TYPE_CONFIRMATION);
-        print_r($token); die();
         if ($token instanceof Token) {
             $token->delete();
+            print_r($token); die();
+
             if (($success = $this->confirm())) {
                 \Yii::$app->user->login($this, $this->module->rememberFor);
                 $message = \Yii::t('user', 'Thank you, registration is now complete.');
