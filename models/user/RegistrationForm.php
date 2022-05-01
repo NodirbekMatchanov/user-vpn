@@ -61,15 +61,30 @@ class RegistrationForm extends Model
             'usernameLength'   => [['username','utm_source','utm_term','utm_campaign','utm_medium','phone','promocode'], 'string', 'min' => 3, 'max' => 255],
 
             // email rules
+            'emailValidate'     => ['email', function ($attribute) {
+                $error = Yii::t('user', 'This email address has already been taken');
+                $user = Accs::find()->where(['email' => $this->email])->one();
+                if (!empty($user->email) && $user->email == $this->email) {
+                    if($user->status == VpnUserSettings::$statuses['DELETED']) {
+                        $this->addError($attribute, $error);
+                        return;
+                    } else {
+                        return false;
+                    }
+                }
+                return true;
+        }
+                ],
+            'email'     => ['email', 'trim'],
             'emailTrim'     => ['email', 'trim'],
             'emailRequired' => ['email', 'required'],
             'emailPattern'  => ['email', 'email'],
-            'emailUnique'   => [
-                'email',
-                'unique',
-                'targetClass' => $user,
-                'message' => Yii::t('user', 'This email address has already been taken')
-            ],
+//            'emailUnique'   => [
+//                'email',
+//                'unique',
+//                'targetClass' => $user,
+//                'message' => Yii::t('user', 'This email address has already been taken')
+//            ],
             // password rules
             'passwordRequired' => ['password', 'required', 'skipOnEmpty' => $this->module->enableGeneratingPassword],
             'passwordLength'   => ['password', 'string', 'min' => 6, 'max' => 72],

@@ -107,6 +107,19 @@ class UserVpnController extends Controller
     /** login user
      * @return array
      */
+    public function actionDelete()
+    {
+        $user = new Users();
+        $request = json_decode(Yii::$app->request->getRawBody(),true);
+        if ( $user->load($request,"")  && $userData = $user->deleteUser()) {
+            return $this->apiItem($userData);
+        }
+        return $this->apiError($user->errors);
+    }
+
+    /** login user
+     * @return array
+     */
     public function actionCheckLogin()
     {
         $user = new Users();

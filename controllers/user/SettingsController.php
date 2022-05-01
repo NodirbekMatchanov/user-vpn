@@ -12,6 +12,7 @@
 namespace app\controllers\user;
 
 use app\models\Accs;
+use app\models\VpnUserSettings;
 use dektrium\user\Finder;
 use dektrium\user\models\Profile;
 use dektrium\user\models\SettingsForm;
@@ -300,7 +301,12 @@ class SettingsController extends Controller
         \Yii::$app->user->logout();
 
         $this->trigger(self::EVENT_BEFORE_DELETE, $event);
-        $user->delete();
+        $accs = Accs::find()->where(['email' => $user->email])->one();
+        if(!empty($accs)){
+            $accs->status = VpnUserSettings::$statuses['DELETED'];
+            $accs->save();
+        }
+        $user->save();
         $this->trigger(self::EVENT_AFTER_DELETE, $event);
 
         \Yii::$app->session->setFlash('info', \Yii::t('user', 'Your account has been completely deleted'));

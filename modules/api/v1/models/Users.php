@@ -228,6 +228,27 @@ class Users extends \yii\db\ActiveRecord
         $this->errorResponse('не удалось восстановить пароль');
     }
 
+    public function deleteUser()
+    {
+        $user = self::find()->where(['email' => $this->email, 'pass' => $this->pass])->leftJoin(VpnUserSettings::tableName(), 'radcheck.id = accs.vpnid')->one();
+        $user->status = VpnUserSettings::$statuses['ACTIVE'];
+        $user->save();
+        $userData = [
+            'id' => $user->id,
+            'email' => $user->email,
+            'pass' => $user->pass,
+            'tariff' => $user->tariff,
+            'background_work' => $user->background_work,
+            'status' => $user->status,
+            'ios_token' => $user->ios_token,
+            'fcm_token' => $user->fcm_token,
+            'untildate' => $user->untildate,
+            'vpnLogin' => $user->radcheck->username,
+            'vpnPassword' => $user->radcheck->value,
+        ];
+        return $userData;
+    }
+
     public function errorResponse($errors)
     {
         throw new \yii\web\HttpException(500, $errors);
