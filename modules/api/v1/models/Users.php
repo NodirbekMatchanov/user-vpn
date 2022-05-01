@@ -231,7 +231,7 @@ class Users extends \yii\db\ActiveRecord
     public function deleteUser()
     {
         $user = self::find()->where(['email' => $this->email, 'pass' => $this->pass])->leftJoin(VpnUserSettings::tableName(), 'radcheck.id = accs.vpnid')->one();
-        $user->status = VpnUserSettings::$statuses['ACTIVE'];
+        $user->status = VpnUserSettings::$statuses['DELETED'];
         $user->save();
         $userData = [
             'id' => $user->id,
