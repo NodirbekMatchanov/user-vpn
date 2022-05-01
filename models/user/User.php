@@ -131,7 +131,7 @@ class User extends \dektrium\user\models\User
     public function attemptConfirmation($code)
     {
         $token = $this->finder->findTokenByParams($this->id, $code, Token::TYPE_CONFIRMATION);
-        die();
+        print_r($token); die();
         if ($token instanceof Token) {
             $token->delete();
             if (($success = $this->confirm())) {
