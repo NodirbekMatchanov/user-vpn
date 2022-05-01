@@ -132,7 +132,7 @@ class User extends \dektrium\user\models\User
     {
         $token = $this->finder->findTokenByParams($this->id, $code, Token::TYPE_CONFIRMATION);
 
-        if ($token instanceof Token && !$token->isExpired) {
+        if ($token instanceof Token) {
             $token->delete();
             if (($success = $this->confirm())) {
                 \Yii::$app->user->login($this, $this->module->rememberFor);

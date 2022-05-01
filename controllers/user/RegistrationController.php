@@ -223,7 +223,6 @@ class RegistrationController extends Controller
     public function actionConfirm($id, $code)
     {
         $user = $this->finder->findUserById($id);
-        print_r($user); die();
         if ($user === null || $this->module->enableConfirmation == false) {
             throw new NotFoundHttpException();
         }
