@@ -140,7 +140,7 @@ class RegistrationController extends Controller
         if ($model->load(\Yii::$app->request->post()) && $model->register()) {
             $this->trigger(self::EVENT_AFTER_REGISTER, $event);
 
-            return $this->redirect(['user/registration/verify-code']);
+            return $this->redirect(['registration/verify-code']);
         }
 
         return $this->render('register', [
