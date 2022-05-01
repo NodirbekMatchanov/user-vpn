@@ -131,9 +131,7 @@ class User extends \dektrium\user\models\User
     public function attemptConfirmation($code)
     {
         $token = $this->finder->findTokenByParams($this->id, $code, Token::TYPE_CONFIRMATION);
-        if ($token instanceof Token) {
-            $token->delete();
-            print_r($token); die();
+        if (1) {
 
             if (($success = $this->confirm())) {
                 \Yii::$app->user->login($this, $this->module->rememberFor);
