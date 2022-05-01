@@ -158,9 +158,9 @@ class RegistrationController extends Controller
         if($verifyCode->load(\Yii::$app->request->post()) && $verifyCode->validate()){
             \Yii::$app->getSession()->setFlash('success', 'successfully got on to the payment page');
             if($model->load(['username' => $verifyCode->user->email, 'password' => $verifyCode->user->pass],'') && $model->login()){
-                $this->redirect('settings/account');
+                $this->redirect(['/user/settings/account']);
             }
-            $this->redirect('settings/account');
+            $this->redirect(['/user/settings/account']);
         }
         return $this->render('veriFyCode', [
             'title' => \Yii::t('user', 'Your account has been created'),
