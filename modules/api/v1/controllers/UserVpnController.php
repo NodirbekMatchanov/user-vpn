@@ -18,7 +18,7 @@ class UserVpnController extends Controller
         $behaviors = parent::behaviors();
         $behaviors['authenticator'] = [
             'class' => HttpBearerAuth::className(),
-            'except' => ['create','activate','recover','login','get-verify-code','check-login','push'],
+            'except' => ['create','activate','recover','login','get-verify-code','check-login','push','delete'],
         ];
         $behaviors['contentNegotiator']['formats'] = [
             'application/json' => Response::FORMAT_JSON
