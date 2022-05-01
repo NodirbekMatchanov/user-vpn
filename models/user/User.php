@@ -132,7 +132,6 @@ class User extends \dektrium\user\models\User
     {
         $token = $this->finder->findTokenByParams($this->id, $code, Token::TYPE_CONFIRMATION);
         if (1) {
-
             if (($success = $this->confirm())) {
                 \Yii::$app->user->login($this, $this->module->rememberFor);
                 $message = \Yii::t('user', 'Thank you, registration is now complete.');
