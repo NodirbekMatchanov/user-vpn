@@ -16,7 +16,7 @@ use dektrium\user\Finder;
 use app\models\user\RecoveryForm;
 use dektrium\user\models\Token;
 use dektrium\user\traits\AjaxValidationTrait;
-use dektrium\user\traits\EventTrait;
+use app\models\traits\EventTrait;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
