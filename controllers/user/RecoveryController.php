@@ -13,7 +13,7 @@ namespace app\controllers\user;
 
 use app\models\Accs;
 use dektrium\user\Finder;
-use dektrium\user\models\RecoveryForm;
+use app\models\user\RecoveryForm;
 use dektrium\user\models\Token;
 use dektrium\user\traits\AjaxValidationTrait;
 use dektrium\user\traits\EventTrait;
