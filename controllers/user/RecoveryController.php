@@ -152,6 +152,7 @@ class RecoveryController extends Controller
         if (empty($token) || ! $token instanceof Token) {
             throw new NotFoundHttpException();
         }
+
         $event = $this->getResetPasswordEvent($token);
 
         $this->trigger(self::EVENT_BEFORE_TOKEN_VALIDATE, $event);

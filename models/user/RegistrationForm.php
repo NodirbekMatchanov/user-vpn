@@ -24,7 +24,7 @@ use yii\base\Model;
  *
  * @author Dmitry Erofeev <dmeroff@gmail.com>
  */
-class RegistrationForm extends Model
+class RegistrationForm extends \dektrium\user\models\RegistrationForm
 {
     use ModuleTrait;
     /**

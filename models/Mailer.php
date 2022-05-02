@@ -11,17 +11,17 @@
 
 namespace app\models;
 
-use app\models\user\Token;
 use dektrium\user\models\User;
 use Yii;
 use yii\base\Component;
+use dektrium\user\models\Token;
 
 /**
  * Mailer.
  *
  * @author Dmitry Erofeev <dmeroff@gmail.com>
  */
-class Mailer extends Component
+class Mailer extends \dektrium\user\Mailer
 {
     /** @var string */
     public $viewPath = '@app/views/user/mail';

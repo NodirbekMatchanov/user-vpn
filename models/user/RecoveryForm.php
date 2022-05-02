@@ -12,6 +12,7 @@
 namespace app\models\user;
 
 use dektrium\user\Finder;
+use dektrium\user\models\Token;
 use app\models\Mailer;
 use yii\base\Model;
 
@@ -20,7 +21,7 @@ use yii\base\Model;
  *
  * @author Dmitry Erofeev <dmeroff@gmail.com>
  */
-class RecoveryForm extends Model
+class RecoveryForm extends \dektrium\user\models\RecoveryForm
 {
     const SCENARIO_REQUEST = 'request';
     const SCENARIO_RESET = 'reset';

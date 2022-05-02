@@ -21,7 +21,7 @@ use yii\base\Model;
  *
  * @author Dmitry Erofeev <dmeroff@gmail.com>
  */
-class ResendForm extends Model
+class ResendForm extends \dektrium\user\models\ResendForm
 {
     /**
      * @var string

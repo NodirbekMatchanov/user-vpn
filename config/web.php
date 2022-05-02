@@ -80,6 +80,7 @@ $config = [
             'enableUnconfirmedLogin' => true,
             'confirmWithin' => 21600,
             'enableAccountDelete' => true,
+            'enablePasswordRecovery' => true,
             'cost' => 12,
             'admins' => ['admin'],
             // following line will restrict access to profile, recovery, registration and settings controllers from backend
@@ -89,8 +90,6 @@ $config = [
                 'Profile' => 'app\models\user\Profile',
                 'RegistrationForm' => 'app\models\user\RegistrationForm',
                 'SettingsForm' => 'app\models\user\SettingsForm',
-                'RecoveryForm' => 'app\models\user\RecoveryForm',
-                'Token' => 'app\models\user\Token',
                 'LoginForm' => 'app\models\user\LoginForm',
             ],
             'mailer' => [
