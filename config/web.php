@@ -92,6 +92,7 @@ $config = [
                 'SettingsForm' => 'app\models\user\SettingsForm',
                 'RecoveryForm' => 'app\models\user\RecoveryForm',
                 'LoginForm' => 'app\models\user\LoginForm',
+                'ResetPasswordEvent' => 'app\models\events\ResetPasswordEvent',
             ],
             'mailer' => [
                 'class' => 'app\models\Mailer',
