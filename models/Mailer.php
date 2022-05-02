@@ -21,7 +21,7 @@ use dektrium\user\models\Token;
  *
  * @author Dmitry Erofeev <dmeroff@gmail.com>
  */
-class Mailer extends \dektrium\user\Mailer
+class Mailer extends Component
 {
     /** @var string */
     public $viewPath = '@app/views/user/mail';
