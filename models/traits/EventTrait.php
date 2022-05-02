@@ -15,7 +15,7 @@ use dektrium\user\events\AuthEvent;
 use dektrium\user\events\ConnectEvent;
 use dektrium\user\events\FormEvent;
 use dektrium\user\events\ProfileEvent;
-use dektrium\user\events\ResetPasswordEvent;
+use app\models\events\ResetPasswordEvent;
 use dektrium\user\events\UserEvent;
 use dektrium\user\models\Account;
 use dektrium\user\models\Profile;
