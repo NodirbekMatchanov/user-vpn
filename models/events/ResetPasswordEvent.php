@@ -11,7 +11,7 @@
 
 namespace app\models\events;
 
-use dektrium\user\models\RecoveryForm;
+use app\models\user\RecoveryForm;
 use dektrium\user\models\Token;
 use yii\base\Event;
 
