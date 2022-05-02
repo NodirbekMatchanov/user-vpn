@@ -6,7 +6,7 @@ use app\components\DateFormat;
 use app\models\Accs;
 use app\models\MailHistory;
 use app\models\user\Profile;
-use dektrium\user\models\LoginForm;
+use app\models\user\LoginForm;
 use http\Message;
 use Yii;
 use yii\base\Model;
