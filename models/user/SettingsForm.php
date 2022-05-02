@@ -25,7 +25,7 @@ use yii\base\Model;
  *
  * @author Dmitry Erofeev <dmeroff@gmail.com>
  */
-class SettingsForm extends \dektrium\user\models\SettingsForm
+class SettingsForm extends Model
 {
     use ModuleTrait;
 
