@@ -21,7 +21,7 @@ use yii\base\Model;
  *
  * @author Dmitry Erofeev <dmeroff@gmail.com>
  */
-class RecoveryForm extends \dektrium\user\models\RecoveryForm
+class RecoveryForm extends Model
 {
     const SCENARIO_REQUEST = 'request';
     const SCENARIO_RESET = 'reset';
