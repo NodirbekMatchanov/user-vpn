@@ -13,7 +13,7 @@ namespace app\models\user;
 
 use dektrium\user\Finder;
 use dektrium\user\models\Token;
-use dektrium\user\Mailer;
+use app\models\Mailer;
 use yii\base\Model;
 
 /**
