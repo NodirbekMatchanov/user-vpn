@@ -100,16 +100,15 @@ class VpnUserSettingsSearch extends VpnUserSettings
             'id' => $this->id,
             'username' => $this->username,
             'pass' => $this->pass,
-            'accs.email' => $this->email,
         ]);
-
+        $query->andWhere(['=','datecreate',strtotime(str_replace(".","-",$this->datecreate))]);
         $query
             ->andFilterWhere(['like', 'username', $this->username])
             ->andFilterWhere(['like', 'accs.email', $this->email])
             ->andFilterWhere(['like', 'accs.status', $this->status])
-            ->andFilterWhere(['like', 'accs.datecreate', $this->datecreate])
+//            ->andFilterWhere(['like', 'accs.datecreate', ])
             ->andFilterWhere(['like', 'accs.tariff', $this->tariff])
-            ->andFilterWhere(['like', 'accs.untildate', $this->untildate])
+            ->andFilterWhere(['like', 'accs.untildate', strtotime(str_replace(".","-",$this->untildate))])
             ->andFilterWhere(['like', 'accs.untildate', $this->expire])
             ->andFilterWhere(['like', 'value', $this->value]);
 

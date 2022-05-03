@@ -59,7 +59,7 @@ class Users extends \yii\db\ActiveRecord
         $vpnModel->value = $this->vpnPassword;
         $vpnModel->createAdmin = false;
         if ($vpnModel->save()) {
-
+            $usedPromocode = false;
             $user = new User();
             $user->email = $this->email;
             $user->username = $this->email;
@@ -88,8 +88,12 @@ class Users extends \yii\db\ActiveRecord
                 }
                 if ($this->save()) {
                     /* +1 promocode */
-                    Accs::setPromoShareCount($this->promocode);
-                    return $this;
+                   $usedPromocode = Accs::setPromoShareCount($this->promocode);
+                   if($usedPromocode){
+                       $this->untildate = $this->untildate+(24*3600);
+                       $this->save();
+                   }
+                   return $this;
                 } else {
                     return false;
                 }
@@ -119,7 +123,7 @@ class Users extends \yii\db\ActiveRecord
         $user = self::find()->where(['email' => $email, 'verifyCode' => $code])->one();
         if (empty($user)) return false;
         $user->status = VpnUserSettings::$statuses['ACTIVE'];
-        $user->untildate = strtotime('+ 3 days');
+        $user->untildate = date("Y-m-d",$user->untildate) == date("Y-m-d") ? ($user->untildate + strtotime('+ 3 days')) : strtotime('+ 3 days') ;
         $user->save();
         return "user activated";
     }

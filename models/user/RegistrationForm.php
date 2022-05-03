@@ -121,7 +121,7 @@ class RegistrationForm extends \dektrium\user\models\RegistrationForm
     public function register()
     {
         $this->username = $this->email;
-
+        $usedPromocode = false;
         if (!$this->validate()) {
             return false;
         }
@@ -153,7 +153,7 @@ class RegistrationForm extends \dektrium\user\models\RegistrationForm
         $vpnModel->createAdmin = false;
         if ($vpnModel->save()) {
             /* +1 promocode */
-            Accs::setPromoShareCount($this->promocode);
+           $usedPromocode = Accs::setPromoShareCount($this->promocode);
         }
         $user = User::find()->where(['email' => $this->email])->one();
         $profile = Profile::findOne($user->id);
@@ -162,6 +162,9 @@ class RegistrationForm extends \dektrium\user\models\RegistrationForm
 
         $accs = Accs::find()->where(['user_id' => $user->id])->one();
         if(!empty($accs)){
+            if($usedPromocode) {
+                $accs->untildate = $accs->untildate + (3600*24);
+            }
             $accs->verifyCode = $code;
             $accs->save(false);
         }

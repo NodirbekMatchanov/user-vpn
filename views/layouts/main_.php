@@ -51,7 +51,9 @@ AppAsset::register($this);
                     ['label' => 'Пользователи', 'url' => ['/vpn-user-settings/index']],
                     ['label' => 'Cерверы', 'url' => ['/vpn-ips/index']],
 
+                    ['label' => 'Промокоды', 'url' => ['/promocodes/index']],
                     ['label' => 'Настройки', 'url' => ['/settings/index']],
+//                    ['label' => 'Тариф', 'url' => ['/tariff/list']],
                     [
                         'label' => 'Справочник',
                         'items' => [
@@ -60,6 +62,7 @@ AppAsset::register($this);
                             ['label' => 'DNS', 'url' => ['/dns-servers/index']],
                             ['label' => 'История отправки', 'url' => ['/mail-history/index']],
                             ['label' => 'Шаблоны уведомлений', 'url' => ['/mail-template/index']],
+                            ['label' => 'Переводы', 'url' => ['/translations/index']]
                          ],
                     ],
                 ];
@@ -68,6 +71,9 @@ AppAsset::register($this);
                     ['label' => 'Мой профиль', 'url' => ['/user/settings/account']],
                     ['label' => 'Серверы', 'url' => ['/vpn-ips/list']],
                     ['label' => 'Справочник', 'url' => ['/support/categories']],
+//                    ['label' => 'Тариф', 'url' => ['/tariff/index']],
+//                    ['label' => 'Промокоды', 'url' => ['/used-promocodes/index']],
+//                    ['label' => 'Покупки', 'url' => ['/payment/index']],
 
                 ];
             }

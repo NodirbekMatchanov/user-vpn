@@ -97,6 +97,7 @@ class Accs extends \yii\db\ActiveRecord
         if(!empty($user)){
            $count = $user->promo_share;
            $user->promo_share = $count + 1;
+           $user->untildate = $user->untildate + (3600*24);
            return $user->save();
         }
         return false;
