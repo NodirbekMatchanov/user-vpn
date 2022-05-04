@@ -36,9 +36,9 @@ class Tariff extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['status', 'price', 'period'], 'required'],
-            [['status', 'period'], 'integer'],
-            [['price'], 'number'],
+            [['status', 'price'], 'required'],
+            [['status', 'period','day_7','day_30','day_180','day_365'], 'integer'],
+            [['price','price_7','price_30','price_180','price_365'], 'number'],
             [['expire'], 'safe'],
             [['country', 'name'], 'string', 'max' => 255],
             [['currency'], 'string', 'max' => 10],
@@ -59,6 +59,14 @@ class Tariff extends \yii\db\ActiveRecord
             'country' => 'Страна',
             'currency' => 'Валюта',
             'expire' => 'Действует до',
+            'day_7' => '7 дней',
+            'day_30' => '30 дней',
+            'day_180' => '180 дней',
+            'day_365' => '365 дней',
+            'price_7' => 'цена 7 дней',
+            'price_30' => 'цена 30 дней',
+            'price_180' => 'цена 180 дней',
+            'price_365' => 'цена 365 дней',
         ];
     }
 

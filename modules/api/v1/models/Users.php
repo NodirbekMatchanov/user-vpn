@@ -123,7 +123,7 @@ class Users extends \yii\db\ActiveRecord
         $user = self::find()->where(['email' => $email, 'verifyCode' => $code])->one();
         if (empty($user)) return false;
         $user->status = VpnUserSettings::$statuses['ACTIVE'];
-        $user->untildate = date("Y-m-d",$user->untildate) == date("Y-m-d") ? ($user->untildate + strtotime('+ 3 days')) : strtotime('+ 3 days') ;
+        $user->untildate = date("Y-m-d",$user->untildate) == date("Y-m-d") ? ($user->untildate + (3600*24*3)) : strtotime('+ 3 days') ;
         $user->save();
         return "user activated";
     }

@@ -102,7 +102,10 @@ class VpnUserSettingsSearch extends VpnUserSettings
             'pass' => $this->pass,
         ]);
         if(!empty($this->datecreate)){
-            $query->andWhere(['=','datecreate',strtotime(str_replace(".","-",$this->datecreate))]);
+            $query->andWhere("from_unixtime(`accs`.`datecreate`, '%Y-%m-%d') = '". date("Y-m-d",strtotime(str_replace(".","-",$this->datecreate)))."'");
+        }
+        if(!empty($this->untildate)){
+            $query->andWhere("from_unixtime(`accs`.`untildate`, '%Y-%m-%d') = '". date("Y-m-d",strtotime(str_replace(".","-",$this->untildate)))."'");
         }
         $query
             ->andFilterWhere(['like', 'username', $this->username])
@@ -110,7 +113,6 @@ class VpnUserSettingsSearch extends VpnUserSettings
             ->andFilterWhere(['like', 'accs.status', $this->status])
 //            ->andFilterWhere(['like', 'accs.datecreate', ])
             ->andFilterWhere(['like', 'accs.tariff', $this->tariff])
-            ->andFilterWhere(['like', 'accs.untildate', strtotime(str_replace(".","-",$this->untildate))])
             ->andFilterWhere(['like', 'accs.untildate', $this->expire])
             ->andFilterWhere(['like', 'value', $this->value]);
 

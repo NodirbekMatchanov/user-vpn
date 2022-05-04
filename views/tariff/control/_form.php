@@ -18,7 +18,19 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'price')->textInput() ?>
 
-    <?= $form->field($model, 'period')->dropDownList(['7' => 'на 7 дней', '30' => '30 дней', '180' => '180 дней', '365' => '365 дней']) ?>
+    <?= $form->field($model, 'price_7')->textInput() ?>
+    <?= $form->field($model, 'day_7')->checkbox() ?>
+
+    <?= $form->field($model, 'price_30')->textInput() ?>
+    <?= $form->field($model, 'day_30')->checkbox() ?>
+
+    <?= $form->field($model, 'price_180')->textInput() ?>
+    <?= $form->field($model, 'day_180')->checkbox() ?>
+
+    <?= $form->field($model, 'price_365')->textInput() ?>
+    <?= $form->field($model, 'day_365')->checkbox() ?>
+
+
 
     <?= $form->field($model, 'country')->textInput(['maxlength' => true]) ?>
 
