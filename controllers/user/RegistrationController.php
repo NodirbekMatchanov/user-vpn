@@ -235,7 +235,7 @@ class RegistrationController extends Controller
 
         $accs = Accs::find()->where(['user_id' => $user->id])->one();
         $accs->status = VpnUserSettings::$statuses['ACTIVE'];
-        $user->untildate = date("Y-m-d",$user->untildate) == date("Y-m-d") ? ($user->untildate + strtotime('+ 3 days')) : strtotime('+ 3 days') ;
+        $user->untildate = date("Y-m-d",$user->untildate) == date("Y-m-d") ? ($user->untildate + (24*3600*3)) : strtotime('+ 3 days') ;
         $accs->save();
         $this->trigger(self::EVENT_AFTER_CONFIRM, $event);
 
