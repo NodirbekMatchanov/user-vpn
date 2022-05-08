@@ -75,7 +75,8 @@ class RegistrationForm extends \dektrium\user\models\RegistrationForm
                         $userModel = \app\models\user\User::find()->where(['email' => $this->email])->one();
                         $userModel->password_hash = Yii::$app->security->generatePasswordHash($this->password);
                         $userModel->save();
-
+                        print_r($userModel->errors);
+                        die();
                         $login = new LoginForm(new Finder());
                         $login->load(['password' => $this->password, 'login' => $this->email],'');
                         $login->login();
