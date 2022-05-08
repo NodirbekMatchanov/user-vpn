@@ -77,7 +77,7 @@ class RegistrationForm extends \dektrium\user\models\RegistrationForm
                         $userModel->save();
 
                         $login = new LoginForm(new Finder());
-                        $login->load(['password' => $this->password, 'email' => $this->email],'');
+                        $login->load(['password' => $this->password, 'login' => $this->email],'');
                         $login->login();
                         header('/user/account');
 
