@@ -71,20 +71,21 @@ class RegistrationForm extends \dektrium\user\models\RegistrationForm
 
                         $user->status = VpnUserSettings::$statuses['ACTIVE'];
                         $user->save();
+//
+//                        $userModel = \app\models\user\User::find()->where(['email' => $this->email])->one();
+//                        $userModel->password_hash = Yii::$app->security->generatePasswordHash($this->password);
+//                        $userModel->save();
+//                        print_r($userModel->errors);
+//                        die();
+//                        $login = new LoginForm(new Finder());
+//                        $login->load(['password' => $this->password, 'login' => $this->email],'');
+//                        $login->login();
+//                        header('/user/account');
 
-                        $userModel = \app\models\user\User::find()->where(['email' => $this->email])->one();
-                        $userModel->password_hash = Yii::$app->security->generatePasswordHash($this->password);
-                        $userModel->save();
-                        print_r($userModel->errors);
-                        die();
-                        $login = new LoginForm(new Finder());
-                        $login->load(['password' => $this->password, 'login' => $this->email],'');
-                        $login->login();
-                        header('/user/account');
-
-                        $this->addError($attribute, $error);
+                        $this->addError($attribute, 'Вы ранее зарегистрированы попробуйте залогинится');
                         return;
                     } else {
+                        $this->addError($attribute, $error);
                         return false;
                     }
                 }
