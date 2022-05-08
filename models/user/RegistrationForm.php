@@ -14,6 +14,7 @@ namespace app\models\user;
 use app\models\Accs;
 use app\models\VpnUserSettings;
 use app\modules\api\v1\models\Users;
+use dektrium\user\Finder;
 use dektrium\user\models\User;
 use dektrium\user\traits\ModuleTrait;
 use Yii;
@@ -27,6 +28,7 @@ use yii\base\Model;
 class RegistrationForm extends \dektrium\user\models\RegistrationForm
 {
     use ModuleTrait;
+
     /**
      * @var string User email address
      */
@@ -58,14 +60,27 @@ class RegistrationForm extends \dektrium\user\models\RegistrationForm
 
         return [
             // username rules
-            'usernameLength'   => [['username','utm_source','utm_term','utm_campaign','utm_medium','phone','promocode'], 'string', 'min' => 3, 'max' => 255],
+            'usernameLength' => [['username', 'utm_source', 'utm_term', 'utm_campaign', 'utm_medium', 'phone', 'promocode'], 'string', 'min' => 3, 'max' => 255],
 
             // email rules
-            'emailValidate'     => ['email', function ($attribute) {
+            'emailValidate' => ['email', function ($attribute) {
                 $error = Yii::t('user', 'This email address has already been taken');
                 $user = Accs::find()->where(['email' => $this->email])->one();
                 if (!empty($user->email) && $user->email == $this->email) {
-                    if($user->status == VpnUserSettings::$statuses['DELETED']) {
+                    if ($user->status == VpnUserSettings::$statuses['DELETED']) {
+
+                        $user->status = VpnUserSettings::$statuses['ACTIVE'];
+                        $user->save();
+
+                        $userModel = \app\models\user\User::find()->where(['email' => $this->email])->one();
+                        $userModel->passwordHash = Yii::$app->security->generatePasswordHash($this->password);
+                        $userModel->save();
+
+                        $login = new LoginForm(new Finder());
+                        $login->load(['password' => $this->password, 'email' => $this->email],'');
+                        $login->login();
+                        header('/user/account');
+
                         $this->addError($attribute, $error);
                         return;
                     } else {
@@ -73,12 +88,12 @@ class RegistrationForm extends \dektrium\user\models\RegistrationForm
                     }
                 }
                 return true;
-        }
-                ],
-            'email'     => ['email', 'trim'],
-            'emailTrim'     => ['email', 'trim'],
+            }
+            ],
+            'email' => ['email', 'trim'],
+            'emailTrim' => ['email', 'trim'],
             'emailRequired' => ['email', 'required'],
-            'emailPattern'  => ['email', 'email'],
+            'emailPattern' => ['email', 'email'],
 //            'emailUnique'   => [
 //                'email',
 //                'unique',
@@ -87,7 +102,7 @@ class RegistrationForm extends \dektrium\user\models\RegistrationForm
 //            ],
             // password rules
             'passwordRequired' => ['password', 'required', 'skipOnEmpty' => $this->module->enableGeneratingPassword],
-            'passwordLength'   => ['password', 'string', 'min' => 6, 'max' => 72],
+            'passwordLength' => ['password', 'string', 'min' => 6, 'max' => 72],
         ];
     }
 
@@ -97,7 +112,7 @@ class RegistrationForm extends \dektrium\user\models\RegistrationForm
     public function attributeLabels()
     {
         return [
-            'email'    => Yii::t('user', 'Email'),
+            'email' => Yii::t('user', 'Email'),
             'username' => Yii::t('user', 'Username'),
             'password' => Yii::t('user', 'Password'),
             'phone' => Yii::t('user', 'Телефон'),
@@ -153,7 +168,7 @@ class RegistrationForm extends \dektrium\user\models\RegistrationForm
         $vpnModel->createAdmin = false;
         if ($vpnModel->save()) {
             /* +1 promocode */
-           $usedPromocode = Accs::setPromoShareCount($this->promocode);
+            $usedPromocode = Accs::setPromoShareCount($this->promocode);
         }
         $user = User::find()->where(['email' => $this->email])->one();
         $profile = Profile::findOne($user->id);
@@ -161,9 +176,9 @@ class RegistrationForm extends \dektrium\user\models\RegistrationForm
         $profile->save();
 
         $accs = Accs::find()->where(['user_id' => $user->id])->one();
-        if(!empty($accs)){
-            if($usedPromocode) {
-                $accs->untildate = $accs->untildate + (3600*24);
+        if (!empty($accs)) {
+            if ($usedPromocode) {
+                $accs->untildate = $accs->untildate + (3600 * 24);
             }
             $accs->verifyCode = $code;
             $accs->save(false);
@@ -184,6 +199,7 @@ class RegistrationForm extends \dektrium\user\models\RegistrationForm
     {
         return rand(111111, 999999);
     }
+
     /**
      * Loads attributes to the user model. You should override this method if you are going to add new fields to the
      * registration form. You can read more in special guide.
