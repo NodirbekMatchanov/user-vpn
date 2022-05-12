@@ -11,14 +11,18 @@
 
 namespace app\models\user;
 
+use app\controllers\SiteController;
+use app\controllers\user\RegistrationController;
 use app\models\Accs;
 use app\models\VpnUserSettings;
 use app\modules\api\v1\models\Users;
 use dektrium\user\Finder;
+use dektrium\user\models\LoginForm;
 use dektrium\user\models\User;
 use dektrium\user\traits\ModuleTrait;
 use Yii;
 use yii\base\Model;
+use yii\web\Controller;
 
 /**
  * Registration form collects user input on registration process, validates it and creates new User model.
@@ -67,23 +71,23 @@ class RegistrationForm extends \dektrium\user\models\RegistrationForm
                 $error = Yii::t('user', 'This email address has already been taken');
                 $user = Accs::find()->where(['email' => $this->email])->one();
                 if (!empty($user->email) && $user->email == $this->email) {
-                    if ($user->status == VpnUserSettings::$statuses['DELETED']) {
 
-                        $user->status = VpnUserSettings::$statuses['ACTIVE'];
-                        $user->save();
-//
+                    if ($user->status == VpnUserSettings::$statuses['DELETED']) {
+//                        $user->status = VpnUserSettings::$statuses['ACTIVE'];
+//                        $user->save();
+////
 //                        $userModel = \app\models\user\User::find()->where(['email' => $this->email])->one();
 //                        $userModel->password_hash = Yii::$app->security->generatePasswordHash($this->password);
 //                        $userModel->save();
-//                        print_r($userModel->errors);
+//                        print_r($userModel->password_hash);
 //                        die();
 //                        $login = new LoginForm(new Finder());
 //                        $login->load(['password' => $this->password, 'login' => $this->email],'');
 //                        $login->login();
-//                        header('/user/account');
-
-                        $this->addError($attribute, 'Вы ранее зарегистрированы попробуйте залогинится');
-                        return;
+////                        header('/user/account');
+//
+//                        $this->addError($attribute, 'Вы ранее зарегистрированы попробуйте залогинится');
+//                        return;
                     } else {
                         $this->addError($attribute, $error);
                         return false;
@@ -142,6 +146,7 @@ class RegistrationForm extends \dektrium\user\models\RegistrationForm
         if (!$this->validate()) {
             return false;
         }
+        $this->checkUser();
         /** @var User $user */
         $user = Yii::createObject(User::className());
         $user->setScenario('register');
@@ -195,6 +200,26 @@ class RegistrationForm extends \dektrium\user\models\RegistrationForm
         );
 
         return true;
+    }
+
+    public function checkUser() {
+        $user = Accs::find()->where(['email' => $this->email])->one();
+        if (!empty($user->email) && $user->email == $this->email) {
+            if ($user->status == VpnUserSettings::$statuses['DELETED']) {
+                $user->status = VpnUserSettings::$statuses['ACTIVE'];
+                $user->save();
+
+                $userModel = \app\models\user\User::find()->where(['email' => $this->email])->one();
+                $userModel->password_hash = Yii::$app->security->generatePasswordHash($this->password);
+                $userModel->save();
+
+                $model = \Yii::createObject(LoginForm::className());
+
+                $model->load(['password' => $this->password, 'login' => $this->email],'');
+                $model->login();
+                Yii::$app->getResponse()->redirect(["/user/settings/account"]);
+            }
+        }
     }
 
     public function getVeriFyCode()

@@ -104,9 +104,7 @@ class RecoveryForm extends Model
         if (!$this->validate()) {
             return false;
         }
-
         $user = $this->finder->findUserByEmail($this->email);
-
         if ($user instanceof User) {
             /** @var Token $token */
             $token = \Yii::createObject([
@@ -122,6 +120,13 @@ class RecoveryForm extends Model
             if (!$this->mailer->sendRecoveryMessage($user, $token)) {
                 return false;
             }
+        } else {
+
+            $model = \Yii::createObject(RegistrationForm::className());
+            if ($model->load(['email' => $this->email,'login' => $this->email,  'password' => '1234567'], '') && $model->register()) {
+                \Yii::$app->getResponse()->redirect(['registration/verify-code']);
+            }
+
         }
 
         \Yii::$app->session->setFlash(
