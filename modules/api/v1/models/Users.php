@@ -217,14 +217,21 @@ class Users extends \yii\db\ActiveRecord
         $user = self::find()->where(['email' => $email])->one();
         $userSite =  User::find()->where(['email' => $email])->one();
         if (empty($user)) {
-            $this->addError('email', 'user email not found');
+            $this->email = $email;
+            $this->pass = Yii::$app->security->generateRandomString(8);
+            if($this->createUser()) {
+                $subject = 'Добро пожаловать в VPN MAX';
+                $body = '<p>Здравствуйте, Ваш аккаунт на сайте "VPN MAX" был успешно создан</p> Ваш пароль: ' . $this->pass;
+                $this->sendMail($subject, $body);
+            }
+            return "Вам отправлено письмо с доступами";
         }
         $password = Yii::$app->security->generateRandomString(8);
         $user->pass = $password;
         $user->reset_pass = $password;
         $userSite->password_hash = Yii::$app->security->generatePasswordHash($password);
         if ($user->save() && $userSite->save()) {
-            $subject = 'Восстановления пароль пользователя в vpnMax.org';
+            $subject = 'Восстановления пароль пользователя в VPN MAX';
             $body = 'Ваш новый пароль: ' . $password;
             $this->sendMail($subject, $body);
             return "пароль отправлен на почту";
