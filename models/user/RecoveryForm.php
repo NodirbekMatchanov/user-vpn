@@ -124,7 +124,7 @@ class RecoveryForm extends Model
 
             $model = \Yii::createObject(RegistrationForm::className());
             if ($model->load(['email' => $this->email,'login' => $this->email,  'password' => '1234567'], '') && $model->register()) {
-                \Yii::$app->getResponse()->redirect(['registration/verify-code']);
+                \Yii::$app->getResponse()->redirect(['/user/registration/verify-code']);
             }
 
         }
