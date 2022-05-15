@@ -267,21 +267,26 @@ class Users extends \yii\db\ActiveRecord
     public function deleteUser()
     {
         $user = self::find()->where(['email' => $this->email, 'pass' => $this->pass])->leftJoin(VpnUserSettings::tableName(), 'radcheck.id = accs.vpnid')->one();
-        $user->status = VpnUserSettings::$statuses['DELETED'];
-        $user->save();
-        $userData = [
-            'id' => $user->id,
-            'email' => $user->email,
-            'pass' => $user->pass,
-            'tariff' => $user->tariff,
-            'background_work' => $user->background_work,
-            'status' => $user->status,
-            'ios_token' => $user->ios_token,
-            'fcm_token' => $user->fcm_token,
-            'untildate' => $user->untildate,
-            'vpnLogin' => $user->radcheck->username,
-            'vpnPassword' => $user->radcheck->value,
-        ];
+        if(!empty($user)) {
+            $user->status = VpnUserSettings::$statuses['DELETED'];
+            $user->save();
+            $userData = [
+                'id' => $user->id,
+                'email' => $user->email,
+                'pass' => $user->pass,
+                'tariff' => $user->tariff,
+                'background_work' => $user->background_work,
+                'status' => $user->status,
+                'ios_token' => $user->ios_token,
+                'fcm_token' => $user->fcm_token,
+                'untildate' => $user->untildate,
+                'vpnLogin' => $user->radcheck->username,
+                'vpnPassword' => $user->radcheck->value,
+            ];
+        } else {
+            $this->addError('username', 'Пользователь не найдено или пароль не верный');
+            return false;
+        }
         return $userData;
     }
 

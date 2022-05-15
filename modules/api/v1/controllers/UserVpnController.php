@@ -33,7 +33,10 @@ class UserVpnController extends Controller
     {
         $user = new Users();
         $request = json_decode(Yii::$app->request->getRawBody(),true);
-        if ($user->load($request,"") && $user->validate() && $user->createUser()) {
+        if ($user->load($request,"") && $user->validate() && $userData = $user->createUser()) {
+            if (is_array($userData)){
+                return $this->apiCreated($userData);
+            }
             return $this->apiCreated($user);
         }
         return $this->apiError($user->errors);
