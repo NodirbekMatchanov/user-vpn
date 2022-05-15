@@ -38,12 +38,45 @@ class Users extends \yii\db\ActiveRecord
     {
         return [
             [['email', 'pass'], 'required'],
-            [['role', 'promocode','used_promocode','fcm_token','ios_token', 'phone','status', 'email',], 'string', 'max' => 255],
-            [['vpnid','id','promo_share', 'verifyCode', 'user_id'], 'integer'],
-            ['email', 'unique'],
+            [['role', 'promocode', 'used_promocode', 'fcm_token', 'ios_token', 'phone', 'status', 'email',], 'string', 'max' => 255],
+            [['vpnid', 'id', 'promo_share', 'verifyCode', 'user_id'], 'integer'],
+            [['email'], 'emailValidate'],
             ['datecreate', 'safe'],
 //            ['avtoNumber', 'match', 'pattern' => '/^[а-яА-Я]{1}\s?[0-9]{3}\s?[а-яА-Я]{2}\s?[0-9]{2,3}$/ui', 'message' => 'Введите гос номер автомобиля на русском без пробелов'],
         ];
+    }
+
+    public function emailValidate()
+    {
+        $error = Yii::t('user', 'This email address has already been taken');
+        $user = Accs::find()->where(['email' => $this->email])->one();
+        if (!empty($user->email) && $user->email == $this->email) {
+
+            if ($user->status == \app\models\VpnUserSettings::$statuses['DELETED']) {
+            } else {
+                $this->addError('email', $error);
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public function checkUser() {
+        $user = Accs::find()->where(['email' => $this->email])->one();
+        if (!empty($user->email) && $user->email == $this->email) {
+            if ($user->status == \app\models\VpnUserSettings::$statuses['DELETED']) {
+                $user->status = VpnUserSettings::$statuses['ACTIVE'];
+                $user->pass = $this->pass;
+                $user->save();
+
+                $userModel = \app\models\user\User::find()->where(['email' => $this->email])->one();
+                $userModel->password_hash = Yii::$app->security->generatePasswordHash($this->pass);
+                $userModel->save();
+
+               return $this->login();
+            }
+        }
+        return false;
     }
 
     public function validFields()
@@ -53,6 +86,9 @@ class Users extends \yii\db\ActiveRecord
 
     public function createUser()
     {
+        // проверка на деактивный юсер если усер уже регался и удалил аккаунт то восстановим
+        if($findUser = $this->checkUser()) return $findUser;
+
         $this->generateVpnKey();
         $vpnModel = new VpnUserSettings();
         $vpnModel->username = $this->vpnLogin;
@@ -78,8 +114,8 @@ class Users extends \yii\db\ActiveRecord
                 $this->used_promocode = $this->promocode;
                 $this->promocode = Yii::$app->security->generateRandomString(6);
                 $this->verifyCode = $code;
-                if($this->phone){
-                    if(!($profile = Profile::find()->where(['user_id' => $user->id])->one())){
+                if ($this->phone) {
+                    if (!($profile = Profile::find()->where(['user_id' => $user->id])->one())) {
                         $profile = new Profile();
                         $profile->user_id = $user->id;
                     }
@@ -88,12 +124,12 @@ class Users extends \yii\db\ActiveRecord
                 }
                 if ($this->save()) {
                     /* +1 promocode */
-                   $usedPromocode = Accs::setPromoShareCount($this->promocode);
-                   if($usedPromocode){
-                       $this->untildate = $this->untildate+(24*3600);
-                       $this->save();
-                   }
-                   return $this;
+                    $usedPromocode = Accs::setPromoShareCount($this->promocode);
+                    if ($usedPromocode) {
+                        $this->untildate = $this->untildate + (24 * 3600);
+                        $this->save();
+                    }
+                    return $this;
                 } else {
                     return false;
                 }
@@ -123,7 +159,7 @@ class Users extends \yii\db\ActiveRecord
         $user = self::find()->where(['email' => $email, 'verifyCode' => $code])->one();
         if (empty($user)) return false;
         $user->status = VpnUserSettings::$statuses['ACTIVE'];
-        $user->untildate = date("Y-m-d",$user->untildate) == date("Y-m-d") ? ($user->untildate + (3600*24*3)) : strtotime('+ 3 days') ;
+        $user->untildate = date("Y-m-d", $user->untildate) == date("Y-m-d") ? ($user->untildate + (3600 * 24 * 3)) : strtotime('+ 3 days');
         $user->save();
         return "user activated";
     }
@@ -135,7 +171,7 @@ class Users extends \yii\db\ActiveRecord
     {
         $user = self::find()->where(['email' => $this->email, 'pass' => $this->pass])->leftJoin(VpnUserSettings::tableName(), 'radcheck.id = accs.vpnid')->one();
         $model = \Yii::createObject(LoginForm::className());
-        $model->load(['login' => $this->email,'password' => $this->pass],'');
+        $model->load(['login' => $this->email, 'password' => $this->pass], '');
         $login = $model->login();
         if (empty($user) || !$login) {
             $this->addError('email', 'Пользователь не найдено или пароль не верный');
@@ -153,7 +189,7 @@ class Users extends \yii\db\ActiveRecord
             $user->save();
         }
 
-        if($this->fcm_token || $this->ios_token){
+        if ($this->fcm_token || $this->ios_token) {
             $user->fcm_token = $this->fcm_token;
             $user->ios_token = $this->ios_token;
             $user->save();
@@ -201,9 +237,10 @@ class Users extends \yii\db\ActiveRecord
         return $userData;
     }
 
-    public function push(){
-        $user = self::find()->where(['id' => $this->id,'pass' => $this->pass])->one();
-        if(!empty($user)){
+    public function push()
+    {
+        $user = self::find()->where(['id' => $this->id, 'pass' => $this->pass])->one();
+        if (!empty($user)) {
             $user->fcm_token = $this->fcm_token;
             $user->ios_token = $this->ios_token;
             $user->save();
@@ -215,11 +252,11 @@ class Users extends \yii\db\ActiveRecord
     public function recoverUser($email)
     {
         $user = self::find()->where(['email' => $email])->one();
-        $userSite =  User::find()->where(['email' => $email])->one();
+        $userSite = User::find()->where(['email' => $email])->one();
         if (empty($user)) {
             $this->email = $email;
             $this->pass = Yii::$app->security->generateRandomString(8);
-            if($this->createUser()) {
+            if ($this->createUser()) {
                 $subject = 'Добро пожаловать в VPN MAX';
                 $body = '<p>Здравствуйте, Ваш аккаунт на сайте "VPN MAX" был успешно создан</p> Ваш пароль: ' . $this->pass;
                 $this->sendMail($subject, $body);
