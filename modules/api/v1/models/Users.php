@@ -48,14 +48,12 @@ class Users extends \yii\db\ActiveRecord
 
     public function emailValidate($attribute, $params, $validator)
     {
-
-        $error = Yii::t('user', 'This email address has already been taken');
+        die();
         $user = Accs::find()->where(['email' => $this->email])->one();
         if (!empty($user->email) && $user->email == $this->email) {
-
             if ($user->status == \app\models\VpnUserSettings::$statuses['DELETED']) {
             } else {
-                $this->addError('email', $error);
+                $this->addError('email', 'This email address has already been taken');
                 return false;
             }
         }
@@ -87,7 +85,6 @@ class Users extends \yii\db\ActiveRecord
 
     public function createUser()
     {
-        die();
         // проверка на деактивный юсер если усер уже регался и удалил аккаунт то восстановим
         if($findUser = $this->checkUser()) return $findUser;
 
