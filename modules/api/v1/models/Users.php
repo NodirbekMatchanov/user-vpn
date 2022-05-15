@@ -40,21 +40,19 @@ class Users extends \yii\db\ActiveRecord
             [['email', 'pass'], 'required'],
             [['role', 'promocode', 'used_promocode', 'fcm_token', 'ios_token', 'phone', 'status', 'email',], 'string', 'max' => 255],
             [['vpnid', 'id', 'promo_share', 'verifyCode', 'user_id'], 'integer'],
-            [['email'], 'emailValidate'],
+            ['email', 'emailValidate'],
             ['datecreate', 'safe'],
 //            ['avtoNumber', 'match', 'pattern' => '/^[а-яА-Я]{1}\s?[0-9]{3}\s?[а-яА-Я]{2}\s?[0-9]{2,3}$/ui', 'message' => 'Введите гос номер автомобиля на русском без пробелов'],
         ];
     }
 
-    public function emailValidate()
+    public function emailValidate($attribute)
     {
         $error = Yii::t('user', 'This email address has already been taken');
         $user = Accs::find()->where(['email' => $this->email])->one();
         if (!empty($user->email) && $user->email == $this->email) {
 
             if ($user->status == \app\models\VpnUserSettings::$statuses['DELETED']) {
-                echo "test";
-                die();
             } else {
                 $this->addError('email', $error);
                 return false;
