@@ -75,6 +75,7 @@ class Users extends \yii\db\ActiveRecord
     public function createUser()
     {
         if($thisUser = $this->checkUser()){
+            print_r($thisUser);
             return $thisUser;
         }
 
