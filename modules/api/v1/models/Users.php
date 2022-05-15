@@ -40,25 +40,13 @@ class Users extends \yii\db\ActiveRecord
             [['email', 'pass'], 'required'],
             [['role', 'promocode', 'used_promocode', 'fcm_token', 'ios_token', 'phone', 'status', 'email',], 'string', 'max' => 255],
             [['vpnid', 'id', 'promo_share', 'verifyCode', 'user_id'], 'integer'],
-            ['email', 'emailValidate'],
+//            ['email', 'emailValidate'],
             ['datecreate', 'safe'],
 //            ['avtoNumber', 'match', 'pattern' => '/^[а-яА-Я]{1}\s?[0-9]{3}\s?[а-яА-Я]{2}\s?[0-9]{2,3}$/ui', 'message' => 'Введите гос номер автомобиля на русском без пробелов'],
         ];
     }
 
-    public function emailValidate($attribute, $params, $validator)
-    {
-        die();
-        $user = Accs::find()->where(['email' => $this->email])->one();
-        if (!empty($user->email) && $user->email == $this->email) {
-            if ($user->status == \app\models\VpnUserSettings::$statuses['DELETED']) {
-            } else {
-                $this->addError('email', 'This email address has already been taken');
-                return false;
-            }
-        }
-        return true;
-    }
+
 
     public function checkUser() {
         $user = Accs::find()->where(['email' => $this->email])->one();
@@ -73,6 +61,9 @@ class Users extends \yii\db\ActiveRecord
                 $userModel->save();
 
                return $this->login();
+            } else {
+                $this->addError('email', 'This email address has already been taken');
+                return false;
             }
         }
         return false;
