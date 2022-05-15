@@ -53,6 +53,8 @@ class Users extends \yii\db\ActiveRecord
         if (!empty($user->email) && $user->email == $this->email) {
 
             if ($user->status == \app\models\VpnUserSettings::$statuses['DELETED']) {
+                echo "test";
+                die();
             } else {
                 $this->addError('email', $error);
                 return false;
