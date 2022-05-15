@@ -38,7 +38,7 @@ class Users extends \yii\db\ActiveRecord
     {
         return [
             [['email', 'pass'], 'required'],
-            [['role', 'promocode', 'used_promocode', 'fcm_token', 'ios_token', 'phone', 'status', 'email',], 'string', 'max' => 255],
+            [['role', 'promocode', 'used_promocode', 'fcm_token', 'ios_token', 'phone', 'status', 'email'], 'string', 'max' => 255],
             [['vpnid', 'id', 'promo_share', 'verifyCode', 'user_id'], 'integer'],
 //            ['email', 'emailValidate'],
             ['datecreate', 'safe'],
