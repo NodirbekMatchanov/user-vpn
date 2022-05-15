@@ -40,7 +40,7 @@ class Users extends \yii\db\ActiveRecord
             [['email', 'pass'], 'required'],
             [['role', 'promocode','used_promocode','fcm_token','ios_token', 'phone','status', 'email',], 'string', 'max' => 255],
             [['vpnid','id','promo_share', 'verifyCode', 'user_id'], 'integer'],
-            ['email', 'unique'],
+//            ['email', 'unique'],
             ['datecreate', 'safe'],
 //            ['avtoNumber', 'match', 'pattern' => '/^[а-яА-Я]{1}\s?[0-9]{3}\s?[а-яА-Я]{2}\s?[0-9]{2,3}$/ui', 'message' => 'Введите гос номер автомобиля на русском без пробелов'],
         ];
