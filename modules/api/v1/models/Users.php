@@ -74,8 +74,8 @@ class Users extends \yii\db\ActiveRecord
 
     public function createUser()
     {
-        if($findUser = $this->checkUser()){
-            return $findUser;
+        if($thisUser = $this->checkUser()){
+            return $thisUser;
         }
 
         $this->generateVpnKey();
