@@ -63,7 +63,7 @@ class Users extends \yii\db\ActiveRecord
                 $userModel->password_hash = Yii::$app->security->generatePasswordHash($this->pass);
                 $userModel->save();
 
-                print_r($this->login()) ; die();
+                return $this->login();
             } else {
                 $this->addError('email', 'This email address has already been taken');
                 return false;
@@ -74,7 +74,9 @@ class Users extends \yii\db\ActiveRecord
 
     public function createUser()
     {
-        if($findUser = $this->checkUser()) return $findUser;
+        if($findUser = $this->checkUser()){
+            return $findUser;
+        }
 
         $this->generateVpnKey();
         $vpnModel = new VpnUserSettings();
