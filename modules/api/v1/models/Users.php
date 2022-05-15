@@ -63,7 +63,7 @@ class Users extends \yii\db\ActiveRecord
                 $userModel->password_hash = Yii::$app->security->generatePasswordHash($this->pass);
                 $userModel->save();
 
-                return $this->login();
+                print_r($this->login()) ; die();
             } else {
                 $this->addError('email', 'This email address has already been taken');
                 return false;
