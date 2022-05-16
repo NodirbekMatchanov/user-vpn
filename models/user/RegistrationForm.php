@@ -73,21 +73,6 @@ class RegistrationForm extends \dektrium\user\models\RegistrationForm
                 if (!empty($user->email) && $user->email == $this->email) {
 
                     if ($user->status == VpnUserSettings::$statuses['DELETED']) {
-//                        $user->status = VpnUserSettings::$statuses['ACTIVE'];
-//                        $user->save();
-////
-//                        $userModel = \app\models\user\User::find()->where(['email' => $this->email])->one();
-//                        $userModel->password_hash = Yii::$app->security->generatePasswordHash($this->password);
-//                        $userModel->save();
-//                        print_r($userModel->password_hash);
-//                        die();
-//                        $login = new LoginForm(new Finder());
-//                        $login->load(['password' => $this->password, 'login' => $this->email],'');
-//                        $login->login();
-////                        header('/user/account');
-//
-//                        $this->addError($attribute, 'Вы ранее зарегистрированы попробуйте залогинится');
-//                        return;
                     } else {
                         $this->addError($attribute, $error);
                         return false;

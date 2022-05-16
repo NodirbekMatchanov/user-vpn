@@ -40,6 +40,7 @@ class InApp extends \yii\db\ActiveRecord
         return [
             [['receipt_apple_id', 'quantity', 'product_id', 'transaction_id', 'original_transaction_id', 'purchase_date', 'purchase_date_ms', 'purchase_date_pst', 'original_purchase_date', 'original_purchase_date_ms', 'original_purchase_date_pst', 'is_trial_period', 'in_app_ownership_type'], 'required'],
             [['receipt_apple_id', 'quantity', ], 'integer'],
+            ['transaction_id', 'unique'],
             [['product_id', 'transaction_id','is_trial_period', 'original_transaction_id', 'purchase_date', 'purchase_date_ms', 'purchase_date_pst', 'original_purchase_date', 'original_purchase_date_ms', 'original_purchase_date_pst', 'in_app_ownership_type'], 'string', 'max' => 255],
         ];
     }

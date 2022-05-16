@@ -131,7 +131,7 @@ class VpnIps extends \yii\db\ActiveRecord
     {
         $data = null;
         /*#todo везде использовать эту функцию вместо user->identity->getSettings*/
-        $domain =(self::getSettings()['domain'] ?? 'vpn-max.com');
+        $domain = (self::getSettings()['domain'] ?? 'vpn-max.com');
         $request = json_decode(Yii::$app->request->getRawBody(), true);
         $user = new Users();
         if ($user->load($request, "") && $user->login() && Yii::$app->user->identity->getStatus() == VpnUserSettings::$statuses['ACTIVE']) {

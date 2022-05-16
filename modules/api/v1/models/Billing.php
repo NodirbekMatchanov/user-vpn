@@ -67,7 +67,10 @@ class Billing extends Model
                         $inApp->load((array)$item,'');
                         $inApp->receipt_apple_id = $receiptApple->id;
                         if($inApp->save()){
-                            return  true;
+                            if(!empty($item->expires_date_ms)) {
+
+                            }
+                            return  $data;
                         } else {
                             return $inApp->errors;
                         }
@@ -81,7 +84,7 @@ class Billing extends Model
                         $latest_receipt_info->load((array)$item,'');
                         $latest_receipt_info->receipt_apple_id = $receiptApple->id;
                         if($latest_receipt_info->save()){
-                            return  true;
+                            return  $data;
                         } else {
                             return $latest_receipt_info->errors;
                         }
@@ -92,7 +95,7 @@ class Billing extends Model
                 return $receiptApple->errors;
             }
 
-            return true;
+            return $data;
         }
         return ['error'];
     }

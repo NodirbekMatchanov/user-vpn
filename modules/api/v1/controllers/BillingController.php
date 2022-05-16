@@ -35,7 +35,7 @@ class BillingController extends Controller
         $data = [
             'password' => $billing->password,
             'receipt-data' => $request,
-            'exclude-old-transactions' => false,
+            'exclude-old-transactions' => true,
         ];
         $res = $billing->send("POST", $data);
         if($res) {

@@ -128,7 +128,6 @@ class RegistrationController extends Controller
         if (!$this->module->enableRegistration) {
             throw new NotFoundHttpException();
         }
-
         /** @var RegistrationForm $model */
         $model = \Yii::createObject(RegistrationForm::className());
         $event = $this->getFormEvent($model);
@@ -136,6 +135,11 @@ class RegistrationController extends Controller
         $this->trigger(self::EVENT_BEFORE_REGISTER, $event);
 
         $this->performAjaxValidation($model);
+
+        /*если в куки есть промокод то передаем в модель*/
+        if(isset($_COOKIE['promocode'])){
+            $model->promocode = $_COOKIE['promocode'];
+        }
 
         if ($model->load(\Yii::$app->request->post()) && $model->register()) {
             $this->trigger(self::EVENT_AFTER_REGISTER, $event);
