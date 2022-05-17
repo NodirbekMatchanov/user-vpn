@@ -6,6 +6,7 @@ use app\models\Promocodes;
 use app\models\PromocodesSearch;
 use app\models\TariffPromocode;
 use app\models\UsedPromocodes;
+use app\models\user\User;
 use app\models\UsersPromocode;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
@@ -30,7 +31,7 @@ class PromocodesController extends Controller
                 'rules' => [
                     [
                         'actions' => ['index', 'create', 'update', 'delete', 'status', 'view'],
-                        'allow' => Yii::$app->user->identity->checkAccess(),
+                        'allow' => User::checkAccess(),
                         'roles' => ['@'],
                     ],
                     [
