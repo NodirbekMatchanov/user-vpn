@@ -32,7 +32,7 @@ class UserMenu extends Widget
 
         $this->items = [
             ['label' => Yii::t('user', 'Account'), 'url' => ['/user/settings/account']],
-//            ['label' => Yii::t('user', 'Тариф'), 'url' => ['/user/settings/tariff']],
+            ['label' => Yii::t('user', 'Тариф'), 'url' => ['/user/settings/tariff']],
             [
                 'label' => Yii::t('user', 'Networks'),
                 'url' => ['/user/settings/networks'],

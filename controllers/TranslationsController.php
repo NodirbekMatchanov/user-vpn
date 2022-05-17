@@ -4,6 +4,8 @@ namespace app\controllers;
 
 use app\models\Translations;
 use app\models\TranslationsSearch;
+use app\models\user\User;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -18,17 +20,24 @@ class TranslationsController extends Controller
      */
     public function behaviors()
     {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
-                    ],
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['index', 'create', 'update', 'delete', 'status', 'view'],
+                        'allow' => User::checkAccess(),
+                        'roles' => ['@'],
+                    ]
                 ],
-            ]
-        );
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['post', 'use-code'],
+                ],
+            ],
+        ];
     }
 
     /**

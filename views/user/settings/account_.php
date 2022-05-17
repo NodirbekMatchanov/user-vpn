@@ -34,31 +34,31 @@ $this->params['breadcrumbs'][] = $this->title;
                 <h3 class="panel-title"><?= Html::encode($this->title) ?></h3>
             </div>
             <div class="panel-body">
-                <?php if(!empty($accs->vpn)):?>
-                   <div >
-                       <div class="row">
-                           <label style="text-align: right" class="col-lg-3 control-label">Vpn login: </label>
-                           <div class="col-lg-9"><?=$accs->vpn->username?></div>
-                       </div>
-                       <div class="row">
-                           <label style="text-align: right" class="col-lg-3 control-label">Vpn password: </label>
-                           <div class="col-lg-9"> <?=$accs->vpn->value?></div>
-                       </div>
-<!--                       <div class="row">-->
-<!--                           <label style="text-align: right" class="col-lg-3 control-label">Тариф: </label>-->
-<!--                           <div class="col-lg-9"> /*=$accs->tariff*/</div>-->
-<!--                       </div>-->
-<!--                       <div class="row">-->
-<!--                           <label style="text-align: right" class="col-lg-3 control-label">Дейстует до: </label>-->
-<!--                           <div class="col-lg-9"> /*=date("d.m.Y",$accs->untildate)*/</div>-->
-<!--                       </div>-->
-                       <div class="row">
-                           <label style="text-align: right" class="col-lg-3 control-label">
-<!--                               Html::a( 'Купить','/tariff' ,['class' => 'btn  btn-success']) -->
-                           </label>
-<!--                         Html::a( 'Продлить','/tariff', ['class' => 'btn btn-primary']) -->
-                       </div>
-                   </div>
+                <?php if (!empty($accs->vpn)): ?>
+                    <div>
+                        <div class="row">
+                            <label style="text-align: right" class="col-lg-3 control-label">Vpn login: </label>
+                            <div class="col-lg-9"><?= $accs->vpn->username ?></div>
+                        </div>
+                        <div class="row">
+                            <label style="text-align: right" class="col-lg-3 control-label">Vpn password: </label>
+                            <div class="col-lg-9"> <?= $accs->vpn->value ?></div>
+                        </div>
+                        <div class="row">
+                            <label style="text-align: right" class="col-lg-3 control-label">Тариф: </label>
+                            <div class="col-lg-9"> <?=$accs->tariff?></div>
+                        </div>
+                        <div class="row">
+                            <label style="text-align: right" class="col-lg-3 control-label">Дейстует до: </label>
+                            <div class="col-lg-9"> <?=date("d.m.Y",$accs->untildate)?></div>
+                        </div>
+                        <div class="row">
+                            <label style="text-align: right" class="col-lg-3 control-label">
+                                <?= Html::a('Купить', '/tariff', ['class' => 'btn  btn-success']) ?>
+                            </label>
+                            <?= Html::a('Продлить', '/tariff', ['class' => 'btn btn-primary']) ?>
+                        </div>
+                    </div>
 
 
                 <?php endif; ?>

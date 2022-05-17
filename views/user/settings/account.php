@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
  * @var yii\widgets\ActiveForm $form
  * @var dektrium\user\models\SettingsForm $model
  */
-
+$domain = (\app\models\VpnIps::getSettings()['domain'] ?? 'vpn-max.com');
 $this->title = Yii::t('user', 'Account settings');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -34,18 +34,36 @@ $this->params['breadcrumbs'][] = $this->title;
                 <h3 class="panel-title"><?= Html::encode($this->title) ?></h3>
             </div>
             <div class="panel-body">
-                <?php if(!empty($accs->vpn)):?>
-                   <div >
-                       <div class="row">
-                           <label style="text-align: right" class="col-lg-3 control-label">Vpn login: </label>
-                           <div class="col-lg-9"><?=$accs->vpn->username?></div>
-                       </div>
-                       <div class="row">
-                           <label style="text-align: right" class="col-lg-3 control-label">Vpn password: </label>
-                           <div class="col-lg-9"> <?=$accs->vpn->value?></div>
-                       </div>
-                   </div>
-
+                <?php if (!empty($accs->vpn)): ?>
+                    <div>
+                        <div class="row">
+                            <label style="text-align: right" class="col-lg-3 control-label">Vpn login: </label>
+                            <div class="col-lg-9"><?= $accs->vpn->username ?></div>
+                        </div>
+                        <div class="row">
+                            <label style="text-align: right" class="col-lg-3 control-label">Vpn password: </label>
+                            <div class="col-lg-9"> <?= $accs->vpn->value ?></div>
+                        </div>
+                        <div class="row">
+                            <label style="text-align: right" class="col-lg-3 control-label">Тариф: </label>
+                            <div class="col-lg-9"> <?=$accs->tariff?></div>
+                        </div>
+                        <div class="row">
+                            <label style="text-align: right" class="col-lg-3 control-label">Дейстует до: </label>
+                            <div class="col-lg-9"> <?=date("d.m.Y",$accs->untildate)?></div>
+                        </div>
+                        <div class="row">
+                            <label style="text-align: right" class="col-lg-3 control-label">
+                                <?= Html::a('Купить', '/tariff', ['class' => 'btn  btn-success']) ?>
+                            </label>
+                            <?= Html::a('Продлить', '/tariff', ['class' => 'btn btn-primary']) ?>
+                        </div>
+                    </div>
+                <br>
+                    <div class="row">
+                        <label style="text-align: right" class="col-lg-3 control-label"> Реферальная ссылка: </label>
+                        <div class="col-lg-9"> <input type="text" class="form-control" disabled value="<?="https://".$domain."?ref=".$accs->promocode?>"></div>
+                    </div>
 
                 <?php endif; ?>
                 <hr>
@@ -81,7 +99,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
 
         <?php if ($model->module->enableAccountDelete): ?>
-            <div class="panel panel-danger">
+            <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title"><?= Yii::t('user', 'Delete account') ?></h3>
                 </div>
@@ -99,5 +117,17 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </div>
         <?php endif ?>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Партнерская программа</h3>
+            </div>
+            <div class="panel-body">
+                <p>
+                    Поделитесь промо-ссылкой с Вашими друзьями <?="https://".$domain."?ref=".$accs->promocode?>
+                    За каждого кто зарегистрируется и оплатит подписку, Вы получите неделю использования VPN в подарок
+                    (там показывать промокод юзера персональный)
+                </p>
+            </div>
+        </div>
     </div>
 </div>
