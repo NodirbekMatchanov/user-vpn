@@ -32,12 +32,16 @@ class BillingController extends Controller
     {
         $billing = new Billing();
         $billing->testEnvironment = true;
-        $request = Yii::$app->request->getRawBody();
+        $request = json_decode(Yii::$app->request->getRawBody(),true);
+        if(empty($request['receipt-data']) || empty($request['account_token'])) {
+            return $this->apiError("no valid request");
+        }
         $data = [
             'password' => $billing->password,
-            'receipt-data' => $request,
-            'exclude-old-transactions' => true,
+            'receipt-data' => $request['receipt-data'],
+            'exclude-old-transactions' => false,
         ];
+        $billing->account_token = $request['account_token'];
         $res = $billing->send("POST", $data);
         if($res) {
             return $this->apiItem($res);

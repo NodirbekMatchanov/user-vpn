@@ -25,6 +25,7 @@ class Billing extends Model
     public $testUrl = 'https://sandbox.itunes.apple.com/';
 
     public $receiptData;
+    public $account_token = "";
     public $password = 'd004a1de361b4bc7994656c3426ba426';
 
 //    public function rules()
@@ -35,42 +36,51 @@ class Billing extends Model
 //        ];
 //    }
 
-    public  function send($method = "GET", $data = null)
+    public function send($method = "GET", $data = null)
     {
         $client = new Client();
 
-        if($method == 'GET'){
-            $params =  [
+        if ($method == 'GET') {
+            $params = [
                 'query' => $data
             ];
         } else {
-          $params =  [
+            $params = [
                 'body' => json_encode($data)
             ];
         }
 
-        $response = $client->request($method,($this->testEnvironment ? $this->testUrl : $this->url).'verifyReceipt' , $params);
-        if($response->getStatusCode() == 200){
+        $response = $client->request($method, ($this->testEnvironment ? $this->testUrl : $this->url) . 'verifyReceipt', $params);
+        if ($response->getStatusCode() == 200) {
             $data = json_decode($response->getBody());
-
+             if(empty($data->receipt)) return false;
             $receiptApple = new ReceiptApple();
             $receiptData = (array)$data->receipt;
             $receiptData['status'] = $data->status;
             $receiptData['environment'] = $data->environment;
-            $receiptApple->load($receiptData,'');
+            $receiptApple->load($receiptData, '');
 
-            if($receiptApple->save()){
+            if ($receiptApple->save()) {
                 //in_app
-                if(!empty($receiptData['in_app'])){
+                if (!empty($receiptData['in_app'])) {
                     foreach ($receiptData['in_app'] as $item) {
                         $inApp = new InApp();
-                        $inApp->load((array)$item,'');
+                        $inApp->load((array)$item, '');
                         $inApp->receipt_apple_id = $receiptApple->id;
-                        if($inApp->save()){
-                            if(!empty($item->expires_date_ms)) {
+                        if ($inApp->save()) {
 
+                            if (!empty($item->expires_date_ms)) {
+                                $userId = AppAccountToken::find()->where(['account_token' => $this->account_token])->one()->user_id ?? 0;
+                                if ($userId) {
+                                    $user = Accs::find()->where(['user_id' => $userId])->one();
+                                    $user->untildate = $item->expires_date_ms;
+                                    $user->status = VpnUserSettings::$statuses['ACTIVE'];
+                                    $user->save();
+                                }
                             }
-                            return  $data;
+
+                            return $data;
+
                         } else {
                             return $inApp->errors;
                         }
@@ -78,20 +88,19 @@ class Billing extends Model
                 }
 
                 // latest_receipt_info
-                if(!empty($receiptData['$latest_receipt_info'])){
-                    foreach ($receiptData['$latest_receipt_info'] as $item) {
+                if (!empty($receiptData['latest_receipt_info'])) {
+                    foreach ($receiptData['latest_receipt_info'] as $item) {
                         $latest_receipt_info = new LatestReceiptInfo();
-                        $latest_receipt_info->load((array)$item,'');
+                        $latest_receipt_info->load((array)$item, '');
                         $latest_receipt_info->receipt_apple_id = $receiptApple->id;
-                        if($latest_receipt_info->save()){
-                            return  $data;
+                        if ($latest_receipt_info->save()) {
+                            return $data;
                         } else {
                             return $latest_receipt_info->errors;
                         }
                     }
                 }
-            }
-            else {
+            } else {
                 return $receiptApple->errors;
             }
 
@@ -100,12 +109,13 @@ class Billing extends Model
         return ['error'];
     }
 
-    public function generateToken($email) {
+    public function generateToken($email)
+    {
         $user = User::find()->where(['email' => $email])->one();
         $uuid = self::guidv4();
-        if(!empty($user)) {
+        if (!empty($user)) {
             $uuids = AppAccountToken::find()->where(['user_id' => $user->id])->one();
-            if(empty($uuids)) {
+            if (empty($uuids)) {
                 $uuids = new  AppAccountToken();
                 $uuids->user_id = $user->id;
                 $uuids->account_token = $uuid;
@@ -116,7 +126,8 @@ class Billing extends Model
         return ['Пользователь не найдено'];
     }
 
-    public static function guidv4($data = null) {
+    public static function guidv4($data = null)
+    {
         // Generate 16 bytes (128 bits) of random data or use the data passed into the function.
         $data = $data ?? random_bytes(16);
         assert(strlen($data) == 16);
