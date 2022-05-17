@@ -57,7 +57,7 @@ $(document).ready(function () {
 
     function setPromo(promocode) {
         $.ajax({
-            url: "/used-promocodes/visit-save",
+            url: "/web/used-promocodes/visit-save",
             method: "POST",
             data: {
                 visit: true,
@@ -86,7 +86,7 @@ $(document).ready(function () {
     }
     $(document).on('click', '#usePromocode', function () {
         $.ajax({
-            url: "/promocodes/use-code",
+            url: "/web/promocodes/use-code",
             method: "POST",
             data: {code: $('[name="promocode"]').val()}
         }).done(function (data) {
@@ -104,7 +104,7 @@ $(document).ready(function () {
     })
     $(document).on('click', '#cancelPromocode', function () {
         $.ajax({
-            url: "/promocodes/cancel-code",
+            url: "/web/promocodes/cancel-code",
             method: "POST",
             data: {code: $('[name="promocode"]').val()}
         }).done(function (data) {
@@ -122,7 +122,7 @@ $(document).ready(function () {
     })
     $(document).on('focusout', '[name="register-form[promocode]"]', function () {
         $.ajax({
-            url: "/promocodes/validation",
+            url: "/web/promocodes/validation",
             method: "POST",
             data: {code: $('[name="promocode"]').val()}
         }).done(function (data) {
