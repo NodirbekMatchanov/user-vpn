@@ -192,4 +192,20 @@ class PromocodesController extends Controller
         }
 
     }
+
+    public function actionValidation()
+    {
+        if (Yii::$app->request->isAjax && $code = Yii::$app->request->post('code')) {
+            $usedCodes = UsedPromocodes::find()->where(['promocode' => $code, 'user_id' => Yii::$app->user->identity->getId()])->one();
+            $usedCodeCounts = UsedPromocodes::find()->where(['promocode' => $code])->count();
+            $promoCode = Promocodes::find()->where(['promocode' => $code, 'status' => \app\models\Tariff::ACTIVE])->one();
+            if (empty($usedCodes) && !empty($promoCode)) {
+                if ($promoCode->user_limit < $usedCodeCounts) {
+                    return json_encode(['result' => 'error', 'error' => 'Промокод уже использован']);
+                }
+
+            }
+        }
+        return json_encode(['result' => 'error', 'error' => 'Промокод не найден']);
+    }
 }

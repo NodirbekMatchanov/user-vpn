@@ -131,4 +131,16 @@ class UsedPromocodesController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    public function actionVisitSave()
+    {
+        if (\Yii::$app->request->isAjax && \Yii::$app->request->post('visit')) {
+           $promocode = \Yii::$app->request->post('promocode');
+           $userId = "";
+           if(!\Yii::$app->user->isGuest){
+               $userId = \Yii::$app->user->identity->getId();
+           }
+           UsedPromocodes::saveVisit($userId,$promocode);
+        }
+    }
 }

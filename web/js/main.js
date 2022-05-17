@@ -44,13 +44,26 @@ $(document).ready(function () {
 
     var getParams = URLToArray(window.location.href);
 
-    if(getParams.hasOwnProperty("promocode")) {
+    if(getParams.hasOwnProperty("promocode") && getCookie('promocode') === undefined) {
         setCookie('promocode', getParams.promocode, {secure: true, 'max-age': 3600 *24*30});
+        setPromo(getParams.promocode)
         console.log(getCookie('promocode'))
     }
-    if(getParams.hasOwnProperty("ref")) {
+    if(getParams.hasOwnProperty("ref") && getCookie('promocode') === undefined) {
         setCookie('promocode', getParams.ref, {secure: true, 'max-age': 3600 *24*30});
+        setPromo(getParams.ref)
         console.log(getCookie('promocode'))
+    }
+
+    function setPromo(promocode) {
+        $.ajax({
+            url: "/used-promocodes/visit-save",
+            method: "POST",
+            data: {
+                visit: true,
+                promocode: promocode
+            }
+        })
     }
 
 
@@ -107,13 +120,21 @@ $(document).ready(function () {
 
         })
     })
+    $(document).on('focusout', '[name="register-form[promocode]"]', function () {
+        $.ajax({
+            url: "/promocodes/validation",
+            method: "POST",
+            data: {code: $('[name="promocode"]').val()}
+        }).done(function (data) {
+
+        })
+    })
 
     function setCookie(name, value, options = {}) {
 
         options = {
             path: '/',
         };
-
         if (options.expires instanceof Date) {
             options.expires = options.expires.toUTCString();
         }

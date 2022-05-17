@@ -160,7 +160,7 @@ class RegistrationForm extends \dektrium\user\models\RegistrationForm
         $vpnModel->createAdmin = false;
         if ($vpnModel->save()) {
             /* +1 promocode */
-            $usedPromocode = Accs::setPromoShareCount($this->promocode);
+            $usedPromocode = Accs::setPromoShareCount($this->promocode,$user);
         }
         $user = User::find()->where(['email' => $this->email])->one();
         $profile = Profile::findOne($user->id);
