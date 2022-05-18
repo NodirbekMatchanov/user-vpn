@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Accs;
 use app\models\Promocodes;
 use app\models\PromocodesSearch;
 use app\models\TariffPromocode;
@@ -39,6 +40,11 @@ class PromocodesController extends Controller
                         'allow' => true,
                         'roles' => ['@'],
                     ],
+                    [
+                        'actions' => ['validation'],
+                        'allow' => true,
+                        'roles' => ['?'],
+                    ],
                 ],
             ],
             'verbs' => [
@@ -74,8 +80,21 @@ class PromocodesController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        $usersData = [];
+        $usedUsers = UsedPromocodes::find()->where(['promocode' => $model->promocode, 'type' => UsedPromocodes::SIGNUP])->asArray()->all();
+        if (!empty($usedUsers)) {
+            $userIds = ArrayHelper::map($usedUsers, 'user_id', 'user_id');
+            $userIds = implode(',', $userIds);
+            $usersModel = Accs::find()->where(['IN', 'user_id', $userIds])->asArray()->all();
+            foreach ($usersModel as $item) {
+                $usersData[$item['user_id']] = $item;
+            }
+        }
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'usedUsers' => $usedUsers,
+            'usersData' => $usersData,
         ]);
     }
 
@@ -193,17 +212,28 @@ class PromocodesController extends Controller
 
     }
 
+    /** валидация просокодов
+     * @return false|string
+     */
     public function actionValidation()
     {
         if (Yii::$app->request->isAjax && $code = Yii::$app->request->post('code')) {
-            $usedCodes = UsedPromocodes::find()->where(['promocode' => $code, 'user_id' => Yii::$app->user->identity->getId()])->one();
-            $usedCodeCounts = UsedPromocodes::find()->where(['promocode' => $code])->count();
+            /*промокод юсера*/
+            $userPromo = Accs::find()->where(['promocode' => $code])->one();
+            if (!empty($userPromo)) {
+                return json_encode(['result' => 'user-promocode']);
+            }
+
+            /*прокод админа*/
+            $usedCodeCounts = UsedPromocodes::find()->where(['promocode' => $code])->andWhere(['!=', 'type', UsedPromocodes::VISIT])->count();
             $promoCode = Promocodes::find()->where(['promocode' => $code, 'status' => \app\models\Tariff::ACTIVE])->one();
             if (empty($usedCodes) && !empty($promoCode)) {
                 if ($promoCode->user_limit < $usedCodeCounts) {
                     return json_encode(['result' => 'error', 'error' => 'Промокод уже использован']);
+                } elseif (strtotime($promoCode->expire) < time()) {
+                    return json_encode(['result' => 'error', 'error' => 'Время использования просокода истек']);
                 }
-
+                return json_encode(['result' => 'success', 'description' => $promoCode->description]);
             }
         }
         return json_encode(['result' => 'error', 'error' => 'Промокод не найден']);

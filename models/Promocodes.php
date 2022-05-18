@@ -27,6 +27,10 @@ class Promocodes extends \yii\db\ActiveRecord
 
     public $users = [];
     public $tariffs = [];
+    public $visit;
+    public $payout;
+    public $signup;
+    public $konverstion;
     /**
      * {@inheritdoc}
      */
@@ -73,6 +77,10 @@ class Promocodes extends \yii\db\ActiveRecord
             'country' => 'Страна',
             'created_at' => 'Дата создания',
             'updated_at' => 'Дата изменения',
+            'visit' => 'Посетителей',
+            'signup' => 'Регистраций',
+            'payout' => 'Оплат',
+            'konverstion' => 'Конверсия',
         ];
     }
 

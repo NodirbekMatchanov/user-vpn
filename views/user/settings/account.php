@@ -54,9 +54,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                         <div class="row">
                             <label style="text-align: right" class="col-lg-3 control-label">
-                                <?= Html::a('Купить', '/tariff', ['class' => 'btn  btn-success']) ?>
+                                <?= Html::a('Купить', ['/tariff'], ['class' => 'btn  btn-success']) ?>
                             </label>
-                            <?= Html::a('Продлить', '/tariff', ['class' => 'btn btn-primary']) ?>
+                            <?= Html::a('Продлить', ['/tariff'], ['class' => 'btn btn-primary']) ?>
                         </div>
                     </div>
                 <br>

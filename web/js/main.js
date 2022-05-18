@@ -121,12 +121,23 @@ $(document).ready(function () {
         })
     })
     $(document).on('focusout', '[name="register-form[promocode]"]', function () {
+        $('.valid-promocode').text('');
+        $('.field-register-form-promocode').removeClass('has-error');
         $.ajax({
             url: "/web/promocodes/validation",
             method: "POST",
-            data: {code: $('[name="promocode"]').val()}
+            data: {code: $('[name="register-form[promocode]"]').val()}
         }).done(function (data) {
-
+            data = JSON.parse(data);
+            if(data.result == 'success'){
+                $('.valid-promocode').html("<i>"+data.description+"</i>");
+            }
+            if(data.result == 'error'){
+               setTimeout(function (){
+                   $('.field-register-form-promocode').addClass('has-error');
+               },500)
+                $('.valid-promocode').text(data.error);
+            }
         })
     })
 

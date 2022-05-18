@@ -18,6 +18,7 @@ class UsedPromocodes extends \yii\db\ActiveRecord
     const VISIT = 'visit';
     const SIGNUP = 'signup';
     const PAYOUT = 'payout';
+
     /**
      * {@inheritdoc}
      */
@@ -54,7 +55,8 @@ class UsedPromocodes extends \yii\db\ActiveRecord
         ];
     }
 
-    public static function saveVisit($userId,$promocode){
+    public static function saveVisit($userId, $promocode)
+    {
         $usedModel = new UsedPromocodes();
         $usedModel->type = UsedPromocodes::VISIT;
         $usedModel->user_id = $userId;
@@ -63,7 +65,8 @@ class UsedPromocodes extends \yii\db\ActiveRecord
         $usedModel->save();
     }
 
-    public static function saveSignup($userId,$promocode){
+    public static function saveSignup($userId, $promocode)
+    {
         $usedModel = new UsedPromocodes();
         $usedModel->type = UsedPromocodes::SIGNUP;
         $usedModel->user_id = $userId;
@@ -71,4 +74,36 @@ class UsedPromocodes extends \yii\db\ActiveRecord
         $usedModel->date = date("Y-m-d");
         $usedModel->save();
     }
+
+    public static function usePromocode($userId, $promocode, $type = null)
+    {
+        $promocodeModel = Promocodes::find()->where(['promocode' => $promocode])->one();
+        if (strtotime($promocodeModel->expire) >= time()) {
+            $accs = Accs::find()->where(['user_id' => $userId])->one();
+            $usedCodeCounts = UsedPromocodes::find()->where(['promocode' => $promocode])->andWhere(['!=', 'type', UsedPromocodes::VISIT])->count();
+            if ($promocodeModel->user_limit < $usedCodeCounts) {
+                return json_encode(['result' => 'error', 'error' => 'Промокод уже использован']);
+            }
+            $accs->untildate = $accs->untildate < time() ? time() + (3600 * $promocodeModel->free_day) : $accs->untildate + (3600 * $promocodeModel->free_day);
+            $accs->save();
+
+            $usePromocode = new UsedPromocodes();
+            $usePromocode->user_id = $userId;
+            $usePromocode->type = $type;
+            $usePromocode->date = date("Y-m-d");
+            $usePromocode->promocode = $promocode;
+            $usePromocode->save();
+
+        } else {
+            return 'expire';
+        }
+    }
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCode()
+    {
+        return $this->hasOne(Promocodes::className(), ['promocode' => 'promocode']);
+    }
+
 }

@@ -46,7 +46,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'author')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'country')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'country')->dropDownList(\app\models\Country::getAll()) ?>
 
     <?= $form->field($model, 'tariffs')->widget(\kartik\select2\Select2::className(),[
         'maintainOrder' => true,

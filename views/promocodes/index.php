@@ -28,19 +28,49 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+//            'id',
             'promocode',
+
+            [
+                'attribute' => 'visit',
+                'content' => function ($data) {
+                    $usedPromo = \app\models\UsedPromocodes::find()->where(['promocode' => $data->promocode, 'type' => \app\models\UsedPromocodes::VISIT])->count();
+                    return $usedPromo;
+                }
+            ],
+            [
+                'attribute' => 'signup',
+                'content' => function ($data) {
+                    $usedPromo = \app\models\UsedPromocodes::find()->where(['promocode' => $data->promocode, 'type' => \app\models\UsedPromocodes::SIGNUP])->count();
+                    return $usedPromo;
+                }
+            ],
+            [
+                'attribute' => 'payout',
+                'content' => function ($data) {
+                    $usedPromo = \app\models\UsedPromocodes::find()->where(['promocode' => $data->promocode, 'type' => \app\models\UsedPromocodes::PAYOUT])->count();
+                    return $usedPromo;
+                }
+            ],
+            [
+                'attribute' => 'konverstion',
+                'content' => function ($data) {
+                    $usedPromoVisit = \app\models\UsedPromocodes::find()->where(['promocode' => $data->promocode, 'type' => \app\models\UsedPromocodes::PAYOUT])->count();
+                    $usedPromoPayout = \app\models\UsedPromocodes::find()->where(['promocode' => $data->promocode, 'type' => \app\models\UsedPromocodes::PAYOUT])->count();
+                    return $usedPromoVisit > 0 ? (($usedPromoPayout * 100) / $usedPromoVisit) : 0;
+                }
+            ],
+            'status',
             'expire',
             'user_limit',
-            'status',
             //'description:ntext',
-            //'discount',
+            'discount',
             //'free_day',
             //'comment:ntext',
-            //'author',
-            //'country',
-            //'created_at',
-            //'updated_at',
+            'country',
+            'author',
+            'created_at',
+            'updated_at',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, \app\models\Promocodes $model, $key, $index, $column) {

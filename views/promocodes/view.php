@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Promocodes */
 
-$this->title = $model->id;
+$this->title = $model->promocode;
 $this->params['breadcrumbs'][] = ['label' => 'Промокоды', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -44,5 +44,24 @@ $this->params['breadcrumbs'][] = $this->title;
             'updated_at',
         ],
     ]) ?>
+    <h3>Пользователи</h3>
+    <table id="w0" class="table table-striped table-bordered detail-view">
+        <tbody>
+        <tr>
+            <th>Email</th>
+            <td>дата и время</td>
+            <td>тип подписки</td>
+        </tr>
+    <?php  foreach ($usedUsers as $user): ?>
+        <?php if(!empty($usersData[$user['user_id']])):?>
+        <tr>
+            <th><?=$usersData[$user['user_id']]['email']?></th>
+            <td><?=$user['date']?></td>
+            <td><?=$usersData[$user['user_id']]['tariff']?></td>
+        </tr>
+        <?php endif; ?>
+    <?php endforeach;?>
+        </tbody>
+    </table>
 
 </div>

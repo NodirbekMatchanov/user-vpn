@@ -168,10 +168,12 @@ class LoginForm extends Model
     {
         if (parent::beforeValidate()) {
             $this->user = $this->finder->findUserByUsernameOrEmail(trim($this->login));
-            $accs = Accs::find()->where(['email' => $this->user->email])->one();
-            if(!empty($accs) && $accs->status == VpnUserSettings::$statuses['DELETED']) {
-                $this->addError('login', Yii::t('user', 'Пользователь не найдено'));
-                return false;
+            if(!empty($this->user)){
+                $accs = Accs::find()->where(['email' => $this->user->email])->one();
+                if(!empty($accs) && $accs->status == VpnUserSettings::$statuses['DELETED']) {
+                    $this->addError('login', Yii::t('user', 'Пользователь не найдено'));
+                    return false;
+                }
             }
             return true;
         } else {

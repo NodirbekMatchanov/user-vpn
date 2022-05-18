@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= $form->field($model, 'utm_medium')->textInput(['value' => Yii::$app->request->get('utm_medium')])->hiddenInput()->label(false) ?>
 
                 <?= $form->field($model, 'promocode')->textInput(['value' => (Yii::$app->request->get('ref'))]) ?>
-                <div class="valid-promocode">
+                <div style="margin-top: -10px;  margin-bottom: 5px;" class="valid-promocode">
 
                 </div>
                 <?php if ($module->enableGeneratingPassword == false): ?>
