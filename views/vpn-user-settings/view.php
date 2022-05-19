@@ -10,6 +10,9 @@ $this->title = $model->accs->email ?? '';
 $this->params['breadcrumbs'][] = ['label' => 'Список пользователей', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
+
+$promocodes = \app\models\UsedPromocodes::find()->where(['user_id'])->all();
+
 ?>
 <div class="vpn-user-settings-view">
 
@@ -60,49 +63,49 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'tariff',
                 'content' => function ($data) {
-                    return $data->accs->tariff ;
+                    return $data->accs->tariff;
                 }
             ],
             [
                 'attribute' => 'comment',
                 'content' => function ($data) {
-                    return $data->accs->comment ;
+                    return $data->accs->comment;
                 }
             ],
             [
                 'attribute' => 'test_user',
                 'content' => function ($data) {
-                    return $data->accs->test_user ? 'Да' : 'Нет' ;
+                    return $data->accs->test_user ? 'Да' : 'Нет';
                 }
             ],
             [
                 'attribute' => 'promocode',
                 'content' => function ($data) {
-                    return $data->accs->promocode ?? '' ;
+                    return $data->accs->promocode ?? '';
                 }
             ],
             [
                 'attribute' => 'utm_source',
                 'content' => function ($data) {
-                    return $data->accs->utm_source ?? '' ;
+                    return $data->accs->utm_source ?? '';
                 }
             ],
             [
                 'attribute' => 'utm_medium',
                 'content' => function ($data) {
-                    return $data->accs->utm_medium ?? '' ;
+                    return $data->accs->utm_medium ?? '';
                 }
             ],
             [
                 'attribute' => 'utm_campaign',
                 'content' => function ($data) {
-                    return $data->accs->utm_campaign ?? '' ;
+                    return $data->accs->utm_campaign ?? '';
                 }
             ],
             [
                 'attribute' => 'utm_term',
                 'content' => function ($data) {
-                    return $data->accs->utm_term ?? '' ;
+                    return $data->accs->utm_term ?? '';
                 }
             ],
             [
@@ -138,10 +141,28 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'phone',
                 'content' => function ($data) {
-                    return $data->accsp->profile->phone ?? '-' ;
+                    return $data->accsp->profile->phone ?? '-';
                 }
             ],
         ],
     ]) ?>
-
+    <h3>Пользователи</h3>
+    <table id="w0" class="table table-striped table-bordered detail-view">
+        <tbody>
+        <tr>
+            <th>Email</th>
+            <td>дата и время</td>
+            <td>тип подписки</td>
+        </tr>
+    <?php if (!empty($promocodes)): ?>
+        <?php foreach ($promocodes as $promocode): ?>
+            <tr>
+                <th><?=$promocode->promocode?></th>
+                <td><?=$promocode->date?></td>
+                <td><?=$promocode->type?></td>
+            </tr>
+        <?php endforeach; ?>
+    <?php endif; ?>
+        </tbody>
+    </table>
 </div>
