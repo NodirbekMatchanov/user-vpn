@@ -46,11 +46,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                         <div class="row">
                             <label style="text-align: right" class="col-lg-3 control-label">Тариф: </label>
-                            <div class="col-lg-9"> <?=$accs->tariff?></div>
+                            <div class="col-lg-9"> <?= $accs->tariff ?></div>
                         </div>
                         <div class="row">
                             <label style="text-align: right" class="col-lg-3 control-label">Дейстует до: </label>
-                            <div class="col-lg-9"> <?=date("d.m.Y",$accs->untildate)?></div>
+                            <div class="col-lg-9"> <?= date("d.m.Y", $accs->untildate) ?></div>
                         </div>
                         <div class="row">
                             <label style="text-align: right" class="col-lg-3 control-label">
@@ -59,10 +59,12 @@ $this->params['breadcrumbs'][] = $this->title;
                             <?= Html::a('Продлить', ['/tariff'], ['class' => 'btn btn-primary']) ?>
                         </div>
                     </div>
-                <br>
+                    <br>
                     <div class="row">
                         <label style="text-align: right" class="col-lg-3 control-label"> Реферальная ссылка: </label>
-                        <div class="col-lg-9"> <input type="text" class="form-control" disabled value="<?="https://".$domain."?ref=".$accs->promocode?>"></div>
+                        <div class="col-lg-9"><input type="text" class="form-control" disabled
+                                                     value="<?= "https://" . $domain . "?ref=" . $accs->promocode ?>">
+                        </div>
                     </div>
 
                 <?php endif; ?>
@@ -123,7 +125,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
             <div class="panel-body">
                 <p>
-                    Поделитесь промо-ссылкой с Вашими друзьями <?="https://".$domain."?ref=".$accs->promocode?>
+                    Поделитесь промо-ссылкой с Вашими друзьями <?= "https://" . $domain . "?ref=" . $accs->promocode ?>
                     За каждого кто зарегистрируется и оплатит подписку, Вы получите неделю использования VPN в подарок
                     (там показывать промокод юзера персональный)
                 </p>
