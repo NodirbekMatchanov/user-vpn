@@ -243,10 +243,8 @@ class RegistrationController extends Controller
         $accs->save();
         $this->trigger(self::EVENT_AFTER_CONFIRM, $event);
 
-        return $this->render('/message', [
-            'title' => \Yii::t('user', 'Account confirmation'),
-            'module' => $this->module,
-        ]);
+        $this->redirect(['/user/settings/account']);
+
     }
 
     /**

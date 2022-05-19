@@ -44,6 +44,7 @@ class RegistrationForm extends \dektrium\user\models\RegistrationForm
     public $username;
 
     public $phone;
+    public $password_repeat;
     public $promocode;
     public $utm_source;
     public $utm_medium;
@@ -65,7 +66,7 @@ class RegistrationForm extends \dektrium\user\models\RegistrationForm
         return [
             // username rules
             'usernameLength' => [['username', 'utm_source', 'utm_term', 'utm_campaign', 'utm_medium', 'phone', 'promocode'], 'string', 'min' => 3, 'max' => 255],
-
+            'password_repeat' => ['password_repeat', 'compare','compareAttribute' => 'password'],
             // email rules
             'emailValidate' => ['email', function ($attribute) {
                 $error = Yii::t('user', 'This email address has already been taken');
@@ -106,6 +107,7 @@ class RegistrationForm extends \dektrium\user\models\RegistrationForm
             'email' => Yii::t('user', 'Email'),
             'username' => Yii::t('user', 'Username'),
             'password' => Yii::t('user', 'Password'),
+            'password_repeat' => 'Павторный пароль',
             'phone' => Yii::t('user', 'Телефон'),
             'promocode' => Yii::t('user', 'Промокод'),
         ];

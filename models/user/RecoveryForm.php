@@ -35,6 +35,7 @@ class RecoveryForm extends Model
      * @var string
      */
     public $password;
+    public $password_repeat;
 
     /**
      * @var Mailer
@@ -66,6 +67,7 @@ class RecoveryForm extends Model
         return [
             'email'    => \Yii::t('user', 'Email'),
             'password' => \Yii::t('user', 'Password'),
+            'password_repeat' => 'Павторный пароль',
         ];
     }
 
@@ -76,7 +78,7 @@ class RecoveryForm extends Model
     {
         return [
             self::SCENARIO_REQUEST => ['email'],
-            self::SCENARIO_RESET => ['password'],
+            self::SCENARIO_RESET => ['password','password_repeat'],
         ];
     }
 
@@ -89,7 +91,8 @@ class RecoveryForm extends Model
             'emailTrim' => ['email', 'trim'],
             'emailRequired' => ['email', 'required'],
             'emailPattern' => ['email', 'email'],
-            'passwordRequired' => ['password', 'required'],
+            'passwordRequired' => [['password','password_repeat'], 'required'],
+            'password_repeat' => ['password_repeat', 'compare','compareAttribute' => 'password'],
             'passwordLength' => ['password', 'string', 'max' => 72, 'min' => 6],
         ];
     }

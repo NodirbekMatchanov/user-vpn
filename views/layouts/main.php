@@ -72,8 +72,8 @@ AppAsset::register($this);
                     ['label' => 'Серверы', 'url' => ['/vpn-ips/list']],
                     ['label' => 'Справочник', 'url' => ['/support/categories']],
                     ['label' => 'Тариф', 'url' => ['/tariff/index']],
-                    ['label' => 'Промокоды', 'url' => ['/used-promocodes/index']],
-                    ['label' => 'Покупки', 'url' => ['/payment/index']],
+//                    ['label' => 'Промокоды', 'url' => ['/used-promocodes/index']],
+//                    ['label' => 'Покупки', 'url' => ['/payment/index']],
 
                 ];
             }

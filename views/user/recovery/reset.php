@@ -31,10 +31,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?php $form = ActiveForm::begin([
                     'id' => 'password-recovery-form',
                     'enableAjaxValidation' => true,
-                    'enableClientValidation' => false,
+                    'enableClientValidation' => true,
                 ]); ?>
 
                 <?= $form->field($model, 'password')->passwordInput() ?>
+                <?= $form->field($model, 'password_repeat')->passwordInput() ?>
 
                 <?= Html::submitButton(Yii::t('user', 'Finish'), ['class' => 'btn btn-success btn-block']) ?><br>
 

@@ -16,14 +16,32 @@ html, body{
 .wrap_ {
     min-height: 100%;
     height: auto;
-    margin: 0 auto -60px;
     padding: 0 0 60px;
+}
+.clearfix:before, .clearfix:after, .dl-horizontal dd:before, .dl-horizontal dd:after, .container:before, .container:after, .container-fluid:before, .container-fluid:after, .row:before, .row:after, .form-horizontal .form-group:before, .form-horizontal .form-group:after, .btn-toolbar:before, .btn-toolbar:after, .btn-group-vertical > .btn-group:before, .btn-group-vertical > .btn-group:after, .nav:before, .nav:after, .navbar:before, .navbar:after, .navbar-header:before, .navbar-header:after, .navbar-collapse:before, .navbar-collapse:after, .pager:before, .pager:after, .panel-body:before, .panel-body:after, .modal-header:before, .modal-header:after, .modal-footer:before, .modal-footer:after{
+    display:none;
+}
+.navbar .container, .navbar .container-fluid, .navbar .container-sm, .navbar .container-md, .navbar .container-lg, .navbar .container-xl{
+    display: block!important;
+}
+body {
+    font-size: 14px!important;
+    line-height: 1.42857143!important;
 }
 .footer > .container {
     padding-right: 15px;
     padding-left: 15px;
 }
-
+.navbar-nav{
+    flex-direction:row!important;
+}
+.navbar-brand {
+    float: left!important;
+    height: 50px!important;
+    padding: 15px 15px!important;
+    font-size: 18px!important;
+    line-height: 20px!important;
+}
 .not-set {
     color: #c55;
     font-style: italic;
