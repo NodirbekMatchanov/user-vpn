@@ -55,7 +55,7 @@ class UsedPromocodesSearch extends UsedPromocodes
             // $query->where('0=1');
             return $dataProvider;
         }
-
+        $query->andWhere(['user_id' => \Yii::$app->user->identity->getId()]);
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,

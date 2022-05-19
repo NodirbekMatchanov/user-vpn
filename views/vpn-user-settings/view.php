@@ -10,8 +10,10 @@ $this->title = $model->accs->email ?? '';
 $this->params['breadcrumbs'][] = ['label' => 'Список пользователей', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
-
-$promocodes = \app\models\UsedPromocodes::find()->where(['user_id' => $model->id])->all();
+$promocodes = [];
+if(!empty($model->accs->user_id)) {
+    $promocodes = \app\models\UsedPromocodes::find()->where(['user_id' => $model->accs->user_id])->all();
+}
 
 ?>
 <div class="vpn-user-settings-view">
@@ -146,13 +148,13 @@ $promocodes = \app\models\UsedPromocodes::find()->where(['user_id' => $model->id
             ],
         ],
     ]) ?>
-    <h3>Пользователи</h3>
+    <h3>Промокоды</h3>
     <table id="w0" class="table table-striped table-bordered detail-view">
         <tbody>
         <tr>
-            <th>Email</th>
-            <td>дата и время</td>
-            <td>тип подписки</td>
+            <th>Промокод</th>
+            <td>Дата</td>
+            <td>Тип</td>
         </tr>
     <?php if (!empty($promocodes)): ?>
         <?php foreach ($promocodes as $promocode): ?>
