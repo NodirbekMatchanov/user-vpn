@@ -180,10 +180,7 @@ class RegistrationForm extends \dektrium\user\models\RegistrationForm
 
         Yii::$app->session->setFlash(
             'info',
-            Yii::t(
-                'user',
-                'Your account has been created and a message with further instructions has been sent to your email'
-            )
+            'Спасибо за регистрацию. Чтобы активировать эккаунт, пожалуйста введите код активации который мы направили вам на почту или перейдите по ссылке в письме.'
         );
 
         return true;
