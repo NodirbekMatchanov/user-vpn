@@ -11,7 +11,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Список пользовате�
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 
-$promocodes = \app\models\UsedPromocodes::find()->where(['user_id'])->all();
+$promocodes = \app\models\UsedPromocodes::find()->where(['user_id' => $model->id])->all();
 
 ?>
 <div class="vpn-user-settings-view">
