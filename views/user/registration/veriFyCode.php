@@ -12,9 +12,8 @@ use yii\widgets\ActiveForm;
                 'id' => 'registration-form',
             ]); ?>
 
-            <?= $form->field($verifyCode, 'email') ?>
             <?= $form->field($verifyCode, 'code') ?>
-        <?= Html::submitButton('Подтвердит', ['class' => 'btn btn-success btn-block']) ?>
+        <?= Html::submitButton('Активировать', ['class' => 'btn btn-success btn-block']) ?>
 
             <?php ActiveForm::end(); ?>
 

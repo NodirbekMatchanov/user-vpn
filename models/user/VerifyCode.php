@@ -28,7 +28,7 @@ class VerifyCode extends Model
     public function rules()
     {
         return [
-            [['code','email'], 'required'],
+            [['code'], 'required'],
             [['code','email'], 'string', 'max' => 255],
             [['code'], 'check'],
         ];
@@ -46,7 +46,7 @@ class VerifyCode extends Model
     }
 
     function check() {
-        $this->user = Accs::find()->where(['email' => $this->email, 'verifyCode' => $this->code])->one();
+        $this->user = Accs::find()->where([ 'verifyCode' => $this->code])->one();
         if(empty($this->user)){
            $this->addError('code','Не корректный код');
             return false;
