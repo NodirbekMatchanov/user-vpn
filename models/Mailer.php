@@ -177,6 +177,16 @@ class Mailer extends \dektrium\user\Mailer
         );
     }
 
+    public function sendActivateAccount($user)
+    {
+        return $this->sendMessage(
+            $user->email,
+            $this->getWelcomeSubject(),
+            'activate',
+            ['user' => $user]
+        );
+    }
+
 
     public function sendErrorPaymentMessage($user)
     {

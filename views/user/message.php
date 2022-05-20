@@ -18,7 +18,7 @@ $this->title = $title;
 if(!empty($redirect) && $redirect){
     echo "<script> setTimeout(function () {
     window.location.href = '/web/user/settings/account';
-},2000) </script>";
+},3000) </script>";
 }
 ?>
 <?= $this->render('/_alert', ['module' => $module]);

@@ -13,6 +13,7 @@ namespace app\controllers\user;
 
 use app\models\Accs;
 use app\models\LoginForm;
+use app\models\Mailer;
 use app\models\user\VerifyCode;
 use app\modules\api\v1\models\VpnUserSettings;
 use dektrium\user\Finder;
@@ -160,7 +161,7 @@ class RegistrationController extends Controller
         $model = new LoginForm();
 
         if($verifyCode->load(\Yii::$app->request->post()) && $verifyCode->validate()){
-            \Yii::$app->getSession()->setFlash('success', 'successfully got on to the payment page');
+            \Yii::$app->getSession()->setFlash('success', 'Ваш аккаунт успешно активирован!');
             if($model->load(['username' => $verifyCode->user->email, 'password' => $verifyCode->user->pass],'') && $model->login()){
                 return $this->render('/message', [
                     'title' => "Ваш аккаунт успешно активирован!",
@@ -246,8 +247,15 @@ class RegistrationController extends Controller
         $accs->untildate = date("Y-m-d",$accs->untildate) == date("Y-m-d") ? ($accs->untildate + (24*3600*3)) : strtotime('+ 3 days') ;
         $accs->save();
         $this->trigger(self::EVENT_AFTER_CONFIRM, $event);
+        $mailer = new Mailer();
+        $mailer->sendActivateAccount($accs);
 
-        $this->redirect(['/user/settings/account']);
+        \Yii::$app->getSession()->setFlash('success', 'Ваш аккаунт успешно активирован!');
+        return $this->render('/message', [
+            'title' => "Ваш аккаунт успешно активирован!",
+            'module' => $this->module,
+            'redirect' => 1,
+        ]);
 
     }
 
