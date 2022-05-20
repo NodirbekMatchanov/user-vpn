@@ -28,7 +28,7 @@ use kartik\date\DatePicker;
     <?= $form->field($model, 'role')->dropDownList(\app\models\VpnUserSettings::$roles) ?>
     <?= $form->field($model, 'phone')->textInput() ?>
     <?= $form->field($model, 'comment')->textarea() ?>
-    <?= $form->field($model, 'country')->dropDownList(\app\models\Country::getAll()) ?>
+    <?= $form->field($model, 'country')->dropDownList(array_merge(['' => ''],\app\models\Country::getAll())) ?>
 
     <?= $form->field($model, 'test_user')->checkbox() ?>
     <?= $form->field($model, 'background_work')->checkbox() ?>
