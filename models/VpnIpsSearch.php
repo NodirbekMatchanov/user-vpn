@@ -40,7 +40,7 @@ class VpnIpsSearch extends VpnIps
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params, $status = null)
     {
         $query = VpnIps::find();
 
@@ -118,7 +118,9 @@ class VpnIpsSearch extends VpnIps
             ]]);
         $this->load($params);
         $query->joinWith('serverLoad');
-
+        if($status) {
+            $query->andWhere(['status' => $status]);
+        }
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');

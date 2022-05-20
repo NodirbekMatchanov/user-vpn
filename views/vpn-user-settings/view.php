@@ -65,19 +65,32 @@ if(!empty($model->accs->user_id)) {
             [
                 'attribute' => 'tariff',
                 'content' => function ($data) {
-                    return $data->accs->tariff;
+                    return $data->accs->tariff ?? '';
                 }
             ],
             [
+                'attribute' => 'role',
+                'content' => function ($data) {
+                    return $data->accs->role ?? '';
+                }
+            ],
+
+            [
                 'attribute' => 'comment',
                 'content' => function ($data) {
-                    return $data->accs->comment;
+                    return $data->accs->comment ?? '';
                 }
             ],
             [
                 'attribute' => 'test_user',
                 'content' => function ($data) {
                     return $data->accs->test_user ? 'Да' : 'Нет';
+                }
+            ],
+            [
+                'attribute' => 'background_work',
+                'content' => function ($data) {
+                    return $data->accs->background_work ? 'Да' : 'Нет';
                 }
             ],
             [
@@ -113,31 +126,31 @@ if(!empty($model->accs->user_id)) {
             [
                 'attribute' => 'use_ios',
                 'content' => function ($data) {
-                    return $data->accs->use_ios;
+                    return $data->accs->use_ios ?? '';
                 }
             ],
             [
                 'attribute' => 'use_android',
                 'content' => function ($data) {
-                    return $data->accs->use_android;
+                    return $data->accs->use_android ?? '';
                 }
             ],
             [
                 'attribute' => 'last_date_visit',
                 'content' => function ($data) {
-                    return $data->accs->last_date_visit;
+                    return $data->accs->last_date_visit ?? '';
                 }
             ],
             [
                 'attribute' => 'visit_count',
                 'content' => function ($data) {
-                    return $data->accs->visit_count;
+                    return $data->accs->visit_count ?? '';
                 }
             ],
             [
                 'attribute' => 'fcm_token',
                 'content' => function ($data) {
-                    return $data->accs->fcm_token;
+                    return $data->accs->fcm_token ?? '';
                 }
             ],
             [

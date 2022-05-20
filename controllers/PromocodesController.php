@@ -218,23 +218,7 @@ class PromocodesController extends Controller
     public function actionValidation()
     {
         if (Yii::$app->request->isAjax && $code = Yii::$app->request->post('code')) {
-            /*промокод юсера*/
-            $userPromo = Accs::find()->where(['promocode' => $code])->one();
-            if (!empty($userPromo)) {
-                return json_encode(['result' => 'user-promocode']);
-            }
-
-            /*прокод админа*/
-            $usedCodeCounts = UsedPromocodes::find()->where(['promocode' => $code])->andWhere(['!=', 'type', UsedPromocodes::VISIT])->count();
-            $promoCode = Promocodes::find()->where(['promocode' => $code, 'status' => \app\models\Tariff::ACTIVE])->one();
-            if (empty($usedCodes) && !empty($promoCode)) {
-                if ($promoCode->user_limit < $usedCodeCounts) {
-                    return json_encode(['result' => 'error', 'error' => 'Промокод уже использован']);
-                } elseif (strtotime($promoCode->expire) < time()) {
-                    return json_encode(['result' => 'error', 'error' => 'Время использования просокода истек']);
-                }
-                return json_encode(['result' => 'success', 'description' => $promoCode->description]);
-            }
+           UsedPromocodes::ValidationPromoCode($code);
         }
         return json_encode(['result' => 'error', 'error' => 'Промокод не найден']);
     }

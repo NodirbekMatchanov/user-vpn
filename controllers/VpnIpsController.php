@@ -79,7 +79,7 @@ class VpnIpsController extends Controller
     public function actionList()
     {
         $searchModel = new VpnIpsSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        $dataProvider = $searchModel->search($this->request->queryParams, \app\models\VpnUserSettings::$statuses['ACTIVE']);
 
         return $this->render('user/index', [
             'searchModel' => $searchModel,
