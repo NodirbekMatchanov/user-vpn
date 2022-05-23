@@ -136,12 +136,12 @@ class VpnIps extends \yii\db\ActiveRecord
         $user = new Users();
         if ($user->load($request, "") && $user->login() && Yii::$app->user->identity->getStatus() == VpnUserSettings::$statuses['ACTIVE']) {
             if(isset($request['vpnLogin']) && VpnUserSettings::find()->where(['username' => $request['vpnLogin']])->one() && !$user->tariff && $user->tariff != 'Free') {
-                $vpnIps = VpnIps::find()->orderBy('type desc')->joinWith('certs')->all();
+                $vpnIps = VpnIps::find()->orderBy('type desc')->joinWith('certs')->joinWith('serverLoad')->all();
             } else {
-                $vpnIps = VpnIps::find()->orderBy('id desc')->joinWith('certs')->all();
+                $vpnIps = VpnIps::find()->orderBy('id desc')->joinWith('certs')->joinWith('serverLoad')->all();
             }
         } else {
-            $vpnIps = VpnIps::find()->where(['type' => VpnUserSettings::$types['Free']])->joinWith('certs')->orderBy('id desc')->all();
+            $vpnIps = VpnIps::find()->where(['type' => VpnUserSettings::$types['Free']])->joinWith('certs')->joinWith('serverLoad')->orderBy('id desc')->all();
         }
 
         $core_cert = Settings::find()->where(['name' => 'core_cert'])->one();
@@ -175,7 +175,7 @@ class VpnIps extends \yii\db\ActiveRecord
                     'city' => $server->city,
 //                    'core_cert' => 'https://www.vpn-max.com/web/certs/' .$server->cert,
                     'cert' => $certs,
-                    'load' => $server->load_serv->la ?? 0,
+                    'load' => $server->serverLoad->la ?? 0,
                     'type' => $server->type,
                 ];
             }
