@@ -5,6 +5,7 @@ RewriteEngine on
 RewriteCond %{REQUEST_URI} !^/(web)
 RewriteCond %{REQUEST_URI} !^/(api)
 RewriteCond %{REQUEST_URI} !^/(api2)
+RedirectMatch 301 ^/web/site/privacy /site/privacy
 
 RewriteCond %{REQUEST_URI} !^/(web)
 RewriteRule ^assets/(.*)$ /web/assets/$1 [L]
