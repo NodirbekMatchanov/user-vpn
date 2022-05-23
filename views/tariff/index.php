@@ -273,7 +273,7 @@ $discount = $code['code']['discount'] ?? 0;
                 <div class="pricingTable green">
                     <div class="pricingTable-header">
                         <i class="fa fa-briefcase"></i>
-                        <div class="price-value"> <?=$price.' '.$item->currency ?> <span class="month"><?=$item->period?> дней</span></div>
+                        <div class="price-value"> <?=$price.' '.$item->currency ?> <span class="month"><?=30?> дней</span></div>
                     </div>
                     <h3 class="heading"><?=$item->name?></h3>
                     <div class="pricing-content">
@@ -282,7 +282,7 @@ $discount = $code['code']['discount'] ?? 0;
                         </ul>
                     </div>
                     <div class="pricingTable-signup">
-                        <a class="pay" data-id="<?=$item->id?>" data-period="<?=$item->period?>" data-price="<?=$price?>" data-type="premium" href="#">Купить</a>
+                        <a class="pay" data-id="<?=$item->id?>" data-period="<?=30?>" data-price="<?=$price?>" data-type="premium" href="#">Купить</a>
                     </div>
                 </div>
             </div>
@@ -294,7 +294,7 @@ $discount = $code['code']['discount'] ?? 0;
                 <div class="pricingTable green">
                     <div class="pricingTable-header">
                         <i class="fa fa-briefcase"></i>
-                        <div class="price-value"> <?=$price.' '.$item->currency ?> <span class="month"><?=$item->period?> дней</span></div>
+                        <div class="price-value"> <?=$price.' '.$item->currency ?> <span class="month"><?=180?> дней</span></div>
                     </div>
                     <h3 class="heading"><?=$item->name?></h3>
                     <div class="pricing-content">
@@ -303,7 +303,7 @@ $discount = $code['code']['discount'] ?? 0;
                         </ul>
                     </div>
                     <div class="pricingTable-signup">
-                        <a class="pay" data-id="<?=$item->id?>" data-period="<?=$item->period?>" data-price="<?=$price?>" data-type="premium" href="#">Купить</a>
+                        <a class="pay" data-id="<?=$item->id?>" data-period="<?=180?>" data-price="<?=$price?>" data-type="premium" href="#">Купить</a>
                     </div>
                 </div>
             </div>
@@ -315,7 +315,7 @@ $discount = $code['code']['discount'] ?? 0;
                 <div class="pricingTable green">
                     <div class="pricingTable-header">
                         <i class="fa fa-briefcase"></i>
-                        <div class="price-value"> <?=$price.' '.$item->currency ?> <span class="month"><?=$item->period?> дней</span></div>
+                        <div class="price-value"> <?=$price.' '.$item->currency ?> <span class="month"><?=365?> дней</span></div>
                     </div>
                     <h3 class="heading"><?=$item->name?></h3>
                     <div class="pricing-content">
@@ -324,7 +324,7 @@ $discount = $code['code']['discount'] ?? 0;
                         </ul>
                     </div>
                     <div class="pricingTable-signup">
-                        <a class="pay" data-id="<?=$item->id?>" data-period="<?=$item->period?>" data-price="<?=$price?>" data-type="premium" href="#">Купить</a>
+                        <a class="pay" data-id="<?=$item->id?>" data-period="365" data-price="<?=$price?>" data-type="premium" href="#">Купить</a>
                     </div>
                 </div>
             </div>
