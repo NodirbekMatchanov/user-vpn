@@ -15,9 +15,10 @@
  */
 
 $this->title = $title;
+$url= \yii\helpers\Url::to(['/user/settings/account']);
 if(!empty($redirect) && $redirect){
     echo "<script> setTimeout(function () {
-    window.location.href = '/web/user/settings/account';
+    window.location.href = $url;
 },3000) </script>";
 }
 ?>
