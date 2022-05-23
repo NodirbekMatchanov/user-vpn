@@ -1,0 +1,139 @@
+
+.steps
+	$this: &
+	margin-top: 113px
+
+	&-items
+		display: grid
+		grid-template-columns: 1fr 1fr 1fr
+		grid-gap: 30px
+		margin-top: 26px
+
+	&-item
+		border-radius: 20px
+		border: 1px solid $blue
+		position: relative
+		padding: 18px 30px 20px
+		box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1)
+		position: relative
+
+		&:before
+			content: ''
+			display: block
+			size: 10px
+			border-radius: 10px
+			background: $cyan
+			+position(absolute, 50% null null calc(100% + 10px))
+
+		&:last-child
+			&:before
+				content: none
+
+		&._accent
+			+bg($blue, url('../img/steps-bg.svg'), contain, center, no-repeat)
+			+flex(center)
+			padding-left: 20px
+			padding-top: 30px
+			color: #fff
+
+			#{$this}-number
+				color: #fff
+
+			#{$this}-text
+				font-size: 18px
+				line-height: lh(21.78, 18)
+
+	&-number
+		+position(absolute, null 20px 18px null)
+		font-size: 24px
+		line-height: 1
+		color: $cyan
+		font-weight: medium
+
+	&-title
+		color: $blue
+		font-size: 18px
+		font-weight: medium
+
+	&-text
+		font-size: 14px
+		font-weight: normal
+		line-height: lh(19.6, 14)
+		margin-top: 5px
+
+	&-img
+		margin-right: -12px
+		flex-shrink: 0
+		img
+			max-height: 120px
+
+
+	@media (max-width: 1300px)
+		margin-top: 100px
+
+		&-text
+			br
+				display: none
+
+	@media (max-width: 1100px)
+		margin-top: 85px
+
+		&-title
+			font-size: 17px
+
+		&-text
+			font-size: 13px
+
+		&-img
+			img
+				max-height: 100px
+
+		&-item
+			padding: 18px 20px 20px
+
+			&._accent
+				padding-left: 12px
+				padding-right: 20px
+				padding-top: 30px
+
+				#{$this}-text
+					font-size: 16px
+
+	@media (max-width: 900px)
+		&-items
+			display: flex
+			flex-wrap: wrap
+			justify-content: space-between
+			grid-gap: 0
+			// grid-template-columns: 1fr
+
+		&-text
+			max-width: 600px
+
+		&-item
+			width: calc(50% - 15px)
+			margin-bottom: 30px
+			border-radius: 12px
+
+			&:before
+				content: none
+
+			&:not(._accent)
+				padding-bottom: 35px
+
+			&._accent
+				width: 100%
+				margin-bottom: 0
+				justify-content: center
+
+				#{$this}-text
+					max-width: 200px
+
+		&-number
+			+position(absolute, null 12px 10px null)
+			font-size: 20px
+
+	@media (max-width: 576px)
+		&-item
+			width: 100%
+			margin-bottom: 20px

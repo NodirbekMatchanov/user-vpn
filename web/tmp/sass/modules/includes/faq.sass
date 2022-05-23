@@ -1,0 +1,123 @@
+
+.faq
+	$this: &
+	margin-top: 90px
+
+	&-items
+		display: grid
+		grid-template-columns: 1fr 1fr
+		grid-gap: 40px
+		margin-top: 30px
+
+	&-col
+		margin-bottom: -20px
+
+	&-item
+		background: #F5F8FB
+		box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1)
+		border-radius: 20px
+		margin-bottom: 20px
+		padding-top: 20px
+		padding-bottom: 20px
+
+		transition: color $transition, background $transition
+
+		&._open
+			color: #fff
+			background: $blue
+
+			#{$this}-header
+				padding-bottom: 0
+
+			#{$this}-thumb
+				background: #fff
+
+				svg
+					path
+						fill: $blue
+
+
+	&-btn-wrap
+		+flex(center, center)
+		margin-top: 50px
+
+	&-title
+		font-size: 18px
+		font-weight: medium
+		line-height: lh(21.78, 18)
+		user-select: none
+
+	&-header
+		+flex(center, space-between)
+		padding-left: 20px
+		padding-right: 20px
+
+		html.not-touched	#{$this}-item:not(._open) &
+				&:hover
+					#{$this}-thumb
+						background: darken($blue, 5%)
+
+	&-thumb
+		size: 40px
+		background: $blue
+		border-radius: 50%
+		+flex(center, center)
+		flex-shrink: 0
+		margin-left: 10px
+		cursor: pointer
+		transition: background $transition
+
+		svg
+			size: 25px
+			display: block
+
+	&-content
+		margin-top: 18px
+		user-select: none
+		display: none
+		font-size: 14px
+		line-height: lh(19.6, 14)
+		padding-left: 20px
+		padding-right: 20px
+
+	@media (max-width: 1300px)
+		&-items
+			grid-gap: 35px
+
+		&-thumb
+			size: 38px
+
+			svg
+				size: 22px
+
+		&-title
+			font-size: 16.5px
+
+	@media (max-width: 1100px)
+		&-items
+			grid-gap: 30px
+
+		&-thumb
+			size: 36px
+
+			svg
+				size: 20px
+
+		&-title
+			font-size: 15.5px
+
+		&-content
+			font-size: 13px
+
+	@media (max-width: 768px)
+		&-items
+			grid-template-columns: 1fr
+
+		&-thumb
+			size: 31px
+
+			svg
+				size: 17px
+
+		&-title
+			font-size: 15.5px

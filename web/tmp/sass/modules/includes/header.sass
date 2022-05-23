@@ -1,0 +1,367 @@
+
+.header
+	$this: &
+	+bg(null, url('../img/header-bg.svg'), cover, center bottom, no-repeat)
+	padding-bottom: 238px
+	padding-top: 25px
+	color: #fff
+
+	&:before
+		+pseudo
+		background: #4173c8
+		+position(absolute, 0 0 null 0)
+		// height: 20%
+
+	&-logo
+		+a_reset
+		+flex(center)
+
+		img
+			width: 246px
+
+	&-top
+		&-content
+			+flex(center, space-between)
+
+	&-menu
+		color: #fff
+		font-size: 18px
+		font-weight: normal
+
+		ul
+			+ul_reset
+			+flex(center)
+
+		li
+			& + li
+				margin-left: 40px
+
+		a
+			+a_reset
+			transition: opacity $transition
+
+			html.not-touched &
+				&:hover
+					opacity: .8
+
+	&-actions
+		+flex(center, flex-end)
+
+	&-buttons
+		+flex(center)
+
+		.btn
+			& + .btn
+				margin-left: 10px
+
+	&-intro
+		position: relative
+		padding-top: 176px
+
+		&-img
+			+position(absolute, 15% -131px null null)
+			img
+				width: 707px
+
+	&-langs
+		margin-left: 30px
+		cursor: pointer
+		flex-shrink: 0
+		border-top-radius: 8px
+		position: relative
+		transition: all $transition
+		z-index: 10
+
+		img
+			height: 40px
+			border-radius: 3px
+			overflow: hidden
+			display: block
+			width: 100%
+			object-fit: cover
+			// border: 1px solid #aaa
+
+		&-current
+			+a_reset
+
+		&-items
+			opacity: 0
+			pointer-events: none
+			+position(absolute, 100% 0 null 0)
+			border-bottom-radius: 8px
+			transition: all $transition
+			transform: translate(0, 7px)
+			z-index: 10
+
+		&-item
+			+a_reset
+			display: block
+
+		&._active
+			box-shadow: 0 0 0 5px #fff
+			background: #fff
+
+			#{$this}-langs-items
+				opacity: 1
+				pointer-events: auto
+				transform: none
+				box-shadow: 0 0 0 5px #fff
+
+
+	#mob-menu-btn
+		display: none
+
+	&-mob
+		@include position(fixed, 0 null 0 -100%)
+		// @include position(fixed, 0 0 0 null)
+		// width: 35%
+		width: 100%
+		max-width: 200px
+		z-index: 1000
+		transition: all 220ms
+		overflow-y: auto
+
+		background: $blue
+
+		display: flex
+
+		&-content
+			height: 100%
+			width: 100%
+			display: flex
+			flex-direction: column
+			align-items: flex-start
+			padding: 25px 20px
+
+		&.active
+			left: 0
+
+
+	@media (max-width: 1300px)
+		padding-bottom: 200px
+
+		&-intro
+			padding-top: 120px
+
+			&-img
+				+position(absolute, 18% -80px null null)
+				img
+					width: 500px
+
+		&-menu
+			font-size: 16px
+
+			li
+				& + li
+					margin-left: 30px
+
+		&-logo
+			img
+				width: 230px
+
+		&-langs
+			&-current
+				img
+					height: 33px
+
+	@media (max-width: 1200px)
+		&-langs
+			margin-left: 20px
+			&-current
+				img
+					height: 30px
+
+		&-logo
+			img
+				max-width: 210px
+
+		&-menu
+			font-size: 15.5px
+
+			li
+				& + li
+					margin-left: 20px
+
+
+	@media (max-width: 1140px)
+		&-intro
+			&-img
+				+position(absolute, 18% -140px null null)
+
+	@media (max-width: 1100px)
+		padding-top: 92.5px - 25px
+
+		&-intro
+
+			&-img
+				+position(absolute, 18% -140px null null)
+				img
+					width: 420px
+
+		#mob-menu-btn
+			display: block
+
+		&-top
+			padding-top: 25px
+			padding-bottom: 25px
+			+position(fixed, 0 0 null 0)
+			background: #008CF2
+			z-index: 500
+			transition: padding $transition
+
+			#{$this}-menu,
+			#{$this}-buttons,
+			#{$this}-langs
+				display: none
+
+			&._min,
+			html.mfp-helper &
+				padding-top: 10px
+				padding-bottom: 10px
+
+		&-langs
+			border-top-radius: 0
+			border-bottom-radius: 8px
+
+			img
+				max-height: 30px
+
+			&-items
+				+position(absolute, auto 0 100% 0)
+				border-top-radius: 8px
+				border-bottom-radius: 0
+
+		&-mob
+			background: #0069BA
+
+			#{$this}-logo
+
+				img
+					max-width: 100%
+
+		&-menu
+			width: 100%
+			font-size: 18px
+			ul
+				flex-direction: column
+				align-items: flex-start
+				text-align: left
+
+				li
+					& + li
+						margin-left: 0
+						margin-top: 12px
+
+		&-actions
+			// flex-direction: row-reverse
+			flex-direction: column-reverse
+			align-items: flex-start
+
+
+		&-buttons
+			flex-direction: column
+			width: 100%
+
+			.btn
+				width: 100%
+
+				& + .btn
+					margin-left: 0
+					margin-top: 10px
+
+		&-langs
+			// margin-right: 20px
+			margin-left: 0
+			margin-bottom: 10px
+
+		&-mob
+			#{$this}-actions
+				justify-content: space-between
+				width: 100%
+
+	@media (max-width: 992px)
+		padding-bottom: 170px
+
+		&-mob
+			width: 43%
+
+		&-intro
+			&-img
+				+position(absolute, 20% -100px null null)
+				img
+					width: 390px
+
+
+	@media (max-width: 840px)
+		&-intro
+			&-img
+				+position(absolute, 20% -140px null null)
+				img
+					width: 380px
+
+
+	@media (max-width: 768px)
+		&-mob
+			width: 50%
+
+	@media (max-width: 700px)
+		// padding-bottom: 280px
+		&-intro
+			&-img
+				+position(absolute, 4% -60px null null)
+				img
+					width: 300px
+
+			.title-1
+				max-width: 400px
+
+	@media (max-width: 680px)
+		&-mob
+			width: 60%
+
+	@media (max-width: 576px)
+		&-mob
+			width: 70%
+
+			#{$this}-logo
+
+				img
+					width: 190px
+
+		&-actions
+			flex-direction: column-reverse
+			align-items: flex-start
+
+		&-langs
+			margin-left: 0
+			margin-bottom: 17px
+
+
+	@media (max-width: 530px)
+		// padding-bottom: 280px
+		&-intro
+			&-img
+				+position(absolute, 4% -120px null null)
+				img
+					width: 280px
+
+	@media (max-width: 440px)
+		&-intro
+			padding-top: 100px
+			&-img
+				+position(absolute, 5% -110px null null)
+				img
+					width: 250px
+
+			.title-1
+				max-width: 370px
+
+	@media (max-width: 400px)
+		padding-bottom: 100px
+		&-intro
+			padding-top: 60px
+			&-img
+				display: none
+
+			.title-1
+				max-width: 100%

@@ -1,0 +1,149 @@
+
+.devices
+	$this: &
+	margin-top: 97px
+
+	&-nav
+		+flex(center, center)
+		margin-top: 34px
+
+		&-item
+			user-select: none
+			font-size: 18px
+			font-weight: normal
+			line-height: 1
+			white-space: nowrap
+			text-align: center
+			+flex(center, center)
+			padding: 0 35px
+			height: 38px
+			min-width: 140px
+			border-right: 1px solid $blue
+			border-top: 1px solid $blue
+			border-bottom: 1px solid $blue
+
+			transition: all $transition
+			cursor: pointer
+
+			&._active
+				background: $blue
+				color: #fff
+				cursor: default
+
+			&:first-child
+				border-left: 1px solid $blue
+				border-left-radius: 50px
+
+			&:last-child
+				border-right-radius: 50px
+
+	&-content
+		margin-top: 50px
+		+flex(flex-start, center)
+
+	&-preview
+		margin-right: 100px
+
+	&-data
+		min-width: 380px
+
+		.title-4
+			text-align: left
+
+		.title-4 + .btn-2
+			margin-top: 20px
+
+	&-steps
+		margin-top: 40px
+
+		&-item
+			padding: 21px 20px
+			border-radius: 20px
+			background: #F5F8FB
+			border: 1px solid #F5F8FB
+			+flex(flex-start)
+			cursor: pointer
+			user-select: none
+
+			&._active
+				border-color: $blue
+				background: transparent
+				cursor: default
+
+			& + #{$this}-steps-item
+				margin-top: 20px
+
+		&-number,
+		&-title
+			+h_reset
+			font-size: 18px
+			font-weight: medium
+			color: $blue
+
+		&-number
+			margin-right: 6px
+
+		&-text
+			font-size: 18px
+			color: #555555
+			line-height: lh(21.78, 18)
+			margin-top: 5px
+
+	@media (max-width: 1300px)
+		&-nav
+			&-item
+				font-size: 16.5px
+
+	@media (max-width: 1100px)
+		&-nav
+			&-item
+				font-size: 15px
+				height: 37px
+				min-width: 120px
+				padding: 0 30px
+
+		&-steps
+			&-title
+				font-size: 17px
+
+			&-text
+				font-size: 16px
+
+	@media (max-width: 992px)
+		&-nav
+			// flex-wrap: wrap
+			display: grid
+			grid-template-columns: 1fr 1fr 1fr
+			border-right-radius: 50px
+			border-left-radius: 50px
+			overflow: hidden
+			border-left: 1px solid $blue
+			border-right: 1px solid $blue
+
+			&-item
+				// width: 33.32%
+
+				&:first-child
+					border-radius: 0
+
+				&:last-child
+					border-radius: 0
+
+		&-content
+			flex-direction: column
+			align-items: center
+
+		&-preview
+			margin-right: 0
+
+		&-data
+			margin-top: 40px
+
+	@media (max-width: 400px)
+		&-nav
+			display: grid
+			grid-template-columns: 1fr 1fr
+
+		&-data
+			min-width: 0
+			width: 100%

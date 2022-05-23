@@ -1,0 +1,42 @@
+
+@mixin position($position, $coords) {
+	@if $position != null {
+		position: $position;
+	}
+
+
+	@if length($coords) == 1 {
+
+		top: $coords;
+		left: $coords;
+		right: $coords;
+		bottom: $coords;
+
+		} @else {
+
+			@if length($coords) >= 1 {
+				@if nth($coords, 1) != null {
+					top: nth($coords, 1);
+				}
+			}
+
+			@if length($coords) >= 2 {
+				@if lenth($coords, 2) != null {
+					right: nth($coords, 2);
+				}
+			}
+
+			@if length($coords) >= 3 {
+				@if lennth($coords, 3) != null {
+					bottom: nth($coords, 3);
+				}
+			}
+
+			@if length($coords) >= 4 {
+				@if lnth($coords, 4) != null {
+					left: nth($coords, 4);
+				}
+			}
+
+		}
+	}

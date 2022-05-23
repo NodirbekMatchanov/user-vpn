@@ -1,0 +1,201 @@
+
+.feedbacks
+	margin-top: 90px
+	$this: &
+
+	&-rating-wrap
+		margin-top: 30px
+		+flex(center, center)
+
+	&-rating
+		+flex(center)
+
+		&-number
+			font-size: 24px
+			font-weight: semibold
+			margin-left: 10px
+			margin-right: 10px
+
+		&-text
+			font-size: 14px
+			font-weight: normal
+			margin-left: 10px
+
+		&-stars
+			margin-top: -5px
+
+		& + #{$this}-rating
+			margin-left: 60px
+
+	&-slider
+		margin-top: 30px
+		margin-bottom: -30px
+		position: relative
+
+		.swiper
+			overflow: hidden
+
+		.swiper-wrapper
+			padding-bottom: 30px
+
+		.swiper-pagination
+			+position(absolute, 100% 50% auto auto)
+			transform: translate(50%, 0)
+
+			.swiper-pagination-bullet
+				background: $cyan
+				opacity: .3
+				cursor: pointer
+
+				margin-left: 5px
+				margin-right: 5px
+
+				&.swiper-pagination-bullet-active
+					opacity: 1
+					cursor: default
+
+		.swiper-button-prev,
+		.swiper-button-next
+			size: 50px
+			background: $blue
+			border-radius: 50%
+			cursor: pointer
+
+			transition: all $transition
+
+			&:after
+				content: none
+
+			&:before
+				+pseudo
+				size: 21px
+				+bg(null, url('../img/icons/prev.svg'), contain, center, no-repeat)
+
+			&:hover
+				background: darken($blue, 5%)
+
+		.swiper-button-prev
+			left: auto
+			right: calc(100% + 40px)
+
+		.swiper-button-next
+			right: auto
+			left: calc(100% + 40px)
+			&:before
+				transform: rotate(180deg)
+
+	&-item
+		background: #F5F8FB
+		border-radius: 20px
+		box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1)
+		padding: 30px
+
+	&-text
+		font-size: 14px
+		color: #4B4B4B
+		line-height: lh(19.6, 14)
+		margin-top: 15px
+
+	&-link
+		+a_reset
+		+btn_reset
+		font-size: 18px
+		color: $blue
+		font-weight: medium
+
+		&:hover
+			color: darken($blue, 10%)
+
+	@media (max-width: 1500px)
+		&-slider
+			.swiper-button-prev
+				right: calc(100% + 20px)
+
+			.swiper-button-next
+				left: calc(100% + 20px)
+
+	@media (max-width: 1300px)
+		margin-top: 80px
+
+		&-link
+			font-size: 16px
+
+		&-text
+			font-size: 13.5px
+			margin-top: 7px
+
+		&-item
+			padding: 27px
+
+	&-rating-wrap
+		margin-top: 30px
+		+flex(center, center)
+
+	&-rating
+		&-img
+			img
+				max-height: 30px
+
+		&-number
+			font-size: 22px
+			margin-left: 8px
+			margin-right: 8px
+
+		&-text
+			font-size: 13px
+			font-weight: normal
+			margin-left: 8px
+
+		&-stars
+			margin-top: -5px
+
+		& + #{$this}-rating
+			margin-left: 50px
+
+	&-slider
+		.swiper-button-prev,
+		.swiper-button-next
+			size: 45px
+
+			&:before
+				size: 18px
+
+	@media (max-width: 1100px)
+		&-rating
+			&-number
+				font-size: 18px
+				margin-left: 8px
+				margin-right: 8px
+
+			&-text
+				font-size: 13px
+				font-weight: normal
+				margin-left: 8px
+
+			&-stars
+				margin-top: -5px
+
+			& + #{$this}-rating
+				margin-left: 50px
+
+	@media (max-width: 992px)
+		&-slider
+			.swiper-button-prev
+				right: calc(100% + 10px)
+
+			.swiper-button-next
+				left: calc(100% + 10px)
+
+	@media (max-width: 768px)
+		&-slider
+			.swiper-button-prev,
+			.swiper-button-next
+				display: none
+
+		&-rating
+			&-wrap
+				flex-direction: column
+
+			& + #{$this}-rating
+				margin-left: 0
+				margin-top: 20px

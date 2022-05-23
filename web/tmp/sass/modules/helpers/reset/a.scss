@@ -1,0 +1,11 @@
+
+@mixin a_reset() {
+	text-decoration: none;
+	outline: none;
+	color: inherit;
+
+	&:hover {
+		text-decoration: none;
+		color: inherit;
+	}
+}

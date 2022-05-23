@@ -1,0 +1,28 @@
+
+@mixin bg($bg-color: null, $bg-image: null, $bg-size: null, $bg-position: null, $bg-repeat: null, $bg-attachment: null) {
+
+	@if $bg-color != null {
+		background-color: $bg-color;
+	}
+
+	@if $bg-image != null {
+		background-image: $bg-image;
+	}
+
+	@if $bg-size != null {
+		background-size: $bg-size;
+	}
+
+	@if $bg-position != null {
+		background-position: $bg-position;
+	}
+
+	@if $bg-repeat != null {
+		background-repeat: $bg-repeat;
+	}
+
+	@if $bg-attachment != null {
+		background-attachment: $bg-attachment;
+	}
+
+}

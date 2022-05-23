@@ -1,0 +1,15 @@
+
+#loader
+	+position(fixed, 0)
+	+bg(#fff, null, rem(90px) auto, center, no-repeat)
+	z-index: 999
+	opacity: 1
+	display: none
+	transition: opacity $transition
+
+	&.active
+		display: block
+
+	&.ready
+		opacity: 0
+		pointer-events: none

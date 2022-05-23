@@ -1,0 +1,344 @@
+
+
+*
+	// outline: 1px solid rgba(#ddd, .5) !important
+
+
+*
+	-webkit-overflow-scrolling: touch // чтобы нормально сроллился на айфоне
+	backface-visibility: hidden // чтобы не дергались элементы
+
+	&, &:before, &:after
+		box-sizing: border-box
+
+	&, &:focus, &:active
+		outline: none
+
+
+html
+	overflow-x: hidden
+	font-weight: normal
+	line-height: $lineheight
+	font-weight: $fontweight
+	min-width: 320px
+	font-family: $font
+	color: $fontcolor
+	// height: 100%
+
+	max-width: $maxwidth
+	position: relative
+	margin: 0 auto
+
+	&.mfp-helper
+		&, body
+			overflow: hidden !important
+
+body
+	font-size: $fontsize
+	+flex(null, null, column)
+	overflow-x: hidden
+
+	min-height: 100vh
+	min-height: calc(var(--vh, 1vh) * 100)
+
+	line-height: $lineheight
+	font-weight: $fontweight
+	color: $fontcolor
+	font-family: $font
+
+
+html.not-touched.not-mac
+	*::-webkit-scrollbar
+		background: transparent
+		position: absolute
+
+	*::-webkit-scrollbar-track
+		background: transparent
+		position: absolute
+		z-index: -2
+
+	*::-webkit-scrollbar-thumb
+		background: $accent
+
+// #app
+// 	display: flex
+// 	flex-direction: column
+// 	min-height: 100vh
+// 	min-height: calc(var(--vh, 1vh) * 100)
+// 	position: relative
+
+// #content
+// 	flex-grow: 1
+
+// [class^='col']
+// 	position: static
+
+// .container-fluid,
+.container
+	padding-left: rem(90px)
+	padding-right: rem(90px)
+	margin-left: auto
+	margin-right: auto
+	width: 100%
+	max-width: calc(1200px + #{rem(180px)})
+
+	@media (max-width: 992px)
+		padding-left: rem(70px)
+		padding-right: rem(70px)
+
+	@media (max-width: 768px)
+		padding-right: 30px
+		padding-left: 30px
+
+	@media (max-width: 576px)
+		padding-right: 15px
+		padding-left: 15px
+
+// .container-wide
+// 	@include make-container()
+
+.row
+	min-width: 100%
+
+[class*='col-auto']
+	max-width: 100%
+
+.disable-hover,
+.disable-hover *
+	pointer-events: none !important
+	user-select: none !important
+
+::selection
+	background-color: rgba(#007FFF, .7)
+	color: #fff
+	text-decoration: none
+
+::placeholder
+	color: #545454
+	text-overflow: ellipsis
+
+a
+	color: $cyan
+	transition: color $transition
+
+	&:hover
+		color: darken($accent, 15%)
+
+table
+	border-collapse: separate
+	border-spacing: 0
+
+img
+	height: auto
+	// backface-visibility: hidden
+	max-width: 100%
+	display: block
+	object-fit: contain
+	user-select: none
+
+	-webkit-touch-callout: none // iphone disable img download
+
+.t-img
+	background-size: contain
+	background-repeat: no-repeat
+	background-position: center
+	display: block
+	user-select: none
+	max-width: 100%
+
+p
+	margin-top: 0
+	&:last-child
+		margin-bottom: 0
+
+figure
+	margin: 0
+
+// input:-webkit-autofill
+// 	-webkit-text-fill-color: yellow !important
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active
+	-webkit-box-shadow: 0 0 0 30px white inset !important
+
+button, input
+	outline: none
+	&:focus
+		outline: none
+
+button
+	appearance: none
+
+h1, h2, h3, h4, h5, h6
+	line-height: 1.1
+	margin-top: 0
+
+label
+	margin: 0
+
+b, strong
+	font-weight: bold
+
+input,
+textarea
+	border: #666 1px solid
+	outline: none
+	max-height: 200px
+	-webkit-appearance: none
+	-moz-appearance: none
+	appearance: none
+	border-radius: 0
+
+	// :-webkit-autofill // if autofilled
+
+	// &:focus:required:invalid
+	// 	border-color: red
+
+	// &:required:valid
+	// 	border-color: green
+
+.spacer
+	flex-grow: 1
+	flex-shrink: 1
+
+.mouse-down
+	transform: translate(0, rem(2px))
+
+.btn
+	+a_reset
+	+btn_reset
+	font-size: 18px
+	height: 40px
+	padding: 0 33px
+	+flex(center, center)
+	text-align: center
+	background: #fff
+	border-radius: 50px
+	color: $cyan
+	font-weight: medium
+	border: 1px solid #fff
+	min-width: 140px
+	transition: all $transition
+
+	html.not-touched &
+		&:hover
+			color: darken($cyan, 5%)
+			background: rgba(#fff, .9)
+
+	&._outline
+		background: none
+		color: #fff
+
+		html.not-touched &
+			&:hover
+				color: #fff
+				border-color: rgba(#fff, .8)
+				background: none
+
+	@media (max-width: 1300px)
+		height: 37px
+		padding: 0 30px
+		font-size: 16px
+		min-width: 125px
+
+	@media (max-width: 1200px)
+		height: 37px
+		padding: 0 20px
+		font-size: 15.5px
+		min-width: 110px
+
+.btn-2
+	+btn_reset
+	+a_reset
+	border-radius: 50px
+	background: $cyan
+	height: 60px
+	color: #fff
+	font-size: 18px
+	min-width: 300px
+	font-weight: medium
+	+flex(center, center)
+	text-align: center
+	box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.1)
+
+	cursor: pointer
+	transition: background $transition
+
+	html.not-touched &
+		&:hover
+			color: #fff
+			background: darken($cyan, 5%)
+
+	@media (max-width: 1300px)
+		font-size: 16.5px
+		height: 55px
+		min-width: 270px
+
+	@media (max-width: 992px)
+		font-size: 16px
+		height: 50px
+		min-width: 250px
+
+.accent
+	color: $blue
+
+.title-1
+	+h_reset
+	color: #fff
+	font-size: 65px
+	font-weight: bold
+	line-height: lh(78.66, 65)
+
+	& + .btn-2
+		margin-top: 30px
+
+	@media (max-width: 1300px)
+		font-size: 60px
+
+	@media (max-width: 1100px)
+		font-size: 53px
+
+	@media (max-width: 992px)
+		font-size: 44px
+
+	@media (max-width: 440px)
+		font-size: 40px
+
+
+.title-2
+	+h_reset
+	text-align: center
+	display: block
+	font-size: 45px
+	line-height: lh(54.46, 45)
+	font-weight: bold
+
+	@media (max-width: 1300px)
+		font-size: 40px
+
+	@media (max-width: 1100px)
+		font-size: 36px
+
+	@media (max-width: 992px)
+		font-size: 32px
+
+.title-3
+	+h_reset
+	text-align: center
+	display: block
+	font-size: 40px
+	font-weight: medium
+	line-height: lh(48.41, 40)
+
+	@media (max-width: 1300px)
+		font-size: 37px
+
+
+.title-4
+	+h_reset
+	text-align: center
+	display: block
+	font-size: 24px
+	font-weight: semibold

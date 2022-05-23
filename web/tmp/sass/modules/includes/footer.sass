@@ -1,0 +1,92 @@
+
+.footer
+	$this: &
+	background: linear-gradient(180deg, #0090F8 0%, #0060AB 100%)
+	padding-top: 30px
+	padding-bottom: 30px
+	margin-top: 103px
+
+	&-top
+		+flex(center, space-between)
+
+	&-socials
+		+flex(center, center)
+
+		&-item
+			size: 45px
+			+flex(center, center)
+			border-radius: 50%
+			border: 1px solid #fff
+			padding: 10px
+
+			transition: opacity $transition
+
+			html.not-touched &
+				&:hover
+					opacity: .7
+
+			& + #{$this}-socials-item
+				margin-left: 10px
+
+	&-text
+		+a_reset
+		color: #fff
+		font-size: 14px
+		display: block
+		transition: opacity $transition
+
+		& + #{$this}-text
+			margin-top: 5px
+
+		&:hover
+			color: #fff
+			opacity: 0.8
+
+	&-developer
+		+flex(center, center)
+		text-align: center
+
+		color: #fff
+		padding-top: 18px
+		border-top: 1px solid rgba(#fff, .5)
+		margin-top: 26px
+		font-size: 14px
+
+		&-logo
+			+a_reset
+			display: block
+			margin-left: 10px
+			margin-top: 5px
+
+	@media (max-width: 1300px)
+		margin-top: 90px
+
+	@media (max-width: 992px)
+		margin-top: 80px
+
+		&-top
+			flex-direction: column
+			align-items: center
+			text-align: center
+
+		&-socials
+			margin-top: 20px
+
+		&-data
+			margin-top: 20px
+
+		&-socials
+			+flex(center, center)
+
+			&-item
+				size: 40px
+
+		&-logo
+			img
+				max-width: 225px
+
+		&-developer
+			font-size: 13px
+
+			&-logo
+				margin-left: 5px

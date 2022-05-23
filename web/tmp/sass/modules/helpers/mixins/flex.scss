@@ -1,0 +1,40 @@
+
+@mixin flex($align-items: null, $justify-content: null, $direction: null, $wrap: null) {
+	display: flex;
+
+	@if $align-items != null {
+		align-items: $align-items;
+	}
+
+	@if $justify-content != null {
+		justify-content: $justify-content;
+	}
+
+	@if $direction != null {
+		flex-direction: $direction;
+	}
+
+	@if $wrap != null {
+		flex-wrap: $wrap;
+	}
+}
+
+@mixin inline-flex($align-items: null, $justify-content: null, $direction: null, $wrap: null) {
+	display: inline-flex;
+
+	@if $align-items != null {
+		align-items: $align-items;
+	}
+
+	@if $justify-content != null {
+		justify-content: $justify-content;
+	}
+
+	@if $direction != null {
+		flex-direction: $direction;
+	}
+
+	@if $wrap != null {
+		flex-wrap: $wrap;
+	}
+}
