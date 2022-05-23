@@ -108,12 +108,7 @@ class UsedPromocodes extends \yii\db\ActiveRecord
             $accs->untildate = $accs->untildate < time() ? time() + (3600 * $promocodeModel->free_day) : $accs->untildate + (3600 * $promocodeModel->free_day);
             $accs->save();
 
-            $usePromocode = new UsedPromocodes();
-            $usePromocode->user_id = $userId;
-            $usePromocode->type = $type;
-            $usePromocode->date = date("Y-m-d");
-            $usePromocode->promocode = $promocode;
-            $usePromocode->save();
+            self::saveSignup($userId,$promocode);
 
         } else {
             return 'expire';

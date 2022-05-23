@@ -31,7 +31,7 @@ AppAsset::register($this);
         <?php
         NavBar::begin([
             'brandLabel' => "VPN MAX",
-            'brandUrl' => '/',
+            'brandUrl' => '/'. Yii::$app->language,
             'innerContainerOptions' => ['class' => 'container-fluid'],
             'options' => [
                 'class' => 'navbar-inverse navbar-fixed-top',
@@ -124,7 +124,7 @@ AppAsset::register($this);
 <footer class="footer mt-auto py-3 text-muted">
     <div class="container" style="    padding-top: 23px;">
         <span class="float-right">VPN MAX</span>
-        <a class="pull-right" href="/web/site/privacy" target="_blank"> Политика конфиденциальности</a>
+        <a class="pull-right" href="/site/privacy" target="_blank"> Политика конфиденциальности</a>
     </div>
 </footer>
 </body>

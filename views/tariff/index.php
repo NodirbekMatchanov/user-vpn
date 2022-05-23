@@ -265,8 +265,9 @@ $discount = $code['code']['discount'] ?? 0;
 <div class="demo">
     <div class="container text-center">
         <div class="row">
-            <?php foreach ($model as $item):
-                $price = $item->price - (($item->price * $discount) /100);
+            <?php foreach($model as $item): ?>
+            <?php if(!empty($item) && $item->day_30):
+                $price = $item->price_30 - (($item->price_30 * $discount) /100);
                 ?>
             <div class="col-md-3 col-sm-6">
                 <div class="pricingTable green">
@@ -285,6 +286,49 @@ $discount = $code['code']['discount'] ?? 0;
                     </div>
                 </div>
             </div>
+            <?php endif;?>
+            <?php if(!empty($item) && $item->day_180):
+                $price = $item->price_180 - (($item->price_180 * $discount) /100);
+                ?>
+            <div class="col-md-3 col-sm-6">
+                <div class="pricingTable green">
+                    <div class="pricingTable-header">
+                        <i class="fa fa-briefcase"></i>
+                        <div class="price-value"> <?=$price.' '.$item->currency ?> <span class="month"><?=$item->period?> дней</span></div>
+                    </div>
+                    <h3 class="heading"><?=$item->name?></h3>
+                    <div class="pricing-content">
+                        <ul>
+                            <li><b>Страна: </b> <?=$item->country?></li>
+                        </ul>
+                    </div>
+                    <div class="pricingTable-signup">
+                        <a class="pay" data-id="<?=$item->id?>" data-period="<?=$item->period?>" data-price="<?=$price?>" data-type="premium" href="#">Купить</a>
+                    </div>
+                </div>
+            </div>
+            <?php endif;?>
+            <?php if(!empty($item) && $item->day_365):
+                $price = $item->price_365 - (($item->price_365 * $discount) /100);
+                ?>
+            <div class="col-md-3 col-sm-6">
+                <div class="pricingTable green">
+                    <div class="pricingTable-header">
+                        <i class="fa fa-briefcase"></i>
+                        <div class="price-value"> <?=$price.' '.$item->currency ?> <span class="month"><?=$item->period?> дней</span></div>
+                    </div>
+                    <h3 class="heading"><?=$item->name?></h3>
+                    <div class="pricing-content">
+                        <ul>
+                            <li><b>Страна: </b> <?=$item->country?></li>
+                        </ul>
+                    </div>
+                    <div class="pricingTable-signup">
+                        <a class="pay" data-id="<?=$item->id?>" data-period="<?=$item->period?>" data-price="<?=$price?>" data-type="premium" href="#">Купить</a>
+                    </div>
+                </div>
+            </div>
+            <?php endif;?>
             <?php endforeach;?>
         </div>
     </div>

@@ -28,7 +28,8 @@
         "kartik-v/yii2-widget-sidenav": "dev-master",
         "troytft/cloud-payments-client": "^0.1.0",
         "kartik-v/yii2-widget-alert": "dev-master",
-        "guzzlehttp/guzzle": "^7.0"
+        "guzzlehttp/guzzle": "^7.0",
+        "skeeks/yii2-multi-language": "^1.0.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

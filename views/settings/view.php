@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
                 'value' => function ($data) {
                     if($data->type == 'file') {
-                       return ($data->value != '') ? Html::a($data->value,  '/web/certs/'.$data->value,['download' => 'true']) : null;;
+                       return ($data->value != '') ? Html::a($data->value,  '/certs/'.$data->value,['download' => 'true']) : null;;
                     }
                     return $data->value;
                 }

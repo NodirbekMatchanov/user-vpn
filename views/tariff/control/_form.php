@@ -18,8 +18,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'price')->textInput() ?>
 
-    <?= $form->field($model, 'price_7')->textInput() ?>
-    <?= $form->field($model, 'day_7')->checkbox() ?>
 
     <?= $form->field($model, 'price_30')->textInput() ?>
     <?= $form->field($model, 'day_30')->checkbox() ?>

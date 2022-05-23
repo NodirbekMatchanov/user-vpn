@@ -159,7 +159,7 @@ class SecurityController extends Controller
         if ($model->load(\Yii::$app->getRequest()->post()) && $model->login()) {
             $this->trigger(self::EVENT_AFTER_LOGIN, $event);
              if(\Yii::$app->user->identity->isAdmin()){
-                 $this->redirect('/web/vpn-user-settings/index');
+                 $this->redirect('/vpn-user-settings/index');
              } else {
                 $this->redirect('/user/settings/account');
             }

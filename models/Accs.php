@@ -93,13 +93,15 @@ class Accs extends \yii\db\ActiveRecord
     }
 
     public static function setPromoShareCount($promocode, $user){
-        $user = Accs::find()->where(['promocode' => $promocode])->one();
-        if(!empty($user)){
-           $count = $user->promo_share;
-           $user->promo_share = $count + 1;
-           $user->untildate = $user->untildate + (3600*24);
-           UsedPromocodes::saveSignup($user->id,$promocode);
+        $accs = Accs::find()->where(['promocode' => $promocode])->one();
+        if(!empty($accs)) {
+           $count = $accs->promo_share;
+            $accs->promo_share = $count + 1;
+            $accs->untildate = $user->untildate + (3600*24*7);
+           UsedPromocodes::saveSignup($accs->id,$promocode);
            return $user->save();
+        } else {
+            UsedPromocodes::usePromocode($user->id,$promocode);
         }
         return false;
     }

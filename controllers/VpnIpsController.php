@@ -124,7 +124,7 @@ class VpnIpsController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                $this->redirect('/web/vpn-ips/');
+                $this->redirect('/vpn-ips/');
             }
         } else {
             $model->loadDefaultValues();
@@ -147,7 +147,7 @@ class VpnIpsController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            $this->redirect('/web/vpn-ips/');
+            $this->redirect('/vpn-ips/');
         }
 
         return $this->render('update', [

@@ -85,7 +85,7 @@ class SiteController extends Controller
         }
 
         $model->password = '';
-        return $this->redirect('/web/user/login');
+        return $this->redirect(['user/login']);
     }
 
     /**

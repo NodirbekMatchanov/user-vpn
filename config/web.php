@@ -8,17 +8,22 @@ $config = [
     'id' => 'basic',
     'name' => 'VPN MAX',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'bootstrap' => ['log', 'multiLanguage'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
-        '@npm'   => '@vendor/npm-asset',
+        '@npm' => '@vendor/npm-asset',
     ],
     'language' => 'ru',
 
     'components' => [
-        'request' => [
-            // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
+//        'request' => [
+//            // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
+//            'cookieValidationKey' => 'b1I97EHuHiX4cVlK6Wp96pRVr-1cLf5O',
+//        ],
+        "request" => [
             'cookieValidationKey' => 'b1I97EHuHiX4cVlK6Wp96pRVr-1cLf5O',
+            'baseUrl'=> '',
+            "class" => \skeeks\yii2\multiLanguage\MultiLangRequest::class
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -66,13 +71,23 @@ $config = [
         'db' => $db,
         'db2' => $db2,
 
-        'urlManager' => [
+//        'urlManager' => [
+//            'enablePrettyUrl' => true,
+//            'showScriptName' => false,
+//            'rules' => [
+//            ],
+//        ],
+        "urlManager" => [
+            "class" => \skeeks\yii2\multiLanguage\MultiLangUrlManager::class,
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-            'rules' => [
-            ],
         ],
-
+        "multiLanguage" => [
+            "class" => \skeeks\yii2\multiLanguage\MultiLangComponent::class,
+            'langs' => ['ru', 'en'],
+            'default_lang' => 'fr',         //Language to which no language settings are added.
+            'lang_param_name' => 'lang',
+        ]
 
     ],
     'modules' => [
