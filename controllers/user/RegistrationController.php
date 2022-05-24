@@ -23,6 +23,7 @@ use dektrium\user\models\User;
 use dektrium\user\traits\AjaxValidationTrait;
 use dektrium\user\traits\EventTrait;
 use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -109,10 +110,11 @@ class RegistrationController extends Controller
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
-                    ['allow' => true, 'actions' => ['register', 'connect','verify-code'], 'roles' => ['?']],
-                    ['allow' => true, 'actions' => ['confirm', 'resend'], 'roles' => ['?', '@']],
+                    ['allow' => true, 'actions' => ['register','auto-register', 'connect','verify-code'], 'roles' => ['?']],
+                    ['allow' => true, 'actions' => ['confirm', 'auto-register','resend'], 'roles' => ['?', '@']],
                 ],
             ],
+
         ];
     }
 
@@ -152,6 +154,30 @@ class RegistrationController extends Controller
             'model' => $model,
             'module' => $this->module,
         ]);
+    }
+
+    public function actionAutoRegister()
+    {
+        /** @var RegistrationForm $model */
+        $model = \Yii::createObject(RegistrationForm::className());
+        $event = $this->getFormEvent($model);
+
+        $this->trigger(self::EVENT_BEFORE_REGISTER, $event);
+
+        $this->performAjaxValidation($model);
+
+        /*если в куки есть промокод то передаем в модель*/
+        if(isset($_COOKIE['promocode'])){
+            $model->promocode = $_COOKIE['promocode'];
+        }
+
+        if ($model->load(\Yii::$app->request->get(),'') && $model->register()) {
+            $this->trigger(self::EVENT_AFTER_REGISTER, $event);
+            return true;
+        } else {
+            return  $model->errors;
+    }
+
     }
 
     public function actionVerifyCode()
