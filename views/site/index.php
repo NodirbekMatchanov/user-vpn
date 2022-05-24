@@ -2,8 +2,7 @@
 
 /** @var yii\web\View $this */
 
-$this->title = 'VPN MAX';
-echo Yii::$app->language;
+$this->title = 'VPNMAX - Быстрый и анонимный доступ к любым сайтам';
 ?>
 <div class="about" name='features'>
     <div class="container">
@@ -237,7 +236,7 @@ echo Yii::$app->language;
 
             <form class="test-form">
                 <div class="test-form-content">
-                    <div class="input _dark">
+                    <div name="sign" class="input _dark">
                         <input type="email" name='email' placeholder="Ваш e-mail">
                     </div>
                     <button class="btn-2">Попробовать бесплатно</button>

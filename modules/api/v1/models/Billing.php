@@ -20,6 +20,9 @@ use GuzzleHttp\Client;
 class Billing extends Model
 {
 
+    const MONTH_1 = 'VPN_MAX_1MO_CONSUMABLE';
+    const MONTH_6 = 'VPN_MAX_6MO_CONSUMABLE';
+    const MONTH_12 = 'VPN_MAX_12MO_CONSUMABLE';
     public $testEnvironment = false;
     public $url = 'https://sandbox.itunes.apple.com/';
     public $testUrl = 'https://sandbox.itunes.apple.com/';
@@ -53,7 +56,7 @@ class Billing extends Model
         $response = $client->request($method, ($this->testEnvironment ? $this->testUrl : $this->url) . 'verifyReceipt', $params);
         if ($response->getStatusCode() == 200) {
             $data = json_decode($response->getBody());
-             if(empty($data->receipt)) return false;
+            if (empty($data->receipt)) return false;
             $receiptApple = new ReceiptApple();
             $receiptData = (array)$data->receipt;
             $receiptData['status'] = $data->status;
@@ -64,27 +67,42 @@ class Billing extends Model
                 //in_app
                 if (!empty($receiptData['in_app'])) {
                     foreach ($receiptData['in_app'] as $item) {
-                        $inApp = new InApp();
-                        $inApp->load((array)$item, '');
-                        $inApp->receipt_apple_id = $receiptApple->id;
-                        if ($inApp->save()) {
 
-                            if (!empty($item->expires_date_ms)) {
-                                $userId = AppAccountToken::find()->where(['account_token' => $this->account_token])->one()->user_id ?? 0;
-                                if ($userId) {
-                                    $user = Accs::find()->where(['user_id' => $userId])->one();
-                                    $user->untildate = $item->expires_date_ms;
-                                    $user->status = VpnUserSettings::$statuses['ACTIVE'];
-                                    $user->save();
+                        if (!InApp::find()->where(['transaction_id' => $item->transaction_id])->one()) {
+                            $inApp = new InApp();
+                            $inApp->load((array)$item, '');
+                            $inApp->receipt_apple_id = $receiptApple->id;
+                            if ($inApp->save()) {
+
+                                $untildate = 0;
+                                switch ($item->product_id) {
+                                    case self::MONTH_1: $untildate = strtotime("30 days");
+                                    break;
+                                    case self::MONTH_6: $untildate = strtotime("180 days");
+                                    break;
+                                    case self::MONTH_12: $untildate = strtotime("365 days");
+                                    break;
                                 }
+
+                                if ($untildate) {
+                                    $userId = AppAccountToken::find()->where(['account_token' => $this->account_token])->one()->user_id ?? 0;
+                                    if ($userId) {
+                                        $user = Accs::find()->where(['user_id' => $userId])->one();
+                                        $user->untildate = $user->untildate < time() ? time() +  $untildate: $user->untildate + $untildate;
+                                        $user->status = VpnUserSettings::$statuses['ACTIVE'];
+                                        $user->save();
+                                    }
+                                }
+
+                                return $data;
+
+                            } else {
+                                return $inApp->errors;
                             }
-
-                            return $data;
-
-                        } else {
-                            return $inApp->errors;
                         }
+
                     }
+
                 }
 
                 // latest_receipt_info

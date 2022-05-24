@@ -125,7 +125,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
             <div class="panel-body">
                 <p>
-                    Поделитесь промо-ссылкой с Вашими друзьями <a href="<?= "https://" . $domain . "?ref=" . $accs->promocode ?>" target="_blank" ><?= "https://" . $domain . "?ref=" . $accs->promocode ?></a>
+                    Поделитесь промо-ссылкой с Вашими друзьями <a href="<?= "https://" . $domain . "?ref=" . ($accs->promocode ?? '') ?>" target="_blank" ><?= "https://" . $domain . "?ref=" . ($accs->promocode ?? '') ?></a>
                     За каждого кто зарегистрируется и оплатит подписку, Вы получите неделю использования VPN в подарок
                     (там показывать промокод юзера персональный)
                 </p>

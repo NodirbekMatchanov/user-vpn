@@ -53,7 +53,7 @@ use yii\bootstrap\NavBar;
                 <div class="header-actions">
                     <div class="header-buttons">
                         <a href="#" class="btn">Скачать</a>
-                        <a href="<?=\yii\helpers\Url::to(['/user/login'])?>" class="btn _outline">Войти</a>
+                        <a href="<?= Yii::$app->user->isGuest ? \yii\helpers\Url::to(['/user/login']) : \yii\helpers\Url::to(['/user/settings/account'])?>" class="btn _outline">Войти</a>
                     </div>
 
                     <div class="header-langs">
@@ -91,7 +91,7 @@ use yii\bootstrap\NavBar;
                 к любым сайтам
             </h1>
 
-            <button class="btn-2">Попробовать бесплатно</button>
+            <a href="#sign" style="text-decoration: none; color: #fff; "> <button style="margin-top: 30px;" class="btn-2" >Попробовать бесплатно</button></a>
         </div>
 
     </div>
@@ -119,7 +119,7 @@ use yii\bootstrap\NavBar;
         <div class="header-actions">
             <div class="header-buttons">
                 <a href="#" class="btn">Скачать</a>
-                <a href="<?=\yii\helpers\Url::to(['/user/login'])?>" class="btn _outline">Войти</a>
+                <a href="<?= Yii::$app->user->isGuest ? \yii\helpers\Url::to(['/user/login']) : \yii\helpers\Url::to(['/user/account'])?>" class="btn _outline">Войти</a>
             </div>
 
             <div class="header-langs">

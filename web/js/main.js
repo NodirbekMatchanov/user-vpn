@@ -169,4 +169,34 @@ $(document).ready(function () {
         ));
         return matches ? decodeURIComponent(matches[1]) : undefined;
     }
+
+    $(document).on("keyup, change",'[name="email"]',function (){
+        let element = $(this)[0];
+        $(this).removeClass('validate-email');
+        $('.error-email').remove();
+        if(ValidateEmail(element)){
+
+        } else {
+            $(this).addClass('validate-email');
+            $(this).after("<span class='error-email' style='color: red'>не валидный email</span>")
+        }
+    })
+
+    /* email validate */
+    function ValidateEmail(input) {
+
+        var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+        if (input.value.match(validRegex)) {
+
+
+            return true;
+
+        } else {
+
+            return false;
+
+        }
+
+    }
 })

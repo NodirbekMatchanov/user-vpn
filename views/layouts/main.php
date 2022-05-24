@@ -65,6 +65,7 @@ AppAsset::register($this);
                         'items' => [
                             ['label' => 'Справочник', 'url' => ['/support/index']],
                             ['label' => 'Страны', 'url' => ['/country/index']],
+                            ['label' => 'Отправка пуши', 'url' => ['/push-test/index']],
                             ['label' => 'DNS', 'url' => ['/dns-servers/index']],
                             ['label' => 'История отправки', 'url' => ['/mail-history/index']],
                             ['label' => 'Шаблоны уведомлений', 'url' => ['/mail-template/index']],
