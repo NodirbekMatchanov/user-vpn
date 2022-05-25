@@ -34,9 +34,14 @@ class TariffController extends Controller
                         'roles' => ['@'],
                     ],
                     [
-                        'actions' => ['index', 'payment', 'get-price', 'payment-success', 'payment-error'],
+                        'actions' => ['index'],
                         'allow' => true,
                         'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => [ 'payment', 'get-price', 'payment-success', 'payment-error'],
+                        'allow' => true,
+                        'roles' => ['?'],
                     ],
                 ],
             ],
