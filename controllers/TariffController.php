@@ -86,7 +86,7 @@ class TariffController extends Controller
     {
         $id = \Yii::$app->request->get('id');
         $orderId = \Yii::$app->request->get('orderId');
-        $promocode = \Yii::$app->request->get('promocode');
+        $promocode = \Yii::$app->request->get('promocode') ?? "";
         if ($id) {
             $tariffs = Tariff::find()->all();
             $price = 0;

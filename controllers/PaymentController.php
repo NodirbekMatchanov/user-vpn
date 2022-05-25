@@ -140,7 +140,7 @@ class PaymentController extends Controller
         file_put_contents("pay.txt", json_encode($_GET));
         if (\Yii::$app->request->get('InvoiceId')) {
             $data = \Yii::$app->request->get();
-            if ($order = Payments::find()->where(['orderId' => $data['InvoiceId']])) {
+            if ($order = Payments::find()->where(['orderId' => $data['InvoiceId']])->one()) {
                 if ($data['Status'] == "Completed" && (int)$order->amount == (int)$data['Amount']) {
                     $order->status = Payments::PAYED;
                     $order->save();
