@@ -65,6 +65,7 @@ $(document).on('click', '.pay', function (e) {
         amount: price, //сумма
         currency: 'RUB', //валюта
         requireEmail: true,
+        TestMode: true,
         invoiceId: orderId, //номер заказа  (необязательно)
         data: data
     },

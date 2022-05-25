@@ -71,6 +71,8 @@ class SiteController extends Controller
     public function actionPay()
     {
         file_put_contents("pay.txt",json_encode($_POST));
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        echo '{"code":0}';
     }
 
     /**
