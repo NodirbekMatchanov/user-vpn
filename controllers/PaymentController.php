@@ -156,7 +156,6 @@ class PaymentController extends Controller
 
                             /** @var RegistrationForm $model */
                             $model = \Yii::createObject(RegistrationForm::className());
-                            $event = $this->getFormEvent($model);
 
                             /*если в куки есть промокод то передаем в модель*/
                             if (isset($_COOKIE['promocode'])) {
