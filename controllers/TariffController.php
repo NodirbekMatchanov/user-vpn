@@ -103,7 +103,7 @@ class TariffController extends Controller
             }
             if($orderId){
                 $payment = new Payments();
-                $payment->status = null;
+                $payment->status = "0";
                 $payment->orderId = $orderId;
                 $payment->user_id = \Yii::$app->user->isGuest ? 0 : \Yii::$app->user->identity->getId();
                 $payment->tariff = $id;
