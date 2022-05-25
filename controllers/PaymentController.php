@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\Accs;
 use app\models\Payments;
 use app\models\PaymentsSearch;
+use app\models\Tariff;
 use app\models\User;
 use app\models\user\RegistrationForm;
 use yii\web\Controller;
@@ -163,7 +164,9 @@ class PaymentController extends Controller
                             }
 
                             if ($model->load($userData, '') && $model->register()) {
-                                return true;
+                                $user = Accs::find()->where(['email' => $data['Email']])->one();
+                                $time = Tariff::getPeriod($order->tariff) * (3600 * 24);
+                                $user->untildate = $user->untildate < time() ? (time() + $time) : $user->untildate + $time ;
                             } else {
                                 return $model->errors;
                             }
@@ -178,6 +181,8 @@ class PaymentController extends Controller
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         return ["code" => 0];
     }
+
+
 
     public function actionCancelPay()
     {

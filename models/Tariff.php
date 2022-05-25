@@ -37,8 +37,8 @@ class Tariff extends \yii\db\ActiveRecord
     {
         return [
             [['status', 'price'], 'required'],
-            [['status', 'period','day_7','day_30','day_180','day_365'], 'integer'],
-            [['price','price_7','price_30','price_180','price_365'], 'number'],
+            [['status', 'period', 'day_7', 'day_30', 'day_180', 'day_365'], 'integer'],
+            [['price', 'price_7', 'price_30', 'price_180', 'price_365'], 'number'],
             [['expire'], 'safe'],
             [['country', 'name'], 'string', 'max' => 255],
             [['currency'], 'string', 'max' => 10],
@@ -80,5 +80,19 @@ class Tariff extends \yii\db\ActiveRecord
     {
         $tariffs = Tariff::find()->all();
         return $tariffs;
+    }
+
+    public static function getPeriod($id)
+    {
+        $tariffs = Tariff::find()->all();
+        foreach ($tariffs as $tariff) {
+            if ($id == '1_month') {
+                return  $tariff->day_30;
+            } else if ($id == '6_month') {
+                return  $tariff->day_180;
+            } else if ($id == '12_month') {
+                return  $tariff->day_365;
+            }
+        }
     }
 }
