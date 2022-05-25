@@ -7,6 +7,12 @@ $url = \yii\helpers\Url::to(['tariff/get-price?id=']);
 $paymentSuccessUrl = \yii\helpers\Url::to(['tariff/payment-success']);
 $paymentErrorUrl = \yii\helpers\Url::to(['tariff/payment-error']);
 $script = <<<JS
+  function getCookie(name) {
+        let matches = document.cookie.match(new RegExp(
+            "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+        ));
+        return matches ? decodeURIComponent(matches[1]) : undefined;
+    }
   function orderNumber() {
       let now = Date.now().toString() // '1492341545873'
       // pad with extra random digit
