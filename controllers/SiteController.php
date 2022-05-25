@@ -70,7 +70,7 @@ class SiteController extends Controller
     }
     public function actionPay()
     {
-        file_put_contents("pay.txt",$_POST);
+        file_put_contents("pay.txt",json_encode($_POST));
     }
 
     /**
