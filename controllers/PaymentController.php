@@ -131,4 +131,20 @@ class PaymentController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    public function actionSuccessPay()
+    {
+        if (\Yii::$app->request->get('InvoiceId')) {
+            $data = \Yii::$app->request->get();
+            if($order = Payments::find()->where(['orderId' => $data['InvoiceId']])) {
+                if($data['Status'] == "Completed" && (int)$order->amount == (int)$data['Amount']) {
+                   $order->status = Payments::PAYED;
+                   $order->save();
+
+                }
+            }
+        }
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return ["code" => 0];
+    }
 }
