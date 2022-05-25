@@ -85,15 +85,33 @@ class TariffController extends Controller
     public function actionGetPrice()
     {
         $id = \Yii::$app->request->get('id');
+        $orderId = \Yii::$app->request->get('orderId');
+        $promocode = \Yii::$app->request->get('promocode');
         if ($id) {
-            $code = \Yii::$app->user->identity->promoCodes;
-            $discount = $code['code']['discount'] ?? 0;
             $tariffs = Tariff::find()->all();
+            $price = 0;
             foreach ($tariffs as $tariff){
-                if ($id == '1_month') return $tariff->price_30;
-                if ($id == '6_month') return $tariff->price_180;
-                if ($id == '12_month') return $tariff->price_365;
+                if ($id == '1_month'){
+                    $price = $tariff->price_30;
+                }  else if ($id == '6_month')
+                {
+                    $price = $tariff->price_180;
+                } else if ($id == '12_month')
+                {
+                    $price = $tariff->price_365;
+                }
             }
+            if($orderId){
+                $payment = new Payments();
+                $payment->status = null;
+                $payment->orderId = $orderId;
+                $payment->user_id = \Yii::$app->user->isGuest ? 0 : \Yii::$app->user->identity->getId();
+                $payment->tariff = $id;
+                $payment->amount = $price;
+                $payment->promocode = $promocode;
+                $payment->save();
+            }
+            return  $price;
         }
         throw new BadRequestHttpException('not found tariff');
     }

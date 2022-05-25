@@ -16,12 +16,13 @@ $script = <<<JS
     }
 $(document).on('click', '.pay', function (e) {
     let id = $(this).data('id');
+    let promocode = getCookie('promocode');
     let monthTariff = $(this).data('period');
     var self = this;
     let orderId = orderNumber();
     promise = new Promise((resolve, reject) =>{
         $.ajax({
-        url: "$url" + id
+           url: "$url" + id + "&promocode=" + promocode + "&orderId=" + orderId
          }).done(function(data){
              resolve(data);
          }).fail(function(err){
@@ -70,19 +71,7 @@ $(document).on('click', '.pay', function (e) {
         data: data
     },
     function (options) { // success
-        console.log(options);
-        $.ajax({
-            url: "$paymentSuccessUrl",
-            method: "POST",
-            data: {
-                tariff: id,
-                status : true,
-                orderId: orderId,
-                amount: price
-            }
-        }).done(function (data){
-            swal("Покупка прошла успешно!"), "success";
-        })
+         swal("Покупка прошла успешно!", "success");
     },
     function (reason, options) { // fail
         //действие при неуспешной оплате

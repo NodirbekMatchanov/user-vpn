@@ -176,7 +176,7 @@ class RegistrationController extends Controller
             return true;
         } else {
             return  $model->errors;
-    }
+        }
 
     }
 

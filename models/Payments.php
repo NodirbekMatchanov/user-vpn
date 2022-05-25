@@ -14,6 +14,7 @@ use Yii;
  * @property string $tariff
  * @property float $amount
  * @property int $status
+ * @property int $promocode
  */
 class Payments extends \yii\db\ActiveRecord
 {
@@ -38,7 +39,7 @@ class Payments extends \yii\db\ActiveRecord
             [[ 'user_id', 'status'], 'integer'],
             [['datecreate'], 'safe'],
             [['amount'], 'number'],
-            [['tariff','orderId'], 'string', 'max' => 50],
+            [['tariff','promocode','orderId'], 'string', 'max' => 50],
             [['orderId'], 'unique'],
         ];
     }

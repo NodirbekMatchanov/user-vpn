@@ -2,8 +2,11 @@
 
 namespace app\controllers;
 
+use app\models\Accs;
 use app\models\Payments;
 use app\models\PaymentsSearch;
+use app\models\User;
+use app\models\user\RegistrationForm;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -134,12 +137,58 @@ class PaymentController extends Controller
 
     public function actionSuccessPay()
     {
+        file_put_contents("pay.txt", json_encode($_GET));
         if (\Yii::$app->request->get('InvoiceId')) {
             $data = \Yii::$app->request->get();
-            if($order = Payments::find()->where(['orderId' => $data['InvoiceId']])) {
-                if($data['Status'] == "Completed" && (int)$order->amount == (int)$data['Amount']) {
-                   $order->status = Payments::PAYED;
-                   $order->save();
+            if ($order = Payments::find()->where(['orderId' => $data['InvoiceId']])) {
+                if ($data['Status'] == "Completed" && (int)$order->amount == (int)$data['Amount']) {
+                    $order->status = Payments::PAYED;
+                    $order->save();
+                    if (!empty($data['Email'])) {
+                        $hasUser = Accs::find()->where(['email' => $data['Email']])->one();
+                        if (empty($hasUser)) {
+                            $password = \Yii::$app->security->generateRandomString(8);
+                            $userData = [
+                                'email' =>  $data['Email'],
+                                'password' =>  $password,
+                                'password_repeat' =>  $password,
+                            ];
+
+                            /** @var RegistrationForm $model */
+                            $model = \Yii::createObject(RegistrationForm::className());
+                            $event = $this->getFormEvent($model);
+
+                            /*если в куки есть промокод то передаем в модель*/
+                            if (isset($_COOKIE['promocode'])) {
+                                $model->promocode = $_COOKIE['promocode'];
+                            }
+
+                            if ($model->load($userData, '') && $model->register()) {
+                                return true;
+                            } else {
+                                return $model->errors;
+                            }
+
+                        } else {
+
+                        }
+                    }
+                }
+            }
+        }
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return ["code" => 0];
+    }
+
+    public function actionCancelPay()
+    {
+        file_put_contents("cancel.txt", json_encode($_GET));
+        if (\Yii::$app->request->get('InvoiceId')) {
+            $data = \Yii::$app->request->get();
+            if ($order = Payments::find()->where(['orderId' => $data['InvoiceId']])) {
+                if ($data['Status'] == "Completed" && (int)$order->amount == (int)$data['Amount']) {
+                    $order->status = Payments::PAYED;
+                    $order->save();
 
                 }
             }
