@@ -83,9 +83,11 @@ class TariffController extends Controller
         if ($id) {
             $code = \Yii::$app->user->identity->promoCodes;
             $discount = $code['code']['discount'] ?? 0;
-            $tarif = Tariff::findOne($id);
-            if (!empty($tarif)) {
-                return $tarif->price - (($tarif->price * $discount) / 100);
+            $tariffs = Tariff::find()->all();
+            foreach ($tariffs as $tariff){
+                if ($id == '1_month') return $tariff->price_30;
+                if ($id == '6_month') return $tariff->price_180;
+                if ($id == '12_month') return $tariff->price_365;
             }
         }
         throw new BadRequestHttpException('not found tariff');

@@ -170,9 +170,9 @@ $(document).ready(function () {
         return matches ? decodeURIComponent(matches[1]) : undefined;
     }
 
-    $(document).on("keyup, change",'[name="email"]',function (){
-        let element = $(this)[0];
-        $(this).removeClass('validate-email');
+    $(document).on("click",'.auto-signup',function (){
+        let element = $('[name="email"]')[0];
+        $('[name="email"]').removeClass('validate-email');
         $('.error-email').remove();
         if(ValidateEmail(element)){
             let password = Password.generate(8);
@@ -188,8 +188,8 @@ $(document).ready(function () {
                 alert('ошибка регистрации')
             })
         } else {
-            $(this).addClass('validate-email');
-            $(this).after("<span class='error-email' style='color: red'>не валидный email</span>")
+            $('[name="email"]').addClass('validate-email');
+            $('[name="email"]').after("<span class='error-email' style='color: red'>не валидный email</span>")
         }
     })
 

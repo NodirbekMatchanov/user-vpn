@@ -3,6 +3,109 @@
 /** @var yii\web\View $this */
 
 $this->title = 'VPNMAX - Быстрый и анонимный доступ к любым сайтам';
+$url = \yii\helpers\Url::to(['tariff/get-price?id=']);
+$paymentSuccessUrl = \yii\helpers\Url::to(['tariff/payment-success']);
+$paymentErrorUrl = \yii\helpers\Url::to(['tariff/payment-error']);
+$script = <<<JS
+  function orderNumber() {
+      let now = Date.now().toString() // '1492341545873'
+      // pad with extra random digit
+      now += now + Math.floor(Math.random() * 10)
+      // format
+      return  [now.slice(0, 4), now.slice(4, 10), now.slice(10, 14)].join('-')
+    }
+$(document).on('click', '.pay', function (e) {
+    let id = $(this).data('id');
+    let monthTariff = $(this).data('period');
+    var self = this;
+    let orderId = orderNumber();
+    promise = new Promise((resolve, reject) =>{
+        $.ajax({
+        url: "$url" + id
+         }).done(function(data){
+             resolve(data);
+         }).fail(function(err){
+             alert(err);
+             reject(err);
+         })
+    });
+    promise.then((amount) =>{
+        console.log(amount);
+        self.pay = function () {
+    var widget = new cp.CloudPayments();
+    var price = parseFloat(amount);
+    var receipt = {
+            Items: [//товарные позиции
+                 {
+                    label: 'Оплата за подписку', //наименование товара
+                    price: price, //цена
+                    quantity: 1.00, //количество
+                    amount: price, //сумма
+                    vat: 0, //ставка НДС
+                    method: 0, // тег-1214 признак способа расчета - признак способа расчета
+                    object: 1, // тег-1212 признак предмета расчета - признак предмета товара, работы, услуги, платежа, выплаты, иного предмета расчета
+                }
+            ],
+            isBso: false, //чек является бланком строгой отчетности
+        };
+
+    var data = {};
+    data.CloudPayments = {
+        CustomerReceipt: receipt, //чек для первого платежа
+        recurrent: {
+         interval: 'Month',
+         period: monthTariff, 
+         customerReceipt: receipt //чек для регулярных платежей
+         }
+         }; //создание ежемесячной подписки
+
+    widget.charge({ // options
+        publicId: 'pk_16424c5787dd7ebfbba47e66aafa8', //id из личного кабинета
+        description: 'Подписка на ежемесячный доступ к сайту https://www.vpnmax.org/', //назначение
+        amount: price, //сумма
+        currency: 'RUB', //валюта
+        requireEmail: true,
+        invoiceId: orderId, //номер заказа  (необязательно)
+        data: data
+    },
+    function (options) { // success
+        console.log(options);
+        $.ajax({
+            url: "$paymentSuccessUrl",
+            method: "POST",
+            data: {
+                tariff: id,
+                status : true,
+                orderId: orderId,
+                amount: price
+            }
+        }).done(function (data){
+            swal("Покупка прошла успешно!"), "success";
+        })
+    },
+    function (reason, options) { // fail
+        //действие при неуспешной оплате
+          $.ajax({
+            url: "$paymentErrorUrl",
+            method: "POST",
+            data: {
+                tariff: id,
+                status : false,
+                orderId: orderId,
+                amount: price
+            }
+        }).done(function (data){
+            swal("Покупка прошла не успешно!"), "error";
+        })
+    });
+};
+        e.preventDefault();
+        self.pay();
+    })
+    
+    });
+JS;
+$this->registerJs($script, $this::POS_END);
 ?>
 <div class="about" name='features'>
     <div class="container">
@@ -239,7 +342,7 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                     <div name="sign" class="input _dark">
                         <input type="email" name='email' placeholder="Ваш e-mail">
                     </div>
-                    <button class="btn-2">Попробовать бесплатно</button>
+                    <button type="button" class="btn-2 auto-signup">Попробовать бесплатно</button>
                 </div>
                 <div class="test-politic">Нажимая на кнопку, вы даете согласие на обработку персональных данных и
                     соглашаетесь c <a href="#">политикой конфиденциальности</a></div>
@@ -743,59 +846,95 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
         </div>
 
         <div class="prices-items">
+            <?php foreach ($tariffs as $tariff): ?>
 
-            <div class="prices-item">
-                <h3 class="title-3">1 месяц</h3>
+                <?php if(!empty($tariff) && $tariff->day_30): ?>
+                    <div class="prices-item">
+                        <h3 class="title-3">1 месяц</h3>
 
-                <div class="prices-tags">
-                    <div class="prices-tags-item">Неограниченная скорость</div>
-                    <div class="prices-tags-item">Все локации</div>
-                    <div class="prices-tags-item">Безлимитный трафик</div>
-                    <div class="prices-tags-item">До 6 устройств</div>
-                </div>
+                        <div class="prices-tags">
+                            <div class="prices-tags-item">Неограниченная скорость</div>
+                            <div class="prices-tags-item">Все локации</div>
+                            <div class="prices-tags-item">Безлимитный трафик</div>
+                            <div class="prices-tags-item">До 6 устройств</div>
+                        </div>
 
-                <div class="spacer"></div>
+                        <div class="spacer"></div>
 
-                <div class="prices-price">
-                    999 ₽ / мес
-                </div>
-                <div class="prices-price-note">
-                    +НДС
-                </div>
+                        <div class="prices-price">
+                            <?=$tariff->price_30?> ₽ / мес
+                        </div>
+                        <div class="prices-price-note">
+                            +НДС
+                        </div>
 
-                <button class="btn-2">Купить</button>
-            </div>
-
-            <div class="prices-item _dark">
-                <div class="prices-mark">
-                    <img src="web/img/prices-mark.svg" alt="">
-                </div>
-
-                <h3 class="title-3">1 год</h3>
-
-                <div class="prices-tags">
-                    <div class="prices-tags-item">Неограниченная скорость</div>
-                    <div class="prices-tags-item">Все локации</div>
-                    <div class="prices-tags-item">Безлимитный трафик</div>
-                    <div class="prices-tags-item">До 6 устройств</div>
-                </div>
-
-                <div class="prices-sale">
-                    <div class="prices-sale-text">
-                        999 ₽ / мес
+                        <button type="button" data-id="1_month" data-period="30" data-price="<?=$tariff->price_30?>" class="btn-2 pay">Купить</button>
                     </div>
-                    <div class="prices-sale-percent">-67%</div>
-                </div>
-                <div class="prices-price">
-                    329 ₽ / мес
-                </div>
-                <div class="prices-price-note">
-                    +НДС, оплата раз в год
-                </div>
+                <?php endif;?>
+                <?php if(!empty($tariff) && $tariff->day_180): ?>
+                    <div class="prices-item _dark">
+                        <div class="prices-mark">
+                            <img src="web/img/prices-mark.svg" alt="">
+                        </div>
 
-                <button class="btn-2">Купить</button>
-            </div>
+                        <h3 class="title-3">6 месяца</h3>
+
+                        <div class="prices-tags">
+                            <div class="prices-tags-item">Неограниченная скорость</div>
+                            <div class="prices-tags-item">Все локации</div>
+                            <div class="prices-tags-item">Безлимитный трафик</div>
+                            <div class="prices-tags-item">До 6 устройств</div>
+                        </div>
+
+
+                        <div class="prices-price">
+                            <?=$tariff->price_180?> ₽ / мес
+                        </div>
+                        <div class="prices-price-note">
+                            +НДС, оплата раз в год
+                        </div>
+
+                        <button data-period="180" data-id="6_month" data-price="<?=$tariff->price_180?>" class="btn-2 pay">Купить</button>
+                    </div>
+                <?php endif;?>
+                <?php if(!empty($tariff) && $tariff->price_365): ?>
+                    <div class="prices-item _dark">
+                        <div class="prices-mark">
+                            <img src="web/img/prices-mark.svg" alt="">
+                        </div>
+
+                        <h3 class="title-3">1 год</h3>
+
+                        <div class="prices-tags">
+                            <div class="prices-tags-item">Неограниченная скорость</div>
+                            <div class="prices-tags-item">Все локации</div>
+                            <div class="prices-tags-item">Безлимитный трафик</div>
+                            <div class="prices-tags-item">До 6 устройств</div>
+                        </div>
+
+                        <div class="prices-sale">
+                            <div class="prices-sale-text">
+                                999 ₽ / мес
+                            </div>
+                            <div class="prices-sale-percent">-67%</div>
+                        </div>
+                        <div class="prices-price">
+                            <?=$tariff->price_180?> ₽ / мес
+                        </div>
+                        <div class="prices-price-note">
+                            +НДС, оплата раз в год
+                        </div>
+
+                        <button data-period="180" data-id="12_month" data-price="<?=$tariff->price_365?>" class="btn-2 pay">Купить</button>
+                    </div>
+                <?php endif;?>
+
+            <?php endforeach; ?>
+
+
+
 
         </div>
     </div>
 </div>
+<script src="https://widget.cloudpayments.ru/bundles/cloudpayments.js"></script>

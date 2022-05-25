@@ -63,6 +63,7 @@ $(document).on('click', '.pay', function (e) {
         description: 'Подписка на ежемесячный доступ к сайту https://www.vpnmax.org/', //назначение
         amount: price, //сумма
         currency: 'RUB', //валюта
+        requireEmail: true,
         invoiceId: orderId, //номер заказа  (необязательно)
         accountId: '$email', //идентификатор плательщика (обязательно для создания подписки)
         data: data

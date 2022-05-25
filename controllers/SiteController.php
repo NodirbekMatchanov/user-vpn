@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Tariff;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -62,7 +63,14 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $this->layout = 'main_';
-        return $this->render('index');
+        $tariffs = Tariff::find()->all();
+        return $this->render('index',[
+            'tariffs' => $tariffs
+        ]);
+    }
+    public function actionPay()
+    {
+        file_put_contents("pay.txt",$_POST);
     }
 
     /**
@@ -137,5 +145,21 @@ class SiteController extends Controller
     public function actionPrivacy()
     {
         return $this->render('privacy');
+    }
+
+    public function actionQuestions()
+    {
+        $model = new \app\models\Questions();
+
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->validate()) {
+                // form inputs are valid, do something here
+                return;
+            }
+        }
+
+        return $this->render('questions', [
+            'model' => $model,
+        ]);
     }
 }
