@@ -41,7 +41,7 @@ class TariffController extends Controller
                     [
                         'actions' => [ 'payment', 'get-price', 'payment-success', 'payment-error'],
                         'allow' => true,
-                        'roles' => ['?'],
+                        'roles' => ['?','@'],
                     ],
                 ],
             ],
