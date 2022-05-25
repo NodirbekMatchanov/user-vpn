@@ -72,7 +72,7 @@ class SiteController extends Controller
     {
         file_put_contents("pay.txt",json_encode($_POST));
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        echo '{"code":0}';
+        return '{"code":0}';
     }
 
     /**
