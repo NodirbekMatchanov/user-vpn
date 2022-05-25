@@ -21,12 +21,16 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout'],
                 'rules' => [
                     [
-                        'actions' => ['index','logout'],
+                        'actions' => ['logout'],
                         'allow' => true,
                         'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['pay'],
+                        'allow' => true,
+                        'roles' => ['?'],
                     ],
                 ],
             ],
@@ -70,7 +74,7 @@ class SiteController extends Controller
     }
     public function actionPay()
     {
-        file_put_contents("pay.txt",json_encode($_POST));
+        file_put_contents("pay.txt",json_encode($_GET));
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         return ["code" => 0];
     }
