@@ -30,7 +30,7 @@ class SiteController extends Controller
                     [
                         'actions' => ['pay','index'],
                         'allow' => true,
-                        'roles' => ['?'],
+                        'roles' => ['?','@'],
                     ],
                 ],
             ],
