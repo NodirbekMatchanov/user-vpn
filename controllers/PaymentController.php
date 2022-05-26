@@ -166,7 +166,9 @@ class PaymentController extends Controller
                             if ($model->load($userData, '') && $model->register()) {
                                 $user = Accs::find()->where(['email' => $data['Email']])->one();
                                 $time = Tariff::getPeriod($order->tariff) * (3600 * 24);
-                                $user->untildate = $user->untildate < time() ? (time() + $time) : $user->untildate + $time ;
+                                $user->untildate = ( $user->untildate < time()) ? (time() + $time) : ($user->untildate + $time) ;
+                                echo $time. "__";
+                                echo $user->untildate;
                                 $user->save();
                             } else {
                                 return $model->errors;
@@ -177,6 +179,10 @@ class PaymentController extends Controller
                             $time = Tariff::getPeriod($order->tariff) * (3600 * 24);
                             $user->untildate = $user->untildate < time() ? (time() + $time) : $user->untildate + $time ;
                             $user->save();
+                        } else {
+                            $time = Tariff::getPeriod($order->tariff) * (3600 * 24);
+                            $hasUser->untildate = $hasUser->untildate < time() ? (time() + $time) : $hasUser->untildate + $time ;
+                            $hasUser->save();
                         }
                     }
                 }
