@@ -87,11 +87,11 @@ class Tariff extends \yii\db\ActiveRecord
         $tariffs = Tariff::find()->all();
         foreach ($tariffs as $tariff) {
             if ($id == '1_month') {
-                return  $tariff->day_30;
+                return  30;
             } else if ($id == '6_month') {
-                return  $tariff->day_180;
+                return  180;
             } else if ($id == '12_month') {
-                return  $tariff->day_365;
+                return  365;
             }
         }
     }
