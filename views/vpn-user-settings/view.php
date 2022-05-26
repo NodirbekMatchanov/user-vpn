@@ -5,6 +5,7 @@ use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\VpnUserSettings */
+/* @var $dataProviderEvents app\models\UserEvents */
 
 $this->title = $model->accs->email ?? '';
 $this->params['breadcrumbs'][] = ['label' => 'Список пользователей', 'url' => ['index']];
@@ -180,4 +181,21 @@ if(!empty($model->accs->user_id)) {
     <?php endif; ?>
         </tbody>
     </table>
+    <h3>Событии</h3>
+    <?= \yii\grid\GridView::widget([
+        'dataProvider' => $dataProviderEvents,
+        'filterModel' => $searchModel,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            'datetime',
+            [
+                'attribute' => 'event',
+                'content' => function ($data) {
+                    return \app\models\UserEvents::$eventsRu[$data->event] ?? '';
+                }
+            ],
+            'text:ntext',
+        ],
+    ]); ?>
 </div>

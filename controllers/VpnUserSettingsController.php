@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\Accs;
 use app\models\User;
 use app\models\user\Profile;
+use app\models\UserEventsSearch;
 use app\models\VpnUserSettings;
 use app\models\VpnUserSettingsSearch;
 use yii\filters\AccessControl;
@@ -83,6 +84,7 @@ class VpnUserSettingsController extends Controller
         $searchModel = new VpnUserSettingsSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
+
         return $this->render('user/index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -97,8 +99,13 @@ class VpnUserSettingsController extends Controller
      */
     public function actionView($id)
     {
+        $searchModel = new UserEventsSearch();
+        $dataProviderEvents = $searchModel->searchByUserId($this->request->queryParams, $id);
+
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'dataProviderEvents' => $dataProviderEvents,
+            'searchModel' => $searchModel,
         ]);
     }
 

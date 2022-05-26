@@ -62,9 +62,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     <br>
                     <div class="row">
                         <label style="text-align: right" class="col-lg-3 control-label"> Реферальная ссылка: </label>
-                        <div class="col-lg-9"><input type="text" class="form-control" disabled
-                                                     value="<?= "https://" . $domain . "?ref=" . $accs->promocode ?>">
-                        </div>
                     </div>
 
                 <?php endif; ?>

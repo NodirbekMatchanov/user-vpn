@@ -7,6 +7,7 @@ use app\models\Accs;
 use app\models\MailHistory;
 use app\models\user\Profile;
 use app\models\user\LoginForm;
+use app\models\UserEvents;
 use http\Message;
 use Yii;
 use yii\base\Model;
@@ -117,6 +118,12 @@ class Users extends \yii\db\ActiveRecord
                    if($usedPromocode){
                        $this->untildate = $this->untildate+(24*3600);
                        $this->save();
+                       /* add event */
+                       $event = new UserEvents();
+                       $event->event = 6;
+                       $event->user_id = $user->id;
+                       $event->text = 'регистрация по промо-коду : '. $this->promocode;
+                       $event->save();
                    }
                    return $this;
                 } else {

@@ -145,7 +145,7 @@ class PaymentController extends Controller
                 if ($data['Status'] == "Completed" && (int)$order->amount == (int)$data['Amount']) {
                     $order->status = Payments::PAYED;
                     $order->save();
-                    if (!empty($data['Email'])) {
+                    if (!empty($data['Email']) || !\Yii::$app->user->isGuest) {
                         $hasUser = Accs::find()->where(['email' => $data['Email']])->one();
                         if (empty($hasUser)) {
                             $password = \Yii::$app->security->generateRandomString(8);
@@ -167,12 +167,16 @@ class PaymentController extends Controller
                                 $user = Accs::find()->where(['email' => $data['Email']])->one();
                                 $time = Tariff::getPeriod($order->tariff) * (3600 * 24);
                                 $user->untildate = $user->untildate < time() ? (time() + $time) : $user->untildate + $time ;
+                                $user->save();
                             } else {
                                 return $model->errors;
                             }
 
-                        } else {
-
+                        } elseif(!\Yii::$app->user->isGuest) {
+                            $user = Accs::find()->where(['user_id' => \Yii::$app->user->identity->getId()])->one();
+                            $time = Tariff::getPeriod($order->tariff) * (3600 * 24);
+                            $user->untildate = $user->untildate < time() ? (time() + $time) : $user->untildate + $time ;
+                            $user->save();
                         }
                     }
                 }

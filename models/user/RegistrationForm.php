@@ -14,6 +14,7 @@ namespace app\models\user;
 use app\controllers\SiteController;
 use app\controllers\user\RegistrationController;
 use app\models\Accs;
+use app\models\UserEvents;
 use app\models\VpnUserSettings;
 use app\modules\api\v1\models\Users;
 use dektrium\user\Finder;
@@ -173,6 +174,12 @@ class RegistrationForm extends \dektrium\user\models\RegistrationForm
         if (!empty($accs)) {
             if ($usedPromocode) {
                 $accs->untildate = $accs->untildate + (3600 * 24);
+                /* add event */
+                $event = new UserEvents();
+                $event->event = 6;
+                $event->user_id = $user->id;
+                $event->text = 'регистрация по промо-коду : '. $this->promocode;
+                $event->save();
             }
             $accs->verifyCode = $code;
             $accs->save(false);

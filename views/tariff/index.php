@@ -3,6 +3,7 @@ $email = Yii::$app->user->identity->email;
 $url = \yii\helpers\Url::to(['tariff/get-price?id=']);
 $paymentSuccessUrl = \yii\helpers\Url::to(['tariff/payment-success']);
 $paymentErrorUrl = \yii\helpers\Url::to(['tariff/payment-error']);
+$code = Yii::$app->user->identity->promoCodes;
 $script = <<<JS
   function orderNumber() {
       let now = Date.now().toString() // '1492341545873'
@@ -13,7 +14,7 @@ $script = <<<JS
     }
 $(document).on('click', '.pay', function (e) {
     let id = $(this).data('id');
-    let promocode = getCookie('promocode');
+    let promocode = "$code";
     let monthTariff = $(this).data('period');
     var self = this;
     let orderId = orderNumber();
@@ -64,7 +65,6 @@ $(document).on('click', '.pay', function (e) {
         description: 'Подписка на ежемесячный доступ к сайту https://www.vpnmax.org/', //назначение
         amount: price, //сумма
         currency: 'RUB', //валюта
-        requireEmail: true,
         invoiceId: orderId, //номер заказа  (необязательно)
         accountId: '$email', //идентификатор плательщика (обязательно для создания подписки)
         data: data
@@ -73,19 +73,7 @@ $(document).on('click', '.pay', function (e) {
          swal("Покупка прошла успешно!", "success");
     },
     function (reason, options) { // fail
-        //действие при неуспешной оплате
-          $.ajax({
-            url: "$paymentErrorUrl",
-            method: "POST",
-            data: {
-                tariff: id,
-                status : false,
-                orderId: orderId,
-                amount: price
-            }
-        }).done(function (data){
-            swal("Покупка прошла не успешно!"), "error";
-        })
+            swal("Покупка прошла не успешно!", "error");
     });
 };
         e.preventDefault();
@@ -95,7 +83,6 @@ $(document).on('click', '.pay', function (e) {
     });
 JS;
 $this->registerJs($script, $this::POS_END);
-$code = Yii::$app->user->identity->promoCodes;
 $discount = $code['code']['discount'] ?? 0;
 ?>
 
@@ -272,7 +259,7 @@ $discount = $code['code']['discount'] ?? 0;
                         </ul>
                     </div>
                     <div class="pricingTable-signup">
-                        <a class="pay" data-id="<?=$item->id?>" data-period="<?=30?>" data-price="<?=$price?>" data-type="premium" href="#">Купить</a>
+                        <a class="pay" data-id="1_month" data-period="<?=30?>" data-price="<?=$price?>" data-type="premium" href="#">Купить</a>
                     </div>
                 </div>
             </div>
@@ -293,7 +280,7 @@ $discount = $code['code']['discount'] ?? 0;
                         </ul>
                     </div>
                     <div class="pricingTable-signup">
-                        <a class="pay" data-id="<?=$item->id?>" data-period="<?=180?>" data-price="<?=$price?>" data-type="premium" href="#">Купить</a>
+                        <a class="pay" data-id="6_month" data-period="<?=180?>" data-price="<?=$price?>" data-type="premium" href="#">Купить</a>
                     </div>
                 </div>
             </div>
@@ -314,7 +301,7 @@ $discount = $code['code']['discount'] ?? 0;
                         </ul>
                     </div>
                     <div class="pricingTable-signup">
-                        <a class="pay" data-id="<?=$item->id?>" data-period="365" data-price="<?=$price?>" data-type="premium" href="#">Купить</a>
+                        <a class="pay" data-id="12_month" data-period="365" data-price="<?=$price?>" data-type="premium" href="#">Купить</a>
                     </div>
                 </div>
             </div>
