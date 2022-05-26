@@ -52,7 +52,9 @@ class VerifyCode extends Model
             return false;
         }
         $this->user->status = VpnUserSettings::$statuses['ACTIVE'];
-        $this->user->untildate = strtotime('+ 3 days');
+        if($this->user->untildate < time()) {
+            $this->user->untildate = strtotime('+ 3 days');
+        }
         $this->user->save();
 
         return true;

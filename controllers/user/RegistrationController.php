@@ -270,8 +270,11 @@ class RegistrationController extends Controller
 
         $accs = Accs::find()->where(['user_id' => $user->id])->one();
         $accs->status = VpnUserSettings::$statuses['ACTIVE'];
-        $accs->untildate = date("Y-m-d",$accs->untildate) == date("Y-m-d") ? ($accs->untildate + (24*3600*3)) : strtotime('+ 3 days') ;
+        if($accs->untildate < time()) {
+            $accs->untildate = date("Y-m-d",$accs->untildate) == date("Y-m-d") ? ($accs->untildate + (24*3600*3)) : strtotime('+ 3 days') ;
+        }
         $accs->save();
+
         $this->trigger(self::EVENT_AFTER_CONFIRM, $event);
         $mailer = new Mailer();
         $mailer->sendActivateAccount($accs);
