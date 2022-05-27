@@ -347,7 +347,7 @@ $this->registerJs($script, $this::POS_END);
         </div>
     </div>
 </div>
-<div class="faq" name='faq'>
+<div class="faq" style="display: none" name='faq'>
     <div class="container">
         <h2 class="title-2">Ответы на <span class="accent">вопросы</span></h2>
 
@@ -830,7 +830,7 @@ $this->registerJs($script, $this::POS_END);
         </div>
     </div>
 </div>
-<div class="prices" name='prices'>
+<div class="prices" style="display: none" name='prices'>
     <div class="container">
         <div class="prices-header">
             <h2 class="title-2">

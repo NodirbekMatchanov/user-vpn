@@ -46,7 +46,7 @@ use yii\bootstrap\NavBar;
                         <li><a href="#features">Особенности</a></li>
                         <li><a href="#faq">Вопросы</a></li>
                         <li><a href="#feedbacks">Отзывы</a></li>
-                        <li><a href="#prices">Цены</a></li>
+<!--                        <li><a href="#prices">Цены</a></li>-->
                     </ul>
                 </div>
 
