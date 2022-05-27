@@ -4,6 +4,7 @@ namespace app\modules\api\v1\models;
 
 use app\components\DateFormat;
 use app\models\Accs;
+use app\models\Mailer;
 use app\models\MailHistory;
 use app\models\user\Profile;
 use app\models\user\LoginForm;
@@ -76,11 +77,11 @@ class Billing extends Model
 
                                 $untildate = 0;
                                 switch ($item->product_id) {
-                                    case self::MONTH_1: $untildate = strtotime("30 days");
+                                    case self::MONTH_1: $untildate = (3600*24)*30;
                                     break;
-                                    case self::MONTH_6: $untildate = strtotime("180 days");
+                                    case self::MONTH_6: $untildate = (3600*24)*180;
                                     break;
-                                    case self::MONTH_12: $untildate = strtotime("365 days");
+                                    case self::MONTH_12: $untildate = (3600*24)*365;
                                     break;
                                 }
 
@@ -91,6 +92,10 @@ class Billing extends Model
                                         $user->untildate = $user->untildate < time() ? time() +  $untildate: $user->untildate + $untildate;
                                         $user->status = VpnUserSettings::$statuses['ACTIVE'];
                                         $user->save();
+
+                                        $mailer = new Mailer();
+                                        $mailer->sendPaymentMessage($user, $untildate, date("d.m.Y", $user->untildate));
+
                                     }
                                 }
 

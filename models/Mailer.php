@@ -187,6 +187,16 @@ class Mailer extends \dektrium\user\Mailer
         );
     }
 
+    public function sendPaymentMessage($user,$expireDay, $expireDate)
+    {
+        return $this->sendMessage(
+            $user->email,
+            'Оплата на тариф',
+            'payment',
+            ['expireDay' => $expireDay,'expireDate' => $expireDate]
+        );
+    }
+
 
     public function sendErrorPaymentMessage($user)
     {

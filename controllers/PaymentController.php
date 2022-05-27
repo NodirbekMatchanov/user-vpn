@@ -3,11 +3,13 @@
 namespace app\controllers;
 
 use app\models\Accs;
+use app\models\Mailer;
 use app\models\Payments;
 use app\models\PaymentsSearch;
 use app\models\Tariff;
 use app\models\User;
 use app\models\user\RegistrationForm;
+use app\models\UserEvents;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -139,6 +141,7 @@ class PaymentController extends Controller
     public function actionSuccessPay()
     {
         file_put_contents("pay.txt", json_encode($_GET));
+        $mailer = new Mailer();
         if (\Yii::$app->request->get('InvoiceId')) {
             $data = \Yii::$app->request->get();
             if ($order = Payments::find()->where(['orderId' => $data['InvoiceId']])->one()) {
@@ -165,30 +168,47 @@ class PaymentController extends Controller
 
                             if ($model->load($userData, '') && $model->register()) {
                                 $user = Accs::find()->where(['email' => $data['Email']])->one();
-                                $time = Tariff::getPeriod($order->tariff) * (3600 * 24);
-                                $user->untildate = ( $user->untildate < time()) ? (time() + $time) : ($user->untildate + $time) ;
+                                $countDay = Tariff::getPeriod($order->tariff);
+                                $time = $countDay * (3600 * 24);
+                                $user->untildate = ($user->untildate < time()) ? (time() + $time) : ($user->untildate + $time) ;
                                 $user->save(false);
+                                $this->saveEvent($user->user_id,$order->amount." руб. ". $countDay. ' дней');
+                                $mailer->sendPaymentMessage($user, $countDay, date("d.m.Y", $user->untildate));
                             } else {
                                 return $model->errors;
                             }
 
                         }  else {
-                            $time = Tariff::getPeriod($order->tariff) * (3600 * 24);
+                            $countDay = Tariff::getPeriod($order->tariff);
+                            $time = $countDay * (3600 * 24);
                             $hasUser->untildate = $hasUser->untildate < time() ? (time() + $time) : $hasUser->untildate + $time ;
                             $hasUser->save(false);
+                            $this->saveEvent($hasUser->user_id,$order->amount." руб. ". Tariff::getPeriod($order->tariff). ' дней');
+                            $mailer->sendPaymentMessage($hasUser,$countDay, date("d.m.Y", $hasUser->untildate));
                         }
                     }
-                    else{
+                    else {
                         $user = Accs::find()->where(['user_id' => $order->user_id])->one();
-                        $time = Tariff::getPeriod($order->tariff) * (3600 * 24);
+                        $countDay = Tariff::getPeriod($order->tariff);
+                        $time = $countDay * (3600 * 24);
                         $user->untildate = $user->untildate < time() ? (time() + $time) : $user->untildate + $time ;
                         $user->save(false);
+                        $this->saveEvent($user->user_id,$order->amount." руб. ". $countDay. ' дней');
+                        $mailer->sendPaymentMessage($user, $countDay, date("d.m.Y", $user->untildate));
                     }
                 }
             }
         }
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         return ["code" => 0];
+    }
+
+    public function saveEvent($userId, $text) {
+        $event = new UserEvents();
+        $event->user_id = $userId;
+        $event->event = UserEvents::EVENT_PAYOUT;
+        $event->text = $text;
+        $event->save();
     }
 
 
