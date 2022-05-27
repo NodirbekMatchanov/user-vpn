@@ -15,6 +15,15 @@ use yii\helpers\Html;
  * @var int $expireDay
  * @var string $expireDate
  */
+$template = \app\models\MailTemplate::find()->where(['tmp_key' => 'payment'])->one();
 
 ?>
+<?php if(empty($template)): ?>
+
 <p>Здравствуйте, у вас активирован Premium тариф со сроком <?=$expireDay?> дней до <?=$expireDate?></p>
+<?php else:
+    $templateStr = str_replace('$expireDay',$expireDay,$template->body);
+    $templateStr = str_replace('$expireDate',$expireDate,$templateStr);
+?>
+    <?= $templateStr?>
+<?php endif;?>

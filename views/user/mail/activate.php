@@ -17,8 +17,17 @@ use yii\helpers\Html;
  * @var dektrium\user\models\Token $token
  * @var bool $showPassword
  */
+$template = \app\models\MailTemplate::find()->where(['tmp_key' => 'activate'])->one();
 
 ?>
+<?php if(empty($template)): ?>
+
 <p>Здравствуйте, Ваш аккаунт успешно активирован.</p>
 <p>Впнлогином: <?=$user->email?></p>
 <p>Пароль : <?=$user->pass?></p>
+<?php else:
+    $templateStr = str_replace('$email',$user->email,$template->body);
+    $templateStr = str_replace('$pass',$user->pass,$templateStr);
+    ?>
+    <?= $templateStr?>
+<?php endif;?>
