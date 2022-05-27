@@ -225,10 +225,10 @@ $this->registerJs($script, $this::POS_END);
             <div class="_active _tabs" data-content='1'>
                 <div class="devices-content">
                     <div class="devices-preview _active" data-content='1'>
-                        <img src="web/img/devices-phone.png" alt="">
+<!--                        <img src="web/img/devices-phone.png" alt="">-->
                     </div>
                     <div class="devices-preview" data-content='2'>
-                        <img src="web/img/devices-phone.png" alt="">
+<!--                        <img src="web/img/devices-phone.png" alt="">-->
                     </div>
                     <div class="devices-preview" data-content='3'>
                         TEST
