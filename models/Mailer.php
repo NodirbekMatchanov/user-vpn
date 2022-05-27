@@ -187,6 +187,26 @@ class Mailer extends \dektrium\user\Mailer
         );
     }
 
+    public function sendExpireDay($user)
+    {
+        return $this->sendMessage(
+            $user->email,
+            'Тариф',
+            'expire_day',
+            ['user' => $user]
+        );
+    }
+
+    public function sendExpire($user)
+    {
+        return $this->sendMessage(
+            $user->email,
+            'Тариф',
+            'expire',
+            ['user' => $user]
+        );
+    }
+
     public function sendPaymentMessage($user,$expireDay, $expireDate)
     {
         return $this->sendMessage(

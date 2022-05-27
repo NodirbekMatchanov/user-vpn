@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\components\DateFormat;
 use Yii;
 use yii\helpers\ArrayHelper;
 
@@ -92,6 +93,20 @@ class Tariff extends \yii\db\ActiveRecord
                 return  180;
             } else if ($id == '12_month') {
                 return  365;
+            }
+        }
+    }
+
+    /* проверка срок подписки */
+    public static function checkUsersTariff() {
+        $users = Accs::find()->all();
+        $mailer = new Mailer();
+        foreach ($users as $user) {
+            if(date("Y-m-d", $user->untildate) == date("Y-m-d")) {
+            } elseif (DateFormat::countDaysBetweenDates($user->untildate, time()) < 1) {
+                $mailer->sendExpire($user);
+            } elseif (DateFormat::countDaysBetweenDates($user->untildate, time()) == 1) {
+                $mailer->sendExpireDay($user);
             }
         }
     }
