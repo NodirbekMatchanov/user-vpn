@@ -23,6 +23,7 @@ class UserEvents extends \yii\db\ActiveRecord
     const EVENT_PAYOUT = 4;
     const EVENT_DELETE_ACCOUNT = 5;
     const EVENT_REGISTRATION_PROMOCODE = 6;
+    const EVENT_FREEDAY_PROMOCODE = 7;
 
     /* EVENTS ru*/
     public static $eventsRu = [
@@ -32,6 +33,7 @@ class UserEvents extends \yii\db\ActiveRecord
         self::EVENT_PAYOUT => 'купил подписку',
         self::EVENT_DELETE_ACCOUNT => 'удалил экаунт',
         self::EVENT_REGISTRATION_PROMOCODE => 'регистрация по промо-коду',
+        self::EVENT_FREEDAY_PROMOCODE => 'начислено бесплатные дни',
     ];
 
     /**

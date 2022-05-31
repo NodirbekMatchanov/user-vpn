@@ -16,11 +16,13 @@ use Yii;
  * @property string|null $description
  * @property float|null $discount
  * @property int|null $free_day
+ * @property int|null $freeday_partner
  * @property string|null $comment
  * @property string|null $author
  * @property string|null $country
  * @property string $created_at
  * @property string|null $updated_at
+ * @property string|null $user_id
  */
 class Promocodes extends \yii\db\ActiveRecord
 {
@@ -31,6 +33,7 @@ class Promocodes extends \yii\db\ActiveRecord
     public $payout;
     public $signup;
     public $konverstion;
+
     /**
      * {@inheritdoc}
      */
@@ -46,8 +49,8 @@ class Promocodes extends \yii\db\ActiveRecord
     {
         return [
             [['promocode', 'expire'], 'required'],
-            [['expire', 'date_start','users','tariffs', 'created_at', 'updated_at'], 'safe'],
-            [['user_limit', 'free_day'], 'integer'],
+            [['expire', 'date_start', 'user_id', 'users', 'tariffs', 'created_at', 'updated_at'], 'safe'],
+            [['user_limit','freeday_partner', 'free_day'], 'integer'],
             [['description', 'comment'], 'string'],
             [['discount'], 'number'],
             [['promocode'], 'unique', 'targetAttribute' => ['promocode']],
@@ -66,12 +69,14 @@ class Promocodes extends \yii\db\ActiveRecord
             'expire' => 'Действует до',
             'tariffs' => 'Привязка к тарифам',
             'users' => 'Привязка к пользователям',
+            'user_id' => 'Привязка к пользователям',
             'date_start' => 'Действует с',
             'user_limit' => 'Лимит регистраций',
             'status' => 'Статус',
             'description' => 'Описание',
             'discount' => 'Скидка %',
             'free_day' => 'Подарочные дни',
+            'freeday_partner' => 'Подарочные дни партнера',
             'comment' => 'Комментарии',
             'author' => 'Автор',
             'country' => 'Страна',
@@ -87,23 +92,21 @@ class Promocodes extends \yii\db\ActiveRecord
     public function afterSave($insert, $changedAttributes)
     {
 
-        if(!empty($this->users)){
+        if (!empty($this->users)) {
             if ($old = UsersPromocode::find()->where(['promocode_id' => $this->id])->one()) {
-                $old->remove();
+                $old->delete();
             }
-            foreach($this->users as $user){
-                $userPromocode = new UsersPromocode();
-                $userPromocode->user_id = $user;
-                $userPromocode->promocode_id = $this->id;
-                $userPromocode->save();
-            }
+            $userPromocode = new UsersPromocode();
+            $userPromocode->user_id = $this->users;
+            $userPromocode->promocode_id = $this->id;
+            $userPromocode->save();
         }
 
-        if(!empty($this->users)){
-            if($old = TariffPromocode::find()->where(['promocode_id' => $this->id])->one()){
-                $old->remove();
+        if (!empty($this->tariffs)) {
+            if ($old = TariffPromocode::find()->where(['promocode_id' => $this->id])->one()) {
+                $old->delete();
             }
-            foreach($this->tariffs as $tariff){
+            foreach ($this->tariffs as $tariff) {
                 $tariffPromocode = new TariffPromocode();
                 $tariffPromocode->tariff_id = $tariff;
                 $tariffPromocode->promocode_id = $this->id;

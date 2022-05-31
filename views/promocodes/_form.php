@@ -42,6 +42,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'free_day')->textInput() ?>
 
+    <?= $form->field($model, 'freeday_partner')->textInput() ?>
+
     <?= $form->field($model, 'comment')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'author')->textInput(['maxlength' => true]) ?>
@@ -57,10 +59,10 @@ use yii\widgets\ActiveForm;
         ],
     ]) ?>
 
-    <?= $form->field($model, 'users')->widget(\kartik\select2\Select2::className(),[
+    <?= $form->field($model, 'user_id')->widget(\kartik\select2\Select2::className(),[
         'maintainOrder' => true,
         'data' => \app\models\user\User::getUserList(),
-        'options' => ['placeholder' => 'Привязка к пользователям ...', 'multiple' => true],
+        'options' => ['placeholder' => 'Привязка к пользователям ...', 'multiple' => false],
         'pluginOptions' => [
             'maximumInputLength' => 10
         ],

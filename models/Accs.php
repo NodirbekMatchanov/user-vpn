@@ -101,7 +101,15 @@ class Accs extends \yii\db\ActiveRecord
            UsedPromocodes::saveSignup(($user->user_id ?? $user->id),$promocode);
            $mailer = new Mailer();
            $mailer->sendUsedPromocode($accs);
-           return $accs->save();
+
+            /* add event */
+            $event = new UserEvents();
+            $event->event = UserEvents::EVENT_FREEDAY_PROMOCODE;
+            $event->user_id = $user->user_id;
+            $event->text = 'Начислено бесплатные дни : 7 дней';
+            $event->save();
+
+            return $accs->save();
         } else {
             UsedPromocodes::usePromocode($user->id,$promocode);
         }

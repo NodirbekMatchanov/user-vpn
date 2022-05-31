@@ -99,7 +99,7 @@ class UsedPromocodes extends \yii\db\ActiveRecord
     public static function usePromocode($userId, $promocode, $type = null)
     {
         $promocodeModel = Promocodes::find()->where(['promocode' => $promocode])->one();
-        if (strtotime($promocodeModel->expire) >= time()) {
+        if (strtotime($promocodeModel->expire) >= time() && $promocodeModel->user_id) {
             $accs = Accs::find()->where(['user_id' => $userId])->one();
             $usedCodeCounts = UsedPromocodes::find()->where(['promocode' => $promocode])->andWhere(['!=', 'type', UsedPromocodes::VISIT])->count();
             if ($promocodeModel->user_limit < $usedCodeCounts) {
@@ -107,6 +107,36 @@ class UsedPromocodes extends \yii\db\ActiveRecord
             }
             $accs->untildate = date("Y-m-d",$accs->untildate) < date("Y-m-d") ? time() + (3600 * 24 * $promocodeModel->free_day) : $accs->untildate + (3600 * 24 * $promocodeModel->free_day);
             $accs->save();
+
+            // привязанный пользователь к промокоду
+            $user = Accs::find()->where(['user_id' => $promocodeModel->user_id])->one();
+            $user->untildate = date("Y-m-d",$accs->untildate) < date("Y-m-d") ? time() + (3600 * 24 * $promocodeModel->freeday_partner) : $accs->untildate + (3600 * 24 * $promocodeModel->freeday_partner);
+            $user->save();
+
+            $mailer = new Mailer();
+            $mailer->sendUsedPromocode($accs);
+            $mailer->sendUsedPromocode($user);
+
+            /* add event */
+            $event = new UserEvents();
+            $event->event = UserEvents::EVENT_REGISTRATION_PROMOCODE;
+            $event->user_id = $userId;
+            $event->text = 'регистрация по промо-коду : ' . $promocode;
+            $event->save();
+
+            /* add event */
+            $event = new UserEvents();
+            $event->event = UserEvents::EVENT_FREEDAY_PROMOCODE;
+            $event->user_id = $user->user_id;
+            $event->text = 'Начислено бесплатные дни : ' . $promocodeModel->freeday_partner.' дней';
+            $event->save();
+
+            /* add event */
+            $event = new UserEvents();
+            $event->event = UserEvents::EVENT_FREEDAY_PROMOCODE;
+            $event->user_id = $userId;
+            $event->text = 'Начислено бесплатные дни : ' . $promocodeModel->free_day .' дней';
+            $event->save();
 
             self::saveSignup($userId,$promocode);
 
