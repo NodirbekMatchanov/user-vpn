@@ -73,7 +73,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'regDate',
                 'content' => function ($data) {
                     if(!empty($data->user_id)) {
-                        return  date("d.m.Y",\app\models\Accs::find()->select('datecreate')->where(['user_id' => $data->user_id])->one()->datecreate ?? '') ;
+                        $date =  \app\models\Accs::find()->select('datecreate')->where(['user_id' => $data->user_id])->one()->datecreate ?? '' ;
+                        return $date ? date("d.m.Y", $date) : "";
                     }
                     return "";
                 }
