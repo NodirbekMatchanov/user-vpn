@@ -99,7 +99,7 @@ class Tariff extends \yii\db\ActiveRecord
 
     /* проверка срок подписки */
     public static function checkUsersTariff() {
-        $users = Accs::find()->all();
+        $users = Accs::find()->where(['status' => VpnUserSettings::$statuses['ACTIVE']])->all();
         $mailer = new Mailer();
         foreach ($users as $user) {
             if(date("Y-m-d", $user->untildate) == date("Y-m-d")) {

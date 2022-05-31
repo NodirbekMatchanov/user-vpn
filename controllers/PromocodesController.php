@@ -218,7 +218,7 @@ class PromocodesController extends Controller
     public function actionValidation()
     {
         if (Yii::$app->request->isAjax && $code = Yii::$app->request->post('code')) {
-           UsedPromocodes::ValidationPromoCode($code);
+           return UsedPromocodes::ValidationPromoCode($code);
         }
         return json_encode(['result' => 'error', 'error' => 'Промокод не найден']);
     }
