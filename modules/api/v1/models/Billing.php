@@ -6,6 +6,7 @@ use app\components\DateFormat;
 use app\models\Accs;
 use app\models\Mailer;
 use app\models\MailHistory;
+use app\models\Payments;
 use app\models\user\Profile;
 use app\models\user\LoginForm;
 use http\Message;
@@ -92,6 +93,15 @@ class Billing extends Model
                                         $user->untildate = $user->untildate < time() ? time() +  $untildate: $user->untildate + $untildate;
                                         $user->status = VpnUserSettings::$statuses['ACTIVE'];
                                         $user->save();
+
+                                        $payment = new Payments();
+                                        $payment->app_transaction_id = $item->transaction_id;
+                                        $payment->user_id = $userId;
+                                        $payment->tariff = $item->product_id;
+                                        $payment->status = 2;
+                                        $payment->amount = 0;
+                                        $payment->type = 'app';
+                                        $payment->save();
 
                                         $mailer = new Mailer();
                                         $mailer->sendPaymentMessage($user, $untildate, date("d.m.Y", $user->untildate));

@@ -22,16 +22,78 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'orderId',
-            'datecreate',
-            'tariff',
+            [
+                'attribute' => 'user_id',
+                'content' => function ($data) {
+                    if(!empty($data->user_id)) {
+                        return  \app\models\Accs::find()->select('email')->where(['user_id' => $data->user_id])->one()->email ?? '';
+                    }
+                    return "";
+                }
+            ],
+//            'orderId',
+            [
+                'attribute' => 'tariff',
+                'content' => function ($data) {
+                    $countDay = 0;
+                    switch ($data->tariff) {
+                       case "1_month" : $countDay = 30;
+                        break;
+                       case "6_month" : $countDay = 180;
+                        break;
+                       case "12_month" : $countDay = 365;
+                        break;
+                    }
+                    return $countDay;
+                }
+            ],
+            [
+                'attribute' => 'type',
+                'content' => function ($data) {
+                    $type = "";
+                    switch ($data->type) {
+                       case "web" : $type = "На сайте";
+                        break;
+                       case "app" : $type = "На мобил";
+                        break;
+                    }
+                    return $type;
+                }
+            ],
+            [
+                'attribute' => 'promocode',
+                'content' => function ($data) {
+                    if(!empty($data->user_id) && !$data->promocode) {
+                        return \app\models\Accs::find()->select('promocode')->where(['user_id' => $data->user_id])->one()->promocode ?? '';
+                    }
+                    return $data->promocode;
+                }
+            ],
+            [
+                'attribute' => 'regDate',
+                'content' => function ($data) {
+                    if(!empty($data->user_id)) {
+                        return  date("d.m.Y",\app\models\Accs::find()->select('datecreate')->where(['user_id' => $data->user_id])->one()->datecreate ?? '') ;
+                    }
+                    return "";
+                }
+            ],
+            [
+                'attribute' => 'datecreate',
+                'content' => function ($data) {
+                    if(!empty($data->user_id)) {
+                        $date = \app\models\Accs::find()->select('datecreate')->where(['user_id' => $data->user_id])->one()->datecreate ?? '' ;
+                        return $date ? date("d.m.Y", $date) : "";
+                    }
+                    return "";
+                }
+            ],
             //'amount',
             'status',
             [
                 'attribute' => 'status',
                 'content' => function ($data) {
-                    return $data->status == 2 ? 'Success' : 'error';
+                    return $data->status == 2 ? 'Успешно' : 'Ошибка';
                 }
             ],
         ],

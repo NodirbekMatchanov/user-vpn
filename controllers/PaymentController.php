@@ -172,6 +172,10 @@ class PaymentController extends Controller
                                 $time = $countDay * (3600 * 24);
                                 $user->untildate = ($user->untildate < time()) ? (time() + $time) : ($user->untildate + $time) ;
                                 $user->save(false);
+
+                                $order->user_id = $user->user_id;
+                                $order->save();
+
                                 $this->saveEvent($user->user_id,$order->amount." руб. ". $countDay. ' дней');
                                 $mailer->sendPaymentMessage($user, $countDay, date("d.m.Y", $user->untildate));
                             } else {
@@ -193,6 +197,9 @@ class PaymentController extends Controller
                         $time = $countDay * (3600 * 24);
                         $user->untildate = $user->untildate < time() ? (time() + $time) : $user->untildate + $time ;
                         $user->save(false);
+//                        if () {
+//
+//                        }
                         $this->saveEvent($user->user_id,$order->amount." руб. ". $countDay. ' дней');
                         $mailer->sendPaymentMessage($user, $countDay, date("d.m.Y", $user->untildate));
                     }

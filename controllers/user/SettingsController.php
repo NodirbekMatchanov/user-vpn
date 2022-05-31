@@ -12,6 +12,7 @@
 namespace app\controllers\user;
 
 use app\models\Accs;
+use app\models\UsedPromocodes;
 use app\models\VpnUserSettings;
 use dektrium\user\Finder;
 use dektrium\user\models\Profile;
@@ -195,10 +196,28 @@ class SettingsController extends Controller
             $this->trigger(self::EVENT_AFTER_ACCOUNT_UPDATE, $event);
             return $this->refresh();
         }
+        $registratedCount  = 0;
+        $payoutCount = 0;
+        $visitedCount = 0;
+        if(!empty($accs)) {
+            $usedPromocode = UsedPromocodes::find()->where(['promocode' => $accs->promocode])->all();
+            foreach ($usedPromocode as $item) {
+                if($item->type == UsedPromocodes::PAYOUT) {
+                    $payoutCount++;
+                } elseif ($item->type == UsedPromocodes::SIGNUP) {
+                    $registratedCount++;
+                } elseif ($item->type == UsedPromocodes::VISIT) {
+                    $visitedCount++;
+                }
+            }
+        }
 
         return $this->render('account', [
             'model' => $model,
             'accs' => $accs,
+            'registratedCount' => $registratedCount,
+            'payoutCount' => $payoutCount,
+            'visitedCount' => $visitedCount,
         ]);
     }
 

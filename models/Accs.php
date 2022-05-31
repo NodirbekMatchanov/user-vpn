@@ -97,8 +97,10 @@ class Accs extends \yii\db\ActiveRecord
         if(!empty($accs)) {
            $count = $accs->promo_share;
            $accs->promo_share = $count + 1;
-           $accs->untildate = $accs->untildate + (3600*24*7);
-           UsedPromocodes::saveSignup($accs->user_id,$promocode);
+           $accs->untildate = $accs->untildate < time() ? time() + (3600*24*7) : $accs->untildate + (3600*24*7);
+           UsedPromocodes::saveSignup(($user->user_id ?? $user->id),$promocode);
+           $mailer = new Mailer();
+           $mailer->sendUsedPromocode($accs);
            return $accs->save();
         } else {
             UsedPromocodes::usePromocode($user->id,$promocode);

@@ -60,6 +60,8 @@ AppAsset::register($this);
                     ['label' => 'Промокоды', 'url' => ['/promocodes/index']],
                     ['label' => 'Настройки', 'url' => ['/settings/index']],
                     ['label' => 'Тариф', 'url' => ['/tariff/list']],
+                                        ['label' => 'Покупки', 'url' => ['/payment/index']],
+
                     [
                         'label' => 'Справочник',
                         'items' => [

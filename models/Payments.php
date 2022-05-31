@@ -12,9 +12,11 @@ use Yii;
  * @property int $user_id
  * @property string $datecreate
  * @property string $tariff
+ * @property string $type
  * @property float $amount
  * @property int $status
  * @property int $promocode
+ * @property int $app_transaction_id
  */
 class Payments extends \yii\db\ActiveRecord
 {
@@ -36,10 +38,10 @@ class Payments extends \yii\db\ActiveRecord
     {
         return [
             [['orderId', 'user_id', 'tariff', 'amount', 'status'], 'required'],
-            [[ 'user_id', 'status'], 'integer'],
+            [[ 'user_id', 'status','app_transaction_id'], 'integer'],
             [['datecreate'], 'safe'],
             [['amount'], 'number'],
-            [['tariff','promocode','orderId'], 'string', 'max' => 50],
+            [['tariff','promocode','type','orderId'], 'string', 'max' => 50],
             [['orderId'], 'unique'],
         ];
     }
@@ -52,11 +54,16 @@ class Payments extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'orderId' => 'Order ID',
-            'user_id' => 'User ID',
-            'datecreate' => 'Datecreate',
-            'tariff' => 'Tariff',
+            'user_id' => 'Пользователь',
+            'datecreate' => 'Дата покупки',
+            'tariff' => 'Дней',
             'amount' => 'Amount',
             'status' => 'Status',
+            'promocode' => 'Промокод',
+            'regDate' => 'Дата регистрации',
+            'type' => 'Тип',
         ];
     }
+
+
 }

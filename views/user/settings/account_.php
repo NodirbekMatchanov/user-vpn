@@ -20,6 +20,7 @@ use yii\widgets\ActiveForm;
 $domain = (\app\models\VpnIps::getSettings()['domain'] ?? 'vpn-max.com');
 $this->title = Yii::t('user', 'Account settings');
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 
 <?= $this->render('/_alert', ['module' => Yii::$app->getModule('user')]) ?>
@@ -126,6 +127,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     За каждого кто зарегистрируется и оплатит подписку, Вы получите неделю использования VPN в подарок
                     (там показывать промокод юзера персональный)
                 </p>
+                <p>Вашей рекомендации зарегистировалось <?=$registratedCount?> человек из них купили подскику <?=$payoutCount?> </p>
             </div>
         </div>
     </div>
