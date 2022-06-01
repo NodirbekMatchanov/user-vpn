@@ -85,7 +85,6 @@ class PromocodesController extends Controller
         $usedUsers = UsedPromocodes::find()->where(['promocode' => $model->promocode, 'type' => UsedPromocodes::SIGNUP])->asArray()->all();
         if (!empty($usedUsers)) {
             $userIds = ArrayHelper::map($usedUsers, 'user_id', 'user_id');
-            $userIds = implode(',', $userIds);
             $usersModel = Accs::find()->where(['IN', 'user_id', $userIds])->asArray()->all();
             foreach ($usersModel as $item) {
                 $usersData[$item['user_id']] = $item;
