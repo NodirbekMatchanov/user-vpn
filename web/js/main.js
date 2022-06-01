@@ -58,7 +58,7 @@ $(document).ready(function () {
     function setPromo(promocode) {
         $.ajax({
             url: "/used-promocodes/visit-save",
-            method: "POST",
+            method: "GET",
             data: {
                 visit: true,
                 promocode: promocode

@@ -134,8 +134,8 @@ class UsedPromocodesController extends Controller
 
     public function actionVisitSave()
     {
-        if (\Yii::$app->request->isAjax && \Yii::$app->request->post('visit')) {
-           $promocode = \Yii::$app->request->post('promocode');
+        if (\Yii::$app->request->isAjax && \Yii::$app->request->get('visit')) {
+           $promocode = \Yii::$app->request->get('promocode');
            $userId = "";
            if(!\Yii::$app->user->isGuest){
                $userId = \Yii::$app->user->identity->getId();
