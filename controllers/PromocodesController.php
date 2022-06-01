@@ -88,7 +88,7 @@ class PromocodesController extends Controller
             $userIds = implode(',', $userIds);
             $usersModel = Accs::find()->where(['IN', 'user_id', $userIds])->asArray()->all();
             foreach ($usersModel as $item) {
-                $usersData[$item['user_id']] = $item;
+                $usersData[$item['user_id']][] = $item;
             }
         }
         return $this->render('view', [
