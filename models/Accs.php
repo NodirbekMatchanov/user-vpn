@@ -105,7 +105,7 @@ class Accs extends \yii\db\ActiveRecord
             /* add event */
             $event = new UserEvents();
             $event->event = UserEvents::EVENT_FREEDAY_PROMOCODE;
-            $event->user_id = $user->user_id;
+            $event->user_id = ($user->user_id ?? $user->id);
             $event->text = 'Начислено бесплатные дни : 7 дней';
             $event->save();
 
