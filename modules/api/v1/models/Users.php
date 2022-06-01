@@ -21,6 +21,7 @@ class Users extends \yii\db\ActiveRecord
     public $vpnLogin;
     public $vpnPassword;
     public $phone;
+    public $using_promocode;
 
     /**
      * {@inheritdoc}
@@ -39,7 +40,7 @@ class Users extends \yii\db\ActiveRecord
     {
         return [
             [['email', 'pass'], 'required'],
-            [['role', 'promocode', 'used_promocode', 'fcm_token', 'ios_token', 'phone', 'status', 'email',], 'string', 'max' => 255],
+            [['role', 'using_promocode','promocode', 'used_promocode', 'fcm_token', 'ios_token', 'phone', 'status', 'email',], 'string', 'max' => 255],
             [['vpnid', 'id', 'promo_share', 'verifyCode', 'user_id'], 'integer'],
 //            ['email', 'unique'],
             ['datecreate', 'safe'],
@@ -76,6 +77,8 @@ class Users extends \yii\db\ActiveRecord
 
     public function createUser()
     {
+        $this->using_promocode = $this->promocode;
+
         if ($thisUser = $this->checkUser()) {
             return $thisUser;
         }
@@ -102,7 +105,7 @@ class Users extends \yii\db\ActiveRecord
                 $this->tariff = 'Free';
                 $this->datecreate = time();
                 $this->untildate = time();
-                $this->used_promocode = $this->promocode;
+                $this->used_promocode = $this->using_promocode;
                 $this->promocode = Yii::$app->security->generateRandomString(6);
                 $this->verifyCode = $code;
                 if ($this->phone) {
@@ -116,8 +119,8 @@ class Users extends \yii\db\ActiveRecord
                 if ($this->save()) {
                     /* +1 promocode */
                     $usedPromocode = false;
-                    if($this->promocode) {
-                        $usedPromocode = Accs::setPromoShareCount($this->promocode, $user);
+                    if($this->using_promocode) {
+                        $usedPromocode = Accs::setPromoShareCount($this->using_promocode, $user);
                     }
                     if ($usedPromocode) {
                         $this->untildate = $this->untildate + (24 * 3600);
