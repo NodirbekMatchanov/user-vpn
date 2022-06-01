@@ -10,6 +10,8 @@ RedirectMatch 301 ^/web/site/privacy /site/privacy
 RewriteCond %{REQUEST_URI} !^/(web)
 RewriteRule ^assets/(.*)$ /web/assets/$1 [L]
 RewriteRule ^css/(.*)$ web/css/$1 [L]
+RewriteRule ^flags/(.*)$ web/flags/$1 [L]
+RewriteRule ^tmp/(.*)$ web/tmp/$1 [L]
 RewriteRule ^js/(.*)$ web/js/$1 [L]
 RewriteRule ^images/(.*)$ web/images/$1 [L]
 RewriteRule (.*) /web/$1
