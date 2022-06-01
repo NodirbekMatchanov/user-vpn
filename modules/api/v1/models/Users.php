@@ -115,7 +115,10 @@ class Users extends \yii\db\ActiveRecord
                 }
                 if ($this->save()) {
                     /* +1 promocode */
-                    $usedPromocode = Accs::setPromoShareCount($this->promocode, $user);
+                    $usedPromocode = false;
+                    if($this->promocode) {
+                        $usedPromocode = Accs::setPromoShareCount($this->promocode, $user);
+                    }
                     if ($usedPromocode) {
                         $this->untildate = $this->untildate + (24 * 3600);
                         $this->save();
