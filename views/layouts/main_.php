@@ -53,7 +53,7 @@ use yii\bootstrap\NavBar;
                 <div class="header-actions">
                     <div class="header-buttons">
                         <a href="#" class="btn">Скачать</a>
-                        <a href="<?= Yii::$app->user->isGuest ? \yii\helpers\Url::to(['/user/login']) : \yii\helpers\Url::to(['/user/settings/account'])?>" class="btn _outline">Войти</a>
+                        <a href="<?=  \yii\helpers\Url::to(['/site/login']) ?>" class="btn _outline">Войти</a>
                     </div>
 
                     <div class="header-langs">

@@ -28,7 +28,7 @@ class SiteController extends Controller
                         'roles' => ['@'],
                     ],
                     [
-                        'actions' => ['pay','index'],
+                        'actions' => ['pay','index','login'],
                         'allow' => true,
                         'roles' => ['?','@'],
                     ],
@@ -87,15 +87,18 @@ class SiteController extends Controller
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
+            if(Yii::$app->user->identity->isAdmin()){
+               return $this->redirect(['/user/settings/account']);
+            }
+           return $this->redirect(['/user/settings/account']);
         }
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             if(Yii::$app->user->identity->isAdmin()){
-                $this->redirect('/user/admin/index');
+              return  $this->redirect('/vpn-user-settings/index');
             } else {
-                $this->redirect('/user/settings/account');
+               return $this->redirect('/user/settings/account');
             }
         }
 
