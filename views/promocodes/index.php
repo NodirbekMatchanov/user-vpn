@@ -55,9 +55,9 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'konverstion',
                 'content' => function ($data) {
-                    $usedPromoVisit = \app\models\UsedPromocodes::find()->where(['promocode' => $data->promocode, 'type' => \app\models\UsedPromocodes::PAYOUT])->count();
+                    $usedPromoVisit = \app\models\UsedPromocodes::find()->where(['promocode' => $data->promocode, 'type' => \app\models\UsedPromocodes::VISIT])->count();
                     $usedPromoPayout = \app\models\UsedPromocodes::find()->where(['promocode' => $data->promocode, 'type' => \app\models\UsedPromocodes::PAYOUT])->count();
-                    return $usedPromoVisit > 0 ? (($usedPromoPayout * 100) / $usedPromoVisit) : 0;
+                    return ($usedPromoVisit > 0 ? (($usedPromoPayout * 100) / $usedPromoVisit) : 0 ). '%';
                 }
             ],
             'status',

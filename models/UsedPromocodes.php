@@ -86,7 +86,7 @@ class UsedPromocodes extends \yii\db\ActiveRecord
         $usedCodeCounts = UsedPromocodes::find()->where(['promocode' => $code])->andWhere(['!=', 'type', UsedPromocodes::VISIT])->count();
         $promoCode = Promocodes::find()->where(['promocode' => $code, 'status' => \app\models\Tariff::ACTIVE])->one();
         if (empty($usedCodes) && !empty($promoCode)) {
-            if ($promoCode->user_limit < $usedCodeCounts) {
+            if ($promoCode->user_limit <= $usedCodeCounts) {
                 return json_encode(['result' => 'error', 'error' => 'Промокод уже использован']);
             } elseif (strtotime($promoCode->expire) < time()) {
                 return json_encode(['result' => 'error', 'error' => 'Время использования промокода истек']);
@@ -102,7 +102,7 @@ class UsedPromocodes extends \yii\db\ActiveRecord
         if (strtotime($promocodeModel->expire) >= time() && $promocodeModel->user_id) {
             $accs = Accs::find()->where(['user_id' => $userId])->one();
             $usedCodeCounts = UsedPromocodes::find()->where(['promocode' => $promocode])->andWhere(['!=', 'type', UsedPromocodes::VISIT])->count();
-            if ($promocodeModel->user_limit < $usedCodeCounts) {
+            if ($promocodeModel->user_limit <= $usedCodeCounts) {
                 return json_encode(['result' => 'error', 'error' => 'Промокод уже использован']);
             }
             $accs->untildate = date("Y-m-d",$accs->untildate) < date("Y-m-d") ? time() + (3600 * 24 * $promocodeModel->free_day) : $accs->untildate + (3600 * 24 * $promocodeModel->free_day);
