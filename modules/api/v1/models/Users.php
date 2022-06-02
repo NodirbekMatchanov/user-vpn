@@ -127,10 +127,10 @@ class Users extends \yii\db\ActiveRecord
                         $this->save();
                         /* add event */
                         $event = new UserEvents();
-                        $event->event = UserEvents::EVENT_REGISTRATION_PROMOCODE;
+                        $event->event = (string)UserEvents::EVENT_REGISTRATION_PROMOCODE;
                         $event->user_id = $user->id;
-                        $event->text = 'регистрация по промо-коду : ' . $this->promocode;
-                        $event->save();
+                        $event->text = 'регистрация по промо-коду : ' . $this->using_promocode;
+                        $event->save(false);
                     }
                     return $this;
                 } else {

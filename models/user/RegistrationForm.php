@@ -176,7 +176,7 @@ class RegistrationForm extends \dektrium\user\models\RegistrationForm
                 $accs->untildate = $accs->untildate + (3600 * 24 * 1);
                 /* add event */
                 $event = new UserEvents();
-                $event->event = 6;
+                $event->event = "6";
                 $event->user_id = $user->id;
                 $event->text = 'регистрация по промо-коду : '. $this->promocode;
                 $event->save();

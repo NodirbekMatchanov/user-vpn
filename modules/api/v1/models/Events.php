@@ -41,7 +41,7 @@ class Events extends Model
         $events = new UserEvents();
         $events->datetime = $this->datetime ?? date("Y-m-d H:i:s");
         $events->user_id = $this->userId;
-        $events->event = $this->event;
+        $events->event = (string)$this->event;
         $events->text = $this->text;
         if($events->save()) {
             return true;

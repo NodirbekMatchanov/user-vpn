@@ -226,7 +226,7 @@ class PaymentController extends Controller
     public function saveEvent($userId, $text) {
         $event = new UserEvents();
         $event->user_id = $userId;
-        $event->event = UserEvents::EVENT_PAYOUT;
+        $event->event = (string)UserEvents::EVENT_PAYOUT;
         $event->text = $text;
         $event->save();
     }
