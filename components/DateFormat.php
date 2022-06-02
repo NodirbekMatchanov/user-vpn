@@ -54,4 +54,24 @@ class DateFormat
 
         return floor($seconds / 86400);
     }
+
+    /**
+     * Функция считает количество дней между двумя датами
+     *
+     * @param string $d1 первая дата
+     * @param string $d2 вторая дата
+     *
+     * @return number количество дней
+     */
+    public static function countDays($d1)
+    {
+        $d1_ts = $d1;
+        $d2_ts = time();
+        if($d2_ts > $d1_ts) {
+            return 0;
+        }
+        $seconds = abs($d1_ts - $d2_ts);
+
+        return floor($seconds / 86400);
+    }
 }

@@ -53,8 +53,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     if(empty($data->accs)){
                         return '';
                     }
-                    $count = $data->accs->untildate ? (\app\components\DateFormat::countDaysBetweenDates($data->accs->untildate, time()) ) : 0;
-                    return $count > 0 ? $count +1 : $count;
+                    $count = $data->accs->untildate ? (\app\components\DateFormat::countDays($data->accs->untildate) ): 0;
+                    return $count;
                 }
             ],
 //            'op',
