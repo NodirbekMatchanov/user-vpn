@@ -9,6 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property int|null $user_id
+ * @property int|null $status
  * @property string $promocode
  * @property string $date
  * @property string|null $type
@@ -33,7 +34,7 @@ class UsedPromocodes extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id'], 'integer'],
+            [['user_id','status'], 'integer'],
             [['promocode', 'date'], 'required'],
             [['date'], 'safe'],
             [['promocode'], 'string', 'max' => 255],

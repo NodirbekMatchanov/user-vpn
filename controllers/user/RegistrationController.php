@@ -189,6 +189,12 @@ class RegistrationController extends Controller
         if($verifyCode->load(\Yii::$app->request->post()) && $verifyCode->validate()){
             \Yii::$app->getSession()->setFlash('success', 'Ваш аккаунт успешно активирован!');
             if($model->load(['username' => $verifyCode->user->email, 'password' => $verifyCode->user->pass],'') && $model->login()){
+
+                $accs = Accs::find()->where(['email' => $verifyCode->user->email])->one();
+                $accs->status = VpnUserSettings::$statuses['ACTIVE'];
+                $accs->untildate = date("Y-m-d",$accs->untildate) <= date("Y-m-d") ?  strtotime('+ 3 days') : ($accs->untildate + (24*3600*3));
+                $accs->save();
+
                 return $this->render('/message', [
                     'title' => "Ваш аккаунт успешно активирован!",
                     'module' => $this->module,
@@ -270,9 +276,7 @@ class RegistrationController extends Controller
 
         $accs = Accs::find()->where(['user_id' => $user->id])->one();
         $accs->status = VpnUserSettings::$statuses['ACTIVE'];
-        if($accs->untildate < time()) {
-            $accs->untildate = date("Y-m-d",$accs->untildate) == date("Y-m-d") ? ($accs->untildate + (24*3600*3)) : strtotime('+ 3 days') ;
-        }
+        $accs->untildate = date("Y-m-d",$accs->untildate) <= date("Y-m-d") ?  strtotime('+ 3 days') : ($accs->untildate + (24*3600*3));
         $accs->save();
 
         $this->trigger(self::EVENT_AFTER_CONFIRM, $event);

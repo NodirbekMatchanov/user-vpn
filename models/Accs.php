@@ -97,16 +97,26 @@ class Accs extends \yii\db\ActiveRecord
         if(!empty($accs)) {
            $count = $accs->promo_share;
            $accs->promo_share = $count + 1;
-           $accs->untildate = $accs->untildate < time() ? time() + (3600*24*7) : $accs->untildate + (3600*24*7);
+           $accs->untildate = $accs->untildate < time() ? time() + (3600*24*1) : $accs->untildate + (3600*24*1);
            UsedPromocodes::saveSignup(($user->user_id ?? $user->id),$promocode);
            $mailer = new Mailer();
            $mailer->sendUsedPromocode($accs);
+
+           $mailer = new Mailer();
+           $mailer->sendUsedPromocode($user);
 
             /* add event */
             $event = new UserEvents();
             $event->event = (string)UserEvents::EVENT_FREEDAY_PROMOCODE;
             $event->user_id = ($user->user_id ?? $user->id);
-            $event->text = 'Начислено бесплатные дни : 7 дней';
+            $event->text = 'Начислено бесплатные дни : 1 день';
+            $event->save(false);
+
+            /* add event */
+            $event = new UserEvents();
+            $event->event = (string)UserEvents::EVENT_FREEDAY_PROMOCODE;
+            $event->user_id = ($accs->user_id);
+            $event->text = 'Начислено бесплатные дни : 1 день';
             $event->save(false);
 
             return $accs->save();

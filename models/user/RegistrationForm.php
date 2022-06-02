@@ -173,7 +173,7 @@ class RegistrationForm extends \dektrium\user\models\RegistrationForm
         $accs = Accs::find()->where(['user_id' => $user->id])->one();
         if (!empty($accs)) {
             if ($usedPromocode) {
-                $accs->untildate = $accs->untildate + (3600 * 24);
+                $accs->untildate = $accs->untildate + (3600 * 24 * 1);
                 /* add event */
                 $event = new UserEvents();
                 $event->event = 6;

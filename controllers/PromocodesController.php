@@ -180,11 +180,11 @@ class PromocodesController extends Controller
     public function actionUseCode()
     {
         if (Yii::$app->request->isAjax && $code = Yii::$app->request->post('code')) {
-            $usedCodes = UsedPromocodes::find()->where(['promocode' => $code, 'user_id' => Yii::$app->user->identity->getId()])->one();
+            $usedCodes = UsedPromocodes::find()->where(['promocode' => $code, 'user_id' => Yii::$app->user->identity->getId(), 'status' => 2])->one();
             $usedCodeCounts = UsedPromocodes::find()->where(['promocode' => $code])->count();
             $promoCode = Promocodes::find()->where(['promocode' => $code, 'status' => \app\models\Tariff::ACTIVE])->one();
             if (empty($usedCodes) && !empty($promoCode)) {
-                if ($promoCode->user_limit < $usedCodeCounts) {
+                if ($promoCode->user_limit <= $usedCodeCounts) {
                     return json_encode(['result' => 'error', 'error' => 'Промокод уже использован']);
                 }
                 $usedCode = new UsedPromocodes();
@@ -192,6 +192,14 @@ class PromocodesController extends Controller
                 $usedCode->promocode = $code;
                 $usedCode->date = date("Y-m-d");
                 if ($usedCode->save()) {
+                    if ($usedCodes->status < 1) {
+                        $accs = Accs::find()->where(['user_id' => Yii::$app->user->identity->getId()])->one();
+                        $accs->untildate = $accs->untildate < time() ? (time() + $promoCode->free_day) : $accs->untildate + $promoCode->free_day;
+                        $accs->save();
+                        $usedCodes->status = 1;
+                        $usedCodes->save();
+                    }
+
                     return json_encode(['result' => 'Промокод принят']);
                 }
             }
@@ -204,7 +212,8 @@ class PromocodesController extends Controller
         if (Yii::$app->request->isAjax && $code = Yii::$app->request->post('code')) {
             $usedCodes = UsedPromocodes::find()->where(['promocode' => $code, 'user_id' => Yii::$app->user->identity->getId()])->one();
             if (!empty($usedCodes)) {
-                $usedCodes->delete();
+                $usedCodes->status = 0;
+                $usedCodes->save();
                 return json_encode(['result' => 'Промокод отменен']);
             }
         }
@@ -217,7 +226,7 @@ class PromocodesController extends Controller
     public function actionValidation()
     {
         if (Yii::$app->request->isAjax && $code = Yii::$app->request->post('code')) {
-           return UsedPromocodes::ValidationPromoCode($code);
+            return UsedPromocodes::ValidationPromoCode($code);
         }
         return json_encode(['result' => 'error', 'error' => 'Промокод не найден']);
     }

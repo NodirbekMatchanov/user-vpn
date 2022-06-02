@@ -7,6 +7,7 @@ use app\models\Mailer;
 use app\models\Payments;
 use app\models\PaymentsSearch;
 use app\models\Tariff;
+use app\models\UsedPromocodes;
 use app\models\User;
 use app\models\user\RegistrationForm;
 use app\models\UserEvents;
@@ -189,6 +190,13 @@ class PaymentController extends Controller
                             $hasUser->save(false);
                             $this->saveEvent($hasUser->user_id,$order->amount." руб. ". Tariff::getPeriod($order->tariff). ' дней');
                             $mailer->sendPaymentMessage($hasUser,$countDay, date("d.m.Y", $hasUser->untildate));
+
+//                            $usedPromo = new UsedPromocodes();
+//                            $usedPromo->status = 2;
+//                            $usedPromo->user_id = $hasUser->user_id;
+//                            $usedPromo->type = UsedPromocodes::PAYOUT;
+//                            $usedPromo->date = date("Y-m-d");
+//                            $usedPromo->save();
                         }
                     }
                     else {
@@ -197,9 +205,14 @@ class PaymentController extends Controller
                         $time = $countDay * (3600 * 24);
                         $user->untildate = $user->untildate < time() ? (time() + $time) : $user->untildate + $time ;
                         $user->save(false);
-//                        if () {
-//
-//                        }
+
+//                        $usedPromo = new UsedPromocodes();
+//                        $usedPromo->status = 2;
+//                        $usedPromo->user_id = $order->user_id;
+//                        $usedPromo->type = UsedPromocodes::PAYOUT;
+//                        $usedPromo->date = date("Y-m-d");
+//                        $usedPromo->save();
+
                         $this->saveEvent($user->user_id,$order->amount." руб. ". $countDay. ' дней');
                         $mailer->sendPaymentMessage($user, $countDay, date("d.m.Y", $user->untildate));
                     }
