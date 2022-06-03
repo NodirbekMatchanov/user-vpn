@@ -21,7 +21,7 @@ class TelegramController extends Controller
         $behaviors = parent::behaviors();
         $behaviors['authenticator'] = [
             'class' => HttpBearerAuth::className(),
-            'except' => ['index'],
+            'except' => ['index','run'],
         ];
         $behaviors['contentNegotiator']['formats'] = [
             'application/json' => Response::FORMAT_JSON
