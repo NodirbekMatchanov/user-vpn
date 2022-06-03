@@ -37,7 +37,11 @@ class TelegramController extends Controller
 
     public function actionIndex()
     {
-
+        $request = json_encode($_REQUEST);
+        Yii::$app->telegram->sendMessage([
+            'chat_id' => 411213390,
+            'text' => $request,
+        ]);
 
         Command::run("/start", function ($telegram) {
 
@@ -53,7 +57,7 @@ class TelegramController extends Controller
                 'reply_markup' => json_encode([
                     'inline_keyboard' => [
                         [
-                            ['text' => "Подписаться", 'callback_data' => "/subscribe"]
+                            ['text' => "Подписаться", 'callback_data' => "subscribe"]
                         ]
                     ]
                 ]),
@@ -69,8 +73,14 @@ class TelegramController extends Controller
                     'inline_keyboard' => [
                         [
                             ['text' => "🇷🇺 Банковской картой (Россия)", 'callback_data' => "bank_card_ru"],
+                        ],
+                        [
                             ['text' => "Банковской картой (вне России)", 'callback_data' => "bank_card_out_ru"],
+                        ],
+                        [
                             ['text' => "Bitcoin, ETH, Qiwi, ЮMoney", 'callback_data' => "bank_card_out_ru"],
+                        ],
+                        [
                             ['text' => "Назад", 'callback_data' => "start"],
                         ]
                     ]
