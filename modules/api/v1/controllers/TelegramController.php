@@ -57,7 +57,7 @@ class TelegramController extends Controller
                 'reply_markup' => json_encode([
                     'inline_keyboard' => [
                         [
-                            ['text' => "Подписаться", 'callback_data' => "subscribe"]
+                            ['text' => "Подписаться", 'callback_data' => "/subscribe"]
                         ]
                     ]
                 ]),
