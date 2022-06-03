@@ -37,7 +37,7 @@ class TelegramController extends Controller
 
     public function actionIndex()
     {
-        $request = json_encode($_REQUEST);
+        $request = json_decode(Yii::$app->request->getRawBody(),true);
         Yii::$app->telegram->sendMessage([
             'chat_id' => 411213390,
             'text' => $request,
