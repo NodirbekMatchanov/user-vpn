@@ -20,6 +20,10 @@ $config = [
 //            // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
 //            'cookieValidationKey' => 'b1I97EHuHiX4cVlK6Wp96pRVr-1cLf5O',
 //        ],
+        'telegram' => [
+            'class' => 'aki\telegram\Telegram',
+            'botToken' => '5531798216:AAEmhKfaxco3nDHuI8aW5-npu3QBLxBTGog',
+        ],
         "request" => [
             'cookieValidationKey' => 'b1I97EHuHiX4cVlK6Wp96pRVr-1cLf5O',
             'baseUrl'=> '',
