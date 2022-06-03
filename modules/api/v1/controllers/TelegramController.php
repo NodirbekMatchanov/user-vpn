@@ -40,9 +40,7 @@ class TelegramController extends Controller
 
 
         Command::run("/start", function ($telegram) {
-                 $telegram->deleteMessage([
-                    'chat_id' => $telegram->input->message->chat->id,
-                ]);
+
                 $result = $telegram->sendMessage([
                 'chat_id' => $telegram->input->message->chat->id,
                 "text" => " VPN_MAX откроет доступ к свободному и безопасному интернету с любого устройства
