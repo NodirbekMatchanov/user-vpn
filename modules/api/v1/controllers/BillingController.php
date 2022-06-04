@@ -20,7 +20,7 @@ class BillingController extends Controller
         $behaviors = parent::behaviors();
         $behaviors['authenticator'] = [
             'class' => HttpBearerAuth::className(),
-            'except' => ['verify-receipt','get-account-token'],
+            'except' => ['verify-receipt','verify-receipt-test','get-account-token'],
         ];
         $behaviors['contentNegotiator']['formats'] = [
             'application/json' => Response::FORMAT_JSON
@@ -29,6 +29,27 @@ class BillingController extends Controller
     }
 
     public function actionVerifyReceipt()
+    {
+        $billing = new Billing();
+        $billing->testEnvironment = false;
+        $request = json_decode(Yii::$app->request->getRawBody(),true);
+        if(empty($request['receipt-data']) || empty($request['account_token'])) {
+            return $this->apiError("no valid request");
+        }
+        $data = [
+            'password' => $billing->password,
+            'receipt-data' => $request['receipt-data'],
+            'exclude-old-transactions' => false,
+        ];
+        $billing->account_token = $request['account_token'];
+        $res = $billing->send("POST", $data);
+        if($res) {
+            return $this->apiItem($res);
+        }
+        return $this->apiError("not valid");
+    }
+
+    public function actionVerifyReceiptTest()
     {
         $billing = new Billing();
         $billing->testEnvironment = true;

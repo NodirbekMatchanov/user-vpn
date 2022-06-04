@@ -34,7 +34,7 @@ class Telegram extends Model
         if (!empty($this->request['callback_query']['data']) && $data = $this->request['callback_query']['data']) {
             $this->chatId = $this->request['callback_query']['message']['chat']['id'] ?? 0;
             $this->message = $this->request['callback_query'] ?? [];
-//            $this->deletemessage();
+            $this->deletemessage();
             $this->{$data}();
         }
 
@@ -83,7 +83,7 @@ class Telegram extends Model
     {
         Yii::$app->telegram->deleteMessage([
             'chat_id' => $this->chatId,
-            'message_id' => $this->message['id']
+            'message_id' => $this->message['message_id']
         ]);
 
     }
