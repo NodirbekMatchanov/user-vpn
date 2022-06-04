@@ -26,7 +26,7 @@ class Billing extends Model
     const MONTH_6 = 'VPN_MAX_6MO_CONSUMABLE';
     const MONTH_12 = 'VPN_MAX_12MO_CONSUMABLE';
     public $testEnvironment = false;
-    public $url = 'https://sandbox.itunes.apple.com/';
+    public $url = 'https://buy.itunes.apple.com/';
     public $testUrl = 'https://sandbox.itunes.apple.com/';
 
     public $receiptData;
