@@ -30,12 +30,12 @@ class Telegram extends Model
 
     public function handler() {
 
-        if(!empty($this->request['callback_query']['data']) && $data = $this->request['callback_query']['data']) {
-            $this->chatId = $this->request['callback_query']['message']['chat']['id'] ?? 0;
-            $this->message = $this->request['callback_query'] ?? [];
-            $this->deletemessage();
-            $this->{$data};
-        }
+//        if(!empty($this->request['callback_query']['data']) && $data = $this->request['callback_query']['data']) {
+//            $this->chatId = $this->request['callback_query']['message']['chat']['id'] ?? 0;
+//            $this->message = $this->request['callback_query'] ?? [];
+//            $this->deletemessage();
+//            $this->{$data};
+//        }
 
 
         Command::run("/start", function ($telegram) {
