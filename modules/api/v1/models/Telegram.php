@@ -37,8 +37,7 @@ class Telegram extends Model
 //            $this->{$data};
 //        }
 
-
-      return  Command::run("/start", function ($telegram) {
+        Command::run("/start", function ($telegram) {
 
             $result = $telegram->sendMessage([
                 'chat_id' => $telegram->input->message->chat->id,

@@ -39,9 +39,9 @@ class TelegramController extends Controller
     public function actionIndex()
     {
         $handler = new Telegram();
-        $request = Json::decode(Yii::$app->request->getRawBody(),true);
+        $request = json_decode(Yii::$app->request->getRawBody(),true);
         $handler->request = $request;
-        return $handler->handler();
+        $handler->handler();
     }
 
 
