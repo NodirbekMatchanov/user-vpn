@@ -41,7 +41,7 @@ class TelegramController extends Controller
         $handler = new Telegram();
         $request = Json::decode(Yii::$app->request->getRawBody(),true);
         $handler->request = $request;
-        $handler->handler();
+        return $handler->handler();
     }
 
 
