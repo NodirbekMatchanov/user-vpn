@@ -34,7 +34,7 @@ class Telegram extends Model
             $this->chatId = $this->request['callback_query']['message']['chat']['id'] ?? 0;
             $this->message = $this->request['callback_query'] ?? [];
 //            $this->deletemessage();
-            $this->{$data};
+            $this->{$data}();
         }
 
 
