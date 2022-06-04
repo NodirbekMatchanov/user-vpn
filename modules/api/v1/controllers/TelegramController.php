@@ -32,7 +32,7 @@ class TelegramController extends Controller
 
     public function actionRun()
     {
-        Yii::$app->telegram->setWebhook(['url' => "https://www.vpnmax.org/api/telegram"]);
+        Yii::$app->telegram->setWebhook(['url' => "https://proverka-propuska.net/test/bot.php"]);
 
     }
 
