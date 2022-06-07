@@ -92,6 +92,7 @@ class Billing extends Model
                                         $user = Accs::find()->where(['user_id' => $userId])->one();
                                         $user->untildate = $user->untildate < time() ? time() +  $untildate: $user->untildate + $untildate;
                                         $user->status = VpnUserSettings::$statuses['ACTIVE'];
+                                        $user->tariff = "Premium";
                                         $user->save();
 
                                         $payment = new Payments();
