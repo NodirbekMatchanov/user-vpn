@@ -60,8 +60,6 @@ AppAsset::register($this);
                     ['label' => 'Промокоды', 'url' => ['/promocodes/index']],
                     ['label' => 'Настройки', 'url' => ['/settings/index']],
                     ['label' => 'Тариф', 'url' => ['/tariff/list']],
-                                        ['label' => 'Покупки', 'url' => ['/payment/index']],
-
                     [
                         'label' => 'Справочник',
                         'items' => [
@@ -81,7 +79,7 @@ AppAsset::register($this);
                     ['label' => 'Мой профиль', 'url' => ['/user/settings/account']],
                     ['label' => 'Серверы', 'url' => ['/vpn-ips/list']],
                     ['label' => 'Справочник', 'url' => ['/support/categories']],
-//                    ['label' => 'Тариф', 'url' => ['/tariff/index']],
+                    ['label' => 'Тариф', 'url' => ['/tariff/index']],
 //                    ['label' => 'Промокоды', 'url' => ['/used-promocodes/index']],
 //                    ['label' => 'Покупки', 'url' => ['/payment/index']],
 

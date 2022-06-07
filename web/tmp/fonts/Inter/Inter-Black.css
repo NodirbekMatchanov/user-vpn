@@ -1,0 +1,12 @@
+@font-face {
+    font-family: "Inter Black";
+    src: url("Inter-Black.eot"); /* IE9 */
+    src: url("Inter-Black.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("Inter-Black.woff") format("woff"), /* chrome, firefox */
+    url("Inter-Black.ttf") format("truetype"), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+    url("Inter-Black.svg#Inter Black") format("svg"); /* iOS 4.1- */
+    font-style: normal;
+    font-weight: normal;
+}
+
+

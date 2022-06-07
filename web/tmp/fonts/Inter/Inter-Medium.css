@@ -1,0 +1,12 @@
+@font-face {
+    font-family: "Inter Medium";
+    src: url("Inter-Medium.eot"); /* IE9 */
+    src: url("Inter-Medium.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("Inter-Medium.woff") format("woff"), /* chrome, firefox */
+    url("Inter-Medium.ttf") format("truetype"), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+    url("Inter-Medium.svg#Inter Medium") format("svg"); /* iOS 4.1- */
+    font-style: normal;
+    font-weight: normal;
+}
+
+
