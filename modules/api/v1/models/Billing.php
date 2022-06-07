@@ -98,11 +98,12 @@ class Billing extends Model
                                         $payment = new Payments();
                                         $payment->app_transaction_id = $item->transaction_id;
                                         $payment->user_id = $userId;
-                                        $payment->tariff = $item->product_id;
+                                        $payment->orderId = (string)$item->transaction_id;
+                                        $payment->tariff = (string)$item->product_id;
                                         $payment->status = 2;
                                         $payment->amount = 0;
                                         $payment->type = 'app';
-                                        $payment->save();
+                                        $payment->save(false);
 
                                         $mailer = new Mailer();
                                         $mailer->sendPaymentMessage($user, $untildate, date("d.m.Y", $user->untildate));
