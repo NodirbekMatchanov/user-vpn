@@ -1,153 +1,289 @@
+<?php
 
+
+/** @var yii\web\View $this */
+
+$url = \yii\helpers\Url::to(['tariff/get-price?id=']);
+$paymentSuccessUrl = \yii\helpers\Url::to(['tariff/payment-success']);
+$paymentErrorUrl = \yii\helpers\Url::to(['tariff/payment-error']);
+$script = <<<JS
+  function getCookie(name) {
+        let matches = document.cookie.match(new RegExp(
+            "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+        ));
+        return matches ? decodeURIComponent(matches[1]) : undefined;
+    }
+  function orderNumber() {
+      let now = Date.now().toString() // '1492341545873'
+      // pad with extra random digit
+      now += now + Math.floor(Math.random() * 10)
+      // format
+      return  [now.slice(0, 4), now.slice(4, 10), now.slice(10, 14)].join('-')
+    }
+    
+    function cardPay(e) {
+    promise = new Promise((resolve, reject) =>{
+        $.ajax({
+           url: "$url" + id + "&promocode=" + promocode + "&orderId=" + orderId
+         }).done(function(data){
+             resolve(data);
+         }).fail(function(err){
+             alert(err);
+             reject(err);
+         })
+    });
+    promise.then((amount) =>{
+        console.log(amount);
+        self.pay = function () {
+    var widget = new cp.CloudPayments();
+    var price = parseFloat(amount);
+    var receipt = {
+            Items: [//товарные позиции
+                 {
+                    label: 'Оплата за подписку', //наименование товара
+                    price: price, //цена
+                    quantity: 1.00, //количество
+                    amount: price, //сумма
+                    vat: 0, //ставка НДС
+                    method: 0, // тег-1214 признак способа расчета - признак способа расчета
+                    object: 1, // тег-1212 признак предмета расчета - признак предмета товара, работы, услуги, платежа, выплаты, иного предмета расчета
+                }
+            ],
+            isBso: false, //чек является бланком строгой отчетности
+        };
+
+    var data = {};
+    data.CloudPayments = {
+        CustomerReceipt: receipt, //чек для первого платежа
+        recurrent: {
+         interval: 'Month',
+         period: id, 
+         customerReceipt: receipt //чек для регулярных платежей
+         }
+         }; //создание ежемесячной подписки
+
+    widget.charge({ // options
+        publicId: 'pk_16424c5787dd7ebfbba47e66aafa8', //id из личного кабинета
+        description: 'Подписка на ежемесячный доступ к сайту https://www.vpnmax.org/', //назначение
+        amount: price, //сумма
+        currency: 'RUB', //валюта
+        TestMode: true,
+        invoiceId: orderId, //номер заказа  (необязательно)
+        data: data
+    },
+    function (options) { // success
+         swal("Покупка прошла успешно!", "success");
+    },
+    function (reason, options) { // fail
+        //действие при неуспешной оплате
+          $.ajax({
+            url: "$paymentErrorUrl",
+            method: "POST",
+            data: {
+                tariff: id,
+                status : false,
+                orderId: orderId,
+                amount: price
+            }
+        }).done(function (data){
+            swal("Покупка прошла не успешно!"), "error";
+        })
+    });
+};
+        e.preventDefault();
+        self.pay();
+    })
+}
+ var id = "";
+    var method = "";
+    var promocode = "";
+    var orderId = "";
+    
+$(document).on('click', '.pay', function (e) {
+     id = $('.prices-item._active').data('id');
+     method = $('[name="method"]').val();
+     promocode = getCookie('promocode') ?? $('[name="payer-promocode"]').val();
+     orderId = orderNumber();
+    
+    // типы оплаты
+    switch (method) {
+        case "card" : cardPay(e);
+        break;
+        case "qiwi" : cardPay();
+        break;
+        case "yomaney" : cardPay();
+        break;
+        case "bitcoin" : cardPay();
+        break;
+    }
+    
+    });
+JS;
+$this->registerJs($script, $this::POS_END);
+?>
 <div class="prices <?php if (isset($vars->space)) echo '_space'; ?>" name='prices'>
-	<div class="container">
-		<div class="prices-header">
-			<?php if (empty($vars->simple)): ?>
-				<h2 class="title-2">
-					Получите
-					<span>
+    <div class="container">
+        <div class="prices-header">
+            <?php if (empty($vars->simple)): ?>
+                <h2 class="title-2">
+                    Получите
+                    <span>
 					<span class="accent">анонимный</span><br>
 					<span class="accent">доступ</span>
 					</span>
-					к любым сайтам
-				</h2>
+                    к любым сайтам
+                </h2>
 
-				<div class="prices-note">30 дневная гарантия возврата средств</div>
-			<?php else: ?>
-				<h2 class="title-3 _bold">
-					Тарифы
-				</h2>
-			<?php endif; ?>
-		</div>
+                <div class="prices-note">30 дневная гарантия возврата средств</div>
+            <?php else: ?>
+                <h2 class="title-3 _bold">
+                    Тарифы
+                </h2>
+            <?php endif; ?>
+        </div>
 
-		<div class="prices-items">
-			<div class="prices-item">
-				<h3 class="title-3">1 месяц</h3>
+        <div class="prices-items">
+            <?php foreach ($tariffs as $tariff): ?>
 
-				<div class="spacer"></div>
+                <?php if (!empty($tariff) && $tariff->day_30): ?>
+                    <div class="prices-item" data-id="1_month">
+                        <h3 class="title-3">1 месяц</h3>
 
-				<div>
-					<div class="prices-price">
-						449 ₽ / мес
-					</div>
-					<div class="prices-price-note">
-						+НДС
-					</div>
-				</div>
+                        <div class="spacer"></div>
 
-				<div class="prices-check"></div>
-			</div>
+                        <div>
+                            <div class="prices-price">
+                                <?= Yii::$app->formatter->asDecimal($tariff->price_30, 0) ?> ₽ / мес
+                            </div>
+                            <div class="prices-price-note">
+                                +НДС
+                            </div>
+                        </div>
 
-			<div class="prices-item">
-				<h3 class="title-3">6 месяцев</h3>
+                        <div class="prices-check"></div>
+                    </div>
 
-				<div class="spacer"></div>
+                <?php endif; ?>
+                <?php if (!empty($tariff) && $tariff->day_180): ?>
+                    <div class="prices-item" data-id="6_month">
+                        <h3 class="title-3">6 месяцев</h3>
 
-				<div>
-					<div class="prices-price">
-						2 490 ₽
-					</div>
-					<div class="prices-price-note">
-						+НДС
-					</div>
-				</div>
+                        <div class="spacer"></div>
 
-				<div class="prices-check"></div>
-			</div>
+                        <div>
+                            <div class="prices-price">
+                                <?= Yii::$app->formatter->asDecimal($tariff->price_180, 0) ?> ₽
+                            </div>
+                            <div class="prices-price-note">
+                                +НДС
+                            </div>
+                        </div>
 
-			<div class="prices-item _active">
-				<div class="prices-best">
-					<div class="prices-best-img">
-						<img src="/web/img/logo-3.svg">
-					</div>
-					<div class="prices-best-text">Лучший выбор</div>
-				</div>
+                        <div class="prices-check"></div>
+                    </div>
 
-				<h3 class="title-3">1 год</h3>
+                <?php endif; ?>
+                <?php if (!empty($tariff) && $tariff->price_365): ?>
+                    <div class="prices-item " data-id="12_month">
+                        <div class="prices-best">
+                            <div class="prices-best-img">
+                                <img src="/web/img/logo-3.svg">
+                            </div>
+                            <div class="prices-best-text">Лучший выбор</div>
+                        </div>
 
-				<div class="spacer"></div>
+                        <h3 class="title-3">1 год</h3>
 
-				<div class="prices-sale">
-					<div class="prices-sale-text">
-						3 490 ₽
-					</div>
-					<div class="prices-sale-percent">-67%</div>
-				</div>
+                        <div class="spacer"></div>
 
-				<div>
-					<div class="prices-price">
-						3 490 ₽
-					</div>
-					<div class="prices-price-note">
-						+НДС, оплата раз в год
-					</div>
-				</div>
+                        <div class="prices-sale">
+                            <div class="prices-sale-text">
+                                <?= Yii::$app->formatter->asDecimal($tariff->price_365, 0) ?> ₽
+                            </div>
+                            <div class="prices-sale-percent">-67%</div>
+                        </div>
 
-				<div class="prices-check"></div>
-			</div>
-		</div>
+                        <div>
+                            <div class="prices-price">
+                                <?= Yii::$app->formatter->asDecimal($tariff->price_365, 0) ?> ₽
+                            </div>
+                            <div class="prices-price-note">
+                                +НДС, оплата раз в год
+                            </div>
+                        </div>
 
-		<div class="prices-tags">
-			<div class="prices-tags-item">Неограниченная скорость</div>
-			<div class="prices-tags-item">Все локации</div>
-			<div class="prices-tags-item">До 6 устройств</div>
-			<div class="prices-tags-item">Безлимитный трафик</div>
-		</div>
+                        <div class="prices-check"></div>
+                    </div>
+                <?php endif; ?>
 
-		<div class="prices-form">
+            <?php endforeach; ?>
 
-			<div class="input-2 ">
-				<label for="" class="input-2-label">Электронный адрес (отправим на него квитанцию)*</label>
-				<input type="email" placeholder='Ваш e-mail'>
-<!--				<div class="input-2-message _error">Неправильно введен email</div>-->
-			</div>
 
-			<div class="input-2 ">
-				<label for="" class="input-2-label">Введите промокод</label>
-				<input type="email">
-<!--				<div class="input-2-message _success">Промокод успешно применен</div>-->
-			</div>
+        </div>
 
-			<div class="prices-form-variant">VPN MAX (1 год): <span>11 864</span> р.</div>
+        <div class="prices-tags">
+            <div class="prices-tags-item">Неограниченная скорость</div>
+            <div class="prices-tags-item">Все локации</div>
+            <div class="prices-tags-item">До 6 устройств</div>
+            <div class="prices-tags-item">Безлимитный трафик</div>
+        </div>
 
-			<div class="prices-form-coupon">Вы применили купон со скидкой <span>67%</span></div>
+        <div class="prices-form hidden">
 
-			<div class="prices-form-total">Итоговая сумма: <span>3 948</span> р.</div>
+            <div class="input-2 ">
+                <label for="" class="input-2-label">Электронный адрес (отправим на него квитанцию)*</label>
+                <input type="email" name="email-payer" placeholder='Ваш e-mail'>
+                <!--				<div class="input-2-message _error">Неправильно введен email</div>-->
+            </div>
 
-			<div class="prices-methods">
-				<h3 class="title-4">Способы оплаты</h3>
-				<div class="prices-methods-items">
-					<label class="prices-methods-item">
-						<input type="radio" name='method' checked hidden>
-						<span class="prices-methods-thumb"></span>
-						<span class="prices-methods-img"><img src="/web/img/modal-prices-1.png"></span>
-					</label>
-					<label class="prices-methods-item">
-						<input type="radio" name='method' hidden>
-						<span class="prices-methods-thumb"></span>
-						<span class="prices-methods-img"><img src="/web/img/modal-prices-2.png"></span>
-					</label>
-					<label class="prices-methods-item">
-						<input type="radio" name='method' hidden>
-						<span class="prices-methods-thumb"></span>
-						<span class="prices-methods-img"><img src="/web/img/modal-prices-3.png"></span>
-					</label>
-					<label class="prices-methods-item">
-						<input type="radio" name='method' hidden>
-						<span class="prices-methods-thumb"></span>
-						<span class="prices-methods-img"><img src="/web/img/modal-prices-4.png"></span>
-					</label>
-				</div>
-			</div>
+            <div class="input-2 ">
+                <label for="" class="input-2-label">Введите промокод</label>
+                <input type="text" name="payer-promocode">
+                <!--				<div class="input-2-message _success">Промокод успешно применен</div>-->
+            </div>
 
-			<button class="btn-2">Купить</button>
+            <div class="prices-form-variant">VPN MAX (<span class="choose-tariff-label"></span>): <span
+                        class="tariff-price">11 864</span> р.
+            </div>
 
-			<div class="form-politic">
-				Нажимая на кнопку, вы даете согласие на обработку персональных<br>
-				данных и соглашаетесь c <a href="#">политикой конфиденциальности</a>
-			</div>
+            <div class="prices-form-coupon">Вы применили купон со скидкой <span>67%</span></div>
 
-		</div>
+            <div class="prices-form-total">Итоговая сумма: <span class="total-price">3 948</span> р.</div>
 
-	</div>
+            <div class="prices-methods">
+                <h3 class="title-4">Способы оплаты</h3>
+                <div class="prices-methods-items">
+                    <label class="prices-methods-item">
+                        <input type="radio" name='method' value="card" checked hidden>
+                        <span class="prices-methods-thumb"></span>
+                        <span class="prices-methods-img"><img src="/web/img/modal-prices-1.png"></span>
+                    </label>
+                    <label class="prices-methods-item">
+                        <input type="radio" name='method' hidden>
+                        <span class="prices-methods-thumb"></span>
+                        <span class="prices-methods-img"><img src="/web/img/modal-prices-2.png"></span>
+                    </label>
+                    <label class="prices-methods-item">
+                        <input type="radio" name='method' hidden>
+                        <span class="prices-methods-thumb"></span>
+                        <span class="prices-methods-img"><img src="/web/img/modal-prices-3.png"></span>
+                    </label>
+                    <label class="prices-methods-item">
+                        <input type="radio" name='method' hidden>
+                        <span class="prices-methods-thumb"></span>
+                        <span class="prices-methods-img"><img src="/web/img/modal-prices-4.png"></span>
+                    </label>
+                </div>
+            </div>
+
+            <button type="button" class="btn-2 pay">Купить</button>
+
+            <div class="form-politic">
+                Нажимая на кнопку, вы даете согласие на обработку персональных<br>
+                данных и соглашаетесь c <a href="#">политикой конфиденциальности</a>
+            </div>
+
+        </div>
+
+    </div>
 </div>

@@ -56,7 +56,7 @@ use yii\bootstrap\NavBar;
         <div class="header-top">
             <div class="container">
                 <div class="header-top-content">
-                    <a href="#" class="header-logo">
+                    <a href="/" class="header-logo">
                         <img src="/web/img/logo.svg">
                     </a>
 
@@ -72,7 +72,16 @@ use yii\bootstrap\NavBar;
                     <div class="header-actions">
                         <div class="header-buttons">
                             <a href="#" class="btn">Скачать</a>
-                            <a href="<?=  \yii\helpers\Url::to(['/site/login']) ?>" class="btn _outline">Войти</a>
+                          <?php if(Yii::$app->user->isGuest) {
+                              echo   '  <a href="'.\yii\helpers\Url::to(['/site/login']).'" class="btn _outline">Войти</a>';
+                            } else {
+                                echo Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline my-2 my-lg-0'])
+                                    . Html::submitButton(
+                                        'Выйти',
+                                        ['class' => 'btn ','style' => 'margin-left:10px']
+                                    )
+                                    . Html::endForm();
+                            }  ?>
                         </div>
 
                         <div class="header-langs">
@@ -140,7 +149,16 @@ use yii\bootstrap\NavBar;
                 <div class="header-actions">
                     <div class="header-buttons">
                         <a href="#" class="btn">Скачать</a>
-                        <a href="<?=  \yii\helpers\Url::to(['/site/login']) ?>" class="btn _outline">Войти</a>
+                        <a href="<?php if(Yii::$app->user->isGuest) {
+                           echo \yii\helpers\Url::to(['/site/login']);
+                        } else {
+                           echo Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline my-2 my-lg-0'])
+                            . Html::submitButton(
+                                'Logout (' . Yii::$app->user->identity->username . ')',
+                                ['class' => 'btn btn-link logout']
+                            )
+                            . Html::endForm();
+                        }  ?>" class="btn _outline">Войти</a>
                     </div>
 
                     <div class="header-langs">

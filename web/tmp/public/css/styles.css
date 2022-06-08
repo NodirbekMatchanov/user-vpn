@@ -2732,7 +2732,7 @@ textarea {
     align-items: center; }
   .info-value {
     font-size: 18px;
-    width: 172px; }
+    }
   .info-actions {
     display: flex;
     align-items: center;

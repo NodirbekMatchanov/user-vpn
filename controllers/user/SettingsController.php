@@ -184,6 +184,7 @@ class SettingsController extends Controller
      */
     public function actionAccount()
     {
+        $this->layout = "@app/views/layouts/main_.php";
         /** @var SettingsForm $model */
         $model = \Yii::createObject(SettingsForm::className());
         $event = $this->getFormEvent($model);

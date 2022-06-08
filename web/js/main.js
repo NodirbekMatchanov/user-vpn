@@ -84,6 +84,7 @@ $(document).ready(function () {
             }
         });
     }
+
     $(document).on('click', '#usePromocode', function () {
         $.ajax({
             url: "/promocodes/use-code",
@@ -102,6 +103,7 @@ $(document).ready(function () {
 
         })
     })
+
     $(document).on('click', '#cancelPromocode', function () {
         $.ajax({
             url: "/promocodes/cancel-code",
@@ -120,6 +122,7 @@ $(document).ready(function () {
 
         })
     })
+
     $(document).on('focusout', '[name="register-form[promocode]"]', function () {
         $('.valid-promocode').text('');
         $('.field-register-form-promocode').removeClass('has-error');
@@ -258,4 +261,10 @@ $(document).ready(function () {
         }
 
     };
+
+    $('.prices-item').on('click',function () {
+        if($('.prices-form').hasClass('hidden')) {
+            $('.prices-form').removeClass('hidden');
+        }
+    })
 })

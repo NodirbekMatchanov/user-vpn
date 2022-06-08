@@ -156,7 +156,6 @@ class TariffController extends Controller
     {
         $status = \Yii::$app->request->post('status');
         $amount = \Yii::$app->request->post('amount');
-        $code = \Yii::$app->user->identity->promoCodes;
         $payment = new Payments();
         $payment->status = Payments::ERROR;
         $payment->orderId = \Yii::$app->request->post('orderId');

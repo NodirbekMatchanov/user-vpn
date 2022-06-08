@@ -1,3 +1,4 @@
+<script src="https://widget.cloudpayments.ru/bundles/cloudpayments.js"></script>
 
 <div class="about" name='features'>
     <div class="container">
@@ -652,4 +653,4 @@
     </div>
 </div>
 
-<?php echo $this->render('section_prices', ['space' => true]); ?>
+<?php echo $this->render('section_prices', ['space' => true,'tariffs' => $tariffs]); ?>
