@@ -1,3 +1,4 @@
+
 <div class="mfp-hide">
     <div class="modal modal-contact" data-mfp='question'>
         <div class="modal-content">
@@ -41,8 +42,8 @@
                 <input type="password" placeholder="Пароль">
 
                 <div class="input-2-eye">
-                    <img src="web/img/icons/eye-2.svg">
-                    <img src="web/img/icons/eye-2-hide.svg">
+                    <web/img src="web/img/icons/eye-2.svg">
+                    <web/img src="web/img/icons/eye-2-hide.svg">
                 </div>
             </div>
 
@@ -76,29 +77,29 @@
 
             <div class="modal-prices">
                 <div class="modal-prices-row">
-                    <div class="modal-prices-img">
-                        <img src="web/img/modal-prices-1.png">
+                    <div class="modal-prices-web/img">
+                        <web/img src="web/img/modal-prices-1.png">
                     </div>
                     <div class="modal-prices-text">Банковская карта</div>
                 </div>
 
                 <div class="modal-prices-row">
-                    <div class="modal-prices-img">
-                        <img src="web/img/modal-prices-2.png">
+                    <div class="modal-prices-web/img">
+                        <web/img src="web/img/modal-prices-2.png">
                     </div>
                     <div class="modal-prices-text">Qiwi кошелек</div>
                 </div>
 
                 <div class="modal-prices-row">
-                    <div class="modal-prices-img">
-                        <img src="web/img/modal-prices-3.png">
+                    <div class="modal-prices-web/img">
+                        <web/img src="web/img/modal-prices-3.png">
                     </div>
                     <div class="modal-prices-text">ЮMoney / Яндекс Деньги</div>
                 </div>
 
                 <div class="modal-prices-row">
-                    <div class="modal-prices-img">
-                        <img src="web/img/modal-prices-4.png">
+                    <div class="modal-prices-web/img">
+                        <web/img src="web/img/modal-prices-4.png">
                     </div>
                     <div class="modal-prices-text">Криптовалюта</div>
                 </div>
@@ -116,8 +117,8 @@
     <div class="modal modal-success" data-mfp='success'>
         <div class="modal-content">
 
-            <div class="modal-success-img">
-                <img src="web/img/modal-success.svg">
+            <div class="modal-success-web/img">
+                <web/img src="web/img/modal-success.svg">
             </div>
 
             <h3 class="title-1">

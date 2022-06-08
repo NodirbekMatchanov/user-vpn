@@ -58,7 +58,7 @@
 			<div class="prices-item _active">
 				<div class="prices-best">
 					<div class="prices-best-img">
-						<img src="web/img/logo-3.svg">
+						<img src="/web/img/logo-3.svg">
 					</div>
 					<div class="prices-best-text">Лучший выбор</div>
 				</div>
@@ -96,16 +96,16 @@
 
 		<div class="prices-form">
 
-			<div class="input-2 _error">
+			<div class="input-2 ">
 				<label for="" class="input-2-label">Электронный адрес (отправим на него квитанцию)*</label>
 				<input type="email" placeholder='Ваш e-mail'>
-				<div class="input-2-message _error">Неправильно введен email</div>
+<!--				<div class="input-2-message _error">Неправильно введен email</div>-->
 			</div>
 
-			<div class="input-2 _success">
+			<div class="input-2 ">
 				<label for="" class="input-2-label">Введите промокод</label>
 				<input type="email">
-				<div class="input-2-message _success">Промокод успешно применен</div>
+<!--				<div class="input-2-message _success">Промокод успешно применен</div>-->
 			</div>
 
 			<div class="prices-form-variant">VPN MAX (1 год): <span>11 864</span> р.</div>
@@ -120,22 +120,22 @@
 					<label class="prices-methods-item">
 						<input type="radio" name='method' checked hidden>
 						<span class="prices-methods-thumb"></span>
-						<span class="prices-methods-img"><img src="web/img/modal-prices-1.png"></span>
+						<span class="prices-methods-img"><img src="/web/img/modal-prices-1.png"></span>
 					</label>
 					<label class="prices-methods-item">
 						<input type="radio" name='method' hidden>
 						<span class="prices-methods-thumb"></span>
-						<span class="prices-methods-img"><img src="web/img/modal-prices-2.png"></span>
+						<span class="prices-methods-img"><img src="/web/img/modal-prices-2.png"></span>
 					</label>
 					<label class="prices-methods-item">
 						<input type="radio" name='method' hidden>
 						<span class="prices-methods-thumb"></span>
-						<span class="prices-methods-img"><img src="web/img/modal-prices-3.png"></span>
+						<span class="prices-methods-img"><img src="/web/img/modal-prices-3.png"></span>
 					</label>
 					<label class="prices-methods-item">
 						<input type="radio" name='method' hidden>
 						<span class="prices-methods-thumb"></span>
-						<span class="prices-methods-img"><img src="web/img/modal-prices-4.png"></span>
+						<span class="prices-methods-img"><img src="/web/img/modal-prices-4.png"></span>
 					</label>
 				</div>
 			</div>

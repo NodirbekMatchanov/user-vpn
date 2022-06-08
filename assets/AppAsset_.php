@@ -29,7 +29,6 @@ class AppAsset_ extends AssetBundle
         'web/tmp/public/js/ready.js',
         'js/main.js',
         'https://cdn.rawgit.com/t4t5/sweetalert/v0.2.0/lib/sweet-alert.min.js',
-        'https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',

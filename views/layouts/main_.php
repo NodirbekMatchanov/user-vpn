@@ -29,18 +29,18 @@ use yii\bootstrap\NavBar;
     <meta property="og:title" content="VPN MAX">
     <meta name="description" content="">
     <meta property="og:description" content="">
-    <meta property="og:image" content="web/img/default.png">
-    <meta property="vk:image" content="web/img/default.png">
-    <meta name="twitter:image" content="web/img/default.png">
+    <meta property="og:image" content="/web/img/default.png">
+    <meta property="vk:image" content="/web/img/default.png">
+    <meta name="twitter:image" content="/web/img/default.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="shortcut icon" href="web/img/favicon/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/web/img/favicon/favicon.ico" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="shortcut icon" href="/web/web/img//favicon/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" sizes="180x180" href="web/img/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="web/img/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="web/img/favicon/favicon-16x16.png">
-    <link rel="manifest" href="web/img/favicon/site.webmanifest">
-    <link rel="mask-icon" href="web/img/favicon/safari-pinned-tab.svg" color="#00bdd7">
+    <link rel="shortcut icon" href="/web//web/img//favicon/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/web/img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/web/img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/web/img/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/web/img/favicon/site.webmanifest">
+    <link rel="mask-icon" href="/web/img/favicon/safari-pinned-tab.svg" color="#00bdd7">
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
@@ -52,12 +52,12 @@ use yii\bootstrap\NavBar;
 <div id="app">
     <div id="loader" class='active'></div>
 
-    <header class="header <?php if (isset($vars->full)) echo '_full'; ?>">
+    <header class="header <?php if (Yii::$app->controller->id == 'site' &&Yii::$app->controller->action->id == 'index') echo '_full'; ?>">
         <div class="header-top">
             <div class="container">
                 <div class="header-top-content">
                     <a href="#" class="header-logo">
-                        <img src="web/img/logo.svg">
+                        <img src="/web/img/logo.svg">
                     </a>
 
                     <div class="header-menu">
@@ -77,11 +77,11 @@ use yii\bootstrap\NavBar;
 
                         <div class="header-langs">
                             <div class="header-langs-current">
-                                <img src="web/img/langs-ru.svg">
+                                <img src="/web/img/langs-ru.svg">
                             </div>
                             <div class="header-langs-items">
                                 <a href="#" class="header-langs-item">
-                                    <img src="web/img/langs-en.png">
+                                    <img src="/web/img/langs-en.png">
                                 </a>
                             </div>
                         </div>
@@ -97,11 +97,11 @@ use yii\bootstrap\NavBar;
                 </div>
             </div>
         </div>
-
+        <?php if(Yii::$app->controller->id == 'site' &&Yii::$app->controller->action->id == 'index'):?>
         <div class="container">
             <div class="header-intro">
                 <div class="header-intro-img">
-                    <img src="web/img/header-intro-img.svg">
+                    <img src="/web/img/header-intro-img.svg">
                 </div>
 
                 <h1 class="title-1">
@@ -114,14 +114,14 @@ use yii\bootstrap\NavBar;
 
             </div>
         </div>
-
+    <?php endif; ?>
     </header>
 
     <div id="content">
         <div class="header-mob">
             <div class="header-mob-content">
                 <a href="#" class="header-logo">
-                    <img src="web/img/logo.svg">
+                    <img src="/web/img/logo.svg">
                 </a>
 
                 <div class="spacer"></div>
@@ -145,11 +145,11 @@ use yii\bootstrap\NavBar;
 
                     <div class="header-langs">
                         <div class="header-langs-current">
-                            <img src="web/img/langs-ru.svg">
+                            <img src="/web/img/langs-ru.svg">
                         </div>
                         <div class="header-langs-items">
                             <a href="#" class="header-langs-item">
-                                <img src="web/img/langs-en.png">
+                                <img src="/web/img/langs-en.png">
                             </a>
                         </div>
                     </div>
@@ -171,15 +171,15 @@ use yii\bootstrap\NavBar;
 
             <div class="footer-top">
                 <a href="#" class="footer-logo">
-                    <img src="web/img/logo.svg">
+                    <img src="/web/img/logo.svg">
                 </a>
 
                 <div class="footer-socials">
-                    <a href='#' class="footer-socials-item"><img src="web/img/footer-socials-1.svg"></a>
-                    <a href='#' class="footer-socials-item"><img src="web/img/footer-socials-2.svg"></a>
-                    <a href='#' class="footer-socials-item"><img src="web/img/footer-socials-3.svg"></a>
-                    <a href='#' class="footer-socials-item"><img src="web/img/footer-socials-4.svg"></a>
-                    <a href='#' class="footer-socials-item"><img src="web/img/footer-socials-5.svg"></a>
+                    <a href='#' class="footer-socials-item"><img src="/web/img/footer-socials-1.svg"></a>
+                    <a href='#' class="footer-socials-item"><img src="/web/img/footer-socials-2.svg"></a>
+                    <a href='#' class="footer-socials-item"><img src="/web/img/footer-socials-3.svg"></a>
+                    <a href='#' class="footer-socials-item"><img src="/web/img/footer-socials-4.svg"></a>
+                    <a href='#' class="footer-socials-item"><img src="/web/img/footer-socials-5.svg"></a>
                 </div>
 
                 <div class="footer-data">
@@ -190,7 +190,7 @@ use yii\bootstrap\NavBar;
 
             <div class="footer-developer">
                 <div class="footer-developer-text">Разработка и создание сайта</div>
-                <a href='#' class="footer-developer-logo"><img src="web/img/footer-developer-logo.svg"></a>
+                <a href='#' class="footer-developer-logo"><img src="/web/img/footer-developer-logo.svg"></a>
             </div>
         </div>
     </footer>

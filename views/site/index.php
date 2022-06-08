@@ -6,7 +6,7 @@
             <div class="about-items">
 
                 <div class="about-item">
-                    <div class="about-icon"><img src="web/img/about-1.svg"></div>
+                    <div class="about-icon"><img src="/web/img/about-1.svg"></div>
                     <div class="about-text">
                         Сверх быстрые сервера<br>
                         по всему миру
@@ -14,7 +14,7 @@
                 </div>
 
                 <div class="about-item">
-                    <div class="about-icon"><img src="web/img/about-2.svg"></div>
+                    <div class="about-icon"><img src="/web/img/about-2.svg"></div>
                     <div class="about-text">
                         Фоновый авто<br>
                         запуск VPN
@@ -22,7 +22,7 @@
                 </div>
 
                 <div class="about-item">
-                    <div class="about-icon"><img src="web/img/about-3.svg"></div>
+                    <div class="about-icon"><img src="/web/img/about-3.svg"></div>
                     <div class="about-text">
                         Большой выбор<br>
                         стран
@@ -30,7 +30,7 @@
                 </div>
 
                 <div class="about-item">
-                    <div class="about-icon"><img src="web/img/about-4.svg"></div>
+                    <div class="about-icon"><img src="/web/img/about-4.svg"></div>
                     <div class="about-text">
                         Скрытие реального<br>
                         ip адреса
@@ -38,7 +38,7 @@
                 </div>
 
                 <div class="about-item">
-                    <div class="about-icon"><img src="web/img/about-5.svg"></div>
+                    <div class="about-icon"><img src="/web/img/about-5.svg"></div>
                     <div class="about-text">
                         Шифрование<br>
                         трафика
@@ -46,7 +46,7 @@
                 </div>
 
                 <div class="about-item">
-                    <div class="about-icon"><img src="web/img/about-6.svg"></div>
+                    <div class="about-icon"><img src="/web/img/about-6.svg"></div>
                     <div class="about-text">
                         Доступ к любым<br>
                         сайтам
@@ -54,7 +54,7 @@
                 </div>
 
                 <div class="about-item">
-                    <div class="about-icon"><img src="web/img/about-7.svg"></div>
+                    <div class="about-icon"><img src="/web/img/about-7.svg"></div>
                     <div class="about-text">
                         Нет логов<br>
                         на серверах
@@ -62,7 +62,7 @@
                 </div>
 
                 <div class="about-item">
-                    <div class="about-icon"><img src="web/img/about-8.svg"></div>
+                    <div class="about-icon"><img src="/web/img/about-8.svg"></div>
                     <div class="about-text">
                         Безлимитный<br>
                         трафик
@@ -124,10 +124,10 @@
             <div class="_active _tabs" data-content='1'>
                 <div class="devices-content">
                     <div class="devices-preview _active" data-content='1'>
-                        <img src="web/img/devices-phone.png">
+                        <img src="/web/img/devices-phone.png">
                     </div>
                     <div class="devices-preview" data-content='2'>
-                        <img src="web/img/devices-phone.png">
+                        <img src="/web/img/devices-phone.png">
                     </div>
                     <div class="devices-preview" data-content='3'>
                         TEST
@@ -213,7 +213,7 @@
             </div>
 
             <div class="steps-item _accent">
-                <div class="steps-img"><img src="web/img/steps-img.svg"></div>
+                <div class="steps-img"><img src="/web/img/steps-img.svg"></div>
                 <div class="steps-text">
                     Теперь вам доступны<br>
                     все ресурсы анонимно
@@ -240,7 +240,7 @@
                     <div class="input _dark">
                         <input type="email" name='email' placeholder="Ваш e-mail">
                     </div>
-                    <button class="btn-2">Попробовать бесплатно</button>
+                    <button type="button" class="btn-2 auto-signup">Попробовать бесплатно</button>
                 </div>
                 <div class="test-politic">Нажимая на кнопку, вы даете согласие на обработку персональных данных и соглашаетесь c <a href="#">политикой конфиденциальности</a></div>
             </form>
@@ -459,7 +459,7 @@
 
             <div class="feedbacks-rating">
                 <div class="feedbacks-rating-img">
-                    <img src="web/img/feedbacks-rating-1.svg">
+                    <img src="/web/img/feedbacks-rating-1.svg">
                 </div>
                 <div class="feedbacks-rating-number">4.7</div>
                 <div class="feedbacks-rating-stars">
@@ -502,7 +502,7 @@
 
             <div class="feedbacks-rating">
                 <div class="feedbacks-rating-img">
-                    <img src="web/img/feedbacks-rating-2.svg">
+                    <img src="/web/img/feedbacks-rating-2.svg">
                 </div>
                 <div class="feedbacks-rating-number">4.6</div>
                 <div class="feedbacks-rating-stars">
@@ -637,7 +637,7 @@
 <div class="auto">
     <div class="container">
         <div class="auto-wrap">
-            <div class="auto-img"><img src="web/img/auto-img.svg"></div>
+            <div class="auto-img"><img src="/web/img/auto-img.svg"></div>
             <div class="auto-content">
                 <h2 class="title-3">Фоновый авто запуск VPN</h2>
                 <div class="auto-text">Вам больше не нужно включать и выключать VPN</div>

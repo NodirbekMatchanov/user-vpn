@@ -101,7 +101,7 @@ $config = [
             'enableAccountDelete' => true,
             'enablePasswordRecovery' => true,
             'cost' => 12,
-            'admins' => ['admin'],
+           'admins' => ['admin'],
             // following line will restrict access to profile, recovery, registration and settings controllers from backend
             'class' => 'dektrium\user\Module',
             'modelMap' => [

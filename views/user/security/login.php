@@ -23,76 +23,67 @@ use yii\widgets\ActiveForm;
 $this->title = Yii::t('user', 'Sign in');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-
+<style>
+    .form-group {
+        width: 100%;
+    }
+</style>
 <?= $this->render('/_alert', ['module' => Yii::$app->getModule('user')]) ?>
 
-<div class="row">
-    <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title"><?= Html::encode($this->title) ?></h3>
+<div class="form">
+    <div class="container">
+            <?php $form = ActiveForm::begin([
+                'id' => 'login-form',
+                'options' => ['class' => 'form-content'],
+                'enableAjaxValidation' => true,
+                'enableClientValidation' => false,
+                'validateOnBlur' => false,
+                'validateOnType' => false,
+                'validateOnChange' => false,
+            ]) ?>
+            <h1 class="title-3">Авторизоваться</h1>
+
+            <div class="input-2">
+                <label for="" class="input-2-label">E-mail</label>
+                <?= $form->field($model, 'login',
+                    ['inputOptions' => ['autofocus' => 'autofocus', 'class' => 'input-2','style' => 'width:100%', 'tabindex' => '1']]
+                )->label(false);
+                ?>
             </div>
-            <div class="panel-body">
-                <?php $form = ActiveForm::begin([
-                    'id' => 'login-form',
-                    'enableAjaxValidation' => true,
-                    'enableClientValidation' => false,
-                    'validateOnBlur' => false,
-                    'validateOnType' => false,
-                    'validateOnChange' => false,
-                ]) ?>
 
-                <?php if ($module->debug): ?>
-                    <?= $form->field($model, 'login', [
-                        'inputOptions' => [
-                            'autofocus' => 'autofocus',
-                            'class' => 'form-control',
-                            'tabindex' => '1']])->dropDownList(LoginForm::loginList());
-                    ?>
+            <div class="input-2">
+                <label for="" class="input-2-label">Пароль</label>
+                <?= $form->field(
+                    $model,
+                    'password',
+                    ['inputOptions' => ['class' => 'form-control', 'tabindex' => '2']])
+                    ->passwordInput()
+                    ->label(false
+                    ) ?>
+            </div>
 
-                <?php else: ?>
+            <label class="checkbox">
+                <input type="checkbox" name="rememberMe" hidden>
+                <span class="checkbox-content">
+					<span class="checkbox-thumb"></span>
+					<span class="checkbox-text">Запомнить меня</span>
+				</span>
+            </label>
 
-                    <?= $form->field($model, 'login',
-                        ['inputOptions' => ['autofocus' => 'autofocus', 'class' => 'form-control', 'tabindex' => '1']]
-                    )->label('Email');
-                    ?>
-
-                <?php endif ?>
-
-                <?php if ($module->debug): ?>
-                    <div class="alert alert-warning">
-                        <?= Yii::t('user', 'Password is not necessary because the module is in DEBUG mode.'); ?>
-                    </div>
-                <?php else: ?>
-                    <?= $form->field(
-                        $model,
-                        'password',
-                        ['inputOptions' => ['class' => 'form-control', 'tabindex' => '2']])
-                        ->passwordInput()
-                        ->label(
-                            Yii::t('user', 'Password')
-                            . ($module->enablePasswordRecovery ?
-                                ' (' . Html::a(
-                                    Yii::t('user', 'Forgot password?'),
-                                    ['/user/recovery/request'],
-                                    ['tabindex' => '5']
-                                )
-                                . ')' : '')
-                        ) ?>
-                <?php endif ?>
-                <?= $form->field($model, 'rememberMe')->checkbox(['tabindex' => '3']) ?>
-
+<?=($module->enablePasswordRecovery ?
+     Html::a(
+        Yii::t('user', 'Forgot password?'),
+        ['/user/recovery/request'],
+        ['tabindex' => '5','class' => 'form-link']
+    )
+     : '')?>
+            <div class="form-buttons">
                 <?= Html::submitButton(
                     Yii::t('user', 'Sign in'),
-                    ['class' => 'btn btn-primary btn-block', 'tabindex' => '4']
+                    ['class' => 'btn-2', 'tabindex' => '4']
                 ) ?>
-
-                <?php ActiveForm::end(); ?>
+                <a href='<?=\yii\helpers\Url::to(["/user/register"])?>' class="btn-2 _outline">Зарегистрироваться</a>
             </div>
-        </div>
-
-        <?= Connect::widget([
-            'baseAuthUrl' => ['/user/security/auth'],
-        ]) ?>
+            <?php ActiveForm::end(); ?>
     </div>
 </div>

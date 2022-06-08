@@ -128,6 +128,8 @@ class RegistrationController extends Controller
      */
     public function actionRegister()
     {
+        $this->layout = "@app/views/layouts/main_.php";
+
         if (!$this->module->enableRegistration) {
             throw new NotFoundHttpException();
         }

@@ -144,6 +144,7 @@ class SecurityController extends Controller
      */
     public function actionLogin()
     {
+        $this->layout = "@app/views/layouts/main_.php";
         if (!\Yii::$app->user->isGuest) {
             $this->goHome();
         }

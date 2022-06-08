@@ -21,50 +21,67 @@ use yii\widgets\ActiveForm;
 $this->title = Yii::t('user', 'Sign up');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="row">
-    <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title"><?= Html::encode($this->title) ?></h3>
-            </div>
-            <div class="panel-body">
-                <?php $form = ActiveForm::begin([
-                    'id' => 'registration-form',
-                    'enableAjaxValidation' => true,
-                    'enableClientValidation' => false,
-                ]); ?>
 
-                <?= $form->field($model, 'email') ?>
+<style>
+    .form-group {
+        width: 100%;
+    }
+</style>
+<?php $form = ActiveForm::begin([
+    'id' => 'registration-form',
+    'options' => ['class' => 'form-content'],
+    'enableAjaxValidation' => true,
+    'enableClientValidation' => false,
+]); ?>
+<h3><?= Html::encode($this->title) ?></h3>
 
+<div class="input-2">
+    <label for="" class="input-2-label">E-mail</label>
+    <?= $form->field($model, 'email')->label(false) ?>
+</div>
 
-                <?= $form->field($model, 'phone') ?>
-                <?= $form->field($model, 'utm_source')->textInput(['value' => Yii::$app->request->get('utm_source')])->hiddenInput()->label(false) ?>
-                <?= $form->field($model, 'utm_term')->textInput(['value' => Yii::$app->request->get('utm_term')])->hiddenInput()->label(false) ?>
-                <?= $form->field($model, 'utm_campaign')->textInput(['value' => Yii::$app->request->get('utm_campaign')])->hiddenInput()->label(false) ?>
-                <?= $form->field($model, 'utm_medium')->textInput(['value' => Yii::$app->request->get('utm_medium')])->hiddenInput()->label(false) ?>
+<div class="input-2">
+    <label for="" class="input-2-label">Телефон</label>
+    <?= $form->field($model, 'phone')->label(false) ?>
+</div>
 
-                <?= $form->field($model, 'promocode')->textInput(['value' => (Yii::$app->request->get('ref'))]) ?>
-                <div style="margin-top: -10px;  margin-bottom: 5px;" class="valid-promocode">
+<div class="input-2">
+    <label for="" class="input-2-label">Промокод</label>
+    <?= $form->field($model, 'promocode')->textInput(['value' => (Yii::$app->request->get('ref'))])->label(false) ?>
+    <div style="margin-top: -10px;  margin-bottom: 5px;" class="valid-promocode">
 
-                </div>
-                <?php if ($module->enableGeneratingPassword == false): ?>
-                    <?= $form->field($model, 'password')->passwordInput() ?>
-                    <?= $form->field($model, 'password_repeat')->passwordInput() ?>
-                <?php endif ?>
-
-                <?= Html::submitButton(Yii::t('user', 'Sign up'), ['class' => 'btn btn-success btn-block']) ?>
-
-                <?php ActiveForm::end(); ?>
-            </div>
-        </div>
-        <p class="text-center">
-            <?= Html::a(Yii::t('user', 'Already registered? Sign in!'), ['/user/security/login']) ?>
-            <br>
-            <?=  Html::a(
-                Yii::t('user', 'Forgot password?'),
-                ['/user/recovery/request'],
-                ['tabindex' => '5']
-            ) ?>
-        </p>
     </div>
 </div>
+<?= $form->field($model, 'utm_source')->textInput(['value' => Yii::$app->request->get('utm_source')])->hiddenInput()->label(false) ?>
+<?= $form->field($model, 'utm_term')->textInput(['value' => Yii::$app->request->get('utm_term')])->hiddenInput()->label(false) ?>
+<?= $form->field($model, 'utm_campaign')->textInput(['value' => Yii::$app->request->get('utm_campaign')])->hiddenInput()->label(false) ?>
+<?= $form->field($model, 'utm_medium')->textInput(['value' => Yii::$app->request->get('utm_medium')])->hiddenInput()->label(false) ?>
+
+
+<div class="input-2">
+    <label for="" class="input-2-label">Пароль</label>
+    <?= $form->field($model, 'password')->passwordInput()->label(false) ?>
+</div>
+
+<div class="input-2">
+    <label for="" class="input-2-label">Подтвердить</label>
+    <?= $form->field($model, 'password_repeat')->passwordInput()->label(false) ?>
+</div>
+
+<div class="form-buttons">
+    <?= Html::submitButton(Yii::t('user', 'Sign up'), ['class' => 'btn-2']) ?>
+    <a href='<?= \yii\helpers\Url::to(["/site/login"]) ?>' class="btn-2 _outline">Авторизоваться</a>
+</div>
+<br>
+
+<p class="text-center">
+    <?= Html::a(Yii::t('user', 'Already registered? Sign in!'), ['/user/security/login']) ?>
+    <br>
+    <?= Html::a(
+        Yii::t('user', 'Forgot password?'),
+        ['/user/recovery/request'],
+        ['tabindex' => '5']
+    ) ?>
+</p>
+<?php ActiveForm::end(); ?>
+
