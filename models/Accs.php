@@ -93,6 +93,7 @@ class Accs extends \yii\db\ActiveRecord
     }
 
     public static function setPromoShareCount($promocode, $user){
+        if($promocode == "") return false;
         $accs = Accs::find()->where(['promocode' => $promocode])->one();
         if(!empty($accs)) {
            $count = $accs->promo_share;
