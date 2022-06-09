@@ -168,6 +168,7 @@ class PaymentController extends Controller
                             }
 
                             if ($model->load($userData, '') && $model->register()) {
+                                \Yii::info('registration user');
                                 $user = Accs::find()->where(['email' => $order->payer_email])->one();
                                 $countDay = Tariff::getPeriod($order->tariff);
                                 $time = $countDay * (3600 * 24);
@@ -175,12 +176,17 @@ class PaymentController extends Controller
                                 $user->tariff = "Premium";
                                 $user->background_work = 1;
                                 $user->save(false);
+                                \Yii::info('save premium tariff for user');
 
                                 $order->user_id = (int)$user->user_id;
                                 $order->save(false);
+                                \Yii::info('save order user_id');
 
                                 $this->saveEvent($user->user_id,$order->amount." руб. ". $countDay. ' дней');
+                                \Yii::info('save event');
                                 $mailer->sendPaymentMessage($user, $countDay, date("d.m.Y", $user->untildate));
+                                \Yii::info('send email');
+
                             } else {
                                 return $model->errors;
                             }
