@@ -33,7 +33,7 @@ class UserEvents extends \yii\db\ActiveRecord
         self::EVENT_PAYOUT => 'купил подписку',
         self::EVENT_DELETE_ACCOUNT => 'удалил экаунт',
         self::EVENT_REGISTRATION_PROMOCODE => 'регистрация по промо-коду',
-        self::EVENT_FREEDAY_PROMOCODE => 'начислено бесплатные дни',
+        self::EVENT_FREEDAY_PROMOCODE => 'начислены бесплатные дни',
     ];
 
     /**
