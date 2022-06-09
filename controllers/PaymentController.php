@@ -174,8 +174,8 @@ class PaymentController extends Controller
                                 $user->untildate = ($user->untildate < time()) ? (time() + $time) : ($user->untildate + $time) ;
                                 $user->save(false);
 
-                                $order->user_id = $user->user_id;
-                                $order->save();
+                                $order->user_id = (int)$user->user_id;
+                                $order->save(false);
 
                                 $this->saveEvent($user->user_id,$order->amount." руб. ". $countDay. ' дней');
                                 $mailer->sendPaymentMessage($user, $countDay, date("d.m.Y", $user->untildate));
@@ -225,10 +225,10 @@ class PaymentController extends Controller
 
     public function saveEvent($userId, $text) {
         $event = new UserEvents();
-        $event->user_id = $userId;
+        $event->user_id = (int)$userId;
         $event->event = (string)UserEvents::EVENT_PAYOUT;
         $event->text = $text;
-        $event->save();
+        $event->save(false);
     }
 
 
