@@ -177,7 +177,7 @@ class RegistrationController extends Controller
             $this->trigger(self::EVENT_AFTER_REGISTER, $event);
             return true;
         } else {
-            return  $model->errors;
+            return  json_encode($model->errors);
         }
 
     }
