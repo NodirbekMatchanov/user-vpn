@@ -172,6 +172,8 @@ class PaymentController extends Controller
                                 $countDay = Tariff::getPeriod($order->tariff);
                                 $time = $countDay * (3600 * 24);
                                 $user->untildate = ($user->untildate < time()) ? (time() + $time) : ($user->untildate + $time) ;
+                                $user->tariff = "Premium";
+                                $user->background_work = 1;
                                 $user->save(false);
 
                                 $order->user_id = (int)$user->user_id;
@@ -187,6 +189,8 @@ class PaymentController extends Controller
                             $countDay = Tariff::getPeriod($order->tariff);
                             $time = $countDay * (3600 * 24);
                             $hasUser->untildate = $hasUser->untildate < time() ? (time() + $time) : $hasUser->untildate + $time ;
+                            $hasUser->tariff = "Premium";
+                            $hasUser->background_work = 1;
                             $hasUser->save(false);
                             $this->saveEvent($hasUser->user_id,$order->amount." руб. ". Tariff::getPeriod($order->tariff). ' дней');
                             $mailer->sendPaymentMessage($hasUser,$countDay, date("d.m.Y", $hasUser->untildate));
@@ -204,6 +208,8 @@ class PaymentController extends Controller
                         $countDay = Tariff::getPeriod($order->tariff);
                         $time = $countDay * (3600 * 24);
                         $user->untildate = $user->untildate < time() ? (time() + $time) : $user->untildate + $time ;
+                        $user->tariff = "Premium";
+                        $user->background_work = 1;
                         $user->save(false);
 
 //                        $usedPromo = new UsedPromocodes();
