@@ -17,6 +17,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'status')->dropDownList([\app\models\Tariff::ACTIVE => 'активен',\app\models\Tariff::ARCHIVE => 'архивный']) ?>
 
     <?= $form->field($model, 'price')->textInput() ?>
+    <?= $form->field($model, 'discount')->textInput() ?>
 
 
     <?= $form->field($model, 'price_30')->textInput() ?>

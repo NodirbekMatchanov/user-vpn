@@ -43,7 +43,7 @@ class PromocodesController extends Controller
                     [
                         'actions' => ['validation'],
                         'allow' => true,
-                        'roles' => ['?'],
+                        'roles' => ['?','@'],
                     ],
                 ],
             ],

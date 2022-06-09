@@ -149,12 +149,12 @@ class PaymentController extends Controller
                 if ($data['Status'] == "Completed" && (int)$order->amount == (int)$data['Amount']) {
                     $order->status = Payments::PAYED;
                     $order->save();
-                    if (!empty($data['Email'])) {
-                        $hasUser = Accs::find()->where(['email' => $data['Email']])->one();
+                    if (!empty($order->payer_email)) {
+                        $hasUser = Accs::find()->where(['email' => $order->payer_email])->one();
                         if (empty($hasUser)) {
                             $password = \Yii::$app->security->generateRandomString(8);
                             $userData = [
-                                'email' =>  $data['Email'],
+                                'email' =>  $order->payer_email,
                                 'password' =>  $password,
                                 'password_repeat' =>  $password,
                             ];
@@ -168,7 +168,7 @@ class PaymentController extends Controller
                             }
 
                             if ($model->load($userData, '') && $model->register()) {
-                                $user = Accs::find()->where(['email' => $data['Email']])->one();
+                                $user = Accs::find()->where(['email' => $order->payer_email])->one();
                                 $countDay = Tariff::getPeriod($order->tariff);
                                 $time = $countDay * (3600 * 24);
                                 $user->untildate = ($user->untildate < time()) ? (time() + $time) : ($user->untildate + $time) ;

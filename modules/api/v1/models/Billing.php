@@ -93,6 +93,7 @@ class Billing extends Model
                                         $user->untildate = $user->untildate < time() ? time() +  $untildate: $user->untildate + $untildate;
                                         $user->status = VpnUserSettings::$statuses['ACTIVE'];
                                         $user->tariff = "Premium";
+                                        $user->background_work = 1;
                                         $user->save();
 
                                         $payment = new Payments();

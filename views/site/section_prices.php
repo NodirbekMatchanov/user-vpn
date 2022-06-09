@@ -24,7 +24,7 @@ $script = <<<JS
     function cardPay(e) {
     promise = new Promise((resolve, reject) =>{
         $.ajax({
-           url: "$url" + id + "&promocode=" + promocode + "&orderId=" + orderId
+           url: "$url" + id + "&promocode=" + promocode + "&orderId=" + orderId+"&email="+email
          }).done(function(data){
              resolve(data);
          }).fail(function(err){
@@ -34,9 +34,14 @@ $script = <<<JS
     });
     promise.then((amount) =>{
         console.log(amount);
+         amount = JSON.parse(amount);
+            $('.total-price').html(amount.totalPrice)
+            $('.tariff-price').html(amount.price)
+            $('.discount').html(amount.discount)
+            $('.choose-tariff-label').html($(this).closest('.prices-item').find('.tariff-title').html())
         self.pay = function () {
     var widget = new cp.CloudPayments();
-    var price = parseFloat(amount);
+    var price = parseFloat(amount.totalPrice);
     var receipt = {
             Items: [//товарные позиции
                  {
@@ -94,30 +99,87 @@ $script = <<<JS
         self.pay();
     })
 }
+
+  function ValidateEmail(input) {
+
+        var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+        if (input.value.match(validRegex)) {
+
+
+            return true;
+
+        } else {
+
+            return false;
+
+        }
+
+    }
+    
  var id = "";
     var method = "";
     var promocode = "";
     var orderId = "";
+    var email = "";
     
 $(document).on('click', '.pay', function (e) {
-     id = $('.prices-item._active').data('id');
+     id = $('.prices-item._active').data('id') ;
      method = $('[name="method"]').val();
      promocode = getCookie('promocode') ?? $('[name="payer-promocode"]').val();
      orderId = orderNumber();
+     email = $('[name="email-payer"]').val()
+     if(email) {
+         if(!ValidateEmail($('[name="email-payer"]')[0])) {
+             $('.email-payer-message').html('не валидный email');
+             return false;
+         }
+        // типы оплаты
+        switch (method) {
+            case "card" : cardPay(e);
+            break;
+            case "qiwi" : cardPay();
+            break;
+            case "yomaney" : cardPay();
+            break;
+            case "bitcoin" : cardPay();
+            break;
+        } 
+     } else {
+         $('.email-payer-message').closest('.input-2').addClass('_error');
+         $('.email-payer-message').html('не заполнено поле e-mail');
+     }
     
-    // типы оплаты
-    switch (method) {
-        case "card" : cardPay(e);
-        break;
-        case "qiwi" : cardPay();
-        break;
-        case "yomaney" : cardPay();
-        break;
-        case "bitcoin" : cardPay();
-        break;
-    }
     
     });
+
+$('.prices-item').on('click',function () {
+        id = $(this).closest('.prices-item').data('id') ;
+        method = $('[name="method"]').val();
+        promocode = getCookie('promocode') ?? $('[name="payer-promocode"]').val();
+        orderId = orderNumber();
+
+        promise = new Promise((resolve, reject) => {
+            $.ajax({
+                url: "$url" + id + "&promocode=" + promocode + "&orderId=" + orderId
+            }).done(function(data){
+                resolve(data);
+            }).fail(function(err){
+                alert(err);
+                reject(err);
+            })
+        });
+        promise.then((amount) =>{
+            amount = JSON.parse(amount);
+            $('.total-price').html(amount.totalPrice)
+            $('.tariff-price').html(amount.price)
+            $('.discount').html(amount.discount)
+            $('.choose-tariff-label').html($(this).closest('.prices-item').find('.tariff-title').html())
+        })
+        if($('.prices-form').hasClass('hidden')) {
+            $('.prices-form').removeClass('hidden');
+        }
+    })
 JS;
 $this->registerJs($script, $this::POS_END);
 ?>
@@ -147,7 +209,7 @@ $this->registerJs($script, $this::POS_END);
 
                 <?php if (!empty($tariff) && $tariff->day_30): ?>
                     <div class="prices-item" data-id="1_month">
-                        <h3 class="title-3">1 месяц</h3>
+                        <h3 class="title-3 tariff-title">1 месяц</h3>
 
                         <div class="spacer"></div>
 
@@ -166,7 +228,7 @@ $this->registerJs($script, $this::POS_END);
                 <?php endif; ?>
                 <?php if (!empty($tariff) && $tariff->day_180): ?>
                     <div class="prices-item" data-id="6_month">
-                        <h3 class="title-3">6 месяцев</h3>
+                        <h3 class="title-3 tariff-title">6 месяцев</h3>
 
                         <div class="spacer"></div>
 
@@ -192,7 +254,7 @@ $this->registerJs($script, $this::POS_END);
                             <div class="prices-best-text">Лучший выбор</div>
                         </div>
 
-                        <h3 class="title-3">1 год</h3>
+                        <h3 class="title-3 tariff-title">1 год</h3>
 
                         <div class="spacer"></div>
 
@@ -233,20 +295,22 @@ $this->registerJs($script, $this::POS_END);
             <div class="input-2 ">
                 <label for="" class="input-2-label">Электронный адрес (отправим на него квитанцию)*</label>
                 <input type="email" name="email-payer" placeholder='Ваш e-mail'>
-                <!--				<div class="input-2-message _error">Неправильно введен email</div>-->
+                				<div class="email-payer-message input-2-message _error"></div>
             </div>
 
             <div class="input-2 ">
                 <label for="" class="input-2-label">Введите промокод</label>
                 <input type="text" name="payer-promocode">
-                <!--				<div class="input-2-message _success">Промокод успешно применен</div>-->
+                				<div class="promocode-payer-message input-2-message _success"></div>
+                                <div class="promocode-payer-message input-2-message _error"></div>
+
             </div>
 
             <div class="prices-form-variant">VPN MAX (<span class="choose-tariff-label"></span>): <span
                         class="tariff-price">11 864</span> р.
             </div>
 
-            <div class="prices-form-coupon">Вы применили купон со скидкой <span>67%</span></div>
+            <div class="prices-form-coupon">Вы применили купон со скидкой <span class="discount">0 </span>%</div>
 
             <div class="prices-form-total">Итоговая сумма: <span class="total-price">3 948</span> р.</div>
 

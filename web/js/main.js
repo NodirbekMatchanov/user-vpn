@@ -144,6 +144,27 @@ $(document).ready(function () {
         })
     })
 
+    $(document).on('focusout', '[name="payer-promocode"]', function () {
+        $('.promocode-payer-message._success').html('');
+        $('.promocode-payer-message._error').html('');
+        $.ajax({
+            url: "/promocodes/validation",
+            method: "POST",
+            data: {code: $(this).val()}
+        }).done(function (data) {
+            data = JSON.parse(data);
+            // Промокод успешно применен
+            if(data.result == 'success'){
+                $('.promocode-payer-message._success').html("Промокод успешно применен");
+                $('.prices-item._active').trigger('click');
+            }
+            if(data.result == 'error'){
+                $('.promocode-payer-message._error').html(data.error);
+                $('.prices-item._active').trigger('click');
+            }
+        })
+    })
+
     function setCookie(name, value, options = {}) {
 
         options = {
@@ -172,6 +193,19 @@ $(document).ready(function () {
         ));
         return matches ? decodeURIComponent(matches[1]) : undefined;
     }
+
+    $(document).on("change",'[name="email-payer"]',function (){
+        $('.email-payer-message').closest('.input-2').removeClass('_error');
+        $('.email-payer-message').html('');
+
+        if(!ValidateEmail($(this)[0])) {
+            $('.email-payer-message').html('не валидный email');
+        }
+        if($(this).val() == ''){
+            $('.email-payer-message').closest('.input-2').addClass('_error');
+            $('.email-payer-message').html('не заполнено поле e-mail');
+        }
+     })
 
     $(document).on("click",'.auto-signup',function (){
         let element = $('[name="email"]')[0];
@@ -262,9 +296,4 @@ $(document).ready(function () {
 
     };
 
-    $('.prices-item').on('click',function () {
-        if($('.prices-form').hasClass('hidden')) {
-            $('.prices-form').removeClass('hidden');
-        }
-    })
 })

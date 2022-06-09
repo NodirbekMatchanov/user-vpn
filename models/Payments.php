@@ -13,6 +13,7 @@ use Yii;
  * @property string $datecreate
  * @property string $tariff
  * @property string $type
+ * @property string $payer_email
  * @property float $amount
  * @property int $status
  * @property int $promocode
@@ -41,7 +42,7 @@ class Payments extends \yii\db\ActiveRecord
             [[ 'user_id', 'status','app_transaction_id'], 'integer'],
             [['datecreate'], 'safe'],
             [['amount'], 'number'],
-            [['tariff','promocode','type','orderId'], 'string', 'max' => 50],
+            [['tariff','payer_email','promocode','type','orderId'], 'string', 'max' => 50],
             [['orderId'], 'unique'],
         ];
     }

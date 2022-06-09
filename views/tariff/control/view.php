@@ -40,6 +40,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             'price',
+            'price_30',
+            'day_30',
+            'price_180',
+            'day_180',
+            'price_365',
+            'day_365',
             'period',
             'country',
             'currency',

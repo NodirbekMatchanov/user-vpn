@@ -88,21 +88,22 @@ class Tariff extends \yii\db\ActiveRecord
         $tariffs = Tariff::find()->all();
         foreach ($tariffs as $tariff) {
             if ($id == '1_month') {
-                return  30;
+                return 30;
             } else if ($id == '6_month') {
-                return  180;
+                return 180;
             } else if ($id == '12_month') {
-                return  365;
+                return 365;
             }
         }
     }
 
     /* проверка срок подписки */
-    public static function checkUsersTariff() {
+    public static function checkUsersTariff()
+    {
         $users = Accs::find()->where(['status' => VpnUserSettings::$statuses['ACTIVE']])->all();
         $mailer = new Mailer();
         foreach ($users as $user) {
-            if(date("Y-m-d", $user->untildate) == date("Y-m-d")) {
+            if (date("Y-m-d", $user->untildate) == date("Y-m-d")) {
             } elseif (DateFormat::countDaysBetweenDates($user->untildate, time()) < 1) {
                 $mailer->sendExpire($user);
 
@@ -112,6 +113,53 @@ class Tariff extends \yii\db\ActiveRecord
             } elseif (DateFormat::countDaysBetweenDates($user->untildate, time()) == 1) {
                 $mailer->sendExpireDay($user);
             }
+        }
+    }
+
+    public static function calcPrice()
+    {
+        $id = \Yii::$app->request->get('id');
+        $orderId = \Yii::$app->request->get('orderId');
+        $email = \Yii::$app->request->get('email');
+        $promocode = \Yii::$app->request->get('promocode') ?? "";
+        if ($id) {
+            $tariffs = Tariff::find()->all();
+            $price = 0;
+            $totalPrice = 0;
+            $discount = 0;
+            foreach ($tariffs as $tariff) {
+                if ($id == '1_month') {
+                    $price = $tariff->price_30;
+                } else if ($id == '6_month') {
+                    $price = $tariff->price_180;
+                } else if ($id == '12_month') {
+                    $price = $tariff->price_365;
+                }
+            }
+            $totalPrice = $price;
+
+            if ($promocode) {
+                $result = json_decode(UsedPromocodes::ValidationPromoCode($promocode), true);
+                if ($result['result'] == 'success') {
+                    $promoCode = Promocodes::find()->where(['promocode' => $promocode, 'status' => \app\models\Tariff::ACTIVE])->one();
+                    $discount = $promoCode->discount;
+                    $discountPrice = ($price * $discount) / 100;
+                    $totalPrice = $price - $discountPrice;
+                }
+            }
+
+            if ($orderId) {
+                $payment = new Payments();
+                $payment->status = "0";
+                $payment->orderId = $orderId;
+                $payment->user_id = \Yii::$app->user->isGuest ? 0 : \Yii::$app->user->identity->getId();
+                $payment->tariff = $id;
+                $payment->payer_email = $email;
+                $payment->amount = $price;
+                $payment->promocode = $promocode;
+                $payment->save();
+            }
+            return json_encode(['price' => $price, 'totalPrice' => $totalPrice,'discount' => $discount]);
         }
     }
 }
