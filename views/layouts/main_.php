@@ -202,7 +202,7 @@ use yii\bootstrap\NavBar;
 
                 <div class="footer-data">
                     <div class="footer-text">VPN MAX, 2020-2022</div>
-                    <a href="#" class="footer-text">Политика конфиденциальности</a>
+                    <a href="/site/privacy" class="footer-text">Политика конфиденциальности</a>
                 </div>
             </div>
 
