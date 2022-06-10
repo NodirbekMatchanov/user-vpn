@@ -58,8 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
 //            'op',
-//            'attribute',
-            'value',
+//            'value',
             [
                 'attribute' => 'username',
                 'content' => function ($data) {
@@ -68,10 +67,30 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'status',
+                'contentOptions' => function ($model, $key, $index, $column) {
+                    $class = 'td-default';
+                    if ($model->accs->status == 'NOACTIVE') {
+                        $class = 'NoActiveStatus';
+                    } elseif ($model->accs->status == 'ACTIVE') {
+                        $class = 'ActiveStatus';
+                    } elseif ($model->accs->status == 'DELETED') {
+                        $class = 'DeletedStatus';
+                    }
+
+                    return [
+                        'key' => $key,
+                        'index' => $index,
+                        'class' => $class,
+                    ];
+                },
                 'content' => function ($data) {
-                    return $data->accs->status ?? '';
+                    $status = $data->accs->status ?? '';
+                    return $status;
                 }
             ],
+
+            'last_date_visit',
+            'visit_count',
             [
                 'attribute' => 'datecreate',
                 'content' => function ($data) {

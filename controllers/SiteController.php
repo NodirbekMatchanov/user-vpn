@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Country;
 use app\models\Tariff;
 use Yii;
 use yii\filters\AccessControl;
@@ -28,7 +29,7 @@ class SiteController extends Controller
                         'roles' => ['@'],
                     ],
                     [
-                        'actions' => ['pay','index','login'],
+                        'actions' => ['pay','index','login','privacy'],
                         'allow' => true,
                         'roles' => ['?','@'],
                     ],
@@ -143,6 +144,13 @@ class SiteController extends Controller
      */
     public function actionAbout()
     {
+//        $cty =  Country::find()->all();
+//        foreach ($cty as $item) {
+//            $path = Yii::getAlias('@app/web/flags/').'/'.$item->code.'.png';
+//            if(file_exists($path)) {
+//                copy($path,Yii::getAlias('@app/web/flags_ru/').'/'.str_replace(" ","_",$item->title).'.png');
+//            }
+//        }
         return $this->render('about');
     }
 

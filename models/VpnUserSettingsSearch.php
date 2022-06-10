@@ -97,6 +97,10 @@ class VpnUserSettingsSearch extends VpnUserSettings
                     'asc' => ['accs.datecreate' => SORT_ASC],
                     'desc' => ['accs.datecreate' => SORT_DESC],
                 ],
+                'last_date_visit' => [
+                    'asc' => ['accs.last_date_visit' => SORT_ASC],
+                    'desc' => ['accs.last_date_visit' => SORT_DESC],
+                ],
         ]]);
         // grid filtering conditions
         $query->andFilterWhere([

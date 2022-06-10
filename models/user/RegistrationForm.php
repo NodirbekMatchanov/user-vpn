@@ -182,6 +182,7 @@ class RegistrationForm extends \dektrium\user\models\RegistrationForm
                 $event->save();
             }
             $accs->verifyCode = $code;
+            $accs->source = Accs::SOURCE_WEB;
             $accs->save(false);
         }
 

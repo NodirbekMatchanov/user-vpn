@@ -176,6 +176,8 @@ class VpnUserSettings extends \yii\db\ActiveRecord
             'comment' => 'Комментарий',
             'background_work' => 'Фоновой режим',
             'expire' => 'Дней до окончании подписки',
+            'visit_count' => 'Кол. использований',
+            'last_date_visit' => 'Дата последнего использования',
             'country' => 'Страна',
         ];
     }

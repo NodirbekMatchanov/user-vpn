@@ -31,6 +31,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'code',
             'title',
             [
+                'attribute' => ' Флаг',
+                'content' => function ($data) {
+                    return "<img src='/web/flags/".$data->code.".png"."'>";
+                }
+            ],
+            [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, \app\models\Country $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'code' => $model->code]);

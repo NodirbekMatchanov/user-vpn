@@ -123,21 +123,21 @@ class UsedPromocodes extends \yii\db\ActiveRecord
             $event->event = (string)UserEvents::EVENT_REGISTRATION_PROMOCODE;
             $event->user_id = $userId;
             $event->text = 'регистрация по промо-коду : ' . $promocode;
-            $event->save();
+            $event->save(false);
 
             /* add event */
             $event = new UserEvents();
             $event->event = (string)UserEvents::EVENT_FREEDAY_PROMOCODE;
             $event->user_id = $user->user_id;
             $event->text = 'Начислено бесплатные дни : ' . $promocodeModel->freeday_partner.' дней';
-            $event->save();
+            $event->save(false);
 
             /* add event */
             $event = new UserEvents();
             $event->event = (string)UserEvents::EVENT_FREEDAY_PROMOCODE;
             $event->user_id = $userId;
             $event->text = 'Начислено бесплатные дни : ' . $promocodeModel->free_day .' дней';
-            $event->save();
+            $event->save(false);
 
             self::saveSignup($userId,$promocode);
 

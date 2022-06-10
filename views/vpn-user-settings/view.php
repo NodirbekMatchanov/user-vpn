@@ -37,7 +37,7 @@ if(!empty($model->accs->user_id)) {
         'attributes' => [
             'id',
             'username',
-            'pass',
+//            'pass',
             [
                 'attribute' => 'email',
                 'content' => function ($data) {
@@ -101,6 +101,42 @@ if(!empty($model->accs->user_id)) {
                 }
             ],
             [
+                'attribute' => 'use_ios',
+                'content' => function ($data) {
+                    return $data->accs->use_ios ?? '';
+                }
+            ],
+            [
+                'attribute' => 'use_android',
+                'content' => function ($data) {
+                    return $data->accs->use_android ?? '';
+                }
+            ],
+            [
+                'attribute' => 'fcm_token',
+                'content' => function ($data) {
+                    return $data->accs->fcm_token ?? '';
+                }
+            ],
+            [
+                'attribute' => 'phone',
+                'content' => function ($data) {
+                    return $data->accsp->profile->phone ?? '-';
+                }
+            ],
+        ],
+    ]) ?>
+    <h3>UTM Метки</h3>
+    <?= DetailView::widget([
+        'model' => $model,
+        'attributes' => [
+            [
+                'attribute' => 'source',
+                'content' => function ($data) {
+                    return $data->accs->source ?? 'web';
+                }
+            ],
+            [
                 'attribute' => 'utm_source',
                 'content' => function ($data) {
                     return $data->accs->utm_source ?? '';
@@ -124,18 +160,12 @@ if(!empty($model->accs->user_id)) {
                     return $data->accs->utm_term ?? '';
                 }
             ],
-            [
-                'attribute' => 'use_ios',
-                'content' => function ($data) {
-                    return $data->accs->use_ios ?? '';
-                }
-            ],
-            [
-                'attribute' => 'use_android',
-                'content' => function ($data) {
-                    return $data->accs->use_android ?? '';
-                }
-            ],
+        ],
+    ]) ?>
+    <h3>Cтатистика</h3>
+    <?= DetailView::widget([
+        'model' => $model,
+        'attributes' => [
             [
                 'attribute' => 'last_date_visit',
                 'content' => function ($data) {
@@ -146,18 +176,6 @@ if(!empty($model->accs->user_id)) {
                 'attribute' => 'visit_count',
                 'content' => function ($data) {
                     return $data->accs->visit_count ?? '';
-                }
-            ],
-            [
-                'attribute' => 'fcm_token',
-                'content' => function ($data) {
-                    return $data->accs->fcm_token ?? '';
-                }
-            ],
-            [
-                'attribute' => 'phone',
-                'content' => function ($data) {
-                    return $data->accsp->profile->phone ?? '-';
                 }
             ],
         ],

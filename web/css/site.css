@@ -10,6 +10,17 @@ main > .container {
 .question {
     color: #56b366;
 }
+
+.NoActiveStatus {
+    background:   #B9B9B9;
+}
+.DeletedStatus {
+background: #FFC4C4 ;
+}
+.ActiveStatus {
+background: #def7d3;
+}
+
 html, body{
     height: 100%;
 }

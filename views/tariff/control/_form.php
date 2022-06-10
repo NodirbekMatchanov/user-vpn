@@ -30,8 +30,29 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'day_365')->checkbox() ?>
 
 
+    <?php $format = new \yii\web\JsExpression(
+        "function format(data) {
+                                if(data.text != 'выбрать страну') {
+                                return  data.text + ' <i ><img src=/web/flags_ru/'+ data.text.replaceAll(' ','_') +'.png></i>'
+                                } else {
+                                  return  data.text 
+                                }
+                                ;
+                            }"
+    ); ?>
+    <?=
+    $form->field($model, 'country')->widget(\kartik\select2\Select2::classname(), [
+        'data' => \app\models\Country::getAll(),
+        'options' => ['placeholder' => 'выбрать страну'],
+        'pluginOptions' => [
+            'escapeMarkup' => new \yii\web\JsExpression("function(m) { return m; }"),
+            'templateResult' => $format,
+            'templateSelection' => $format,
+            'tokenSeparators' => [',', ' '],
+            'maximumInputLength' => 10
+        ],
+    ]) ?>
 
-    <?= $form->field($model, 'country')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'currency')->textInput(['maxlength' => true]) ?>
 
