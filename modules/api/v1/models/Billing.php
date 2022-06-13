@@ -86,7 +86,9 @@ class Billing extends Model
                                     break;
                                 }
 
-                                if ($untildate) {
+                                $payment = Payments::find()->where(['orderId' => (string)$item->transaction_id])->one();
+
+                                if ($untildate && empty($payment)) {
                                     $userId = AppAccountToken::find()->where(['account_token' => $this->account_token])->one()->user_id ?? 0;
                                     if ($userId) {
                                         $user = Accs::find()->where(['user_id' => $userId])->one();
