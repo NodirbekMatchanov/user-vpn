@@ -54,12 +54,19 @@ class Billing extends Model
                 'body' => json_encode($data)
             ];
         }
-        echo 'try'; die();
 
         $response = $client->request($method, ($this->testEnvironment ? $this->testUrl : $this->url) . 'verifyReceipt', $params);
         if ($response->getStatusCode() == 200) {
             $data = json_decode($response->getBody());
-            if (empty($data->receipt)) return false;
+            if (empty($data->receipt)) {
+                $this->testEnvironment = true;
+                $tryCount++;
+                if($tryCount >= 2) {
+                    return false;
+                } else {
+                    return $this->send($method, $data);
+                }
+            };
             $receiptApple = new ReceiptApple();
             $receiptData = (array)$data->receipt;
             $receiptData['status'] = $data->status;
