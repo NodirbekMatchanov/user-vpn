@@ -54,6 +54,7 @@ class Billing extends Model
                 'body' => json_encode($data)
             ];
         }
+        echo 'try'; die();
 
         $response = $client->request($method, ($this->testEnvironment ? $this->testUrl : $this->url) . 'verifyReceipt', $params);
         if ($response->getStatusCode() == 200) {
@@ -146,7 +147,6 @@ class Billing extends Model
         } else {
             $this->testEnvironment = true;
             $tryCount++;
-            echo 'try'; die();
             if($tryCount >= 2) {
                return ['error'];
             } else {
