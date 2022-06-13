@@ -146,7 +146,7 @@ class Billing extends Model
         } else {
             $this->testEnvironment = true;
             $tryCount++;
-            echo 'try';
+            echo 'try'; die();
             if($tryCount >= 2) {
                return ['error'];
             } else {
