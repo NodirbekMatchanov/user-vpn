@@ -44,7 +44,7 @@ class Billing extends Model
     public function send($method = "GET", $data = null)
     {
         $client = new Client();
-
+        $tryCount = 0;
         if ($method == 'GET') {
             $params = [
                 'query' => $data
@@ -141,8 +141,16 @@ class Billing extends Model
             }
 
             return $data;
+        } else {
+            $this->testEnvironment = true;
+            $tryCount++;
+            if($tryCount >= 2) {
+               return ['error'];
+            } else {
+                $this->send($method, $data);
+            }
+
         }
-        return ['error'];
     }
 
     public function generateToken($email)

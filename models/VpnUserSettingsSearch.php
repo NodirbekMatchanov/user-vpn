@@ -17,13 +17,15 @@ class VpnUserSettingsSearch extends VpnUserSettings
     public $untildate;
     public $tariff;
     public $expire;
+    public $visit_count;
+    public $last_date_visit;
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['op','datecreate','expire','untildate'], 'safe'],
+            [['op','datecreate','visit_count','last_date_visit','expire','untildate'], 'safe'],
             [['value','username','tariff','attribute', 'op','email','status'], 'string', 'max' => 255],
         ];
     }
@@ -101,6 +103,10 @@ class VpnUserSettingsSearch extends VpnUserSettings
                     'asc' => ['accs.last_date_visit' => SORT_ASC],
                     'desc' => ['accs.last_date_visit' => SORT_DESC],
                 ],
+                'visit_count' => [
+                    'asc' => ['accs.visit_count' => SORT_ASC],
+                    'desc' => ['accs.visit_count' => SORT_DESC],
+                ],
         ]]);
         // grid filtering conditions
         $query->andFilterWhere([
@@ -121,6 +127,8 @@ class VpnUserSettingsSearch extends VpnUserSettings
 //            ->andFilterWhere(['like', 'accs.datecreate', ])
             ->andFilterWhere(['like', 'accs.tariff', $this->tariff])
             ->andFilterWhere(['like', 'accs.untildate', $this->expire])
+            ->andFilterWhere(['like', 'accs.visit_count', $this->visit_count])
+            ->andFilterWhere(['like', 'accs.last_date_visit', $this->last_date_visit])
             ->andFilterWhere(['like', 'value', $this->value]);
 
 

@@ -197,4 +197,14 @@ class VpnUserSettings extends \yii\db\ActiveRecord
         parent::__construct($config);
     }
 
+    public function getUseageVpn() {
+        $sql = "SELECT DATE_FORMAT(period_start, '%Y-%M-%d') as date, SUM(acctinputoctets)/1000/1000/1000 as GB_IN,
+        SUM(acctoutputoctets)/1000/1000/1000 as GB_OUT, SUM(acctsessiontime)/60 as minutes
+        from data_usage_by_period where username = 'dotMioFfGPU7YxjM' and period_end is not null group by YEAR(period_start), MONTH(period_start), DAY(period_start)
+";
+        $data = '';
+        $cnt =0;
+        $result = \Yii::$app->wb_parser_db->createCommand($sql)->queryAll();
+    }
+
 }
