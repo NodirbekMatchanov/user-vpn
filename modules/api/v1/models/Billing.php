@@ -43,6 +43,7 @@ class Billing extends Model
 
     public function send($method = "GET", $data = null)
     {
+        $sendData = $data;
         $client = new Client();
         if ($method == 'GET') {
             $params = [
@@ -63,7 +64,7 @@ class Billing extends Model
                 if($this->tryCount >= 2) {
                     return false;
                 } else {
-                    return $this->send($method, $data);
+                    return $this->send($method, $sendData);
                 }
             };
             $receiptApple = new ReceiptApple();
