@@ -32,7 +32,7 @@ class Billing extends Model
     public $receiptData;
     public $account_token = "";
     public $password = 'd004a1de361b4bc7994656c3426ba426';
-
+    public $tryCount = 0;
 //    public function rules()
 //    {
 //        return [
@@ -44,7 +44,6 @@ class Billing extends Model
     public function send($method = "GET", $data = null)
     {
         $client = new Client();
-        $tryCount = 0;
         if ($method == 'GET') {
             $params = [
                 'query' => $data
@@ -60,8 +59,8 @@ class Billing extends Model
             $data = json_decode($response->getBody());
             if (empty($data->receipt)) {
                 $this->testEnvironment = true;
-                $tryCount++;
-                if($tryCount >= 2) {
+                $this->tryCount++;
+                if($this->tryCount >= 2) {
                     return false;
                 } else {
                     return $this->send($method, $data);
@@ -153,8 +152,8 @@ class Billing extends Model
             return $data;
         } else {
             $this->testEnvironment = true;
-            $tryCount++;
-            if($tryCount >= 2) {
+            $this->tryCount++;
+            if($this->tryCount >= 2) {
                return ['error'];
             } else {
                return $this->send($method, $data);
