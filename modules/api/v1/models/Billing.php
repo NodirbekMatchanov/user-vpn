@@ -146,10 +146,10 @@ class Billing extends Model
         } else {
             $this->testEnvironment = true;
             $tryCount++;
+            return ['try'];
             if($tryCount >= 2) {
                return ['error'];
             } else {
-                return ['try'];
                return $this->send($method, $data);
             }
 
