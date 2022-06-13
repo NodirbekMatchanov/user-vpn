@@ -149,7 +149,7 @@ class Billing extends Model
             if($tryCount >= 2) {
                return ['error'];
             } else {
-                $this->send($method, $data);
+               return $this->send($method, $data);
             }
 
         }
