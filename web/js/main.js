@@ -296,4 +296,52 @@ $(document).ready(function () {
 
     };
 
+    /* отправить вопрос */
+
+    $(document).on('click','.send-question',function () {
+        let email = "", question = "", name = "";
+        name = $('[name="Questions[name]"]').val();
+        email = $('[name="Questions[email]"]').val();
+        question = $('[name="Questions[text]"]').val();
+        $('.question-name').text('');
+        $('.question-email').text('');
+        $('.question-question').text('');
+
+        validate = true;
+        if(name === '') {
+            validate = false;
+            $('.question-name').text('Необходимо заполнить «Имя».')
+        }
+        if(email === '') {
+            validate = false;
+            $('.question-email').text('Необходимо заполнить «email».')
+        }
+        if(question === '') {
+            validate = false;
+            $('.question-question').text('Необходимо заполнить «Вопрос».')
+        }
+        if(validate) {
+
+            $.ajax({
+                url: "/site/question",
+                method: "POST",
+                data: {email: email, name: name, text: question}
+            }).done(function (data){
+                $('.mfp-close').trigger('click')
+                if(data) {
+                    swal({
+                        title: "Ваш вопрос отправлен",
+                        text:"Ваш запрос отправлен!",
+                        icon:"success",
+                    });
+                } else {
+
+                }
+            }).fail(function () {
+                $('.mfp-close').trigger('click')
+            })
+        }
+
+    })
+
 })

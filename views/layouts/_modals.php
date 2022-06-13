@@ -1,30 +1,44 @@
+<?php
+use yii\widgets\ActiveForm;
 
+?>
+
+<style>
+    .form-group {
+        width: 100%;
+    }
+</style>
 <div class="mfp-hide">
     <div class="modal modal-contact" data-mfp='question'>
         <div class="modal-content">
+            <?php $form = ActiveForm::begin(); ?>
 
             <h3 class="title-3">Задать вопрос</h3>
 
             <div class="input-2">
                 <label for="" class="input-2-label">Ваше имя</label>
-                <input type="email">
+                <?= $form->field($model, 'name')->label(false) ?>
+                <div class="question-name input-2-message _error"></div>
             </div>
 
             <div class="input-2">
                 <label for="" class="input-2-label">E-mail</label>
-                <input type="email">
+                <?= $form->field($model, 'email')->label(false) ?>
+                <div class="question-email input-2-message _error"></div>
             </div>
 
             <div class="input-2">
                 <label for="" class="input-2-label">Вопрос</label>
-                <textarea name="" id="" cols="30" rows="10"></textarea>
+                <?= $form->field($model, 'text')->textarea(['rows' => 6])->label(false) ?>
+                <div class="question-question input-2-message _error"></div>
             </div>
 
-            <button class="btn-2">Отправить</button>
+            <button type="button" class="btn-2 send-question">Отправить</button>
             <div class="modal-politic">
                 Нажимая на кнопку, вы даете согласие на обработку персональных<br>
                 данных и соглашаетесь c <a href="#">политикой конфиденциальности</a>
             </div>
+            <?php ActiveForm::end(); ?>
         </div>
     </div>
 

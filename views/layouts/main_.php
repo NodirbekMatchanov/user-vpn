@@ -5,6 +5,7 @@
 /** @var string $content */
 
 use app\assets\AppAsset;
+use app\models\Questions;
 use app\widgets\Alert;
 use yii\widgets\Breadcrumbs;
 use yii\bootstrap\Html;
@@ -214,7 +215,7 @@ use yii\bootstrap\NavBar;
     </footer>
 </div>
 
-<?php echo $this->render('_modals', []); ?>
+<?php echo $this->render('_modals', [ 'model' => new Questions()]); ?>
 
 </body>
 </html>

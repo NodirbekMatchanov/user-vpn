@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Country;
+use app\models\Questions;
 use app\models\Tariff;
 use Yii;
 use yii\filters\AccessControl;
@@ -29,7 +30,7 @@ class SiteController extends Controller
                         'roles' => ['@'],
                     ],
                     [
-                        'actions' => ['pay','index','login','privacy'],
+                        'actions' => ['pay','index','login','privacy','question'],
                         'allow' => true,
                         'roles' => ['?','@'],
                     ],
@@ -70,7 +71,7 @@ class SiteController extends Controller
         $this->layout = 'main_';
         $tariffs = Tariff::find()->all();
         return $this->render('index',[
-            'tariffs' => $tariffs
+            'tariffs' => $tariffs,
         ]);
     }
     public function actionPay()
@@ -135,6 +136,17 @@ class SiteController extends Controller
         return $this->render('contact', [
             'model' => $model,
         ]);
+    }
+
+    public function actionQuestion()
+    {
+        $model = new Questions();
+        if ($model->load(Yii::$app->request->post(),'') && $model->contact(Yii::$app->params['adminEmail'])) {
+            Yii::$app->session->setFlash('contactFormSubmitted');
+
+            return true;
+        }
+        return false;
     }
 
     /**

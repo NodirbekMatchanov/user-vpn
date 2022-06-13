@@ -46,4 +46,20 @@ class Questions extends \yii\db\ActiveRecord
             'email' => 'Email',
         ];
     }
+
+    public function contact($email)
+    {
+        if ($this->validate()) {
+            Yii::$app->mailer->compose()
+                ->setTo($email)
+                ->setFrom([Yii::$app->params['senderEmail'] => Yii::$app->params['senderName']])
+                ->setReplyTo([$this->email => $this->name])
+                ->setSubject($this->name)
+                ->setTextBody($this->text)
+                ->send();
+
+            return true;
+        }
+        return false;
+    }
 }
