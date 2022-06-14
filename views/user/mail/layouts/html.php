@@ -150,9 +150,10 @@
     }
 
 </style>
+
 <body class="@@class">
 <!-- все картинки должны быть с полным путем к сайту -->
-
+ыы
 <div class="wrap">
 
     <div class="header">
