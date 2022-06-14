@@ -16,13 +16,13 @@
 ?>
 <!DOCTYPE html>
 <html lang="ru">
+<?php $root = 'https://www.vpn-max.com/web/' ?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/email.css?<?= $app->hash ?>">
+    <link rel="stylesheet" href="<?=$root?>/tmp/public/css/email.css?<?= time() ?>">
 </head>
 <?php $class = '@@class' ?>
-<?php $root = 'https://www.vpn-max.com/web/' ?>
 <body class="@@class">
 <!-- все картинки должны быть с полным путем к сайту -->
 
