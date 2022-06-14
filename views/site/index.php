@@ -1,3 +1,7 @@
+<?php
+$this->title = 'VPNMAX - Быстрый и анонимный доступ к любым сайтам';
+
+?>
 <script src="https://widget.cloudpayments.ru/bundles/cloudpayments.js"></script>
 
 <div class="about" name='features'>

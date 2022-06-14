@@ -116,7 +116,7 @@ class User extends \dektrium\user\models\User
 
     public function getPromoCodes()
     {
-        $usedCodes = UsedPromocodes::find()->andwhere(['used_promocodes.user_id' => Yii::$app->user->identity->getId()])->andWhere(['!=','status',2])
+        $usedCodes = UsedPromocodes::find()->andwhere(['used_promocodes.user_id' => Yii::$app->user->identity->getId()])->andWhere(['!=','used_promocodes.status',2])
             ->joinWith('code')->asArray()->one();
         return $usedCodes;
     }

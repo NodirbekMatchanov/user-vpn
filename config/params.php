@@ -5,7 +5,7 @@ return [
     'senderEmail' => 'welcome@vpnmax.org',
     'senderName' => 'Vpn Max',
     'iosCertPath' => implode(DIRECTORY_SEPARATOR, [
-        dirname(__FILE__),
+        __DIR__,
         'ios_token',
         'VPN_MAX_PUSH.p12'
 

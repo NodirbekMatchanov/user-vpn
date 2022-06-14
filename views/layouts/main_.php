@@ -150,16 +150,16 @@ use yii\bootstrap\NavBar;
                 <div class="header-actions">
                     <div class="header-buttons">
                         <a href="#" class="btn">Скачать</a>
-                        <a href="<?php if(Yii::$app->user->isGuest) {
-                           echo \yii\helpers\Url::to(['/site/login']);
+                        <?php if(Yii::$app->user->isGuest) {
+                            echo   '  <a href="'.\yii\helpers\Url::to(['/site/login']).'" class="btn _outline">Войти</a>';
                         } else {
-                           echo Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline my-2 my-lg-0'])
-                            . Html::submitButton(
-                                'Logout (' . Yii::$app->user->identity->username . ')',
-                                ['class' => 'btn btn-link logout']
-                            )
-                            . Html::endForm();
-                        }  ?>" class="btn _outline">Войти</a>
+                            echo Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline my-2 my-lg-0'])
+                                . Html::submitButton(
+                                    'Выйти',
+                                    ['class' => 'btn ','style' => 'margin-left:10px']
+                                )
+                                . Html::endForm();
+                        }  ?>
                     </div>
 
                     <div class="header-langs">
@@ -175,7 +175,9 @@ use yii\bootstrap\NavBar;
                 </div>
             </div>
         </div>
-
+        <?php if((Yii::$app->controller->id == 'tariff' || Yii::$app->controller->action->id == 'account' || Yii::$app->controller->id == 'vpn-ips' || Yii::$app->controller->action->id == 'config' || Yii::$app->controller->id == 'tariff')):?>
+            <?php echo $this->render('account_nav', [ 'cabinet' => true ]); ?>
+        <?php endif; ?>
         <?= $content ?>
 
 

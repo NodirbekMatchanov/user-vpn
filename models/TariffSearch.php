@@ -61,7 +61,7 @@ class TariffSearch extends Tariff
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'status' => $this->status,
+            'tariff.status' => $this->status,
             'name' => $this->name,
             'price' => $this->price,
             'period' => $this->period,

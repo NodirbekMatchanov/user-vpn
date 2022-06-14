@@ -30,7 +30,7 @@ class SiteController extends Controller
                         'roles' => ['@'],
                     ],
                     [
-                        'actions' => ['pay','index','login','privacy','question'],
+                        'actions' => ['pay','index','error','login','privacy','question'],
                         'allow' => true,
                         'roles' => ['?','@'],
                     ],
@@ -51,9 +51,7 @@ class SiteController extends Controller
     public function actions()
     {
         return [
-            'error' => [
-                'class' => 'yii\web\ErrorAction',
-            ],
+
             'captcha' => [
                 'class' => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
@@ -147,6 +145,15 @@ class SiteController extends Controller
             return true;
         }
         return false;
+    }
+
+    public function actionError()
+    {
+        $this->layout = 'main_';
+        $exception = Yii::$app->errorHandler->exception;
+        if ($exception !== null) {
+            return $this->render('error', ['exception' => $exception]);
+        }
     }
 
     /**

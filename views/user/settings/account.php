@@ -21,6 +21,8 @@ $domain = (\app\models\VpnIps::getSettings()['domain'] ?? 'vpn-max.com');
 $this->title = Yii::t('user', 'Account settings');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
+
 <br>
 <style>
     .form-group {

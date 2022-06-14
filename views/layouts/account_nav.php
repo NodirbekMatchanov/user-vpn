@@ -6,9 +6,6 @@ if (!empty($cabinet)): ?>
     .nav-item._active a:hover {
         color: white;
     }
-    .nav-item._active a {
-        color: white!important;
-    }
 </style>
 <div class="nav-wrap _space">
 	<div class="container">

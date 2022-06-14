@@ -81,6 +81,7 @@ $config = [
 //            'rules' => [
 //            ],
 //        ],
+
         "urlManager" => [
             "class" => \skeeks\yii2\multiLanguage\MultiLangUrlManager::class,
             'enablePrettyUrl' => true,

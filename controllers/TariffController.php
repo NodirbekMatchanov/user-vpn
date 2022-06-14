@@ -66,7 +66,7 @@ class TariffController extends Controller
      */
     public function actionIndex()
     {
-        $tariffs = Tariff::find()->where(['status' => Tariff::ACTIVE])->all();
+        $tariffs = Tariff::find()->where(['tariff.status' => Tariff::ACTIVE])->all();
         return $this->render('index', [
             'model' => $tariffs
         ]);
