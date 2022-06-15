@@ -22,7 +22,7 @@ $config = [
 //        ],
         'telegram' => [
             'class' => 'aki\telegram\Telegram',
-            'botToken' => '5531798216:AAEmhKfaxco3nDHuI8aW5-npu3QBLxBTGog',
+            'botToken' => '5599707945:AAGpyC42hsbNmDyce8le1aNFbXtDiqBj0Ko',
         ],
         "request" => [
             'cookieValidationKey' => 'b1I97EHuHiX4cVlK6Wp96pRVr-1cLf5O',
