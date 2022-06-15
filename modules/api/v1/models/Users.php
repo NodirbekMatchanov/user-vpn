@@ -23,6 +23,7 @@ class Users extends \yii\db\ActiveRecord
     public $phone;
     public $source;
     public $using_promocode;
+    public $country;
 
     /**
      * {@inheritdoc}
@@ -41,7 +42,7 @@ class Users extends \yii\db\ActiveRecord
     {
         return [
             [['email', 'pass'], 'required'],
-            [['role', 'using_promocode', 'promocode', 'source', 'used_promocode', 'fcm_token', 'ios_token', 'phone', 'status', 'email',], 'string', 'max' => 255],
+            [['role','country', 'using_promocode', 'promocode', 'source', 'used_promocode', 'fcm_token', 'ios_token', 'phone', 'status', 'email',], 'string', 'max' => 255],
             [['vpnid', 'id', 'promo_share', 'verifyCode', 'user_id'], 'integer'],
 //            ['email', 'unique'],
             ['datecreate', 'safe'],
@@ -145,6 +146,23 @@ class Users extends \yii\db\ActiveRecord
 
     }
 
+
+    public function updateUser($chatId,$server) {
+        $accs = self::find()->where(['email' => $chatId])->leftJoin(VpnUserSettings::tableName(), 'radcheck.id = accs.vpnid')->one();
+        if(!empty($accs)) {
+            $accs->country = $server;
+            $accs->save();
+           return  [
+                'id' => $accs->id,
+                'email' => $accs->email,
+                'pass' => $accs->pass,
+                'status' => $accs->status,
+                'untildate' => $accs->untildate,
+                'vpnLogin' => $accs->radcheck->username,
+                'vpnPassword' => $accs->radcheck->value,
+            ];
+        }
+    }
 
     public function createBaseUser()
     {
