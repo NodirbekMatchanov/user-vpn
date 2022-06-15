@@ -163,7 +163,7 @@ class Users extends \yii\db\ActiveRecord
             $code = $this->getVeriFyCode();
             $_SESSION['code'] = $code;
 
-            $this->status = \app\models\VpnUserSettings::$statuses['NOACTIVE'];
+            $this->status = \app\models\VpnUserSettings::$statuses['ACTIVE'];
             $this->vpnid = $vpnModel->id;
             $this->user_id = 0;
             $this->role = 'user';
@@ -173,9 +173,11 @@ class Users extends \yii\db\ActiveRecord
             $this->used_promocode = $this->using_promocode;
             $this->promocode = Yii::$app->security->generateRandomString(6);
             $this->verifyCode = $code;
-            if ($this->save()) {
+            if ($this->save(false)) {
                 return [
                     'vpnId' => $this->vpnid,
+                    'email' => $this->email,
+                    'pass' => $this->pass,
                     'vpn_pass' => $vpnModel->value,
                     'vpn_login' => $vpnModel->username,
                 ];
