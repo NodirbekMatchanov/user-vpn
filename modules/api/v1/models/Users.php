@@ -152,7 +152,7 @@ class Users extends \yii\db\ActiveRecord
         if(!empty($accs)) {
             $user = self::find()->where(['email' => $chatId])->one();
             $user->country = $server;
-            $user->save();
+            $user->save(false);
            return  [
                 'id' => $accs->id,
                 'email' => $accs->email,
