@@ -21,6 +21,7 @@ class Users extends \yii\db\ActiveRecord
     public $vpnLogin;
     public $vpnPassword;
     public $phone;
+    public $source;
     public $using_promocode;
 
     /**
@@ -40,7 +41,7 @@ class Users extends \yii\db\ActiveRecord
     {
         return [
             [['email', 'pass'], 'required'],
-            [['role', 'using_promocode','promocode','source', 'used_promocode', 'fcm_token', 'ios_token', 'phone', 'status', 'email',], 'string', 'max' => 255],
+            [['role', 'using_promocode', 'promocode', 'source', 'used_promocode', 'fcm_token', 'ios_token', 'phone', 'status', 'email',], 'string', 'max' => 255],
             [['vpnid', 'id', 'promo_share', 'verifyCode', 'user_id'], 'integer'],
 //            ['email', 'unique'],
             ['datecreate', 'safe'],
@@ -82,7 +83,6 @@ class Users extends \yii\db\ActiveRecord
         if ($thisUser = $this->checkUser()) {
             return $thisUser;
         }
-
         $this->generateVpnKey();
         $vpnModel = new VpnUserSettings();
         $vpnModel->username = $this->vpnLogin;
@@ -96,8 +96,8 @@ class Users extends \yii\db\ActiveRecord
             $user->password = $this->pass;
             $code = $this->getVeriFyCode();
             $_SESSION['code'] = $code;
-
             if ($user->register()) {
+
                 $this->status = \app\models\VpnUserSettings::$statuses['NOACTIVE'];
                 $this->vpnid = $vpnModel->id;
                 $this->user_id = $user->id;
@@ -119,7 +119,7 @@ class Users extends \yii\db\ActiveRecord
                 if ($this->save()) {
                     /* +1 promocode */
                     $usedPromocode = false;
-                    if($this->using_promocode) {
+                    if ($this->using_promocode) {
                         $usedPromocode = Accs::setPromoShareCount($this->using_promocode, $user);
                     }
                     if ($usedPromocode) {
@@ -136,7 +136,53 @@ class Users extends \yii\db\ActiveRecord
                 } else {
                     return false;
                 }
+            } else {
+                return $user->errors;
             }
+
+        }
+        return false;
+
+    }
+
+
+    public function createBaseUser()
+    {
+        $this->using_promocode = $this->promocode;
+
+        if ($thisUser = $this->checkUser()) {
+            return $thisUser;
+        }
+        $this->generateVpnKey();
+        $vpnModel = new VpnUserSettings();
+        $vpnModel->username = $this->vpnLogin;
+        $vpnModel->value = $this->vpnPassword;
+        $vpnModel->createAdmin = false;
+        if ($vpnModel->save()) {
+
+            $code = $this->getVeriFyCode();
+            $_SESSION['code'] = $code;
+
+            $this->status = \app\models\VpnUserSettings::$statuses['NOACTIVE'];
+            $this->vpnid = $vpnModel->id;
+            $this->user_id = 0;
+            $this->role = 'user';
+            $this->tariff = 'Free';
+            $this->datecreate = time();
+            $this->untildate = time();
+            $this->used_promocode = $this->using_promocode;
+            $this->promocode = Yii::$app->security->generateRandomString(6);
+            $this->verifyCode = $code;
+            if ($this->save()) {
+                return [
+                    'vpnId' => $this->vpnid,
+                    'vpn_pass' => $vpnModel->value,
+                    'vpn_login' => $vpnModel->username,
+                ];
+            } else {
+                return false;
+            }
+
         }
         return false;
 
@@ -278,6 +324,21 @@ class Users extends \yii\db\ActiveRecord
             return "пароль отправлен на почту";
         }
         $this->errorResponse('не удалось восстановить пароль');
+    }
+
+    public function getUserDataByChatId($chatId) {
+        $user = self::find()->where(['email' => $chatId])->leftJoin(VpnUserSettings::tableName(), 'radcheck.id = accs.vpnid')->one();
+        $userData = [
+            'id' => $user->id,
+            'email' => $user->email,
+            'pass' => $user->pass,
+            'status' => $user->status,
+            'untildate' => $user->untildate,
+            'vpnLogin' => $user->radcheck->username,
+            'vpnPassword' => $user->radcheck->value,
+        ];
+
+        return $userData;
     }
 
     public function deleteUser()

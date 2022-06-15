@@ -22,7 +22,7 @@ class TelegramController extends Controller
         $behaviors = parent::behaviors();
         $behaviors['authenticator'] = [
             'class' => HttpBearerAuth::className(),
-            'except' => ['index', 'run'],
+            'except' => ['index', 'run','create-user', 'get-user'],
         ];
         $behaviors['contentNegotiator']['formats'] = [
             'application/json' => Response::FORMAT_JSON
@@ -42,6 +42,32 @@ class TelegramController extends Controller
         $request = json_decode(Yii::$app->request->getRawBody(),true);
         $handler->request = $request;
         $handler->handler();
+    }
+
+    public function actionCreateUser()
+    {
+        $user = new Users();
+        $request = Yii::$app->request->post();
+        if ($user->load($request,"") && $user->validate() && $userData = $user->createBaseUser()) {
+            if (is_array($userData)){
+                return $this->apiCreated($userData);
+            }
+            return $this->apiCreated($user);
+        }
+        return $this->apiError($user->errors);
+    }
+
+    public function actionGetUser()
+    {
+        $user = new Users();
+        $request = json_decode(Yii::$app->request->getRawBody(),true);
+        if ($userData = $user->getUserDataByChatId($request['chatId'])) {
+            if (is_array($userData)) {
+                return $this->apiCreated($userData);
+            }
+            return $this->apiCreated($user);
+        }
+        return $this->apiError($user->errors);
     }
 
 
