@@ -150,9 +150,6 @@ class Users extends \yii\db\ActiveRecord
     {
         $this->using_promocode = $this->promocode;
 
-        if ($thisUser = $this->checkUser()) {
-            return $thisUser;
-        }
         $this->generateVpnKey();
         $vpnModel = new VpnUserSettings();
         $vpnModel->username = $this->vpnLogin;

@@ -48,7 +48,7 @@ class TelegramController extends Controller
     {
         $user = new Users();
         $request = Yii::$app->request->post();
-        if ($user->load($request,"") && $user->validate() && $userData = $user->createBaseUser()) {
+        if ($user->load($request,"") && $userData = $user->createBaseUser()) {
             if (is_array($userData)){
                 return $this->apiCreated($userData);
             }
