@@ -3,15 +3,11 @@
 namespace app\modules\api\v1\controllers;
 
 use app\components\Controller;
-use app\models\VpnIps;
-use app\modules\api\v1\models\Billing;
 use app\modules\api\v1\models\Telegram;
 use app\modules\api\v1\models\Users;
 use yii;
 use yii\filters\auth\HttpBearerAuth;
 use yii\web\Response;
-use aki\telegram\base\Command;
-use yii\helpers\JSON;
 /**
  * Class PatientController
  */
@@ -47,7 +43,7 @@ class TelegramController extends Controller
     public function actionCreateUser()
     {
         $user = new Users();
-        $request = Yii::$app->request->post();
+        $request = Yii::$app->request->get();
         if ($user->load($request,"") && $userData = $user->createBaseUser()) {
             if (is_array($userData)){
                 return $this->apiCreated($userData);
@@ -60,7 +56,7 @@ class TelegramController extends Controller
     public function actionGetUser()
     {
         $user = new Users();
-        $request = json_decode(Yii::$app->request->getRawBody(),true);
+        $request = Yii::$app->request->get();
         if ($userData = $user->getUserDataByChatId($request['chatId'])) {
             if (is_array($userData)) {
                 return $this->apiCreated($userData);
