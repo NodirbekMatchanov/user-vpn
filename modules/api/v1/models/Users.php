@@ -23,7 +23,6 @@ class Users extends \yii\db\ActiveRecord
     public $phone;
     public $source;
     public $using_promocode;
-    public $country;
 
     /**
      * {@inheritdoc}
