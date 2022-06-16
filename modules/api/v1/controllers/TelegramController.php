@@ -70,7 +70,7 @@ class TelegramController extends Controller
     {
         $user = new Users();
         $request = Yii::$app->request->get();
-        if ($userData = $user->updateUser($request['chatId'],$request['server'])) {
+        if ($userData = $user->updateUser($request['chatId'],$request['server'], ($request['email'] ?? null))) {
             if (is_array($userData)) {
                 return $this->apiCreated($userData);
             }
