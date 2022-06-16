@@ -237,7 +237,7 @@ $this->registerJs($script, $this::POS_END);
 
                 <?php endif; ?>
                 <?php if (!empty($tariff) && $tariff->day_180 && $tariffType == "6_month"): ?>
-                    <div class="prices-item" data-id="6_month">
+                    <div class="prices-item _active" data-id="6_month">
                         <h3 class="title-3 tariff-title">6 месяцев</h3>
 
                         <div class="spacer"></div>
@@ -256,7 +256,7 @@ $this->registerJs($script, $this::POS_END);
 
                 <?php endif; ?>
                 <?php if (!empty($tariff) && $tariff->price_365 && $tariffType == "12_month"): ?>
-                    <div class="prices-item " data-id="12_month">
+                    <div class="prices-item _active" data-id="12_month">
                         <div class="prices-best">
                             <div class="prices-best-img">
                                 <img src="/web/img/logo-3.svg">
