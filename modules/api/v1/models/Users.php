@@ -367,6 +367,7 @@ class Users extends \yii\db\ActiveRecord
 
     public function getUserDataByChatId($chatId) {
         $user = self::find()->where(['chatId' => $chatId])->leftJoin(VpnUserSettings::tableName(), 'radcheck.id = accs.vpnid')->one();
+        if(empty($user)) return false;
         $userData = [
             'id' => $user->id,
             'email' => $user->email,
