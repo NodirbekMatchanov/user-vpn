@@ -42,7 +42,7 @@ class Users extends \yii\db\ActiveRecord
     {
         return [
             [['email', 'pass'], 'required'],
-            [['role','country', 'using_promocode', 'promocode', 'source', 'used_promocode', 'fcm_token', 'ios_token', 'phone', 'status', 'email',], 'string', 'max' => 255],
+            [['role','chatId','country', 'using_promocode', 'promocode', 'source', 'used_promocode', 'fcm_token', 'ios_token', 'phone', 'status', 'email',], 'string', 'max' => 255],
             [['vpnid', 'id', 'promo_share', 'verifyCode', 'user_id'], 'integer'],
 //            ['email', 'unique'],
             ['datecreate', 'safe'],
@@ -147,18 +147,30 @@ class Users extends \yii\db\ActiveRecord
     }
 
 
-    public function updateUser($chatId,$server) {
-        $accs = self::find()->where(['email' => $chatId])->leftJoin(VpnUserSettings::tableName(), 'radcheck.id = accs.vpnid')->one();
+    public function updateUser($chatId,$server,$email) {
+        $accs = self::find()->where(['chatId' => $chatId])->leftJoin(VpnUserSettings::tableName(), 'radcheck.id = accs.vpnid')->one();
         if(!empty($accs)) {
-            $user = Accs::find()->where(['email' => $chatId])->one();
-            $user->country = $server;
-            $user->save(false);
+            $userAccs = Accs::find()->where(['chatId' => $chatId])->one();
+            $userAccs->country = $server;
+            if($email) {
+                $userAccs->email = $email;
+
+                $user = Yii::createObject(User::className());
+                $user->setScenario('register');
+                $user->email = $email;
+                $user->username = $email;
+                $user->password = $user->pass;
+                if ($user->register()) {
+
+                }
+            }
+            $userAccs->save(false);
            return  [
                 'id' => $accs->id,
                 'email' => $accs->email,
                 'pass' => $accs->pass,
                 'status' => $accs->status,
-                'country' => $user->country,
+                'country' => $userAccs->country,
                 'untildate' => $accs->untildate,
                 'vpnLogin' => $accs->radcheck->username,
                 'vpnPassword' => $accs->radcheck->value,
@@ -189,6 +201,7 @@ class Users extends \yii\db\ActiveRecord
             $this->untildate = time();
             $this->used_promocode = $this->using_promocode;
             $this->promocode = Yii::$app->security->generateRandomString(6);
+            $this->chatId = $this->email;
             $this->verifyCode = $code;
             if ($this->save(false)) {
                 return [
@@ -346,7 +359,7 @@ class Users extends \yii\db\ActiveRecord
     }
 
     public function getUserDataByChatId($chatId) {
-        $user = self::find()->where(['email' => $chatId])->leftJoin(VpnUserSettings::tableName(), 'radcheck.id = accs.vpnid')->one();
+        $user = self::find()->where(['chatId' => $chatId])->leftJoin(VpnUserSettings::tableName(), 'radcheck.id = accs.vpnid')->one();
         $userData = [
             'id' => $user->id,
             'email' => $user->email,
