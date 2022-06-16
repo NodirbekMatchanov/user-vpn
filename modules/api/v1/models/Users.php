@@ -159,9 +159,14 @@ class Users extends \yii\db\ActiveRecord
 
                 $user = Yii::createObject(User::className());
                 $user->setScenario('register');
+//                $user->setAttributes([
+//                    'email' => $email,
+//                    'username' => $email,
+//                    'password' => $userAccs->pass
+//                ]);
                 $user->email = $email;
                 $user->username = $email;
-                $user->password = $user->pass;
+                $user->password = $userAccs->pass;
                 if ($user->register()) {
 
                 }
