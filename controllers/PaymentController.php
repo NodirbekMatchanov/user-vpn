@@ -162,7 +162,7 @@ class PaymentController extends Controller
                 if ($data['Status'] == "Completed" && (int)$order->amount == (int)$data['Amount']) {
                     $order->status = Payments::PAYED;
                     $order->save();
-                    if (!empty($order->payer_email)) {
+                    if (!empty($order->payer_email) && $order->source != "telegram") {
                         $hasUser = Accs::find()->where(['email' => $order->payer_email])->one();
                         if (empty($hasUser)) {
                             $password = \Yii::$app->security->generateRandomString(8);
