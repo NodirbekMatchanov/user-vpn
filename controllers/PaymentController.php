@@ -242,6 +242,34 @@ class PaymentController extends Controller
 //                        $usedPromo->date = date("Y-m-d");
 //                        $usedPromo->save();
 
+                        if($order->source == "telegram"){
+                            \Yii::$app->telegram->sendMessage([
+                                'chat_id' => $order->payer_email,
+                                'text' => 'Спасибо за покупку. Ваша подписка активирована!
+Если вы еще не настроили VPN нажмите настроить VPN или напишите в поддержку, мы с радостью поможем разобраться.',
+                                'reply_markup' => json_encode([
+                                    'keyboard' => [
+                                        [
+                                            "Настроки VPN",
+                                        ],
+                                        [
+                                            "Управление подпиской",
+                                        ],
+                                        [
+                                            "Подключить VPN",
+                                        ],
+                                        [
+                                            "Узнать о VPN",
+                                            "Поддержка",
+                                        ],
+                                        [
+                                            "Порекомендовать"
+                                        ],
+                                    ]
+                                ]),
+                            ]);
+                        }
+
                         $this->saveEvent($user->user_id,$order->amount." руб. ". $countDay. ' дней');
                         $mailer->sendPaymentMessage($user, $countDay, date("d.m.Y", $user->untildate));
                     }

@@ -8,6 +8,7 @@ use app\modules\api\v1\models\Users;
 use yii;
 use yii\filters\auth\HttpBearerAuth;
 use yii\web\Response;
+use aki\telegram\base\Command;
 /**
  * Class PatientController
  */
@@ -29,7 +30,6 @@ class TelegramController extends Controller
     public function actionRun()
     {
         Yii::$app->telegram->setWebhook(['url' => "https://www.vpn-max.com/web/js/test/bot.php"]);
-
     }
 
     public function actionIndex()
