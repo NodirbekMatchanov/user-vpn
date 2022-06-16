@@ -150,7 +150,7 @@ class Users extends \yii\db\ActiveRecord
     public function updateUser($chatId,$server) {
         $accs = self::find()->where(['email' => $chatId])->leftJoin(VpnUserSettings::tableName(), 'radcheck.id = accs.vpnid')->one();
         if(!empty($accs)) {
-            $user = self::find()->where(['email' => $chatId])->one();
+            $user = Accs::find()->where(['email' => $chatId])->one();
             $user->country = $server;
             $user->save(false);
            return  [
