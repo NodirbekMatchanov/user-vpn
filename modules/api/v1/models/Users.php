@@ -151,7 +151,9 @@ class Users extends \yii\db\ActiveRecord
         $accs = self::find()->where(['chatId' => $chatId])->leftJoin(VpnUserSettings::tableName(), 'radcheck.id = accs.vpnid')->one();
         if(!empty($accs)) {
             $userAccs = Accs::find()->where(['chatId' => $chatId])->one();
-            $userAccs->country = $server;
+            if($server) {
+                $userAccs->country = $server;
+            }
             if($email) {
                 $userAccs->email = $email;
 
