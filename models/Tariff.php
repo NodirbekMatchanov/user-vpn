@@ -122,6 +122,7 @@ class Tariff extends \yii\db\ActiveRecord
         $orderId = \Yii::$app->request->get('orderId');
         $email = \Yii::$app->request->get('email');
         $promocode = \Yii::$app->request->get('promocode') ?? "";
+        $source = \Yii::$app->request->get('source') ?? "";
         if ($id) {
             $tariffs = Tariff::find()->all();
             $price = 0;
@@ -156,6 +157,7 @@ class Tariff extends \yii\db\ActiveRecord
                 $payment->tariff = $id;
                 $payment->payer_email = $email;
                 $payment->amount = $price;
+                $payment->source = $source;
                 $payment->promocode = $promocode;
                 $payment->save();
             }

@@ -68,6 +68,19 @@ class PaymentController extends Controller
     }
 
     /**
+     * Displays a single Payments model.
+     * @param int $id ID
+     * @return string
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionPay()
+    {
+        $this->layout = "main_";
+        return $this->render('pay/pay', [
+        ]);
+    }
+
+    /**
      * Creates a new Payments model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
@@ -210,7 +223,11 @@ class PaymentController extends Controller
                         }
                     }
                     else {
-                        $user = Accs::find()->where(['user_id' => $order->user_id])->one();
+                        if($order->source == "telegram") {
+                            $user = Accs::find()->where(['chatId' => $order->payer_email])->one();
+                        } else {
+                            $user = Accs::find()->where(['user_id' => $order->user_id])->one();
+                        }
                         $countDay = Tariff::getPeriod($order->tariff);
                         $time = $countDay * (3600 * 24);
                         $user->untildate = $user->untildate < time() ? (time() + $time) : $user->untildate + $time ;
