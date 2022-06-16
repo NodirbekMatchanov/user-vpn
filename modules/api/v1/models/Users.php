@@ -374,8 +374,10 @@ class Users extends \yii\db\ActiveRecord
             'email' => $user->email,
             'pass' => $user->pass,
             'status' => $user->status,
+            'tariff' => $user->tariff,
             'country' => $user->country,
             'untildate' => $user->untildate,
+            'user_id' => $user->user_id,
             'vpnLogin' => $user->radcheck->username,
             'vpnPassword' => $user->radcheck->value,
         ];
