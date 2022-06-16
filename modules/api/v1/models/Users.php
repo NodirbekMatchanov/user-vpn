@@ -156,7 +156,7 @@ class Users extends \yii\db\ActiveRecord
             }
             if($email) {
                 $userAccs->email = $email;
-
+                $_SESSION['code'] = $userAccs->verifyCode;
                 $user = Yii::createObject(User::className());
                 $user->setScenario('register');
 //                $user->setAttributes([
@@ -167,8 +167,10 @@ class Users extends \yii\db\ActiveRecord
                 $user->email = $email;
                 $user->username = $email;
                 $user->password = $userAccs->pass;
-                if ($user->register()) {
-
+                $user->register();
+                $userModel = \app\models\user\User::find()->where(['email' => $email])->one();
+                if(!empty($userModel)) {
+                    $userAccs->user_id = $userModel->id;
                 }
             }
             $userAccs->save(false);
