@@ -385,6 +385,7 @@ class Users extends \yii\db\ActiveRecord
             'tariff' => $user->tariff,
             'country' => $user->country,
             'untildate' => $user->untildate,
+            'countDay' => (\app\components\DateFormat::countDays($user->untildate) ),
             'user_id' => $user->user_id,
             'vpnLogin' => $user->radcheck->username,
             'vpnPassword' => $user->radcheck->value,
