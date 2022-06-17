@@ -5,6 +5,7 @@ namespace app\modules\api\v1\models;
 use app\components\DateFormat;
 use app\models\Accs;
 use app\models\MailHistory;
+use app\models\TelegramUsers;
 use app\models\user\Profile;
 use app\models\user\LoginForm;
 use app\models\UserEvents;
@@ -204,9 +205,16 @@ class Users extends \yii\db\ActiveRecord
             $this->vpnid = $vpnModel->id;
             $this->user_id = 0;
             $this->role = 'user';
-            $this->tariff = 'Free';
+
+            $telegramUser = TelegramUsers::find()->where(['chat_id' => $this->email])->one();
+            if(!empty($telegramUser->ref)) {
+                $this->tariff = 'Premium';
+                $this->untildate = time() + 24*3*3600;
+            } else {
+                $this->tariff = 'Free';
+                $this->untildate = time();
+            }
             $this->datecreate = time();
-            $this->untildate = time();
             $this->used_promocode = $this->using_promocode;
             $this->promocode = Yii::$app->security->generateRandomString(6);
             $this->chatId = $this->email;
