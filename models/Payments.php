@@ -165,7 +165,7 @@ class Payments extends \yii\db\ActiveRecord
                             $telegramUsers->tariff = "Premium";
                             $telegramUsers->save();
                             // если первый  покупка и покупка по рефералу
-                            if (!empty($telegramUsers->ref) && empty(Payments::find()->where(['payer_email' => $order->payer_email])->one())) {
+                            if (!empty($telegramUsers->ref) && (Payments::find()->where(['payer_email' => $order->payer_email])->count() == 1)) {
                                 \Yii::$app->telegram->sendMessage(['chat_id' => $telegramUsers->ref, 'text' => 'По вашему промокоду покупали подписку. Мы дарим вам 3 дня VIP подписки']);
                                 $refAccs = Accs::find()->where(['chatId' => $telegramUsers->ref])->one();
                                 if(!empty($refAccs)) {
