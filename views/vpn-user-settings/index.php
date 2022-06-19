@@ -32,28 +32,28 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'email',
                 'content' => function ($data) {
-                    if(empty($data->accs)){
+                    if (empty($data->accs)) {
                         return '';
                     }
-                    return  $data->accs ? Html::a($data->accs->email,'view?id='.$data->id) : '';
+                    return $data->accs ? Html::a($data->accs->email, 'view?id=' . $data->id) : '';
                 }
             ],
             [
                 'attribute' => 'tariff',
                 'content' => function ($data) {
-                    if(empty($data->accs)){
+                    if (empty($data->accs)) {
                         return '';
                     }
-                    return  $data->accs->tariff ?? $data->accs->tariff;
+                    return $data->accs->tariff ?? $data->accs->tariff;
                 }
             ],
             [
                 'attribute' => 'expire',
                 'content' => function ($data) {
-                    if(empty($data->accs)){
+                    if (empty($data->accs)) {
                         return '';
                     }
-                    $count = $data->accs->untildate ? (\app\components\DateFormat::countDays($data->accs->untildate) ): 0;
+                    $count = $data->accs->untildate ? (\app\components\DateFormat::countDays($data->accs->untildate)) : 0;
                     return $count;
                 }
             ],
@@ -69,14 +69,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'status',
                 'contentOptions' => function ($model, $key, $index, $column) {
                     $class = 'td-default';
-                    if ($model->accs->status == 'NOACTIVE') {
-                        $class = 'NoActiveStatus';
-                    } elseif ($model->accs->status == 'ACTIVE') {
-                        $class = 'ActiveStatus';
-                    } elseif ($model->accs->status == 'DELETED') {
-                        $class = 'DeletedStatus';
+                    if (!empty($data->accs)) {
+                        if ($model->accs->status == 'NOACTIVE') {
+                            $class = 'NoActiveStatus';
+                        } elseif ($model->accs->status == 'ACTIVE') {
+                            $class = 'ActiveStatus';
+                        } elseif ($model->accs->status == 'DELETED') {
+                            $class = 'DeletedStatus';
+                        }
                     }
-
                     return [
                         'key' => $key,
                         'index' => $index,
@@ -94,7 +95,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'datecreate',
                 'content' => function ($data) {
-                    if(empty($data->accs)){
+                    if (empty($data->accs)) {
                         return '';
                     }
                     return $data->accs->datecreate ? date("d.m.Y", $data->accs->datecreate) : '';
@@ -103,14 +104,14 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'untildate',
                 'content' => function ($data) {
-                    if(empty($data->accs)){
+                    if (empty($data->accs)) {
                         return '';
                     }
                     return $data->accs->untildate ? date("d.m.Y", $data->accs->untildate) : '';
                 }
             ],
             [
-                 'header' => 'Действия',
+                'header' => 'Действия',
                 'class' => 'yii\grid\ActionColumn',
                 'template' => ' {update} {delete}',
 
