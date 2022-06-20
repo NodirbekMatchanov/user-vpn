@@ -77,7 +77,7 @@ $script = <<<JS
         data: data
     },
     function (options) { // success
-         swal("Покупка прошла успешно!", "success");
+                    document.location.href = "/site/success"
     },
     function (reason, options) { // fail
         //действие при неуспешной оплате
@@ -91,7 +91,7 @@ $script = <<<JS
                 amount: price
             }
         }).done(function (data){
-            document.location.href = "/site/success"
+            swal("Покупка прошла не успешно!"), "error";
         })
     });
 };
