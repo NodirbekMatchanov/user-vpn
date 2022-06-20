@@ -132,34 +132,41 @@ if(!empty($model->accs->user_id)) {
         'attributes' => [
             [
                 'attribute' => 'source',
-                'content' => function ($data) {
+                'format' => 'raw',
+                'value' => function ($data) {
                     return $data->accs->source ?? 'web';
                 }
             ],
             [
                 'attribute' => 'utm_source',
-                'content' => function ($data) {
+                'format' => 'raw',
+                'value' => function ($data) {
                     return $data->accs->utm_source ?? '';
                 }
             ],
             [
                 'attribute' => 'utm_medium',
-                'content' => function ($data) {
+                'format' => 'raw',
+                'value' => function ($data) {
                     return $data->accs->utm_medium ?? '';
                 }
             ],
             [
                 'attribute' => 'utm_campaign',
-                'content' => function ($data) {
+                'format' => 'raw',
+                'value' => function ($data) {
                     return $data->accs->utm_campaign ?? '';
                 }
             ],
+
             [
                 'attribute' => 'utm_term',
-                'content' => function ($data) {
+                'format' => 'raw',
+                'value' => function ($data) {
                     return $data->accs->utm_term ?? '';
                 }
             ],
+
         ],
     ]) ?>
     <h3>Cтатистика</h3>
@@ -168,16 +175,28 @@ if(!empty($model->accs->user_id)) {
         'attributes' => [
             [
                 'attribute' => 'last_date_visit',
-                'content' => function ($data) {
-                    return $data->accs->last_date_visit ?? '';
+                'format' => 'raw',
+                'value' => function ($data) {
+                    if (empty($data->accs)) {
+                        return '';
+                    }
+                    $usage = \app\models\VpnUserSettings::getUseageVpn($data->username);
+                    return $usage['last_usage_date'];
                 }
             ],
             [
                 'attribute' => 'visit_count',
-                'content' => function ($data) {
-                    return $data->accs->visit_count ?? '';
+                'format' => 'raw',
+                'value' => function ($data) {
+                    if (empty($data->accs)) {
+                        return '';
+                    }
+                    $usage = \app\models\VpnUserSettings::getUseageVpn($data->username);
+                    return $usage['count'];
                 }
             ],
+
+
         ],
     ]) ?>
     <h3>Промокоды</h3>
