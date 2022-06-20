@@ -5050,3 +5050,7 @@ input:checked + .slider:before {
 @media (max-width: 370px) {
     .title-3 {
       font-size: 25px; } }
+
+.has-error .help-block {
+    color: firebrick;
+}

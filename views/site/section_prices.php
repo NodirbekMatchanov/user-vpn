@@ -91,7 +91,7 @@ $script = <<<JS
                 amount: price
             }
         }).done(function (data){
-            swal("Покупка прошла не успешно!"), "error";
+            document.location.href = "/site/success"
         })
     });
 };

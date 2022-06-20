@@ -57,12 +57,7 @@ if(!empty($model->accs->user_id)) {
                     return $data->accs->untildate ? date("d.m.Y", $data->accs->untildate) : '';
                 }
             ],
-            [
-                'attribute' => 'datecreate',
-                'content' => function ($data) {
-                    return $data->accs->datecreate ? date("d.m.Y", $data->accs->datecreate) : '';
-                }
-            ],
+
             [
                 'attribute' => 'tariff',
                 'content' => function ($data) {
@@ -100,18 +95,7 @@ if(!empty($model->accs->user_id)) {
                     return $data->accs->promocode ?? '';
                 }
             ],
-            [
-                'attribute' => 'use_ios',
-                'content' => function ($data) {
-                    return $data->accs->use_ios ?? '';
-                }
-            ],
-            [
-                'attribute' => 'use_android',
-                'content' => function ($data) {
-                    return $data->accs->use_android ?? '';
-                }
-            ],
+
             [
                 'attribute' => 'fcm_token',
                 'content' => function ($data) {
@@ -181,14 +165,21 @@ if(!empty($model->accs->user_id)) {
         'model' => $model,
         'attributes' => [
             [
+                'attribute' => 'datecreate',
+                'format' => 'raw',
+                'value' => function ($data) {
+                    return $data->accs->datecreate ? date("d.m.Y H:i:s", $data->accs->datecreate) : '';
+                }
+            ],
+            [
                 'attribute' => 'last_date_visit',
                 'format' => 'raw',
                 'value' => function ($data) {
                     if (empty($data->accs)) {
                         return '';
                     }
-//                    $usage = \app\models\VpnUserSettings::getUseageVpn($data->username);
-//                    return $usage['last_usage_date'];
+                    $usage = \app\models\VpnUserSettings::getUseageVpn($data->username);
+                    return $usage['last_usage_date'];
                 }
             ],
             [
@@ -198,8 +189,22 @@ if(!empty($model->accs->user_id)) {
                     if (empty($data->accs)) {
                         return '';
                     }
-//                    $usage = \app\models\VpnUserSettings::getUseageVpn($data->username);
-//                    return $usage['count'];
+                    $usage = \app\models\VpnUserSettings::getUseageVpn($data->username);
+                    return $usage['count'];
+                }
+            ],
+            [
+                'attribute' => 'use_ios',
+                'format' => 'raw',
+                'value' => function ($data) {
+                    return $data->accs->use_ios ?? '';
+                }
+            ],
+            [
+                'attribute' => 'use_android',
+                'format' => 'raw',
+                'value' => function ($data) {
+                    return $data->accs->use_android ?? '';
                 }
             ],
 
@@ -225,7 +230,7 @@ if(!empty($model->accs->user_id)) {
     <?php endif; ?>
         </tbody>
     </table>
-    <h3>Событии</h3>
+    <h3>События</h3>
     <?= \yii\grid\GridView::widget([
         'dataProvider' => $dataProviderEvents,
         'filterModel' => $searchModel,

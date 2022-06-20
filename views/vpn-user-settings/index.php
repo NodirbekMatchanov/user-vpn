@@ -94,11 +94,12 @@ global $usage;
 
             [
                 'attribute' => 'last_date_visit',
-                'content' => function ($data) {
+                'value' => function ($data) {
                     global $usage;
                     if (empty($data->accs)) {
                         return '';
                     }
+
 //                    $usage = \app\models\VpnUserSettings::getUseageVpn($data->username);
 //                    return $usage['last_usage_date'];
                 }
