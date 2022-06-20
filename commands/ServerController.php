@@ -11,6 +11,7 @@ class ServerController
     public function actionUpdateActiveUser(){
         \app\models\VpnIps::updateActiveConnection();
         \app\models\VpnIps::pingServers();
+        \app\models\VpnIps::checkTelegramChat();
     }
 }
  $run = new ServerController();

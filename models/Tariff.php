@@ -108,6 +108,7 @@ class Tariff extends \yii\db\ActiveRecord
                 $mailer->sendExpire($user);
 
                 $user->status = VpnUserSettings::$statuses["EXPIRE"];
+                $user->background_work = 0;
                 $user->save();
 
             } elseif (DateFormat::countDaysBetweenDates($user->untildate, time()) == 1) {

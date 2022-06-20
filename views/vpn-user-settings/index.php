@@ -129,7 +129,7 @@ global $usage;
                     if (empty($data->accs)) {
                         return '';
                     }
-                    return $data->accs->datecreate ? date("d.m.Y", $data->accs->datecreate) : '';
+                    return $data->accs->datecreate ? date("d.m.Y H:i:s", $data->accs->datecreate) : '';
                 }
             ],
             [
@@ -139,6 +139,16 @@ global $usage;
                         return '';
                     }
                     return $data->accs->untildate ? date("d.m.Y", $data->accs->untildate) : '';
+                }
+            ],
+            [
+                'attribute' => 'source',
+                'content' => function ($data) {
+                    if (empty($data->accs)) {
+                        return '';
+                    }
+                    if($data->accs->chatId) return 'telegram';
+                    return $data->accs->source ?? 'web';
                 }
             ],
             [

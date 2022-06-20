@@ -18,6 +18,10 @@ $config = [
         'authManager' => [
             'class' => 'yii\rbac\DbManager',
         ],
+        'telegram' => [
+            'class' => 'aki\telegram\Telegram',
+            'botToken' => '5599707945:AAGpyC42hsbNmDyce8le1aNFbXtDiqBj0Ko',
+        ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],

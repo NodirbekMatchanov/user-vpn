@@ -62,7 +62,7 @@ class VpnUserSettingsSearch extends VpnUserSettings
                 'pageSize' => 100,
             ],
         ]);
-
+        $query->orderBy('id desc');
         $this->load($params);
 
         if (!$this->validate()) {

@@ -180,6 +180,7 @@ class VpnUserSettings extends \yii\db\ActiveRecord
             'last_date_visit' => 'Дата последнего использования',
             'country' => 'Страна',
             'use' => 'Пользовался',
+            'source' => 'источник',
         ];
     }
 

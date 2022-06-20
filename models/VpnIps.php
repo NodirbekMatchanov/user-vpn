@@ -252,4 +252,18 @@ class VpnIps extends \yii\db\ActiveRecord
             }
         }
     }
+    /**
+     * @return void
+     */
+    public static function checkTelegramChat()
+    {
+        $telegramUsers = TelegramUsers::find()->all();
+        foreach ($telegramUsers as $user) {
+            if(strtotime($user->created) > (strtotime($user->created)+ (30*60)) )
+            \Yii::$app->telegram->sendMessage(['chat_id' => $user->chat_id, 'text' => 'Заметили, что вы заинтересовались нашим VPN, но не попробовали его.
+Если у Вас есть вопросы по подключению, то напишите их прямо в чат и мы подскажем, как его настроить
+Выберите Вашу операционную систему, по которому Вам нужна помощь']);
+
+        }
+    }
 }
