@@ -71,7 +71,7 @@ global $usage;
                 'attribute' => 'status',
                 'contentOptions' => function ($model, $key, $index, $column) {
                     $class = 'td-default';
-                    if (!empty($data->accs)) {
+                    if (!empty($model->accs)) {
                         if ($model->accs->status == 'NOACTIVE') {
                             $class = 'NoActiveStatus';
                         } elseif ($model->accs->status == 'ACTIVE') {
