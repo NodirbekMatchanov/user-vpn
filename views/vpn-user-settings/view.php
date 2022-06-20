@@ -119,6 +119,13 @@ if(!empty($model->accs->user_id)) {
                 }
             ],
             [
+                'attribute' => 'ios_token',
+                'format' => 'raw',
+                'value' => function ($data) {
+                    return $data->accs->ios_token ?? '';
+                }
+            ],
+            [
                 'attribute' => 'phone',
                 'content' => function ($data) {
                     return $data->accsp->profile->phone ?? '-';
@@ -180,8 +187,8 @@ if(!empty($model->accs->user_id)) {
                     if (empty($data->accs)) {
                         return '';
                     }
-                    $usage = \app\models\VpnUserSettings::getUseageVpn($data->username);
-                    return $usage['last_usage_date'];
+//                    $usage = \app\models\VpnUserSettings::getUseageVpn($data->username);
+//                    return $usage['last_usage_date'];
                 }
             ],
             [
@@ -191,8 +198,8 @@ if(!empty($model->accs->user_id)) {
                     if (empty($data->accs)) {
                         return '';
                     }
-                    $usage = \app\models\VpnUserSettings::getUseageVpn($data->username);
-                    return $usage['count'];
+//                    $usage = \app\models\VpnUserSettings::getUseageVpn($data->username);
+//                    return $usage['count'];
                 }
             ],
 

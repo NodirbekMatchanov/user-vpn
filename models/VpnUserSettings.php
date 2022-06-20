@@ -147,6 +147,13 @@ class VpnUserSettings extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Accs::className(), ['vpnid' => 'id']);
     }
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getStat()
+    {
+        return $this->hasMany(DataUsageByPeriod::className(), ['username' => 'username']);
+    }
 
     /**
      * @return \yii\db\ActiveQuery
@@ -200,7 +207,7 @@ class VpnUserSettings extends \yii\db\ActiveRecord
     }
 
     public static function getUseageVpn($username) {
-        $sql = "SELECT period_start as date, SUM(acctinputoctets)/1000/1000/1000 as GB_IN,
+        $sql = "SELECT per  iod_start as date, SUM(acctinputoctets)/1000/1000/1000 as GB_IN,
         SUM(acctoutputoctets)/1000/1000/1000 as GB_OUT, SUM(acctsessiontime)/60 as minutes
         from data_usage_by_period where username = '$username' and period_end is not null group by YEAR(period_start), MONTH(period_start), DAY(period_start) order by  date desc
 ";

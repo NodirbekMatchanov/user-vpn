@@ -53,6 +53,8 @@ class VpnUserSettingsSearch extends VpnUserSettings
             $query->andWhere(['radcheck.id' => (Accs::getAccs()->vpnid ?? 0)]);
         }
         $query->joinWith('accs');
+//        $query->joinWith('stat');
+
 
         // add conditions that should always apply here
 

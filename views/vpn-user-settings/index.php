@@ -99,8 +99,8 @@ global $usage;
                     if (empty($data->accs)) {
                         return '';
                     }
-                    $usage = \app\models\VpnUserSettings::getUseageVpn($data->username);
-                    return $usage['last_usage_date'];
+//                    $usage = \app\models\VpnUserSettings::getUseageVpn($data->username);
+//                    return $usage['last_usage_date'];
                 }
             ],
             [
@@ -110,7 +110,7 @@ global $usage;
                     if (empty($data->accs)) {
                         return '';
                     }
-                    return $usage['count'];
+//                    return $usage['count'];
                 }
             ],
             [
@@ -120,7 +120,7 @@ global $usage;
                     if (empty($data->accs)) {
                         return '';
                     }
-                    return $usage['count'] > 0 ? 'да':  'нет';
+//                    return $usage['count'] > 0 ? 'да':  'нет';
                 }
             ],
             [
