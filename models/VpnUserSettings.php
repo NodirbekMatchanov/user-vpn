@@ -179,6 +179,7 @@ class VpnUserSettings extends \yii\db\ActiveRecord
             'visit_count' => 'Кол. использований',
             'last_date_visit' => 'Дата последнего использования',
             'country' => 'Страна',
+            'use' => 'Пользовался',
         ];
     }
 
@@ -197,14 +198,16 @@ class VpnUserSettings extends \yii\db\ActiveRecord
         parent::__construct($config);
     }
 
-    public function getUseageVpn($username) {
-        $sql = "SELECT DATE_FORMAT(period_start, '%Y-%M-%d') as date, SUM(acctinputoctets)/1000/1000/1000 as GB_IN,
+    public static function getUseageVpn($username) {
+        $sql = "SELECT period_start as date, SUM(acctinputoctets)/1000/1000/1000 as GB_IN,
         SUM(acctoutputoctets)/1000/1000/1000 as GB_OUT, SUM(acctsessiontime)/60 as minutes
-        from data_usage_by_period where username = $username and period_end is not null group by YEAR(period_start), MONTH(period_start), DAY(period_start)
+        from data_usage_by_period where username = '$username' and period_end is not null group by YEAR(period_start), MONTH(period_start), DAY(period_start) order by  date desc
 ";
-        $data = '';
-        $cnt =0;
-        $result = \Yii::$app->db->createCommand($sql)->queryAll();
+        $result = \Yii::$app->db2->createCommand($sql)->queryAll();
+        return [
+            'count' => count($result),
+            'last_usage_date' => $result[0]['date'] ?? null
+        ];
     }
 
 }

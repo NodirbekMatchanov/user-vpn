@@ -12,6 +12,8 @@ use kartik\date\DatePicker;
 
 $this->title = 'Список пользователей';
 $this->params['breadcrumbs'][] = $this->title;
+
+global $usage;
 ?>
 <div class="vpn-user-settings-index">
 
@@ -90,8 +92,37 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
 
-            'last_date_visit',
-            'visit_count',
+            [
+                'attribute' => 'last_date_visit',
+                'content' => function ($data) {
+                    global $usage;
+                    if (empty($data->accs)) {
+                        return '';
+                    }
+                    $usage = \app\models\VpnUserSettings::getUseageVpn($data->username);
+                    return $usage['last_usage_date'];
+                }
+            ],
+            [
+                'attribute' => 'visit_count',
+                'content' => function ($data) {
+                    global $usage;
+                    if (empty($data->accs)) {
+                        return '';
+                    }
+                    return $usage['count'];
+                }
+            ],
+            [
+                'attribute' => 'use',
+                'content' => function ($data) {
+                    global $usage;
+                    if (empty($data->accs)) {
+                        return '';
+                    }
+                    return $usage['count'] > 0 ? 'да':  'нет';
+                }
+            ],
             [
                 'attribute' => 'datecreate',
                 'content' => function ($data) {
