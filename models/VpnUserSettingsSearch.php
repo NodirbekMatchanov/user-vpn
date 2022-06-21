@@ -19,13 +19,15 @@ class VpnUserSettingsSearch extends VpnUserSettings
     public $expire;
     public $visit_count;
     public $last_date_visit;
+    public $use;
+    public $source;
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['op','datecreate','visit_count','last_date_visit','expire','untildate'], 'safe'],
+            [['op','datecreate','source','use','visit_count','last_date_visit','expire','untildate'], 'safe'],
             [['value','username','tariff','attribute', 'op','email','status'], 'string', 'max' => 255],
         ];
     }
@@ -53,7 +55,7 @@ class VpnUserSettingsSearch extends VpnUserSettings
             $query->andWhere(['radcheck.id' => (Accs::getAccs()->vpnid ?? 0)]);
         }
         $query->joinWith('accs');
-//        $query->joinWith('stat');
+        $query->joinWith('stat');
 
 
         // add conditions that should always apply here
@@ -102,13 +104,18 @@ class VpnUserSettingsSearch extends VpnUserSettings
                     'desc' => ['accs.datecreate' => SORT_DESC],
                 ],
                 'last_date_visit' => [
-                    'asc' => ['accs.last_date_visit' => SORT_ASC],
-                    'desc' => ['accs.last_date_visit' => SORT_DESC],
+                    'asc' => ['user_useage_stat.last_usage_date' => SORT_ASC],
+                    'desc' => ['user_useage_stat.last_usage_date' => SORT_DESC],
                 ],
                 'visit_count' => [
-                    'asc' => ['accs.visit_count' => SORT_ASC],
-                    'desc' => ['accs.visit_count' => SORT_DESC],
+                    'asc' => ['user_useage_stat.usage_count' => SORT_ASC],
+                    'desc' => ['user_useage_stat.usage_count' => SORT_DESC],
                 ],
+                'source' => [
+                    'asc' => ['accs.source' => SORT_ASC],
+                    'desc' => ['accs.source' => SORT_DESC],
+                ],
+
         ]]);
         // grid filtering conditions
         $query->andFilterWhere([
@@ -122,6 +129,11 @@ class VpnUserSettingsSearch extends VpnUserSettings
         if(!empty($this->untildate)){
             $query->andWhere("from_unixtime(`accs`.`untildate`, '%Y-%m-%d') = '". date("Y-m-d",strtotime(str_replace(".","-",$this->untildate)))."'");
         }
+        if(!empty($this->use) && $this->use == 'да' || $this->use == 'Да') {
+            $query->andFilterWhere(['>', 'user_useage_stat.usage_count', 0]);
+        } elseif (!empty($this->use)){
+            $query->andFilterWhere(['<=', 'user_useage_stat.usage_count', 0]);
+        }
         $query
             ->andFilterWhere(['like', 'username', $this->username])
             ->andFilterWhere(['like', 'accs.email', $this->email])
@@ -129,8 +141,9 @@ class VpnUserSettingsSearch extends VpnUserSettings
 //            ->andFilterWhere(['like', 'accs.datecreate', ])
             ->andFilterWhere(['like', 'accs.tariff', $this->tariff])
             ->andFilterWhere(['like', 'accs.untildate', $this->expire])
-            ->andFilterWhere(['like', 'accs.visit_count', $this->visit_count])
-            ->andFilterWhere(['like', 'accs.last_date_visit', $this->last_date_visit])
+            ->andFilterWhere(['like', 'accs.source', $this->source])
+            ->andFilterWhere(['like', 'user_useage_stat.usage_count', $this->visit_count])
+            ->andFilterWhere(['like', 'user_useage_stat.last_usage_date', $this->last_date_visit])
             ->andFilterWhere(['like', 'value', $this->value]);
 
 

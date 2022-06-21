@@ -75,6 +75,7 @@ class SupportController extends Controller
      */
     public function actionCategories()
     {
+        $this->layout = 'main_';
         $searchModel = new SupportSearch();
         $data = $searchModel->searchByCategory($this->request->queryParams);
         $dataProvider = $searchModel->search($this->request->queryParams);

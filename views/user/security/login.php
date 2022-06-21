@@ -70,19 +70,20 @@ $this->params['breadcrumbs'][] = $this->title;
 				</span>
             </label>
 
-<?=($module->enablePasswordRecovery ?
-     Html::a(
-        Yii::t('user', 'Forgot password?'),
-        ['/user/recovery/request'],
-        ['tabindex' => '5','class' => 'form-link']
-    )
-     : '')?>
+
             <div class="form-buttons">
                 <?= Html::submitButton(
                     Yii::t('user', 'Sign in'),
                     ['class' => 'btn-2', 'tabindex' => '4']
                 ) ?>
-                <a href='<?=\yii\helpers\Url::to(["/user/register"])?>' class="btn-2 _outline">Зарегистрироваться</a>
+                <?=($module->enablePasswordRecovery ?
+                    Html::a(
+                        Yii::t('user', 'Forgot password?'),
+                        ['/user/recovery/request'],
+                        ['tabindex' => '5','class' => 'form-link']
+                    )
+                    : '')?>
+                <a href='<?=\yii\helpers\Url::to(["/user/register"])?>' class="form-link">Зарегистрироваться</a>
             </div>
             <?php ActiveForm::end(); ?>
     </div>
