@@ -152,7 +152,7 @@ class VpnUserSettings extends \yii\db\ActiveRecord
      */
     public function getStat()
     {
-        return $this->hasMany(DataUsageByPeriod::className(), ['username' => 'username']);
+        return $this->hasOne(UserUseageStat::className(), ['username' => 'username']);
     }
 
     /**

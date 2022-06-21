@@ -96,32 +96,32 @@ global $usage;
                 'attribute' => 'last_date_visit',
                 'value' => function ($data) {
                     global $usage;
-                    if (empty($data->accs)) {
+                    if (empty($data->stat)) {
                         return '';
                     }
-
+//                        print_r(); die();
 //                    $usage = \app\models\VpnUserSettings::getUseageVpn($data->username);
-//                    return $usage['last_usage_date'];
+                    return $data->stat->last_usage_date;
                 }
             ],
             [
                 'attribute' => 'visit_count',
                 'content' => function ($data) {
                     global $usage;
-                    if (empty($data->accs)) {
+                    if (empty($data->stat)) {
                         return '';
                     }
-//                    return $usage['count'];
+                    return $data->stat->usage_count;
                 }
             ],
             [
                 'attribute' => 'use',
                 'content' => function ($data) {
                     global $usage;
-                    if (empty($data->accs)) {
-                        return '';
+                    if (empty($data->stat)) {
+                        return  'нет';
                     }
-//                    return $usage['count'] > 0 ? 'да':  'нет';
+                    return $data->stat->usage_count > 0 ? 'да':  'нет';
                 }
             ],
             [

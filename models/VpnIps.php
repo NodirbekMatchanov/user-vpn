@@ -234,6 +234,26 @@ class VpnIps extends \yii\db\ActiveRecord
         }
         echo "\n end";
     }
+
+    /**
+     * @return void
+     */
+    public static function updateUsageState()
+    {
+        echo "\n start";
+        $users = DataUsageByPeriod::find()->select('username, count(*) as count, Max(period_start) as period_start')->where('acctsessiontime > 0')->orderBy('period_start desc')->groupBy('username')->asArray()->all();
+
+        foreach ($users as $user) {
+           if(!$stat = UserUseageStat::find()->where(['username' => $user['username']])->one()) {
+                $stat = new UserUseageStat();
+           }
+           $stat->username = $user['username'];
+           $stat->last_usage_date = $user['period_start'];
+           $stat->usage_count = $user['count'];
+           $stat->save();
+        }
+        echo "\n end";
+    }
     /**
      * @return void
      */

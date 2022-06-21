@@ -183,6 +183,17 @@ if(!empty($model->accs->user_id)) {
                 }
             ],
             [
+                'attribute' => 'use',
+                'format' => 'raw',
+                'value' => function ($data) {
+                    if (empty($data->accs)) {
+                        return '';
+                    }
+                    $usage = \app\models\VpnUserSettings::getUseageVpn($data->username);
+                    return $usage['count'] > 0 ? 'да':  'нет';
+                }
+            ],
+            [
                 'attribute' => 'visit_count',
                 'format' => 'raw',
                 'value' => function ($data) {
