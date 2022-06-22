@@ -5054,3 +5054,7 @@ input:checked + .slider:before {
 .has-error .help-block {
     color: firebrick;
 }
+
+.hidden {
+    display: none;
+}

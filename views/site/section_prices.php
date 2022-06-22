@@ -122,7 +122,6 @@ $script = <<<JS
     var promocode = "";
     var orderId = "";
     var email = "";
-    
 $(document).on('click', '.pay', function (e) {
      id = $('.prices-item._active').data('id') ;
      method = $('[name="method"]').val();
@@ -149,11 +148,12 @@ $(document).on('click', '.pay', function (e) {
          $('.email-payer-message').closest('.input-2').addClass('_error');
          $('.email-payer-message').html('не заполнено поле e-mail');
      }
-    
-    
+     
     });
-
-$('.prices-item').on('click',function () {
+$(document).ready(function() {
+      $('.prices-item._active').trigger('click');
+})
+$('.prices-item, .prices-item._active').on('click',function () {
         id = $(this).closest('.prices-item').data('id') ;
         method = $('[name="method"]').val();
         promocode = getCookie('promocode') ?? $('[name="payer-promocode"]').val();
@@ -173,6 +173,9 @@ $('.prices-item').on('click',function () {
             amount = JSON.parse(amount);
             $('.total-price').html(amount.totalPrice)
             $('.tariff-price').html(amount.price)
+            if(amount.discount) {
+                $('.prices-form-coupon').removeClass('hidden');
+            }
             $('.discount').html(amount.discount)
             $('.choose-tariff-label').html($(this).closest('.prices-item').find('.tariff-title').html())
         })
@@ -246,7 +249,7 @@ $this->registerJs($script, $this::POS_END);
 
                 <?php endif; ?>
                 <?php if (!empty($tariff) && $tariff->price_365): ?>
-                    <div class="prices-item " data-id="12_month">
+                    <div class="prices-item _active" data-id="12_month">
                         <div class="prices-best">
                             <div class="prices-best-img">
                                 <img src="/web/img/logo-3.svg">
@@ -310,7 +313,7 @@ $this->registerJs($script, $this::POS_END);
                         class="tariff-price">11 864</span> р.
             </div>
 
-            <div class="prices-form-coupon">Вы применили купон со скидкой <span class="discount">0 </span>%</div>
+            <div class="prices-form-coupon hidden">Вы применили купон со скидкой <span class="discount">0 </span>%</div>
 
             <div class="prices-form-total">Итоговая сумма: <span class="total-price">3 948</span> р.</div>
 

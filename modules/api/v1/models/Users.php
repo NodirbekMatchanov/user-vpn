@@ -243,7 +243,7 @@ class Users extends \yii\db\ActiveRecord
     public function generateVpnKey()
     {
         $this->vpnPassword = self::RandomToken();
-        $this->vpnLogin = Yii::$app->security->generateRandomString(16);
+        $this->vpnLogin = Yii::$app->security->generateRandomString(10);
     }
 
     /**

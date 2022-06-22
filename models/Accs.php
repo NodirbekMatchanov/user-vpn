@@ -54,7 +54,7 @@ class Accs extends \yii\db\ActiveRecord
             [['email', 'pass', 'vpnid', 'untildate', 'datecreate', 'status'], 'required'],
             [['vpnid','background_work', 'untildate', 'datecreate','promo_share', 'test_user','user_id', 'use_android', 'visit_count', 'use_ios', 'verifyCode'], 'integer'],
             [['comment','used_promocode', 'use_ios', 'fcm_token'], 'string'],
-            [['email','utm_term','source','utm_campaign','utm_medium','utm_source', 'pass', 'role', 'tariff', 'promocode'], 'string', 'max' => 255],
+            [['email','utm_term','source','utm_campaign','chatId','utm_medium','utm_source', 'pass', 'role', 'tariff', 'promocode'], 'string', 'max' => 255],
             [['status', 'reset_pass','country'], 'string', 'max' => 50],
             [['last_date_visit'], 'safe'],
         ];

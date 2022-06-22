@@ -3,6 +3,7 @@
 namespace app\models;
 
 use app\modules\api\v1\models\Users;
+use app\modules\api\v1\models\VpnUserSettings;
 use Yii;
 use yii\web\UploadedFile;
 
@@ -33,6 +34,8 @@ class VpnIps extends \yii\db\ActiveRecord
     public $certType;
     const CERT_IKEV = 'ikev2';
     const CERT_OPVPN = 'openvpn';
+    const CHECK_ICO = "	\u{2705}";
+
     /**
      * {@inheritdoc}
      */
@@ -279,10 +282,34 @@ class VpnIps extends \yii\db\ActiveRecord
     {
         $telegramUsers = TelegramUsers::find()->all();
         foreach ($telegramUsers as $user) {
-            if(strtotime($user->created) > (strtotime($user->created)+ (30*60)) )
-            \Yii::$app->telegram->sendMessage(['chat_id' => $user->chat_id, 'text' => 'Заметили, что вы заинтересовались нашим VPN, но не попробовали его.
+            $userVpn = Accs::find()->where(['chatId' => $user->chat_id])->joinWith('vpn')->one();
+            if(empty($userVpn->vpn->username)) continue;
+            $usage = \app\models\VpnUserSettings::getUseageVpn($userVpn->vpn->username);
+            if(time() > (strtotime($user->created)+ (30*60)) && ($usage['count'] <= 0) && !$user->notify_usage_30) {
+                $user->notify_usage_30 = 1;
+                $user->save();
+                    \Yii::$app->telegram->sendMessage(['chat_id' => $user->chat_id, 'text' => 'Заметили, что вы заинтересовались нашим VPN, но не попробовали его.
 Если у Вас есть вопросы по подключению, то напишите их прямо в чат и мы подскажем, как его настроить
 Выберите Вашу операционную систему, по которому Вам нужна помощь']);
+            } elseif (time() > (strtotime($user->created)+ (24*3600*3)) && ($usage['count'] <= 0) && !$user->notify_usage_3d){
+                $user->notify_usage_30 = 1;
+                \Yii::$app->telegram->sendMessage(['chat_id' => $user->chat_id, 'text' => "Привет! Заметили, что вы заинтересовались нашим VPN, но не попробовали его. Мы уверены, что он вам понравится, потому хотим подарить вам 3 дня подписки!
+Что даст вам использование VPN MAX
+                
+" . self::CHECK_ICO . " Быстрый Доступ в instagram, facebook, tiktok, twitter и к другим заблокированным сервисам таким как Netflix, Spotify и другим
+" . self::CHECK_ICO . " Скроет все ваши действия и местоположение от провайдеров и посещяемых сайтов
+мы предлагаем вам 
+" . self::CHECK_ICO . " Самые быстрые сервера по всему Миру
+" . self::CHECK_ICO . " Безлимитный трафик
+" . self::CHECK_ICO . " Оперативную поддержку
+" . self::CHECK_ICO . " Возможность оплаты российскими картами  МИР, Visa, Mastercard
+
+Чтобы активировать тестовую ViP. подписку , выберите под собщением Попробовать VPN 
+Если у вас есть вопросы, пишите прямо в этот чат!"]);
+                $user->notify_usage_3d = 1;
+                $user->save();
+            }
+
 
         }
     }
