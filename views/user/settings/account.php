@@ -272,6 +272,17 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 </div>
 
+<div class="settings">
+    <div class="container">
+        <h3 class="title-3">Партнерская программа</h3>
+        <div class="settings-text">
+            Поделитесь промо-ссылкой с Вашими друзьями <a href="<?= "https://" . $domain . "?ref=" . ($accs->promocode ?? '') ?>" target="_blank" ><?= "https://" . $domain . "?ref=" . ($accs->promocode ?? '') ?></a>
+            За каждого кто зарегистрируется и оплатит подписку, Вы получите неделю использования VPN в подарок
+        </div>
+        <p>Вашей рекомендации зарегистировалось <?=$registratedCount?> человек из них купили подскику <?=$payoutCount?> </p>
+
+    </div>
+</div>
 
 <div class="settings">
     <div class="container">
@@ -280,23 +291,12 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="settings-text">
             Это навсегда удалит ваш аккаунт и все его данные. Вы не сможете восстановить<br>
             эту учетную запись.
-        </div>
+        </div> <br>
         <?= Html::a(Yii::t('user', 'Delete account'), ['delete'], [
-            'class' => 'btn-2 _outline _danger',
+            'class' => 'btn-2 _outline _silver',
             'data-method' => 'post',
             'data-confirm' => Yii::t('user', 'Are you sure? There is no going back'),
         ]) ?>
-
-    </div>
-</div>
-<div class="settings">
-    <div class="container">
-        <h3 class="panel-title">Партнерская программа</h3>
-        <div class="settings-text">
-            Поделитесь промо-ссылкой с Вашими друзьями <a href="<?= "https://" . $domain . "?ref=" . ($accs->promocode ?? '') ?>" target="_blank" ><?= "https://" . $domain . "?ref=" . ($accs->promocode ?? '') ?></a>
-            За каждого кто зарегистрируется и оплатит подписку, Вы получите неделю использования VPN в подарок
-        </div>
-        <p>Вашей рекомендации зарегистировалось <?=$registratedCount?> человек из них купили подскику <?=$payoutCount?> </p>
 
     </div>
 </div>
