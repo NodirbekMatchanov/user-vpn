@@ -117,6 +117,18 @@ class VpnUserSettingsSearch extends VpnUserSettings
                 ],
 
         ]]);
+
+        if(isset($params['sort']) && $params['sort'] == '-visit_count') {
+            $query->orderBy('user_useage_stat.usage_count asc');
+        } elseif (isset($params['sort']) && $params['sort'] == 'visit_count') {
+            $query->orderBy('user_useage_stat.usage_count desc');
+        }
+
+        if(isset($params['sort']) && $params['sort'] == '-last_date_visit') {
+            $query->orderBy('user_useage_stat.last_usage_date asc');
+        } elseif (isset($params['sort']) && $params['sort'] == 'last_date_visit') {
+            $query->orderBy('user_useage_stat.last_usage_date desc');
+        }
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,

@@ -101,7 +101,7 @@ global $usage;
                     }
 //                        print_r(); die();
 //                    $usage = \app\models\VpnUserSettings::getUseageVpn($data->username);
-                    return $data->stat->last_usage_date;
+                    return $data->accs->datecreate ? date("d.m.Y H:i:s", strtotime($data->stat->last_usage_date)) : '';
                 }
             ],
             [

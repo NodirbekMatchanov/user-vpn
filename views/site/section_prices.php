@@ -234,6 +234,7 @@ $this->registerJs($script, $this::POS_END);
                         <h3 class="title-3 tariff-title">6 месяцев</h3>
 
                         <div class="spacer"></div>
+                        <div class="prices-sale-percent">-5%</div>
 
                         <div>
                             <div class="prices-price">
@@ -263,9 +264,8 @@ $this->registerJs($script, $this::POS_END);
 
                         <div class="prices-sale">
                             <div class="prices-sale-text">
-                                <?= Yii::$app->formatter->asDecimal($tariff->price_365, 0) ?> ₽
                             </div>
-                            <div class="prices-sale-percent">-67%</div>
+                            <div class="prices-sale-percent">-35%</div>
                         </div>
 
                         <div>
@@ -347,7 +347,7 @@ $this->registerJs($script, $this::POS_END);
 
             <div class="form-politic">
                 Нажимая на кнопку, вы даете согласие на обработку персональных<br>
-                данных и соглашаетесь c <a href="#">политикой конфиденциальности</a>
+                данных и соглашаетесь c <a href="<?=\yii\helpers\Url::to(['/site/privacy'])?>">политикой конфиденциальности</a>
             </div>
 
         </div>
