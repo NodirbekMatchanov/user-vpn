@@ -30,7 +30,9 @@
         "kartik-v/yii2-widget-alert": "dev-master",
         "guzzlehttp/guzzle": "^7.0",
         "skeeks/yii2-multi-language": "^1.0.0",
-        "aki/yii2-bot-telegram": "*"
+        "aki/yii2-bot-telegram": "*",
+        "develandoo/yii2-push-notification": "^1.1",
+        "bryglen/yii2-apns-gcm": "1.0.5"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

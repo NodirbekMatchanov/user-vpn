@@ -16,6 +16,15 @@ $config = [
     'language' => 'ru',
 
     'components' => [
+        'apns' => [
+            'class' => 'bryglen\apnsgcm\Apns',
+            'environment' => \bryglen\apnsgcm\Apns::ENVIRONMENT_PRODUCTION,
+            'pemFile' => __DIR__.'/ios_token/VPN_MAX_PUSH.pem',
+            // 'retryTimes' => 3,
+            'options' => [
+                'sendRetryTimes' => 5
+            ]
+        ],
 //        'request' => [
 //            // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
 //            'cookieValidationKey' => 'b1I97EHuHiX4cVlK6Wp96pRVr-1cLf5O',
@@ -23,6 +32,20 @@ $config = [
         'telegram' => [
             'class' => 'aki\telegram\Telegram',
             'botToken' => '5599707945:AAGpyC42hsbNmDyce8le1aNFbXtDiqBj0Ko',
+        ],
+        'push' => [
+            'class' => 'develandoo\notification\Push',
+            'options' => [
+                'returnInvalidTokens' => true //default false
+            ],
+            'apnsConfig' => [
+                'environment' => \develandoo\notification\Push::APNS_ENVIRONMENT_PRODUCTION ,
+                'pem' => __DIR__.'/ios_token/VPN_MAX_PUSH.pem',
+                'passphrase' => 'VPN_MAX', //optional
+            ],
+            'gcmConfig' => [
+                'apiAccessKey' => 'YOUR_GCM_API_KEY'
+            ]
         ],
         "request" => [
             'cookieValidationKey' => 'b1I97EHuHiX4cVlK6Wp96pRVr-1cLf5O',

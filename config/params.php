@@ -7,7 +7,7 @@ return [
     'iosCertPath' => implode(DIRECTORY_SEPARATOR, [
         __DIR__,
         'ios_token',
-        'apns-dev-cert.pem'
+        'VPN_MAX_PUSH.pem'
 
     ]),
 ];

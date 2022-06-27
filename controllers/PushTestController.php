@@ -69,4 +69,43 @@ class PushTestController extends Controller
             'ios_result' => $ios_result,
         ]);
     }
+
+    public function actionPush() {
+
+       $apns = Yii::$app->apns;
+       echo $apns->send('34e2f061d861c21acb3d7a0839f5439cd807d0dd894ed8a719a355540c24e693' , 'test',
+            array(
+            ),
+            array(
+                'sound'=>'default',
+                'badge'=>1
+            )
+        );
+
+// ios multiple tokens example
+//  echo      $push->ios()->send(['6b2e27b68d19d434aef39e9a7caa3696d6b4b1ea61fbae3fdcdd1014546a68ba'], [
+//            'custom-key' => 'custom-value',
+//            'aps' => [
+//                'alert' => 'Hi '
+//            ],
+//            'badge' => 1,
+//            'sound' => 'default'
+//        ]);
+
+
+//// firebase (both ios and android are supported) multiple tokens example
+//        $push->firebase()->send(['token1','token2'], [
+//            // Background (closed) application data.
+//            'notification' => [
+//                'body' => 'Background application message',
+//                'title' => 'AppName',
+//                'sound' => 'default',
+//            ],
+//            // Foreground (running) application data.
+//            'data' => [
+//                'custom-key' => 'Any custom data could be delivered into foreground application. '
+//                    . 'In order to simulate push notification, this data should be used inside "local notification" by client application.',
+//            ],
+//        ]);
+    }
 }
