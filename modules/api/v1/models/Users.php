@@ -229,8 +229,8 @@ class Users extends \yii\db\ActiveRecord
                     'vpnId' => $this->vpnid,
                     'email' => $this->email,
                     'pass' => $this->pass,
-                    'vpnLogin' => $vpnModel->value,
-                    'vpnPassword' => $vpnModel->username,
+                    'vpnLogin' => $vpnModel->username,
+                    'vpnPassword' => $vpnModel->value,
                 ];
             } else {
                 return false;
