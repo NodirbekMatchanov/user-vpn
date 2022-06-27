@@ -140,7 +140,7 @@ class UsedPromocodes extends \yii\db\ActiveRecord
             $event->save(false);
 
             self::saveSignup($userId,$promocode);
-
+            return true;
         } else {
             return 'expire';
         }

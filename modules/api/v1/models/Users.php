@@ -207,19 +207,24 @@ class Users extends \yii\db\ActiveRecord
             $this->role = 'user';
 
             $telegramUser = TelegramUsers::find()->where(['chat_id' => $this->email])->one();
-            if(!empty($telegramUser->ref)) {
-                $this->tariff = 'Premium';
-                $this->untildate = time() + 24*3*3600;
-            } else {
-                $this->tariff = 'Free';
-                $this->untildate = time();
-            }
+
+            $this->tariff = 'Free';
+            $this->untildate = time();
             $this->datecreate = time();
+
             $this->used_promocode = $this->using_promocode;
             $this->promocode = Yii::$app->security->generateRandomString(6);
             $this->chatId = $this->email;
             $this->verifyCode = $code;
             if ($this->save(false)) {
+                if(!empty($telegramUser->ref)) {
+                    $this->tariff = 'Premium';
+                    $usedPromocode = Accs::setPromoShareCount($telegramUser->ref, $this);
+                    if($usedPromocode === true) {
+                    } else {
+                        $this->untildate = time() + 24*3*3600;
+                    }
+                }
                 return [
                     'vpnId' => $this->vpnid,
                     'email' => $this->email,

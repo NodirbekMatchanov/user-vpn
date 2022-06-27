@@ -128,7 +128,7 @@ class Accs extends \yii\db\ActiveRecord
 
             return $accs->save();
         } else {
-            UsedPromocodes::usePromocode($user->id,$promocode);
+           return UsedPromocodes::usePromocode($user->id,$promocode);
         }
         return false;
     }
