@@ -224,6 +224,7 @@ class Users extends \yii\db\ActiveRecord
                     } else {
                         $this->untildate = time() + 24*3*3600;
                     }
+                    $this->save(false);
                 }
                 return [
                     'vpnId' => $this->vpnid,

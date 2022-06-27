@@ -102,6 +102,10 @@ class UsedPromocodes extends \yii\db\ActiveRecord
         $promocodeModel = Promocodes::find()->where(['promocode' => $promocode])->one();
         if (strtotime($promocodeModel->expire) >= time() && $promocodeModel->user_id) {
             $accs = Accs::find()->where(['user_id' => $userId])->one();
+            if(empty($accs)) {
+                $accs = Accs::find()->where(['chatId' => $userId])->one();
+                $isTelegram = true;
+            }
             $usedCodeCounts = UsedPromocodes::find()->where(['promocode' => $promocode])->andWhere(['!=', 'type', UsedPromocodes::VISIT])->count();
             if ($promocodeModel->user_limit <= $usedCodeCounts) {
                 return json_encode(['result' => 'error', 'error' => 'Промокод уже использован']);

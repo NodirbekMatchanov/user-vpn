@@ -98,7 +98,7 @@ class Accs extends \yii\db\ActiveRecord
         return $this->hasOne(VpnUserSettings::className(), ['id' => 'vpnid']);
     }
 
-    public static function setPromoShareCount($promocode, $user){
+    public static function setPromoShareCount($promocode, $user, $chatId = null){
         if($promocode == "") return false;
         $accs = Accs::find()->where(['promocode' => $promocode])->one();
         if(!empty($accs)) {
@@ -128,7 +128,7 @@ class Accs extends \yii\db\ActiveRecord
 
             return $accs->save();
         } else {
-           return UsedPromocodes::usePromocode($user->id,$promocode);
+           return UsedPromocodes::usePromocode(($user->id ?? $chatId),$promocode);
         }
         return false;
     }
