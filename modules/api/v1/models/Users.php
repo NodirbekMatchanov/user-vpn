@@ -219,7 +219,7 @@ class Users extends \yii\db\ActiveRecord
             if ($this->save(false)) {
                 if(!empty($telegramUser->ref)) {
                     $this->tariff = 'Premium';
-                    $usedPromocode = Accs::setPromoShareCount($telegramUser->ref, $this);
+                    $usedPromocode = Accs::setPromoShareCount($telegramUser->ref, $this, $this->chatId);
                     if($usedPromocode === true) {
                     } else {
                         $this->untildate = time() + 24*3*3600;
