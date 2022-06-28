@@ -117,13 +117,14 @@ class UsedPromocodes extends \yii\db\ActiveRecord
 
             // привязанный пользователь к промокоду
             $user = Accs::find()->where(['user_id' => $promocodeModel->user_id])->one();
-            $user->untildate = date("Y-m-d",$accs->untildate) < date("Y-m-d") ? time() + (3600 * 24 * $promocodeModel->freeday_partner) : $accs->untildate + (3600 * 24 * $promocodeModel->freeday_partner);
+            $user->untildate = date("Y-m-d",$user->untildate) < date("Y-m-d") ? time() + (3600 * 24 * $promocodeModel->freeday_partner) : $user->untildate + (3600 * 24 * $promocodeModel->freeday_partner);
             $user->save();
             if(!$isTelegram){
                 $mailer = new Mailer();
                 $mailer->sendUsedPromocode($accs);
+                $mailer->sendUsedPromocode($user);
+
             }
-            $mailer->sendUsedPromocode($user);
 
             /* add event */
             $event = new UserEvents();
