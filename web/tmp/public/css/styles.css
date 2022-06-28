@@ -2764,7 +2764,7 @@ textarea {
     align-items: center; }
   .info-value {
     font-size: 18px;
-    width: 172px; }
+    }
   .info-actions {
     display: flex;
     align-items: center;
@@ -5318,3 +5318,25 @@ input:checked + .slider:before {
 @media (max-width: 370px) {
     .title-3 {
       font-size: 25px; } }
+
+.has-error .help-block {
+    color: firebrick;
+}
+
+.hidden {
+    display: none;
+}
+
+.btn-2._silver {
+    border-color: #ababab;
+    color: #ababab;
+}
+.btn-2._silver:hover {
+    border-color: #D70000!important;
+    color: #D70000!important;
+}
+
+._active a{
+    color: #f4f4f4!important;
+    transition: color 300ms;
+}
