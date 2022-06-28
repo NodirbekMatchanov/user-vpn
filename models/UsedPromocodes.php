@@ -99,6 +99,8 @@ class UsedPromocodes extends \yii\db\ActiveRecord
 
     public static function usePromocode($userId, $promocode, $type = null)
     {
+        $isTelegram = false;
+
         $promocodeModel = Promocodes::find()->where(['promocode' => $promocode])->one();
         if (strtotime($promocodeModel->expire) >= time() && $promocodeModel->user_id) {
             $accs = Accs::find()->where(['user_id' => $userId])->one();
@@ -117,9 +119,11 @@ class UsedPromocodes extends \yii\db\ActiveRecord
             $user = Accs::find()->where(['user_id' => $promocodeModel->user_id])->one();
             $user->untildate = date("Y-m-d",$accs->untildate) < date("Y-m-d") ? time() + (3600 * 24 * $promocodeModel->freeday_partner) : $accs->untildate + (3600 * 24 * $promocodeModel->freeday_partner);
             $user->save();
-
-            $mailer = new Mailer();
-            $mailer->sendUsedPromocode($accs);
+{}
+            if(!$isTelegram){
+                $mailer = new Mailer();
+                $mailer->sendUsedPromocode($accs);
+            }
             $mailer->sendUsedPromocode($user);
 
             /* add event */

@@ -128,7 +128,10 @@ class Accs extends \yii\db\ActiveRecord
 
             return $accs->save();
         } else {
-           return UsedPromocodes::usePromocode(($user->id ?? $chatId),$promocode);
+            if($chatId) {
+                return UsedPromocodes::usePromocode($chatId,$promocode);
+            }
+           return UsedPromocodes::usePromocode(($user->id),$promocode);
         }
         return false;
     }
