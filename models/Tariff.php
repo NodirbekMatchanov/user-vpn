@@ -157,7 +157,7 @@ class Tariff extends \yii\db\ActiveRecord
                 $payment->user_id = \Yii::$app->user->isGuest ? 0 : \Yii::$app->user->identity->getId();
                 $payment->tariff = $id;
                 $payment->payer_email = $email;
-                $payment->amount = $price;
+                $payment->amount = $discountPrice;
                 $payment->source = $source;
                 $payment->promocode = $promocode;
                 $payment->save();
