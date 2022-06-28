@@ -11,6 +11,7 @@ $tariffType = Yii::$app->request->get('tariff');
 $email = Yii::$app->request->get('messager_id');
 $tariff = \app\models\Tariff::find()->one();
 $source = Yii::$app->request->get('source');
+$promocode = Yii::$app->request->get('promocode');
 
 $script = <<<JS
   function getCookie(name) {
@@ -125,7 +126,7 @@ $script = <<<JS
     
  var id = "";
     var method = "";
-    var promocode = "";
+    var promocode = "$promocode";
     var orderId = "";
     var email = "";
          $('.prices-item._active').trigger('click');
@@ -135,7 +136,7 @@ $(document).ready(function() {
 $(document).on('click', '.pay', function (e) {
      id = $('.prices-item._active').data('id') ;
      method = $('[name="method"]').val();
-     promocode = getCookie('promocode') ?? $('[name="payer-promocode"]').val();
+     promocode = "$promocode";
      orderId = orderNumber();
      email = "$email"
      if(email) {
