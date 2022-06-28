@@ -12,10 +12,10 @@ use yii\grid\GridView;
 $this->title = 'Cерверы';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="vpn-ips-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
+<div class="servers">
+    <div class="container">
+        <div class="servers-wrap">
+            <h3 class="title-3"><?= Html::encode($this->title) ?></h3>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -39,4 +39,6 @@ $this->params['breadcrumbs'][] = $this->title;
     ]); ?>
 
 
+        </div>
+    </div>
 </div>

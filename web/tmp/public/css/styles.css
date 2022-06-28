@@ -266,7 +266,7 @@ template {
   display: none !important; }
 
 /**
- * Swiper 6.8.2
+ * Swiper 6.8.4
  * Most modern mobile touch slider and framework with hardware accelerated transitions
  * https://swiperjs.com
  *
@@ -274,7 +274,7 @@ template {
  *
  * Released under the MIT License
  *
- * Released on: August 16, 2021
+ * Released on: August 23, 2021
  */
 @font-face {
   font-family: 'swiper-icons';
@@ -1414,7 +1414,7 @@ html.not-touched.not-mac *::-webkit-scrollbar-thumb {
   text-overflow: ellipsis; }
 
 a {
-  color: #00BDD7;
+  color: #0090F8;
   transition: color 300ms; }
   a:hover {
     color: #b37400; }
@@ -1914,6 +1914,38 @@ textarea {
         margin-top: 8px; }
       .auto-list li + li {
         margin-top: 10px; }
+
+.breadcrumbs ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  display: flex;
+  align-items: center; }
+  .breadcrumbs ul li {
+    position: relative; }
+    .breadcrumbs ul li:last-child:not(:hover) a {
+      color: #0090F8; }
+    .breadcrumbs ul li + li {
+      margin-left: 14px; }
+      .breadcrumbs ul li + li:before {
+        content: '/';
+        display: block;
+        position: absolute;
+        top: 50%;
+        right: calc(100% + 7px);
+        -webkit-transform: translate(50%, -50%);
+                transform: translate(50%, -50%); }
+  .breadcrumbs ul a {
+    text-decoration: none;
+    outline: none;
+    color: inherit;
+    color: #555555;
+    transition: color 300ms; }
+    .breadcrumbs ul a:hover {
+      text-decoration: none;
+      color: inherit; }
+    .breadcrumbs ul a:hover {
+      color: #0064ac; }
 
 .circle-percent {
   display: flex;
@@ -2732,7 +2764,7 @@ textarea {
     align-items: center; }
   .info-value {
     font-size: 18px;
-    }
+    width: 172px; }
   .info-actions {
     display: flex;
     align-items: center;
@@ -2964,6 +2996,40 @@ textarea {
     margin-bottom: 55px; }
   .nav-wrap ._mob {
     display: none; }
+
+.post {
+  margin-top: 27px;
+  font-size: 18px;
+  line-height: 1.21; }
+  .post .title-3 {
+    text-align: left;
+    margin-top: 50px;
+    margin-bottom: 10px; }
+  .post-content {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto; }
+  .post h3 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    line-height: 1.21042;
+    font-weight: 600; }
+    .post h3:not(:first-child) {
+      margin-top: 50px; }
+    .post h3 + h4 {
+      margin-top: 20px; }
+  .post h4 {
+    margin-bottom: 12px;
+    margin-top: 40px;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.21; }
+  .post img {
+    width: 100%; }
+    .post img:not(:first-child) {
+      margin-top: 16px; }
+    .post img:not(:last-child) {
+      margin-bottom: 19px; }
 
 .prices-block {
   border-radius: 20px;
@@ -3270,6 +3336,110 @@ textarea {
   margin-left: auto;
   margin-right: auto;
   margin-top: 30px; }
+
+.questions {
+  margin-top: 27px; }
+  .questions .title-2:first-child {
+    margin-top: 68px; }
+  .questions-form {
+    border: 1px solid #0090F8;
+    border-radius: 20px;
+    padding: 0 20px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    margin-top: 35px;
+    transition: all 300ms; }
+    .questions-form:hover {
+      border-color: rgba(0, 144, 248, 0.5); }
+    .questions-form + .title-3 {
+      margin-top: 68px; }
+    .questions-form input {
+      border: none;
+      color: inherit;
+      background: none;
+      font-size: 18px;
+      font-weight: 400;
+      flex-grow: 1;
+      height: 100%; }
+      .questions-form input::-webkit-input-placeholder {
+        color: #0090F8; }
+      .questions-form input::-moz-placeholder {
+        color: #0090F8; }
+      .questions-form input:-ms-input-placeholder {
+        color: #0090F8; }
+      .questions-form input::-ms-input-placeholder {
+        color: #0090F8; }
+      .questions-form input::placeholder {
+        color: #0090F8; }
+    .questions-form-icon {
+      margin-right: 10px;
+      display: block;
+      flex-shrink: 0; }
+      .questions-form-icon img {
+        width: 25px;
+        height: 25px; }
+  .questions-items {
+    margin-top: 50px; }
+  .questions-item {
+    display: flex;
+    align-items: stretch;
+    border-radius: 20px;
+    background: #F5F8FB;
+    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+    padding: 30px 50px;
+    min-height: 200px; }
+    .questions-item + .questions-item {
+      margin-top: 30px; }
+    .questions-item-title a {
+      text-decoration: none;
+      outline: none;
+      color: inherit;
+      font-size: 24px;
+      font-weight: 600;
+      color: #0090F8;
+      transition: color 300ms; }
+      .questions-item-title a:hover {
+        text-decoration: none;
+        color: inherit; }
+      .questions-item-title a:hover {
+        color: #0064ac; }
+    .questions-item-content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      min-height: 100%; }
+    .questions-item-description {
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 1.21;
+      max-width: 774px;
+      margin-top: 6px;
+      color: #555; }
+    .questions-item-count {
+      font-size: 14px;
+      font-weight: 400;
+      color: #555;
+      display: block;
+      margin-top: 36px; }
+    .questions-item-img {
+      margin-right: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center; }
+    .questions-item-more {
+      text-decoration: none;
+      outline: none;
+      color: inherit;
+      color: #0090F8;
+      font-size: 18px;
+      margin-top: 8px;
+      transition: color 300ms; }
+      .questions-item-more:hover {
+        text-decoration: none;
+        color: inherit; }
+      .questions-item-more:hover {
+        color: #0064ac; }
 
 .servers .title-3 {
   text-align: left; }
@@ -4314,6 +4484,14 @@ input:checked + .slider:before {
         border-radius: 0; }
       .nav-item:last-child {
         border-radius: 0; }
+    .post {
+      font-size: 17px; }
+      .post h3 {
+        margin-bottom: 20px;
+        font-size: 22px; }
+      .post h4 {
+        margin-top: 35px;
+        font-size: 16px; }
     .prices-block {
       padding: 26px; }
       .prices-block-text {
@@ -4371,6 +4549,33 @@ input:checked + .slider:before {
     margin-bottom: 12px; }
     .prices-methods-item + .prices-methods-item {
       margin-left: 0; }
+    .questions-form {
+      padding: 0 18px;
+      height: 70px;
+      margin-top: 30px; }
+      .questions-form input {
+        font-size: 17px; }
+      .questions-form-icon {
+        margin-right: 10px; }
+        .questions-form-icon img {
+          width: 23px;
+          height: 23px; }
+    .questions-item {
+      padding: 27px 45px;
+      min-height: 190px;
+      border-radius: 15px; }
+      .questions-item-title a {
+        font-size: 22px; }
+      .questions-item-description {
+        font-size: 17px;
+        max-width: 774px; }
+        .questions-item-description br {
+          display: none; }
+      .questions-item-count {
+        font-size: 13px;
+        margin-top: 32px; }
+      .questions-item-more {
+        font-size: 17px; }
   .servers-table {
     font-size: 15px; }
     .servers-table-wrap {
@@ -4611,6 +4816,16 @@ input:checked + .slider:before {
         width: 130px; }
       .modal-success .modal-text br {
         display: none; }
+    .post {
+      font-size: 16px; }
+      .post h3 {
+        margin-bottom: 20px;
+        font-size: 20px; }
+        .post h3:not(:first-child) {
+          margin-top: 40px; }
+      .post h4 {
+        margin-top: 35px;
+        font-size: 14px; }
     .prices-block-wrap {
       margin-top: 70px; }
     .prices-gift {
@@ -4643,6 +4858,19 @@ input:checked + .slider:before {
       display: block; }
       .prices-header .title-2 > span br {
         display: none; }
+    .questions-item {
+      padding: 24px 30px;
+      min-height: 175px; }
+      .questions-item-title a {
+        font-size: 22px; }
+      .questions-item-description {
+        font-size: 15px;
+        max-width: 500px; }
+      .questions-item-count {
+        font-size: 13px;
+        margin-top: 32px; }
+      .questions-item-more {
+        font-size: 15px; }
   .settings-block {
     padding-left: 15px;
     padding-right: 15px; }
@@ -4829,6 +5057,15 @@ input:checked + .slider:before {
         font-size: 15px; }
       .modal-prices-price {
         font-size: 22px; }
+    .post {
+      font-size: 15px; }
+      .post p br {
+        display: none; }
+      .post h3 {
+        margin-bottom: 20px;
+        font-size: 18px; }
+        .post h3:not(:first-child) {
+          margin-top: 30px; }
     .prices-block {
       padding: 22px;
       flex-direction: column; }
@@ -4912,6 +5149,37 @@ input:checked + .slider:before {
     display: none; }
   .prices-tags {
     justify-content: flex-start; }
+    .questions-items {
+      margin-top: 40px; }
+    .questions-item {
+      padding: 20px 20px;
+      min-height: 150px;
+      border-radius: 12px; }
+      .questions-item-title a {
+        font-size: 18px; }
+      .questions-item-description {
+        font-size: 13px;
+        max-width: 380px;
+        margin-top: 2px; }
+      .questions-item-count {
+        font-size: 12px;
+        margin-top: 32px; }
+      .questions-item-more {
+        font-size: 13px; }
+      .questions-item-img {
+        display: none; }
+    .questions-form {
+      padding: 0 16px;
+      height: 63px;
+      margin-top: 20px;
+      border-radius: 15px; }
+      .questions-form input {
+        font-size: 16px; }
+      .questions-form-icon {
+        margin-right: 10px; }
+        .questions-form-icon img {
+          width: 22px;
+          height: 22px; }
   .servers-wrap .title-3 {
     text-align: center; }
   .servers-description {
@@ -5050,20 +5318,3 @@ input:checked + .slider:before {
 @media (max-width: 370px) {
     .title-3 {
       font-size: 25px; } }
-
-.has-error .help-block {
-    color: firebrick;
-}
-
-.hidden {
-    display: none;
-}
-
-.btn-2._silver {
-    border-color: #ababab;
-    color: #ababab;
-}
-.btn-2._silver:hover {
-    border-color: #D70000!important;
-    color: #D70000!important;
-}
