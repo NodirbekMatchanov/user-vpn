@@ -6,7 +6,7 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model app\models\Support */
 /* @var $form yii\widgets\ActiveForm */
-
+use mihaildev\ckeditor\CKEditor;
 if(!empty($model->tags)){
     $model->tagsList = explode(',', $model->tags);
 }
@@ -18,12 +18,11 @@ if(!empty($model->tags)){
 
 
     <?=$form->field($model, 'question')->textInput()?>
- <?= $form->field($model, 'answer')->widget(\kartik\editors\Summernote::class, [
-        'useKrajeePresets' => true,
-        // other widget settings
-    ]);
-    ?>
 
+ <?=  $form->field($model, 'answer')->widget(CKEditor::className(), [
+     'editorOptions' => \mihaildev\elfinder\ElFinder::ckeditorOptions('elfinder',[]),
+ ]);
+    ?>
 
 
     <?= $form->field($model, 'is_active')->textInput() ?>

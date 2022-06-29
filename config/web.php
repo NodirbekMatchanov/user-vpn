@@ -118,6 +118,7 @@ $config = [
         ]
 
     ],
+
     'modules' => [
         'user' => [
             'enableUnconfirmedLogin' => true,
@@ -152,12 +153,32 @@ $config = [
                 'registration' => 'app\controllers\user\RegistrationController',
                 'recovery' => 'app\controllers\user\RecoveryController',
                 'settings' => 'app\controllers\user\SettingsController',
+                'elfinder' => [
+                    'class' => 'mihaildev\elfinder\PathController',
+                    'access' => ['?'],
+                    'root' => [
+                        'path' => 'upload/global',
+                        'name' => 'Global'
+                    ],
+                ]
             ],
         ],
         'rbac' => 'dektrium\rbac\RbacWebModule',
         'api' => [
             'class' => 'app\modules\api\v1\api',
         ],
+    ],
+    'controllerMap' => [
+        'elfinder' => [
+            'class' => 'mihaildev\elfinder\PathController',
+            'access' => ['?','@'],
+            'root' => [
+                'baseUrl'=>'@web/web/',
+                'basePath'=>'@webroot',
+                'path' => '/upload/',
+                'name' => ''
+            ],
+        ]
     ],
     'params' => $params,
 

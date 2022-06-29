@@ -32,7 +32,9 @@
         "skeeks/yii2-multi-language": "^1.0.0",
         "aki/yii2-bot-telegram": "*",
         "develandoo/yii2-push-notification": "^1.1",
-        "bryglen/yii2-apns-gcm": "1.0.5"
+        "bryglen/yii2-apns-gcm": "1.0.5",
+        "mihaildev/yii2-ckeditor": "*",
+        "mihaildev/yii2-elfinder": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
