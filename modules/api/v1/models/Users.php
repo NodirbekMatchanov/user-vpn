@@ -132,7 +132,23 @@ class Users extends \yii\db\ActiveRecord
                         $event->text = 'регистрация по промо-коду : ' . $this->using_promocode;
                         $event->save(false);
                     }
-                    return $this;
+                    $accs = self::find()->where(['email' => $this->email])->one();
+
+                    return [
+                        "id" => (int)$accs->id,
+                        "email" => $accs->email,
+                        "promocode" => $accs->promocode,
+                        "pass" => $accs->pass,
+                        "verifyCode" => (int)$accs->verifyCode,
+                        "status" => $accs->status,
+                        "vpnid" => (int)$accs->vpnid,
+                        "user_id" => (int)$accs->user_id,
+                        "role" => $accs->role,
+                        "tariff" => $accs->tariff,
+                        "datecreate" => (int)$accs->datecreate,
+                        "untildate" => (int)$accs->untildate,
+                        "used_promocode" => $accs->used_promocode,
+                    ];
                 } else {
                     return false;
                 }
@@ -262,7 +278,7 @@ class Users extends \yii\db\ActiveRecord
         $user = self::find()->where(['email' => $email, 'verifyCode' => $code])->one();
         if (empty($user)) return false;
         $user->status = VpnUserSettings::$statuses['ACTIVE'];
-        $user->untildate = date("Y-m-d", $user->untildate) == date("Y-m-d") ? ($user->untildate + (3600 * 24 * 3)) : strtotime('+ 3 days');
+        $user->untildate = date("Y-m-d", $user->untildate) > date("Y-m-d") ? ($user->untildate + (3600 * 24 * 3)) : strtotime('+ 3 days');
         $user->save();
         return "user activated";
     }
