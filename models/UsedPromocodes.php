@@ -102,7 +102,7 @@ class UsedPromocodes extends \yii\db\ActiveRecord
         $isTelegram = false;
 
         $promocodeModel = Promocodes::find()->where(['promocode' => $promocode])->one();
-        if (strtotime($promocodeModel->expire) >= time() && $promocodeModel->user_id) {
+        if (strtotime($promocodeModel->expire) >= time()) {
             $accs = Accs::find()->where(['user_id' => $userId])->one();
             if(empty($accs)) {
                 $accs = Accs::find()->where(['chatId' => $userId])->one();
@@ -115,14 +115,24 @@ class UsedPromocodes extends \yii\db\ActiveRecord
             $accs->untildate = date("Y-m-d",$accs->untildate) < date("Y-m-d") ? time() + (3600 * 24 * $promocodeModel->free_day) : $accs->untildate + (3600 * 24 * $promocodeModel->free_day);
             $accs->save();
 
-            // привязанный пользователь к промокоду
-            $user = Accs::find()->where(['user_id' => $promocodeModel->user_id])->one();
-            $user->untildate = date("Y-m-d",$user->untildate) < date("Y-m-d") ? time() + (3600 * 24 * $promocodeModel->freeday_partner) : $user->untildate + (3600 * 24 * $promocodeModel->freeday_partner);
-            $user->save();
-            if(!$isTelegram){
-                $mailer = new Mailer();
-                $mailer->sendUsedPromocode($accs);
-                $mailer->sendUsedPromocode($user);
+            if($promocodeModel->user_id) {
+                // привязанный пользователь к промокоду
+                $user = Accs::find()->where(['user_id' => $promocodeModel->user_id])->one();
+                $user->untildate = date("Y-m-d",$user->untildate) < date("Y-m-d") ? time() + (3600 * 24 * $promocodeModel->freeday_partner) : $user->untildate + (3600 * 24 * $promocodeModel->freeday_partner);
+                $user->save();
+                if(!$isTelegram){
+                    $mailer = new Mailer();
+                    $mailer->sendUsedPromocode($accs);
+                    $mailer->sendUsedPromocode($user);
+
+                }
+
+                /* add event */
+                $event = new UserEvents();
+                $event->event = (string)UserEvents::EVENT_FREEDAY_PROMOCODE;
+                $event->user_id = $user->user_id;
+                $event->text = 'Начислено бесплатные дни : ' . $promocodeModel->freeday_partner.' дней';
+                $event->save(false);
 
             }
 
@@ -133,12 +143,6 @@ class UsedPromocodes extends \yii\db\ActiveRecord
             $event->text = 'регистрация по промо-коду : ' . $promocode;
             $event->save(false);
 
-            /* add event */
-            $event = new UserEvents();
-            $event->event = (string)UserEvents::EVENT_FREEDAY_PROMOCODE;
-            $event->user_id = $user->user_id;
-            $event->text = 'Начислено бесплатные дни : ' . $promocodeModel->freeday_partner.' дней';
-            $event->save(false);
 
             /* add event */
             $event = new UserEvents();
