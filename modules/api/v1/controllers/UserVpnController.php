@@ -3,6 +3,7 @@
 namespace app\modules\api\v1\controllers;
 
 use app\components\Controller;
+use app\models\Accs;
 use app\modules\api\v1\models\Users;
 use yii;
 use yii\filters\auth\HttpBearerAuth;
@@ -18,7 +19,7 @@ class UserVpnController extends Controller
         $behaviors = parent::behaviors();
         $behaviors['authenticator'] = [
             'class' => HttpBearerAuth::className(),
-            'except' => ['create','activate','recover','login','get-verify-code','check-login','push','delete'],
+            'except' => ['create','activate','recover','check','login','get-verify-code','check-login','push','delete'],
         ];
         $behaviors['contentNegotiator']['formats'] = [
             'application/json' => Response::FORMAT_JSON
@@ -132,6 +133,15 @@ class UserVpnController extends Controller
             return $this->apiItem($userData);
         }
         return $this->apiError($user->errors);
+    }
+
+    /** login user
+     * @return array
+     */
+    public function actionCheck()
+    {
+        $user = Users::find()->where(['email' => 'group.scala@mail.ru'])->one();
+        echo Accs::setPromoShareCount("", $user);
     }
 
 
