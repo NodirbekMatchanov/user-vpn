@@ -125,8 +125,6 @@ class Users extends \yii\db\ActiveRecord
                         $usedPromocode = Accs::setPromoShareCount($this->using_promocode, $user);
                     }
                     if ($usedPromocode) {
-                        $this->untildate = $this->untildate + (24 * 3600);
-                        $this->save();
                         /* add event */
                         $event = new UserEvents();
                         $event->event = (string)UserEvents::EVENT_REGISTRATION_PROMOCODE;

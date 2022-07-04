@@ -123,7 +123,6 @@ class UsedPromocodes extends \yii\db\ActiveRecord
                 $user->save();
                 if(!$isTelegram){
                     $mailer = new Mailer();
-                    $mailer->sendUsedPromocode($accs);
                     $mailer->sendUsedPromocode($user);
 
                 }
@@ -136,6 +135,8 @@ class UsedPromocodes extends \yii\db\ActiveRecord
                 $event->save(false);
 
             }
+            $mailer->sendUsedPromocode($accs);
+
 
             /* add event */
             $event = new UserEvents();
