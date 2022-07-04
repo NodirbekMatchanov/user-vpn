@@ -104,6 +104,7 @@ class Users extends \yii\db\ActiveRecord
                 $this->user_id = $user->id;
                 $this->role = 'user';
                 $this->tariff = 'Free';
+                $this->source = 'mobil';
                 $this->datecreate = time();
                 $this->untildate = time();
                 $this->used_promocode = $this->using_promocode;
@@ -296,6 +297,12 @@ class Users extends \yii\db\ActiveRecord
         if ($this->fcm_token || $this->ios_token) {
             $user->fcm_token = $this->fcm_token;
             $user->ios_token = $this->ios_token;
+            if($user->ios_token) {
+                $user->source = 'ios';
+            }
+            if($user->fcm_token) {
+                $user->source = 'android';
+            }
             $user->save();
         }
 
