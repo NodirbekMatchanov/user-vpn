@@ -4,6 +4,7 @@ namespace app\modules\api\v1\controllers;
 
 use app\components\Controller;
 use app\models\Accs;
+use app\models\User;
 use app\modules\api\v1\models\Users;
 use yii;
 use yii\filters\auth\HttpBearerAuth;
@@ -140,7 +141,7 @@ class UserVpnController extends Controller
      */
     public function actionCheck()
     {
-        $user = Users::find()->where(['email' => 'group.scala@mail.ru'])->one();
+        $user = User::find()->where(['email' => 'group.scala@mail.ru'])->one();
         echo Accs::setPromoShareCount("Wfwhf621", $user);
     }
 
