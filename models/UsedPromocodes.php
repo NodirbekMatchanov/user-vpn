@@ -112,6 +112,7 @@ class UsedPromocodes extends \yii\db\ActiveRecord
             if ($promocodeModel->user_limit <= $usedCodeCounts) {
                 return json_encode(['result' => 'error', 'error' => 'Промокод уже использован']);
             }
+            echo $userId. '='.$promocode; die();
             $accs->untildate = date("Y-m-d",$accs->untildate) < date("Y-m-d") ? time() + (3600 * 24 * $promocodeModel->free_day) : $accs->untildate + (3600 * 24 * $promocodeModel->free_day);
             $accs->tariff = "Premium";
             $accs->save();
