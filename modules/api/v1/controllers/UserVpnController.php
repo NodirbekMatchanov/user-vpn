@@ -141,7 +141,7 @@ class UserVpnController extends Controller
     public function actionCheck()
     {
         $user = Users::find()->where(['email' => 'group.scala@mail.ru'])->one();
-        echo Accs::setPromoShareCount("", $user);
+        echo Accs::setPromoShareCount("Wfwhf621", $user);
     }
 
 
