@@ -22,7 +22,6 @@ class Users extends \yii\db\ActiveRecord
     public $vpnLogin;
     public $vpnPassword;
     public $phone;
-    public $source;
     public $using_promocode;
 
     /**
