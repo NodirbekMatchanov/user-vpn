@@ -115,7 +115,6 @@ class UsedPromocodes extends \yii\db\ActiveRecord
             $accs->untildate = date("Y-m-d",$accs->untildate) < date("Y-m-d") ? time() + (3600 * 24 * $promocodeModel->free_day) : $accs->untildate + (3600 * 24 * $promocodeModel->free_day);
             $accs->tariff = "Premium";
             $accs->save();
-            echo $userId. '='.$promocode; die();
 
             if($promocodeModel->user_id) {
                 // привязанный пользователь к промокоду
