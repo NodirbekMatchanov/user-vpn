@@ -48,7 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="input-2">
     <label for="" class="input-2-label">Промокод</label>
     <?= $form->field($model, 'promocode')->textInput(['value' => (Yii::$app->request->get('ref'))])->label(false) ?>
-    <div style="margin-top: -10px;  margin-bottom: 5px;" class="valid-promocode">
+    <div style="margin-top: 10px;  margin-bottom: 5px;" class="valid-promocode">
 
     </div>
 </div>
