@@ -327,6 +327,7 @@ class Users extends \yii\db\ActiveRecord
             'background_work' => $user->background_work ?? 0,
             'test_user' => $user->test_user ?? 0,
             'status' => $user->status,
+            'promocode' => $user->promocode,
             'ios_token' => $user->ios_token,
             'fcm_token' => $user->fcm_token,
             'untildate' => $user->untildate,

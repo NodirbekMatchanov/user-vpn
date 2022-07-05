@@ -3,6 +3,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+$this->title = 'Подтверждения код активации';
 
 ?>
 <div class="container">
@@ -14,7 +15,7 @@ use yii\widgets\ActiveForm;
 
 
         <div class="input-2" style="margin: 15px">
-            <label for="" class="input-2-label">Code</label>
+            <label for="" class="input-2-label">Код</label>
             <?= $form->field($verifyCode, 'code')->label(false) ?>
         </div>
         <?= Html::submitButton('Активировать', ['class' => 'btn-2 _outline','style' => 'margin:auto']) ?>
