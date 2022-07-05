@@ -29,8 +29,15 @@ $this->params['breadcrumbs'][] = $this->title;
         width: 100%;
     }
 </style>
-<div class="row">
-    <div class="col-xs-12">
+<?php if(!empty(Yii::$app->session->getAllFlashes())):?>
+<div class="row" style="margin-bottom: 10px">
+    <div class="" style="border-radius: 20px;
+    box-shadow: 0px 4px 16px rgb(0 0 0 / 10%);
+    background: #00bdd7c9;
+    padding: 40px 40px;
+    margin-top: auto;
+    color: white;
+    max-width: 700px;">
         <?php foreach (Yii::$app->session->getAllFlashes() as $type => $message): ?>
             <?php if (in_array($type, ['success', 'danger', 'warning', 'info'])): ?>
                <?= $message?>
@@ -38,6 +45,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php endforeach ?>
     </div>
 </div>
+<?php endif; ?>
+
 <div class="settings">
     <div class="container">
         <h3 class="title-3">Имя пользователя OpenVPN / IKEv2</h3>
