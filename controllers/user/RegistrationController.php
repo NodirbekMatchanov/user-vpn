@@ -196,7 +196,7 @@ class RegistrationController extends Controller
                 $accs->status = VpnUserSettings::$statuses['ACTIVE'];
                 $accs->untildate = date("Y-m-d",$accs->untildate) <= date("Y-m-d") ?  strtotime('+ 3 days') : ($accs->untildate + (24*3600*3));
                 $accs->save();
-                return $this->redirect('/settings/account', 303);
+                return $this->redirect('/user/settings/account', 303);
             }
             $this->redirect(['/user/settings/account']);
         }
