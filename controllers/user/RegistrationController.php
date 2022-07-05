@@ -185,6 +185,7 @@ class RegistrationController extends Controller
     public function actionVerifyCode()
     {
 
+        $this->layout = "@app/views/layouts/main_.php";
         $verifyCode = new VerifyCode();
         $model = new LoginForm();
 
