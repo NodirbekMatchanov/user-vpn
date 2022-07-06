@@ -193,6 +193,7 @@ class VpnUserSettingsController extends Controller
                 $model->promocode = $accs->promocode;
                 $model->test_user = $accs->test_user;
                 $model->tariff = $accs->tariff;
+                $model->background_work = $accs->background_work;
                 $model->comment = $accs->comment;
                 $profile = Profile::find()->where(['user_id' => $accs->user_id])->one();
                 if(!empty($profile)){
