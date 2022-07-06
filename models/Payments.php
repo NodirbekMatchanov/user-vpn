@@ -163,6 +163,7 @@ class Payments extends \yii\db\ActiveRecord
                         if ($order->source == "telegram") {
                             $telegramUsers = TelegramUsers::find()->where(['chat_id' => $order->payer_email])->one();
                             $telegramUsers->tariff = "Premium";
+                            $telegramUsers->background_work = 1;
                             $telegramUsers->save();
                             // если первый  покупка и покупка по рефералу
                             if (!empty($telegramUsers->ref) && (Payments::find()->where(['payer_email' => $order->payer_email])->count() == 1)) {
@@ -170,6 +171,7 @@ class Payments extends \yii\db\ActiveRecord
                                 $refAccs = Accs::find()->where(['chatId' => $telegramUsers->ref])->one();
                                 if(!empty($refAccs)) {
                                     $refAccs->tariff = "Premium";
+                                    $refAccs->background_work =1;
                                     $refAccs->untildate = $user->untildate < time() ? (time() + 3*27*3600) : $user->untildate + 3*27*3600;
                                     $refAccs->save();
                                 }
