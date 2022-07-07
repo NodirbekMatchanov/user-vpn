@@ -153,6 +153,16 @@ global $usage;
                 }
             ],
             [
+                'attribute' => 'chatId',
+                'content' => function ($data) {
+                    if (empty($data->accs)) {
+                        return '';
+                    }
+
+                    return $data->accs->chatId;
+                }
+            ],
+            [
                 'header' => 'Действия',
                 'class' => 'yii\grid\ActionColumn',
                 'template' => ' {update} {delete}',

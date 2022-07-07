@@ -68,7 +68,7 @@ class VpnUserSettingsSearch extends VpnUserSettings
         ]);
         $query->orderBy('id desc');
         $this->load($params);
-
+        $query->andWhere(['!=','accs.email', '']);
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
@@ -118,6 +118,48 @@ class VpnUserSettingsSearch extends VpnUserSettings
 
         ]]);
 
+        if(isset($params['sort']) && $params['sort'] == '-email') {
+            $query->orderBy('accs.email asc');
+        } elseif (isset($params['sort']) && $params['sort'] == 'email') {
+            $query->orderBy('accs.email desc');
+        }
+
+        if(isset($params['sort']) && $params['sort'] == '-tariff') {
+            $query->orderBy('accs.tariff asc');
+        } elseif (isset($params['sort']) && $params['sort'] == 'tariff') {
+            $query->orderBy('accs.tariff desc');
+        }
+
+        if(isset($params['sort']) && $params['sort'] == '-source') {
+            $query->orderBy('accs.source asc');
+        } elseif (isset($params['sort']) && $params['sort'] == 'source') {
+            $query->orderBy('accs.source desc');
+        }
+
+        if(isset($params['sort']) && $params['sort'] == '-untildate') {
+            $query->orderBy('accs.untildate asc');
+        } elseif (isset($params['sort']) && $params['sort'] == 'untildate') {
+            $query->orderBy('accs.untildate desc');
+        }
+
+        if(isset($params['sort']) && $params['sort'] == '-expire') {
+            $query->orderBy('accs.untildate asc');
+        } elseif (isset($params['sort']) && $params['sort'] == 'expire') {
+            $query->orderBy('accs.untildate desc');
+        }
+
+        if(isset($params['sort']) && $params['sort'] == '-datecreate') {
+            $query->orderBy('accs.datecreate asc');
+        } elseif (isset($params['sort']) && $params['sort'] == 'datecreate') {
+            $query->orderBy('accs.datecreate desc');
+        }
+
+        if(isset($params['sort']) && $params['sort'] == '-status') {
+            $query->orderBy('accs.status asc');
+        } elseif (isset($params['sort']) && $params['sort'] == 'status') {
+            $query->orderBy('accs.status desc');
+        }
+
         if(isset($params['sort']) && $params['sort'] == '-visit_count') {
             $query->orderBy('user_useage_stat.usage_count asc');
         } elseif (isset($params['sort']) && $params['sort'] == 'visit_count') {
@@ -134,6 +176,7 @@ class VpnUserSettingsSearch extends VpnUserSettings
             'id' => $this->id,
             'username' => $this->username,
             'pass' => $this->pass,
+            'accs.email' => $this->email,
         ]);
         if(!empty($this->datecreate)){
             $query->andWhere("from_unixtime(`accs`.`datecreate`, '%Y-%m-%d') = '". date("Y-m-d",strtotime(str_replace(".","-",$this->datecreate)))."'");
@@ -146,6 +189,13 @@ class VpnUserSettingsSearch extends VpnUserSettings
         } elseif (!empty($this->use)){
             $query->andFilterWhere(['<=', 'user_useage_stat.usage_count', 0]);
         }
+
+        if($this->source == 'telegram') {
+            $query->andWhere(['>','accs.chatId',0]);
+        } else {
+            $query->andFilterWhere(['like', 'accs.source', $this->source]);
+        }
+
         $query
             ->andFilterWhere(['like', 'username', $this->username])
             ->andFilterWhere(['like', 'accs.email', $this->email])
@@ -153,7 +203,6 @@ class VpnUserSettingsSearch extends VpnUserSettings
 //            ->andFilterWhere(['like', 'accs.datecreate', ])
             ->andFilterWhere(['like', 'accs.tariff', $this->tariff])
             ->andFilterWhere(['like', 'accs.untildate', $this->expire])
-            ->andFilterWhere(['like', 'accs.source', $this->source])
             ->andFilterWhere(['like', 'user_useage_stat.usage_count', $this->visit_count])
             ->andFilterWhere(['like', 'user_useage_stat.last_usage_date', $this->last_date_visit])
             ->andFilterWhere(['like', 'value', $this->value]);

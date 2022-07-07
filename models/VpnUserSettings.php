@@ -188,6 +188,7 @@ class VpnUserSettings extends \yii\db\ActiveRecord
             'country' => 'Страна',
             'use' => 'Пользовался',
             'source' => 'источник',
+            'chatId' => 'Ид телеграм',
         ];
     }
 
