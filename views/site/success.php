@@ -42,17 +42,17 @@
         </div>
     </div>
 
-    <div class="success-video">
-        <div class="container">
-            <div class="success-video-wrap">
-                <h2 class="title-2">Видеоинструкция</h2>
-                <div class="success-video-block">
-                    <div class="success-video-play"><img src="/web/img/icons/play.svg"></div>
-                    <video src="/web/tmp/video/1.mp4" controls></video>
-                </div>
-            </div>
-        </div>
-    </div>
+<!--    <div class="success-video">-->
+<!--        <div class="container">-->
+<!--            <div class="success-video-wrap">-->
+<!--                <h2 class="title-2">Видеоинструкция</h2>-->
+<!--                <div class="success-video-block">-->
+<!--                    <div class="success-video-play"><img src="/web/img/icons/play.svg"></div>-->
+<!--                    <video src="/web/tmp/video/1.mp4" controls></video>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
 
     <div class="success-text">
         <div class="container">
