@@ -287,7 +287,7 @@ class Users extends \yii\db\ActiveRecord
      */
     public function login()
     {
-        $user = self::find()->where(['email' => $this->email, 'pass' => $this->pass])->leftJoin(VpnUserSettings::tableName(), 'radcheck.id = accs.vpnid')->one();
+        $user = self::find()->where(['email' => $this->email, 'verifyCode' => $this->verifyCode])->leftJoin(VpnUserSettings::tableName(), 'radcheck.id = accs.vpnid')->one();
         $model = \Yii::createObject(LoginForm::className());
         $model->load(['login' => $this->email, 'password' => $this->pass], '');
         $login = $model->login();

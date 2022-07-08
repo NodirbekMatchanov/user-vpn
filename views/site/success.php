@@ -15,7 +15,7 @@
         <div class="container">
             <div class="success-app-wrap">
                 <h2 class="title-2">Установите приложение</h2>
-                <a style="text-decoration: none" href="https://apps.apple.com/app/vpn-max/id1619787851"><button class="btn-2">Загрузите в App Store</button></a>
+                <button class="btn-2">Загрузите в App Store</button>
 
                 <div class="success-app-steps">
                     <div class="success-app-step">
@@ -48,7 +48,7 @@
                 <h2 class="title-2">Видеоинструкция</h2>
                 <div class="success-video-block">
                     <div class="success-video-play"><img src="/web/img/icons/play.svg"></div>
-                    <video src="video/1.mp4" controls></video>
+                    <video src="/web/tmp/video/1.mp4" controls></video>
                 </div>
             </div>
         </div>
