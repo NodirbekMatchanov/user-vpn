@@ -88,10 +88,32 @@ class Registration extends \yii\db\ActiveRecord
         return  $this->checkUser();
     }
 
+    public function checkEmail()
+    {
+        $user = Accs::find()->where(['email' => $this->email])->one();
+        if (!empty($user->email) && $user->email == $this->email) {
+            if ($user->status == \app\models\VpnUserSettings::$statuses['DELETED']) {
+                $user->status = VpnUserSettings::$statuses['ACTIVE'];
+                $user->pass = $this->pass;
+                $user->save();
+
+                $userModel = \app\models\user\User::find()->where(['email' => $this->email])->one();
+                $userModel->password_hash = Yii::$app->security->generatePasswordHash($this->pass);
+                $userModel->save();
+
+                return $this->login();
+            } else {
+                $this->addError('email', 'This email address has already been taken');
+                return false;
+            }
+        }
+        return false;
+    }
+
     public function createUser()
     {
         $this->using_promocode = $this->promocode;
-        if ($thisUser = $this->checkUser()) {
+        if ($thisUser = $this->checkEmail()) {
             return $thisUser;
         }
         $this->generateVpnKey();
