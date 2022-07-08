@@ -76,6 +76,8 @@ class Registration extends \yii\db\ActiveRecord
             $registration->verifyCode = $this->getVeriFyCode();
             if($registration->save()){
                 $this->sendMail('Код авторизации', 'Код авторизации: '. $registration->verifyCode);
+            } else {
+                return $registration->errors;
             }
             return ['code' => $registration->verifyCode];
         }
