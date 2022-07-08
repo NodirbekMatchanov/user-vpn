@@ -59,7 +59,7 @@
             <div class="success-text-wrap">
                 <ul>
                     <li>
-                        Скачайте из App Store <a href="#">приложение Быстрые команды</a> и перейдите в раздел<br>
+                        Скачайте из App Store <a href="https://apps.apple.com/ru/app/%D0%BA%D0%BE%D0%BC%D0%B0%D0%BD%D0%B4%D1%8B/id1462947752" target="_blank">приложение Быстрые команды</a> и перейдите в раздел<br>
                         <b>Автоматизация</b>, нажав на иконку с изображением часов внизу экрана.
                     </li>
                     <li>

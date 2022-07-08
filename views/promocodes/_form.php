@@ -84,7 +84,6 @@ use yii\widgets\ActiveForm;
         'data' => \app\models\user\User::getUserList(),
         'options' => ['placeholder' => 'Привязка к пользователям ...', 'multiple' => false],
         'pluginOptions' => [
-            'maximumInputLength' => 10
         ],
     ]) ?>
 
