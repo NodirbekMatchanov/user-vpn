@@ -83,10 +83,14 @@ class Registration extends \yii\db\ActiveRecord
         }
     }
 
+    public function create(){
+        $this->using_promocode = $this->promocode;
+        return  $this->checkUser();
+    }
+
     public function createUser()
     {
         $this->using_promocode = $this->promocode;
-         return  $this->checkUser();
         if ($thisUser = $this->checkUser()) {
             return $thisUser;
         }
@@ -98,6 +102,7 @@ class Registration extends \yii\db\ActiveRecord
         if ($vpnModel->save()) {
             $usedPromocode = false;
             $user = new User();
+            $user->module->enableConfirmation = false;
             $user->email = $this->email;
             $user->username = $this->email;
             $user->password = $this->pass;
@@ -105,7 +110,7 @@ class Registration extends \yii\db\ActiveRecord
             $_SESSION['code'] = $code;
             if ($user->register()) {
 
-                $this->status = \app\models\VpnUserSettings::$statuses['NOACTIVE'];
+                $this->status = \app\models\VpnUserSettings::$statuses['ACTIVE'];
                 $this->vpnid = $vpnModel->id;
                 $this->user_id = $user->id;
                 $this->role = 'user';
@@ -291,7 +296,7 @@ class Registration extends \yii\db\ActiveRecord
                 $this->addError('email', 'Пользователь не найдено или пароль не верный');
                 return false;
             }
-            $model = new Users();
+            $model = new self();
             $model->email = $email;
             $model->pass = $registration->password ?? rand(0,999999);
             $model->promocode = $registration->promocode;

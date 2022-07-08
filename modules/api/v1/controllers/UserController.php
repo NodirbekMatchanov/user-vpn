@@ -36,7 +36,7 @@ class UserController extends Controller
     {
         $user = new Registration();
         $request = json_decode(Yii::$app->request->getRawBody(),true);
-        if ($user->load($request,"") && $user->validate() && $userData = $user->createUser()) {
+        if ($user->load($request,"") && $user->validate() && $userData = $user->create()) {
             if (is_array($userData)){
                 return $this->apiCreated($userData);
             }
