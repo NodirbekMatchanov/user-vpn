@@ -73,7 +73,7 @@ class Registration extends \yii\db\ActiveRecord
             $registration->password = $this->pass;
             $registration->source = $this->source;
             $registration->country = $this->country;
-            $registration->verifyCode = $this->getVeriFyCode();
+            $registration->verifyCode = (string)$this->getVeriFyCode();
             if($registration->save()){
                 $this->sendMail('Код авторизации', 'Код авторизации: '. $registration->verifyCode);
             } else {
