@@ -460,7 +460,7 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
     <div class="container">
         <h2 class="title-2"><span class="accent">Отзывы</span> наших пользователей</h2>
 
-        <div class="feedbacks-rating-wrap">
+        <div class="feedbacks-rating-wrap hidden">
 
             <div class="feedbacks-rating">
                 <div class="feedbacks-rating-img">
