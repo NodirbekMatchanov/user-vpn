@@ -84,6 +84,30 @@ $(document).ready(function () {
             }
         });
     }
+    
+    $(document).on('click','#7days',function () {
+        setQuickDate(7);
+    })
+    $(document).on('click','#30days',function () {
+        setQuickDate(30);
+    })
+    $(document).on('click','#90days',function () {
+        setQuickDate(90);
+    })
+    $(document).on('click','#365days',function () {
+        setQuickDate(365);
+    })
+
+    function getDateXDaysAgo(numOfDays, date = new Date()) {
+        const daysAgo = new Date(date.getTime());
+        daysAgo.setDate(date.getDate() + numOfDays);
+        return daysAgo;
+    }
+    function setQuickDate(day) {
+        const date = new Date();
+        $('[name="Promocodes[expire]"]').val(getDateXDaysAgo(day,date).toISOString().split('T')[0])
+        $('[name="Promocodes[date_start]"]').val(date.toISOString().split('T')[0])
+    }
 
     $(document).on('click', '#usePromocode', function () {
         $.ajax({

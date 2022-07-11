@@ -6,6 +6,7 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model app\models\Promocodes */
 /* @var $form yii\widgets\ActiveForm */
+$model->author = Yii::$app->user->identity->getId();
 ?>
 
 <div class="promocodes-form">
@@ -32,6 +33,12 @@ use yii\widgets\ActiveForm;
             'format' => 'yyyy-mm-dd'
         ]
     ]) ?>
+
+    <a href="#" id="7days">7 дней</a> |
+    <a href="#" id="30days">30 дней</a> |
+    <a href="#" id="90days">90 дней</a> |
+    <a href="#" id="365days">365 дней</a> |
+
     <?= $form->field($model, 'user_limit')->textInput() ?>
 
     <?= $form->field($model, 'status')->dropDownList([\app\models\Tariff::ACTIVE => 'активен',\app\models\Tariff::ARCHIVE => 'не активен']) ?>
@@ -46,7 +53,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'comment')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'author')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'author')->textInput(['maxlength' => true,'value' => Yii::$app->user->identity->getId()])->hiddenInput() ?>
 
     <?php $format = new \yii\web\JsExpression(
         "function format(data) {

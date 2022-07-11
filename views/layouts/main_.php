@@ -19,13 +19,15 @@ use yii\bootstrap\NavBar;
 <html lang="<?= Yii::$app->language ?>" class="h-100">
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" id="metaViewport">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+          id="metaViewport">
     <meta name="apple-mobile-web-app-status-bar-style">
     <meta name="msapplication-navbutton-color">
     <meta name="theme-color">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" id="metaViewport">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+          id="metaViewport">
     <meta name="twitter:title" content="VPN MAX">
     <meta property="og:title" content="VPN MAX">
     <meta name="description" content="">
@@ -53,7 +55,7 @@ use yii\bootstrap\NavBar;
 <div id="app">
     <div id="loader" class='active'></div>
 
-    <header class="header <?php if (Yii::$app->controller->id == 'site' &&Yii::$app->controller->action->id == 'index') echo '_full'; ?>">
+    <header class="header <?php if (Yii::$app->controller->id == 'site' && Yii::$app->controller->action->id == 'index') echo '_full'; ?>">
         <div class="header-top">
             <div class="container">
                 <div class="header-top-content">
@@ -73,16 +75,31 @@ use yii\bootstrap\NavBar;
                     <div class="header-actions">
                         <div class="header-buttons">
                             <a href="#" class="btn">Скачать</a>
-                          <?php if(Yii::$app->user->isGuest) {
-                              echo   '  <a href="'.\yii\helpers\Url::to(['/site/login']).'" class="btn _outline">Войти</a>';
-                            } else {
-                                echo Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline my-2 my-lg-0'])
-                                    . Html::submitButton(
-                                        'Выйти',
-                                        ['class' => 'btn ','style' => 'margin-left:10px']
-                                    )
-                                    . Html::endForm();
-                            }  ?>
+                            <?php if (Yii::$app->user->isGuest): ?>
+                                <a href="<?= \yii\helpers\Url::to(['/site/login']) ?>"
+                                   class="btn">Войти</a>
+                            <?php else: ?>
+
+                                <?php $userId = Yii::$app->user->identity->getId();
+                                if (!empty(Yii::$app->authManager->getRolesByUser($userId)['admin'])): ?>
+                                    <a href="<?= \yii\helpers\Url::to(['/vpn-user-settings/']) ?>"
+                                       class="btn">Профиль</a>
+                                <?php else: ?>
+                                    <?php if (Yii::$app->controller->id == 'site'): ?>
+                                        <?php echo Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline my-2 my-lg-0'])
+                                            . Html::submitButton(
+                                                'Logout (' . Yii::$app->user->identity->username . ')',
+                                                ['class' => 'btn btn-link logout']
+                                            )
+                                            . Html::endForm(); ?>
+                                    <?php else: ?>
+                                        <a href="<?= \yii\helpers\Url::to(['/user/settings/account']) ?>"
+                                           class="btn">Профиль</a>
+                                    <?php endif; ?>
+                                <?php endif; ?>
+
+                            <?php endif; ?>
+
                         </div>
 
                         <div class="header-langs">
@@ -107,24 +124,26 @@ use yii\bootstrap\NavBar;
                 </div>
             </div>
         </div>
-        <?php if(Yii::$app->controller->id == 'site' &&Yii::$app->controller->action->id == 'index'):?>
-        <div class="container">
-            <div class="header-intro">
-                <div class="header-intro-img">
-                    <img src="/web/img/header-intro-img.svg">
+        <?php if (Yii::$app->controller->id == 'site' && Yii::$app->controller->action->id == 'index'): ?>
+            <div class="container">
+                <div class="header-intro">
+                    <div class="header-intro-img">
+                        <img src="/web/img/header-intro-img.svg">
+                    </div>
+
+                    <h1 class="title-1">
+                        Быстрый и <br>
+                        анонимный доступ <br>
+                        к любым сайтам
+                    </h1>
+
+                    <a href="#sign" style="text-decoration: none; color: #fff; ">
+                        <button style="margin-top: 30px;" class="btn-2">Попробовать бесплатно</button>
+                    </a>
+
                 </div>
-
-                <h1 class="title-1">
-                    Быстрый и <br>
-                    анонимный доступ <br>
-                    к любым сайтам
-                </h1>
-
-                <a href="#sign" style="text-decoration: none; color: #fff; "> <button style="margin-top: 30px;" class="btn-2" >Попробовать бесплатно</button></a>
-
             </div>
-        </div>
-    <?php endif; ?>
+        <?php endif; ?>
     </header>
 
     <div id="content">
@@ -150,16 +169,20 @@ use yii\bootstrap\NavBar;
                 <div class="header-actions">
                     <div class="header-buttons">
                         <a href="#" class="btn">Скачать</a>
-                        <?php if(Yii::$app->user->isGuest) {
-                            echo   '  <a href="'.\yii\helpers\Url::to(['/site/login']).'" class="btn _outline">Войти</a>';
-                        } else {
-                            echo Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline my-2 my-lg-0'])
-                                . Html::submitButton(
-                                    'Выйти',
-                                    ['class' => 'btn ','style' => 'margin-left:10px']
-                                )
-                                . Html::endForm();
-                        }  ?>
+                        <?php if (Yii::$app->user->isGuest): ?>
+                            <a href="<?= \yii\helpers\Url::to(['/site/login']) ?>"
+                               class="btn">Профиль</a>
+                        <?php else: ?>
+                            <?php $userId = Yii::$app->user->identity->getId();
+                            if (!empty(Yii::$app->authManager->getRolesByUser($userId)['admin'])): ?>
+                                <a href="<?= \yii\helpers\Url::to(['/vpn-user-settings/']) ?>"
+                                   class="btn">Профиль</a>
+                            <?php else: ?>
+                                <a href="<?= \yii\helpers\Url::to(['/user/settings/account']) ?>"
+                                   class="btn">Профиль</a>
+                            <?php endif; ?>
+                        <?php endif; ?>
+
                     </div>
 
                     <div class="header-langs">
@@ -175,14 +198,14 @@ use yii\bootstrap\NavBar;
                 </div>
             </div>
         </div>
-        <?php if((Yii::$app->controller->id == 'tariff' || Yii::$app->controller->action->id == 'account' || Yii::$app->controller->id == 'vpn-ips' || Yii::$app->controller->action->id == 'config' || Yii::$app->controller->id == 'tariff')):?>
-            <?php echo $this->render('account_nav', [ 'cabinet' => true ]); ?>
+        <?php if ((Yii::$app->controller->id == 'tariff' || Yii::$app->controller->action->id == 'account' || Yii::$app->controller->id == 'vpn-ips' || Yii::$app->controller->action->id == 'config' || Yii::$app->controller->id == 'tariff')): ?>
+            <?php echo $this->render('account_nav', ['cabinet' => true]); ?>
         <?php endif; ?>
         <?= $content ?>
 
 
 
-<?php $this->endBody() ?>
+        <?php $this->endBody() ?>
 
 
     </div>
@@ -217,7 +240,7 @@ use yii\bootstrap\NavBar;
     </footer>
 </div>
 
-<?php echo $this->render('_modals', [ 'model' => new Questions()]); ?>
+<?php echo $this->render('_modals', ['model' => new Questions()]); ?>
 
 </body>
 </html>

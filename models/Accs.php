@@ -108,10 +108,10 @@ class Accs extends \yii\db\ActiveRecord
            $accs->untildate = $accs->untildate < time() ? time() + (3600*24*1) : $accs->untildate + (3600*24*1);
            UsedPromocodes::saveSignup(($user->user_id ?? $user->id),$promocode);
            $mailer = new Mailer();
-           $mailer->sendUsedPromocode($accs);
+           $mailer->sendUsedPromocode($accs, 1);
 
            $mailer = new Mailer();
-           $mailer->sendUsedPromocode($user);
+           $mailer->sendUsedPromocode($user,1);
 
             /* add event */
             $event = new UserEvents();

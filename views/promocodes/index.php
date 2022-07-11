@@ -69,6 +69,13 @@ $this->params['breadcrumbs'][] = $this->title;
             //'comment:ntext',
             'country',
             'author',
+            [
+                'attribute' => 'author',
+                'content' => function ($data) {
+                    $author = \app\models\User::find()->where(['id' => $data->author])->one();
+                    return !empty($author) ? $author->username : '';
+                }
+            ],
             'created_at',
             'updated_at',
             [

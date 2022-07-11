@@ -18,11 +18,11 @@ use yii\helpers\Html;
  * @var bool $showPassword
  */
 $template = \app\models\MailTemplate::find()->where(['tmp_key' => 'usedpromo'])->one();
-$day = 0;
+$day = $countDay ?? 0;
 ?>
 <?php if(empty($template)): ?>
 
-<p>Здравствуйте, Вам начислены бесплатные дни</p>
+<p>Здравствуйте, Вам начислены бесплатные $day дни</p>
 <?php else:
     $templateStr = str_replace('$day',$day,$template->body);
     ?>

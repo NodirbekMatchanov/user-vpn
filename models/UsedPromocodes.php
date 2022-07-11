@@ -124,7 +124,7 @@ class UsedPromocodes extends \yii\db\ActiveRecord
                 $user->untildate = date("Y-m-d",$user->untildate) < date("Y-m-d") ? time() + (3600 * 24 * $promocodeModel->freeday_partner) : $user->untildate + (3600 * 24 * $promocodeModel->freeday_partner);
                 $user->save();
                 if(!$isTelegram){
-                    $mailer->sendUsedPromocode($user);
+                    $mailer->sendUsedPromocode($user,$promocodeModel->freeday_partner);
 
                 }
                 /* add event */
@@ -135,7 +135,7 @@ class UsedPromocodes extends \yii\db\ActiveRecord
                 $event->save(false);
 
             }
-            $mailer->sendUsedPromocode($accs);
+            $mailer->sendUsedPromocode($accs,$promocodeModel->free_day);
 
 
             /* add event */

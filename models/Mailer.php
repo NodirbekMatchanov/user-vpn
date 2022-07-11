@@ -207,13 +207,13 @@ class Mailer extends \dektrium\user\Mailer
         );
     }
 
-    public function sendUsedPromocode($user)
+    public function sendUsedPromocode($user, $countDay)
     {
         return $this->sendMessage(
             $user->email,
             'Нначислены бесплатные дни',
             'usedpromocode',
-            ['user' => $user]
+            ['user' => $user,'countDay' => $countDay]
         );
     }
 
