@@ -85,7 +85,7 @@ use yii\bootstrap\NavBar;
                                     <a href="<?= \yii\helpers\Url::to(['/vpn-user-settings/']) ?>"
                                        class="btn">Профиль</a>
                                 <?php else: ?>
-                                    <?php if (!Yii::$app->controller->id == 'site'): ?>
+                                    <?php if ((Yii::$app->controller->id != 'site')): ?>
                                         <?php echo Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline my-2 my-lg-0'])
                                             . Html::submitButton(
                                                 'Выйти',
@@ -171,16 +171,27 @@ use yii\bootstrap\NavBar;
                         <a href="#" class="btn">Скачать</a>
                         <?php if (Yii::$app->user->isGuest): ?>
                             <a href="<?= \yii\helpers\Url::to(['/site/login']) ?>"
-                               class="btn">Профиль</a>
+                               class="btn">Войти</a>
                         <?php else: ?>
+
                             <?php $userId = Yii::$app->user->identity->getId();
                             if (!empty(Yii::$app->authManager->getRolesByUser($userId)['admin'])): ?>
                                 <a href="<?= \yii\helpers\Url::to(['/vpn-user-settings/']) ?>"
                                    class="btn">Профиль</a>
                             <?php else: ?>
-                                <a href="<?= \yii\helpers\Url::to(['/user/settings/account']) ?>"
-                                   class="btn">Профиль</a>
+                                <?php if (!Yii::$app->controller->id == 'site'): ?>
+                                    <?php echo Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline my-2 my-lg-0'])
+                                        . Html::submitButton(
+                                            'Выйти',
+                                            ['class' => 'btn btn-link logout']
+                                        )
+                                        . Html::endForm(); ?>
+                                <?php else: ?>
+                                    <a href="<?= \yii\helpers\Url::to(['/user/settings/account']) ?>"
+                                       class="btn">Профиль</a>
+                                <?php endif; ?>
                             <?php endif; ?>
+
                         <?php endif; ?>
 
                     </div>
