@@ -2766,9 +2766,7 @@ textarea {
   .info-wrap {
     display: flex;
     align-items: center; }
-  .info-value {
-    font-size: 18px;
-    width: 172px; }
+
   .info-actions {
     display: flex;
     align-items: center;
@@ -5339,3 +5337,6 @@ input:checked + .slider:before {
     color: #f4f4f4!important;
     transition: color 300ms;
 }
+.info-value {
+    font-size: 18px;
+    width: auto!important; }
