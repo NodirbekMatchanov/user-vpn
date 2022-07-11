@@ -85,10 +85,10 @@ use yii\bootstrap\NavBar;
                                     <a href="<?= \yii\helpers\Url::to(['/vpn-user-settings/']) ?>"
                                        class="btn">Профиль</a>
                                 <?php else: ?>
-                                    <?php if (Yii::$app->controller->id == 'site'): ?>
+                                    <?php if (!Yii::$app->controller->id == 'site'): ?>
                                         <?php echo Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline my-2 my-lg-0'])
                                             . Html::submitButton(
-                                                'Logout (' . Yii::$app->user->identity->username . ')',
+                                                'Выйти',
                                                 ['class' => 'btn btn-link logout']
                                             )
                                             . Html::endForm(); ?>
