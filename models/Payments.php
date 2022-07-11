@@ -110,7 +110,8 @@ class Payments extends \yii\db\ActiveRecord
                                 $user->save(false);
                                 \Yii::info('save premium tariff for user');
 
-                                $usedPromocode = Accs::setPromoShareCount($order->promocode, $user);
+                                $userModel = User::findOne($user->user_id);
+                                $usedPromocode = Accs::setPromoShareCount($order->promocode, $userModel);
 
                                 $order->user_id = (int)$user->user_id;
                                 $order->save(false);
@@ -134,7 +135,8 @@ class Payments extends \yii\db\ActiveRecord
                             $hasUser->save(false);
                             $this->saveEvent($hasUser->user_id, $order->amount . " руб. " . Tariff::getPeriod($order->tariff) . ' дней');
                             $mailer->sendPaymentMessage($hasUser, $countDay, date("d.m.Y", $hasUser->untildate));
-                            $usedPromocode = Accs::setPromoShareCount($order->promocode, $hasUser);
+                            $userModel = User::findOne($hasUser->user_id);
+                            $usedPromocode = Accs::setPromoShareCount($order->promocode, $userModel);
 
 //                            $usedPromo = new UsedPromocodes();
 //                            $usedPromo->status = 2;
