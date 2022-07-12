@@ -60,7 +60,7 @@ class Users extends \yii\db\ActiveRecord
         if (!empty($user->email) && $user->email == $this->email) {
             if ($user->status == \app\models\VpnUserSettings::$statuses['DELETED']) {
                 $user->status = VpnUserSettings::$statuses['ACTIVE'];
-                $user->pass = $this->pass;
+                $user->pass = Yii::$app->security->generatePasswordHash($this->pass);
                 $user->save();
 
                 $userModel = \app\models\user\User::find()->where(['email' => $this->email])->one();
