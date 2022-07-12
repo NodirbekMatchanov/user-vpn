@@ -16,6 +16,7 @@ class UserPasswordHash
             $accs = \app\models\Accs::find()->where(['user_id' => $user->id])->one();
             if(!empty($accs)) {
                 $passwordHash = Yii::$app->security->generatePasswordHash($accs->pass);
+                echo $passwordHash."\n";
                 $accs->pass = $passwordHash;
                 $accs->save();
             }
