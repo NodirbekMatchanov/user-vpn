@@ -109,6 +109,7 @@ class Users extends \yii\db\ActiveRecord
                 $this->used_promocode = $this->using_promocode;
                 $this->promocode = Yii::$app->security->generateRandomString(6);
                 $this->verifyCode = $code;
+                $this->pass = Yii::$app->security->generatePasswordHash($this->pass);
                 if ($this->phone) {
                     if (!($profile = Profile::find()->where(['user_id' => $user->id])->one())) {
                         $profile = new Profile();
@@ -134,7 +135,7 @@ class Users extends \yii\db\ActiveRecord
                     $accs = self::find()->where(['email' => $this->email])->one();
 
                     return [
-                        "id" => (int)$accs->id,
+                        "id" => (int)$accs->user_id,
                         "email" => $accs->email,
                         "promocode" => $accs->promocode,
                         "pass" => $accs->pass,
@@ -189,7 +190,7 @@ class Users extends \yii\db\ActiveRecord
             }
             $userAccs->save(false);
            return  [
-                'id' => $accs->id,
+                'id' => $accs->user_id,
                 'email' => $accs->email,
                 'pass' => $accs->pass,
                 'status' => $accs->status,
@@ -287,7 +288,7 @@ class Users extends \yii\db\ActiveRecord
      */
     public function login()
     {
-        $user = self::find()->where(['email' => $this->email, 'pass' => $this->pass])->leftJoin(VpnUserSettings::tableName(), 'radcheck.id = accs.vpnid')->one();
+        $user = self::find()->where(['email' => $this->email, 'pass' => Yii::$app->security->generatePasswordHash($this->pass)])->leftJoin(VpnUserSettings::tableName(), 'radcheck.id = accs.vpnid')->one();
         $model = \Yii::createObject(LoginForm::className());
         $model->load(['login' => $this->email, 'password' => $this->pass], '');
         $login = $model->login();
@@ -320,7 +321,7 @@ class Users extends \yii\db\ActiveRecord
         }
 
         $userData = [
-            'id' => $user->id,
+            'id' => $user->user_id,
             'email' => $user->email,
             'pass' => $user->pass,
             'tariff' => $user->tariff,
@@ -365,7 +366,7 @@ class Users extends \yii\db\ActiveRecord
 
     public function push()
     {
-        $user = self::find()->where(['id' => $this->id, 'pass' => $this->pass])->one();
+        $user = self::find()->where(['id' => $this->id, 'pass' => Yii::$app->security->generatePasswordHash($this->pass)])->one();
         if (!empty($user)) {
             $user->fcm_token = $this->fcm_token;
             $user->ios_token = $this->ios_token;
@@ -390,7 +391,7 @@ class Users extends \yii\db\ActiveRecord
             return "Вам отправлено письмо с доступами";
         }
         $password = Yii::$app->security->generateRandomString(8);
-        $user->pass = $password;
+        $user->pass = Yii::$app->security->generatePasswordHash($password);
         $user->reset_pass = $password;
         $userSite->password_hash = Yii::$app->security->generatePasswordHash($password);
         if ($user->save() && $userSite->save()) {

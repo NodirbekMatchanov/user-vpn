@@ -124,6 +124,8 @@ class Tariff extends \yii\db\ActiveRecord
         $email = \Yii::$app->request->get('email');
         $promocode = \Yii::$app->request->get('promocode') ?? "";
         $source = \Yii::$app->request->get('source') ?? "";
+        $periodType = "";
+        $period = "";
         if ($id) {
             $tariffs = Tariff::find()->all();
             $price = 0;
@@ -131,11 +133,17 @@ class Tariff extends \yii\db\ActiveRecord
             $discount = 0;
             foreach ($tariffs as $tariff) {
                 if ($id == '1_month') {
+                    $periodType = 'Month';
                     $price = $tariff->price_30;
+                    $period = 1;
                 } else if ($id == '6_month') {
+                    $periodType = 'Month';
                     $price = $tariff->price_180;
+                    $period = 6;
                 } else if ($id == '12_month') {
+                    $periodType = 'Month';
                     $price = $tariff->price_365;
+                    $period = 12;
                 }
             }
             $totalPrice = $price;
@@ -162,7 +170,7 @@ class Tariff extends \yii\db\ActiveRecord
                 $payment->promocode = $promocode;
                 $payment->save();
             }
-            return json_encode(['price' => $price, 'totalPrice' => $totalPrice,'discount' => $discount]);
+            return json_encode(['price' => $price, 'totalPrice' => $totalPrice,'discount' => $discount,'period' => $period,'periodType' => $periodType]);
         }
     }
 }
