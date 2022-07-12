@@ -369,7 +369,10 @@ class Users extends \yii\db\ActiveRecord
 
     public function push()
     {
-        $user = self::find()->where(['id' => $this->id, 'pass' => Yii::$app->security->generatePasswordHash($this->pass)])->one();
+        $user = self::find()->where(['id' => $this->id])->one();
+        if(!Yii::$app->security->validatePassword( $this->pass,$user->pass)) {
+            $user = [];
+        }
         if (!empty($user)) {
             $user->fcm_token = $this->fcm_token;
             $user->ios_token = $this->ios_token;
