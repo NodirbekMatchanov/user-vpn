@@ -35,8 +35,8 @@ class RegistrationUsers extends \yii\db\ActiveRecord
         return [
             [['email'], 'required'],
             [['created'], 'safe'],
-            [['email', 'country'], 'string', 'max' => 255],
-            [['password', 'source', 'promocode', 'lang', 'verifyCode'], 'string', 'max' => 50],
+            [['password','email', 'country'], 'string', 'max' => 255],
+            [[ 'source', 'promocode', 'lang', 'verifyCode'], 'string', 'max' => 50],
         ];
     }
 
