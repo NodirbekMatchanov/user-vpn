@@ -61,8 +61,8 @@ $script = <<<JS
     data.CloudPayments = {
         CustomerReceipt: receipt, //чек для первого платежа
         recurrent: {
-         interval: amount.periodType,
-         period: amount.period, 
+         interval: 'Day',
+         period: 1, 
          customerReceipt: receipt //чек для регулярных платежей
          }
          }; //создание ежемесячной подписки
