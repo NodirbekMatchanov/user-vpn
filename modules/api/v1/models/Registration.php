@@ -43,7 +43,7 @@ class Registration extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['email']],
+            [['email'], 'required'],
             [['role','chatId','lang','country', 'using_promocode', 'promocode', 'source', 'used_promocode', 'fcm_token', 'ios_token', 'phone', 'status', 'email',], 'string', 'max' => 255],
             [['vpnid', 'id', 'promo_share', 'verifyCode', 'user_id'], 'integer'],
 //            ['email', 'unique'],
