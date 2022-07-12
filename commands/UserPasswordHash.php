@@ -14,9 +14,11 @@ class UserPasswordHash
         $users = \app\models\User::find()->all();
         foreach ($users as $user) {
             $accs = \app\models\Accs::find()->where(['user_id' => $user->id])->one();
-            $passwordHash = Yii::$app->security->generatePasswordHash($accs->pass);
-            $accs->pass = $passwordHash;
-            $accs->save();
+            if(!empty($accs)) {
+                $passwordHash = Yii::$app->security->generatePasswordHash($accs->pass);
+                $accs->pass = $passwordHash;
+                $accs->save();
+            }
         }
     }
 }
