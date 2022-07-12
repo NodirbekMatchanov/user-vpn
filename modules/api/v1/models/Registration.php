@@ -66,11 +66,14 @@ class Registration extends \yii\db\ActiveRecord
             $this->sendMail('Код авторизации', 'Код авторизации: '. $user->verifyCode);
             return ['code' => $user->verifyCode];
         } else {
+            if($this->pass) {
+                $password = rand(0,99999);
+            }
             $registration = new RegistrationUsers();
             $registration->email = $this->email;
             $registration->promocode = $this->promocode;
             $registration->lang = $this->lang;
-            $registration->password = $this->pass;
+            $registration->password = Yii::$app->security->generatePasswordHash($password);
             $registration->source = $this->source;
             $registration->country = $this->country;
             $registration->verifyCode = (string)$this->getVeriFyCode();
