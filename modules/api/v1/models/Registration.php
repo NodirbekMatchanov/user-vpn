@@ -313,6 +313,7 @@ class Registration extends \yii\db\ActiveRecord
         $user = self::find()->where(['email' => $email, 'verifyCode' => $code])->leftJoin(VpnUserSettings::tableName(), 'radcheck.id = accs.vpnid')->one();;
         $model = \Yii::createObject(LoginForm::className());
         if ($this->pass) {
+            print_r($this); die();
             $model->load(['login' => $this->email, 'password' => $this->pass], '');
             $login = $model->login();
             if (!$login) {
