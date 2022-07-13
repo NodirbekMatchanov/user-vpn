@@ -52,7 +52,7 @@ class UserController extends Controller
     {
         $user = new Registration();
         $request = json_decode(Yii::$app->request->getRawBody(),true);
-        if (isset($request['email']) && isset($request['verifyCode']) && $user->load($request,'') && $result = $user->checkVerifyCode($request['email'],$request['verifyCode'])) {
+        if (isset($request['email'])  && $user->load($request,'') && $result = $user->checkVerifyCode($request['email'],$request['verifyCode'])) {
             return $this->apiItem($result);
         }
         return $this->apiError($user->errors);
