@@ -317,7 +317,7 @@ class Registration extends \yii\db\ActiveRecord
         if($this->pass) {
             $model->load(['login' => $this->email, 'password' => $this->pass], '');
             $login = $model->login();
-            if($login) {
+            if(!$login) {
                 $this->addError('email', 'Пользователь не найдено или пароль не верный');
                 return false;
             }
