@@ -313,20 +313,23 @@ class Registration extends \yii\db\ActiveRecord
     {
         $user = self::find()->where(['email' => $email, 'verifyCode' => $code])->leftJoin(VpnUserSettings::tableName(), 'radcheck.id = accs.vpnid')->one();;
         $model = \Yii::createObject(LoginForm::className());
-        $model->load(['login' => $this->email, 'password' => $this->pass], '');
-        $login = $model->login();
-        if (empty($user) || !$login) {
-            $registration = RegistrationUsers::find()->where(['email' => $email,'verifyCode' => $code])->one();
-            if(empty($registration)) {
+        $login = true;
+        if($this->pass) {
+            $model->load(['login' => $this->email, 'password' => $this->pass], '');
+            $login = $model->login();
+            if($login) {
                 $this->addError('email', 'Пользователь не найдено или пароль не верный');
                 return false;
             }
+        }
+        if (empty($user)) {
+
             $model = new self();
             $model->email = $email;
-            $model->pass = $registration->password ?? rand(0,999999);
-            $model->promocode = $registration->promocode;
-            $model->source = $registration->source;
-            $model->country = $registration->country;
+            $model->pass = $this->pass ?? rand(0,999999);
+            $model->promocode = $this->promocode;
+            $model->source = $this->source;
+            $model->country = $this->country;
             return $model->createUser();
         };
         $userData = [

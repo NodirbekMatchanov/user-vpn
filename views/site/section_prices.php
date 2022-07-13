@@ -316,7 +316,7 @@ $this->registerJs($script, $this::POS_END);
             <div class="prices-form-coupon hidden">Вы применили купон со скидкой <span class="discount">0 </span>%</div>
 
             <div class="prices-form-total">Итоговая сумма: <span class="total-price">3 948</span> р.</div>
-
+            <p style="text-align: center">данная цена будет списываться ежемесячно</p>
             <div class="prices-methods">
                 <h3 class="title-4">Способы оплаты</h3>
                 <div class="prices-methods-items">
