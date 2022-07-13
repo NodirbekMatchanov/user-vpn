@@ -76,6 +76,16 @@ class UsedPromocodes extends \yii\db\ActiveRecord
         $usedModel->save();
     }
 
+    public static function savePayout($userId, $promocode)
+    {
+        $usedModel = new UsedPromocodes();
+        $usedModel->type = UsedPromocodes::PAYOUT;
+        $usedModel->user_id = $userId;
+        $usedModel->promocode = $promocode;
+        $usedModel->date = date("Y-m-d");
+        $usedModel->save();
+    }
+
     public static function ValidationPromoCode($code) {
         /*промокод юсера*/
         $userPromo = Accs::find()->where(['promocode' => $code])->one();

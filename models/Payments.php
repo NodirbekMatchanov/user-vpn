@@ -112,6 +112,7 @@ class Payments extends \yii\db\ActiveRecord
 
                                 $userModel = User::findOne($user->user_id);
                                 $usedPromocode = Accs::setPromoShareCount($order->promocode, $userModel);
+                                UsedPromocodes::savePayout($user->user_id, $order->promocode);
 
                                 $order->user_id = (int)$user->user_id;
                                 $order->save(false);
@@ -137,13 +138,7 @@ class Payments extends \yii\db\ActiveRecord
                             $mailer->sendPaymentMessage($hasUser, $countDay, date("d.m.Y", $hasUser->untildate));
                             $userModel = User::findOne($hasUser->user_id);
                             $usedPromocode = Accs::setPromoShareCount($order->promocode, $userModel);
-
-//                            $usedPromo = new UsedPromocodes();
-//                            $usedPromo->status = 2;
-//                            $usedPromo->user_id = $hasUser->user_id;
-//                            $usedPromo->type = UsedPromocodes::PAYOUT;
-//                            $usedPromo->date = date("Y-m-d");
-//                            $usedPromo->save();
+                            UsedPromocodes::savePayout($hasUser->user_id, $order->promocode);
                         }
                     } else {
                         if ($order->source == "telegram") {
@@ -157,13 +152,7 @@ class Payments extends \yii\db\ActiveRecord
                         $user->tariff = "Premium";
                         $user->background_work = 1;
                         $user->save(false);
-
-//                        $usedPromo = new UsedPromocodes();
-//                        $usedPromo->status = 2;
-//                        $usedPromo->user_id = $order->user_id;
-//                        $usedPromo->type = UsedPromocodes::PAYOUT;
-//                        $usedPromo->date = date("Y-m-d");
-//                        $usedPromo->save();
+                        UsedPromocodes::savePayout($user->user_id, $order->promocode);
 
                         if ($order->source == "telegram") {
                             $telegramUsers = TelegramUsers::find()->where(['chat_id' => $order->payer_email])->one();
