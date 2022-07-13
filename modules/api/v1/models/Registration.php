@@ -144,6 +144,7 @@ class Registration extends \yii\db\ActiveRecord
                 $this->used_promocode = $this->using_promocode;
                 $this->promocode = Yii::$app->security->generateRandomString(6);
                 $this->verifyCode = $code;
+                $this->pass = Yii::$app->security->generatePasswordHash($this->pass);
                 if ($this->phone) {
                     if (!($profile = Profile::find()->where(['user_id' => $user->id])->one())) {
                         $profile = new Profile();
@@ -313,7 +314,6 @@ class Registration extends \yii\db\ActiveRecord
         $user = self::find()->where(['email' => $email, 'verifyCode' => $code])->leftJoin(VpnUserSettings::tableName(), 'radcheck.id = accs.vpnid')->one();;
         $model = \Yii::createObject(LoginForm::className());
         if ($this->pass) {
-            print_r($this); die();
             $model->load(['login' => $this->email, 'password' => $this->pass], '');
             $login = $model->login();
             if (!$login) {
