@@ -303,7 +303,7 @@ $this->registerJs($script, $this::POS_END);
 
             <div class="input-2 ">
                 <label for="" class="input-2-label">Введите промокод</label>
-                <input type="text" name="payer-promocode">
+                <input type="text" value="<?= Yii::$app->request->get('ref') ?? Yii::$app->request->get('promocode') ?>" name="payer-promocode">
                 				<div class="promocode-payer-message input-2-message _success"></div>
                                 <div class="promocode-payer-message input-2-message _error"></div>
 
