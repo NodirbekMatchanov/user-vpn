@@ -43,8 +43,8 @@ class Registration extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['email'], 'required'],
-            [['role','chatId','lang','country', 'using_promocode', 'promocode', 'source', 'used_promocode', 'fcm_token', 'ios_token', 'phone', 'status', 'email',], 'string', 'max' => 255],
+            [['email']],
+            [['role', 'chatId', 'lang', 'country', 'using_promocode', 'promocode', 'source', 'used_promocode', 'fcm_token', 'ios_token', 'phone', 'status', 'email',], 'string', 'max' => 255],
             [['vpnid', 'id', 'promo_share', 'verifyCode', 'user_id'], 'integer'],
 //            ['email', 'unique'],
             ['datecreate', 'safe'],
@@ -63,22 +63,19 @@ class Registration extends \yii\db\ActiveRecord
         if (!empty($user->email) && $user->email == $this->email) {
             $user->verifyCode = $this->getVeriFyCode();
             $user->save();
-            $this->sendMail('Код авторизации', 'Код авторизации: '. $user->verifyCode);
+            $this->sendMail('Код авторизации', 'Код авторизации: ' . $user->verifyCode);
             return ['code' => $user->verifyCode];
         } else {
-            if($this->pass) {
-                $password = rand(0,99999);
-            }
             $registration = new RegistrationUsers();
             $registration->email = $this->email;
             $registration->promocode = $this->promocode;
             $registration->lang = $this->lang;
-            $registration->password = Yii::$app->security->generatePasswordHash($password);
+            $registration->password = $this->pass;
             $registration->source = $this->source;
             $registration->country = $this->country;
             $registration->verifyCode = (string)$this->getVeriFyCode();
-            if($registration->save()){
-                $this->sendMail('Код авторизации', 'Код авторизации: '. $registration->verifyCode);
+            if ($registration->save()) {
+                $this->sendMail('Код авторизации', 'Код авторизации: ' . $registration->verifyCode);
             } else {
                 return $registration->errors;
             }
@@ -86,9 +83,10 @@ class Registration extends \yii\db\ActiveRecord
         }
     }
 
-    public function create(){
+    public function create()
+    {
         $this->using_promocode = $this->promocode;
-        return  $this->checkUser();
+        return $this->checkUser();
     }
 
     public function checkEmail()
@@ -198,14 +196,15 @@ class Registration extends \yii\db\ActiveRecord
     }
 
 
-    public function updateUser($chatId,$server,$email) {
+    public function updateUser($chatId, $server, $email)
+    {
         $accs = self::find()->where(['chatId' => $chatId])->leftJoin(VpnUserSettings::tableName(), 'radcheck.id = accs.vpnid')->one();
-        if(!empty($accs)) {
+        if (!empty($accs)) {
             $userAccs = Accs::find()->where(['chatId' => $chatId])->one();
-            if($server) {
+            if ($server) {
                 $userAccs->country = $server;
             }
-            if($email) {
+            if ($email) {
                 $userAccs->email = $email;
                 $_SESSION['code'] = $userAccs->verifyCode;
                 $user = Yii::createObject(User::className());
@@ -220,12 +219,12 @@ class Registration extends \yii\db\ActiveRecord
                 $user->password = $userAccs->pass;
                 $user->register();
                 $userModel = \app\models\user\User::find()->where(['email' => $email])->one();
-                if(!empty($userModel)) {
+                if (!empty($userModel)) {
                     $userAccs->user_id = $userModel->id;
                 }
             }
             $userAccs->save(false);
-           return  [
+            return [
                 'id' => $accs->id,
                 'email' => $accs->email,
                 'pass' => $accs->pass,
@@ -268,13 +267,13 @@ class Registration extends \yii\db\ActiveRecord
             $this->chatId = $this->email;
             $this->verifyCode = $code;
             if ($this->save(false)) {
-                if(!empty($telegramUser->ref)) {
+                if (!empty($telegramUser->ref)) {
                     $this->tariff = 'Premium';
                     $usedPromocode = Accs::setPromoShareCount($telegramUser->ref, $this, $this->chatId);
-                    if($usedPromocode === true) {
+                    if ($usedPromocode === true) {
                         $this->used_promocode = $telegramUser->ref;
                     } else {
-                        $this->untildate = time() + 24*3*3600;
+                        $this->untildate = time() + 24 * 3 * 3600;
                     }
                     $this->save(false);
                 }
@@ -313,23 +312,26 @@ class Registration extends \yii\db\ActiveRecord
     {
         $user = self::find()->where(['email' => $email, 'verifyCode' => $code])->leftJoin(VpnUserSettings::tableName(), 'radcheck.id = accs.vpnid')->one();;
         $model = \Yii::createObject(LoginForm::className());
-        $login = true;
-        if($this->pass) {
+        if ($this->pass) {
             $model->load(['login' => $this->email, 'password' => $this->pass], '');
             $login = $model->login();
-            if(!$login) {
+            if (!$login) {
                 $this->addError('email', 'Пользователь не найдено или пароль не верный');
                 return false;
             }
         }
         if (empty($user)) {
-
+            $registration = RegistrationUsers::find()->where(['email' => $email, 'verifyCode' => $code])->one();
+            if (empty($registration)) {
+                $this->addError('email', 'Пользователь не найдено или пароль не верный');
+                return false;
+            }
             $model = new self();
             $model->email = $email;
-            $model->pass = $this->pass ?? rand(0,999999);
-            $model->promocode = $this->promocode;
-            $model->source = $this->source;
-            $model->country = $this->country;
+            $model->pass = $registration->password ?? rand(0, 999999);
+            $model->promocode = $registration->promocode;
+            $model->source = $registration->source;
+            $model->country = $registration->country;
             return $model->createUser();
         };
         $userData = [
@@ -379,10 +381,10 @@ class Registration extends \yii\db\ActiveRecord
         if ($this->fcm_token || $this->ios_token) {
             $user->fcm_token = $this->fcm_token;
             $user->ios_token = $this->ios_token;
-            if($user->ios_token) {
+            if ($user->ios_token) {
                 $user->source = 'ios';
             }
-            if($user->fcm_token) {
+            if ($user->fcm_token) {
                 $user->source = 'android';
             }
             $user->save();
@@ -471,9 +473,10 @@ class Registration extends \yii\db\ActiveRecord
         $this->errorResponse('не удалось восстановить пароль');
     }
 
-    public function getUserDataByChatId($chatId) {
+    public function getUserDataByChatId($chatId)
+    {
         $user = self::find()->where(['chatId' => $chatId])->leftJoin(VpnUserSettings::tableName(), 'radcheck.id = accs.vpnid')->one();
-        if(empty($user)) return false;
+        if (empty($user)) return false;
         $userData = [
             'id' => $user->id,
             'email' => $user->email,
@@ -482,7 +485,7 @@ class Registration extends \yii\db\ActiveRecord
             'tariff' => $user->tariff,
             'country' => $user->country,
             'untildate' => $user->untildate,
-            'countDay' => (\app\components\DateFormat::countDays($user->untildate) ),
+            'countDay' => (\app\components\DateFormat::countDays($user->untildate)),
             'user_id' => $user->user_id,
             'vpnLogin' => $user->radcheck->username,
             'vpnPassword' => $user->radcheck->value,
