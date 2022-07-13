@@ -112,8 +112,9 @@ class Payments extends \yii\db\ActiveRecord
 
                                 $userModel = User::findOne($user->user_id);
                                 $usedPromocode = Accs::setPromoShareCount($order->promocode, $userModel);
-                                UsedPromocodes::savePayout($user->user_id, $order->promocode);
-
+                                if ($order->promocode) {
+                                    UsedPromocodes::savePayout($user->user_id, $order->promocode);
+                                }
                                 $order->user_id = (int)$user->user_id;
                                 $order->save(false);
                                 \Yii::info('save order user_id');
@@ -138,7 +139,9 @@ class Payments extends \yii\db\ActiveRecord
                             $mailer->sendPaymentMessage($hasUser, $countDay, date("d.m.Y", $hasUser->untildate));
                             $userModel = User::findOne($hasUser->user_id);
                             $usedPromocode = Accs::setPromoShareCount($order->promocode, $userModel);
-                            UsedPromocodes::savePayout($hasUser->user_id, $order->promocode);
+                            if ($order->promocode) {
+                                UsedPromocodes::savePayout($hasUser->user_id, $order->promocode);
+                            }
                         }
                     } else {
                         if ($order->source == "telegram") {
@@ -152,8 +155,9 @@ class Payments extends \yii\db\ActiveRecord
                         $user->tariff = "Premium";
                         $user->background_work = 1;
                         $user->save(false);
-                        UsedPromocodes::savePayout($user->user_id, $order->promocode);
-
+                        if ($order->promocode) {
+                            UsedPromocodes::savePayout($user->user_id, $order->promocode);
+                        }
                         if ($order->source == "telegram") {
                             $telegramUsers = TelegramUsers::find()->where(['chat_id' => $order->payer_email])->one();
                             $telegramUsers->tariff = "Premium";
@@ -163,10 +167,10 @@ class Payments extends \yii\db\ActiveRecord
                             if (!empty($telegramUsers->ref) && (Payments::find()->where(['payer_email' => $order->payer_email])->count() == 1)) {
                                 \Yii::$app->telegram->sendMessage(['chat_id' => $telegramUsers->ref, 'text' => 'По вашему промокоду покупали подписку. Мы дарим вам 3 дня VIP подписки']);
                                 $refAccs = Accs::find()->where(['chatId' => $telegramUsers->ref])->one();
-                                if(!empty($refAccs)) {
+                                if (!empty($refAccs)) {
                                     $refAccs->tariff = "Premium";
-                                    $refAccs->background_work =1;
-                                    $refAccs->untildate = $user->untildate < time() ? (time() + 3*27*3600) : $user->untildate + 3*27*3600;
+                                    $refAccs->background_work = 1;
+                                    $refAccs->untildate = $user->untildate < time() ? (time() + 3 * 27 * 3600) : $user->untildate + 3 * 27 * 3600;
                                     $refAccs->save();
                                 }
                             }
