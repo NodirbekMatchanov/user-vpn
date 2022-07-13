@@ -15,8 +15,11 @@ use kartik\date\DatePicker;
     <?php $form = ActiveForm::begin(); ?>
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
     <?php if(Yii::$app->controller->action->id != 'update'):?>
-     <?= $form->field($model, 'pass')->textInput(['maxlength' => true]) ?>
+         <?= $form->field($model, 'pass')->textInput(['maxlength' => true]) ?>
+    <?php else: ?>
+        <?= $form->field($model, 'pass')->textInput(['maxlength' => true,'type' => 'password']) ?>
     <?php endif; ?>
+
     <?= $form->field($model, 'status')->dropDownList(\app\models\VpnUserSettings::$statuses) ?>
     <?= $form->field($model, 'tariff')->dropDownList(\app\models\VpnUserSettings::$tariffs) ?>
 
