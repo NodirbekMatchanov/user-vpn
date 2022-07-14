@@ -177,4 +177,15 @@ class UsedPromocodes extends \yii\db\ActiveRecord
         return $this->hasOne(Promocodes::className(), ['promocode' => 'promocode']);
     }
 
+    public function getHistory($data) {
+        $accs = Accs::find()->where(['email' => $data['email']])->one();
+        if(Yii::$app->security->validatePassword($data['pass'],$accs->pass)) {
+            $query = UsedPromocodes::find();
+            $query->andWhere(['user_id' => $accs->user_id]);
+            $history = $query->all();
+            return $history;
+        }
+        return [];
+    }
+
 }

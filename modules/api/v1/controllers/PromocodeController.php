@@ -30,12 +30,20 @@ class PromocodeController extends Controller
         return $behaviors;
     }
 
-    /* метод  возвращает  список справочника */
+    /* метод  проверяет валидность промокода */
     public function actionCheck()
     {
         $request = json_decode(Yii::$app->request->getRawBody(),true);
         $promocodes = UsedPromocodes::ValidationPromoCode($request['promocode']);
         return $this->apiItem(json_decode($promocodes));
+    }
+
+    /* метод  возвращает  историю промокодов */
+    public function actionHistory()
+    {
+        $request = json_decode(Yii::$app->request->getRawBody(),true);
+        $promocodes = UsedPromocodes::getHistory($request);
+        return $this->apiItem($promocodes);
     }
 
 
