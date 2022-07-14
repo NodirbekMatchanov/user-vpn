@@ -110,7 +110,11 @@ class VpnUserSettings extends \yii\db\ActiveRecord
         }
 
         $acc->email = $this->email;
-        $acc->pass = Yii::$app->security->generatePasswordHash($this->pass);
+        if($this->pass != $acc->pass) {
+            $acc->pass = Yii::$app->security->generatePasswordHash($this->pass);
+        } else {
+            $acc->pass = $this->pass;
+        }
         $acc->vpnid = $this->id;
         $acc->status = $this->status;
         $acc->utm_source = $this->utm_source;
