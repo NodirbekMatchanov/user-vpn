@@ -57,100 +57,183 @@
     <div class="success-text">
         <div class="container">
             <div class="success-text-wrap">
-                <ul>
-                    <li>
-                        Скачайте из App Store <a href="https://apps.apple.com/ru/app/%D0%BA%D0%BE%D0%BC%D0%B0%D0%BD%D0%B4%D1%8B/id1462947752">приложение Быстрые команды</a> и перейдите в раздел<br>
-                        <b>Автоматизация</b>, нажав на иконку с изображением часов внизу экрана.
-                    </li>
-                    <li>
-                        Нажмите кнопку Создать <b>автоматизацию для себя</b>, далее в открывшемся<br>
-                        списке найдите пункт <b>Приложение</b> и нажмите на него.
-                    </li>
-                    <li>
-                        В следующем окне проверьте, поставлена ли галочка под параметром<br>
-                        <b>Открыто</b> и нажмите на <b>Выбрать</b>.
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <div class="success-img">
-        <div class="container">
-            <!-- <img src="/web/img/success-1.jpg"> -->
-
-            <img src="/web/img/post/1.jpg" class='_display'>
-            <img src="/web/img/post/2.jpg" class='_display'>
-            <img src="/web/img/post/3.jpg" class='_display'>
-        </div>
-    </div>
-
-    <div class="success-text">
-        <div class="container">
-            <div class="success-text-wrap">
-                <ul>
-                    <li>
-                        Начните вводить название приложения – в нашем случае это Instagram<br>
-                        – и выберите его, а затем нажмите <b>Готово</b> в правом верхнем углу экрана.<br>
-                        Теперь нажмите <b>Далее</b> в правом верхнем углу экрана.
-                    </li>
-                    <li>
-                        В открывшемся окне нажмите <b>Добавить действие</b>.
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <div class="success-img">
-        <div class="container">
-            <!-- <img src="/web/img/success-2.jpg"> -->
-            <!-- <br> -->
-
-            <img src="/web/img/post/4.jpg" class='_display'>
-            <img src="/web/img/post/5.jpg" class='_display'>
-        </div>
-    </div>
-
-    <div class="success-text">
-        <div class="container">
-            <div class="success-text-wrap">
-                <ul>
-                    <li>
-                        Начните печатать <b>VPN MAX</b> и выберите приложение, нажав на его название.<br>
-                        В новом окне нажмите <b>Настроить VPN-соединение</b>.
-                    </li>
-                    <li>
-                        Убедитесь, что в переменных написано <b>Включить VPN соединение</b>,<br>
-                        и нажмите <b>Далее</b>.
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <div class="success-img">
-        <div class="container">
-            <!-- <img src="/web/img/success-3.jpg"> -->
-            <img src="/web/img/post/6.jpg" class='_display'>
-            <img src="/web/img/post/7.jpg" class='_display'>
-            <img src="/web/img/post/8.jpg" class='_display'>
-        </div>
-    </div>
-
-    <div class="success-text">
-        <div class="container">
-            <div class="success-text-wrap">
-                <ul>
-                    <li>
-                        В следующем окне сместите ползунок напротив параметра <b>Спрашивать до запуска</b> в неактивное положение. Подтвердите свой выбор в новом окне.
-                    </li>
-                </ul>
+                <h2 class="title-2">Внимание! Данная опция работает, если у вас активна платная подписка.</h2>
+                <h2 class="title-2">Настройка автоматического включения VPN MAX</h2>
 
                 <p>
-                    Готово! VPN MAX будет автоматически включаться при запуске приложения
-                    Twitter. Теперь необходимо создать ещё одну команду, благодаря которой
-                    VPN MAX будет автоматически выключаться при закрытии приложения.
+                    Скачайте из App Store <a href="https://apps.apple.com/ru/app/%D0%BA%D0%BE%D0%BC%D0%B0%D0%BD%D0%B4%D1%8B/id1462947752" target='_blank'>приложение Быстрые команды</a> и перейдите в раздел<br>
+                    <b>Автоматизация</b>, нажав на иконку с изображением часов внизу экрана.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="success-img">
+        <div class="container">
+            <div class="_display-row">
+                <img src="/web/img/post/1.jpg" class='_display'>
+            </div>
+        </div>
+    </div>
+
+    <div class="success-text">
+        <div class="container">
+            <div class="success-text-wrap">
+                <p>
+                    Нажмите кнопку Создать <b>автоматизацию для себя</b>, далее в открывшемся
+                    списке найдите пункт <b>Приложение</b> и нажмите на него.
+
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="success-img">
+        <div class="container">
+            <div class="_display-row">
+                <img src="/web/img/post/2.jpg" class='_display'>
+            </div>
+        </div>
+    </div>
+
+    <div class="success-text">
+        <div class="container">
+            <div class="success-text-wrap">
+                <p>
+                    В следующем окне проверьте, поставлена ли галочка под параметром
+                    <b>Открыто</b> и нажмите на <b>Выбрать</b>.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="success-img">
+        <div class="container">
+            <div class="_display-row">
+                <img src="/web/img/post/3.jpg" class='_display'>
+            </div>
+        </div>
+    </div>
+
+    <div class="success-text">
+        <div class="container">
+            <div class="success-text-wrap">
+                <p>
+                    Начните вводить название приложения – в нашем случае это Instagram
+                    – и выберите его, а затем нажмите <b>Готово</b> в правом верхнем углу экрана.
+                    Теперь нажмите <b>Далее</b> в правом верхнем углу экрана.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="success-img">
+        <div class="container">
+            <div class="_display-row">
+                <img src="/web/img/post/4.jpg" class='_display'>
+            </div>
+        </div>
+    </div>
+
+    <div class="success-text">
+        <div class="container">
+            <div class="success-text-wrap">
+                <p>
+                    В открывшемся окне нажмите <b>Добавить действие</b>.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="success-img">
+        <div class="container">
+            <div class="_display-row">
+                <img src="/web/img/post/5.jpg" class='_display'>
+            </div>
+        </div>
+    </div>
+
+    <div class="success-text">
+        <div class="container">
+            <div class="success-text-wrap">
+                <p>
+                    Начните печатать <b>VPN MAX</b> и выберите приложение, нажав на его название.
+                    В новом окне нажмите <b>Connect VPN/Подключить VPN</b>.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="success-img">
+        <div class="container">
+            <div class="_display-row">
+                <img src="/web/img/post/6.jpg" class='_display'>
+            </div>
+        </div>
+    </div>
+
+    <div class="success-text">
+        <div class="container">
+            <div class="success-text-wrap">
+                <p>
+                    Убедитесь, что в переменных написано <b>Connect VPN/Подключить VPN</b>,
+                    и нажмите <b>Далее</b>.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="success-img">
+        <div class="container">
+            <div class="_display-row">
+                <img src="/web/img/post/7.jpg" class='_display'>
+                <img src="/web/img/post/7.1.jpg" class='_display'>
+            </div>
+        </div>
+    </div>
+
+    <div class="success-text">
+        <div class="container">
+            <div class="success-text-wrap">
+                <p>
+                    В следующем окне сместите ползунок напротив параметра <b>Спрашивать до запуска</b> в неактивное положение. Подтвердите свой выбор в новом окне.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="success-img">
+        <div class="container">
+            <div class="_display-row">
+                <img src="/web/img/post/8.jpg" class='_display'>
+                <img src="/web/img/post/9.jpg" class='_display'>
+            </div>
+        </div>
+    </div>
+
+    <div class="success-text">
+        <div class="container">
+            <div class="success-text-wrap">
+                <p>
+                    Готово! VPN MAX будет автоматически включаться при запуске приложения Instagram.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="success-img">
+        <div class="container">
+            <div class="_display-row">
+                <img src="/web/img/post/10.jpg" class='_display'>
+            </div>
+        </div>
+    </div>
+
+    <div class="success-text">
+        <div class="container">
+            <div class="success-text-wrap">
+                <p>
+                    Теперь необходимо создать ещё одну команду, благодаря которой VPN MAX будет автоматически выключаться при закрытии приложения.
                 </p>
             </div>
         </div>
@@ -159,56 +242,8 @@
     <div class="success-text">
         <div class="container">
             <div class="success-text-wrap">
-                <h2 class='title-2'>Настройка автоматического выключения VPN MAX</h2>
-                <ul>
-                    <li>
-                        В том же приложении <b>Быстрые команды</b> откройте раздел <b>Автоматизация</b>, нажмите на + в правом верхнем углу экрана и выберите <b>Приложение</b>.
-                    </li>
-                    <li>
-                        Проверьте, поставлена ли галочка под параметром <b>Закрыто</b>, при этом галочку под соседним параметром необходимо снять.
-                    </li>
-                </ul>
+                <h2 class="title-2">Настройка автоматического выключения VPN MAX</h2>
             </div>
-        </div>
-    </div>
-
-    <div class="success-img">
-        <div class="container">
-            <!-- <img src="/web/img/success-4.jpg"> -->
-            <!-- <img src="/web/img/post/9.jpg" class='_display'> -->
-            <!-- 			<img src="/web/img/post/10.jpg" class='_display'>
-                        <img src="/web/img/post/11.jpg" class='_display'> -->
-
-            <img src="/web/img/post/14.jpg" class='_display'>
-            <img src="/web/img/post/15.jpg" class='_display'>
-            <img src="/web/img/post/16.jpg" class='_display'>
-        </div>
-    </div>
-
-    <div class="success-text">
-        <div class="container">
-            <div class="success-text-wrap">
-                <ul>
-                    <li>
-                        Далее выберите приложение Twitter, нажмите <b>Далее → Добавить действие</b>, выберите VPN MAX и нажмите <b>Настроить VPN-соединение</b>.
-                    </li>
-                    <li>
-                        В следующем окне нажмите на слово <b>Включить</b>, чтобы оно поменялось на слово <b>Выключить</b>, затем нажмите <b>Далее</b> в верхнем правом углу экрана.
-                    </li>
-                    <li>
-                        Отключите пункт <b>Спрашивать до запуска</b> и подтвердите свой выбор. Далее нажмите <b>Готово</b> в верхнем углу экрана, чтобы завершить процесс.
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <div class="success-img">
-        <div class="container">
-            <img src="/web/img/post/17.jpg" class='_display'>
-            <img src="/web/img/post/18.jpg" class='_display'>
-            <img src="/web/img/post/19.jpg" class='_display'>
-            <!-- <img src="/web/img/success-5.jpg"> -->
         </div>
     </div>
 
@@ -216,11 +251,166 @@
         <div class="container">
             <div class="success-text-wrap">
                 <p>
-                    Теперь VPN MAX будет включаться на вашем устройстве каждый раз, когда<br>
-                    вы будете открывать приложение Twitter, и отключаться при его закрытии.<br>
-                    Все те же шаги вы можете повторить для любого другого приложения.
+                    Скачайте из App Store <a href="https://apps.apple.com/ru/app/%D0%BA%D0%BE%D0%BC%D0%B0%D0%BD%D0%B4%D1%8B/id1462947752" target='_blank'>приложение Быстрые команды</a> и перейдите в раздел<br>
+                    <b>Автоматизация</b>, нажав на иконку с изображением часов внизу экрана.
+                </p>
+
+                <p>Нажмите кнопку Создать <b>автоматизацию для себя</b>, далее в открывшемся списке найдите пункт <b>Приложение</b> и нажмите на него.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="success-img">
+        <div class="container">
+            <div class="_display-row">
+                <img src="/web/img/post/12.jpg" class='_display'>
+                <img src="/web/img/post/13.jpg" class='_display'>
+            </div>
+        </div>
+    </div>
+
+    <div class="success-text">
+        <div class="container">
+            <div class="success-text-wrap">
+                <p>
+                    Начните вводить название приложения – в нашем случае это Instagram
+                    – и выберите его, а затем нажмите <b>Готово</b> в правом верхнем углу экрана.
+                    Теперь нажмите <b>Далее</b> в правом верхнем углу экрана.
                 </p>
             </div>
+        </div>
+    </div>
+
+    <div class="success-img">
+        <div class="container">
+            <div class="_display-row">
+                <img src="/web/img/post/14.jpg" class='_display'>
+            </div>
+        </div>
+    </div>
+
+    <div class="success-text">
+        <div class="container">
+            <div class="success-text-wrap">
+                <p>
+                    Проверьте, поставлена ли галочка под параметром <b>Закрыто</b>, при этом галочку под соседним параметром необходимо снять. Теперь нажмите <b>Далее</b> в правом верхнем углу экрана.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="success-img">
+        <div class="container">
+            <div class="_display-row">
+                <img src="/web/img/post/15.jpg" class='_display'>
+            </div>
+        </div>
+    </div>
+
+    <div class="success-text">
+        <div class="container">
+            <div class="success-text-wrap">
+                <p>
+                    В открывшемся окне нажмите <b>Добавить действие</b>.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="success-img">
+        <div class="container">
+            <div class="_display-row">
+                <img src="/web/img/post/16.jpg" class='_display'>
+            </div>
+        </div>
+    </div>
+
+    <div class="success-text">
+        <div class="container">
+            <div class="success-text-wrap">
+                <p>
+                    Начните печатать <b>VPN MAX</b> и выберите приложение, нажав на его название.
+                    В новом окне нажмите <b>Disconnect VPN/Отключить VPN</b>. Нажмите <b>Далее</b>.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="success-img">
+        <div class="container">
+            <div class="_display-row">
+                <img src="/web/img/post/17.jpg" class='_display'>
+                <img src="/web/img/post/18.jpg" class='_display'>
+                <img src="/web/img/post/18.1.jpg" class='_display'>
+            </div>
+        </div>
+    </div>
+
+    <div class="success-text">
+        <div class="container">
+            <div class="success-text-wrap">
+                <p>
+                    В следующем окне сместите ползунок напротив параметра <b>Спрашивать до запуска</b> в неактивное положение. Подтвердите свой выбор в новом окне.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="success-img">
+        <div class="container">
+            <div class="_display-row">
+                <img src="/web/img/post/19.jpg" class='_display'>
+                <img src="/web/img/post/20.jpg" class='_display'>
+            </div>
+        </div>
+    </div>
+
+    <div class="success-text">
+        <div class="container">
+            <div class="success-text-wrap">
+                <p>
+                    Готово! VPN MAX будет автоматически выключаться при отключении приложения Instagram.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="success-img">
+        <div class="container">
+            <div class="_display-row">
+                <img src="/web/img/post/21.jpg" class='_display'>
+            </div>
+        </div>
+    </div>
+
+    <div class="success-text">
+        <div class="container">
+            <div class="success-text-wrap">
+                <br>
+                <h2 class="title-2">Возможные ошибки</h2>
+
+                <p>При возникновении данной ошибки продлите платную подписку, чтобы пользоваться автозапуском.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="success-img">
+        <div class="container">
+            <img src="/web/img/post/22.jpeg">
+        </div>
+    </div>
+
+    <div class="success-text">
+        <div class="container">
+            <div class="success-text-wrap">
+                <p>При возникновении данной ошибки проверьте ваше соединение с Интернет, зайдите в приложение VPN MAX и смените сервер в разделе «Серверы».</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="success-img">
+        <div class="container">
+            <img src="/web/img/post/23.jpeg">
         </div>
     </div>
 
