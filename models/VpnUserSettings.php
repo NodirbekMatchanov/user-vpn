@@ -105,7 +105,7 @@ class VpnUserSettings extends \yii\db\ActiveRecord
         }
         $user =  User::find()->where(['id' => $acc->user_id])->one();
         if(!empty($user)){
-            if($user->password_hash != $this->pass) {
+            if($acc->pass != $this->pass) {
                 $user->password_hash = Yii::$app->security->generatePasswordHash($this->pass);
             } else {
                 $user->password_hash = $this->pass;
