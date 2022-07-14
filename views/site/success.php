@@ -1,3 +1,7 @@
+<?php
+
+$this->title = 'Настройка автозапуска VPN MAX';
+?>
 <div class="success">
     <div class="success-header">
         <div class="container">
