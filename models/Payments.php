@@ -73,10 +73,10 @@ class Payments extends \yii\db\ActiveRecord
     public function successPaymentHook()
     {
         $mailer = new Mailer();
+        $data = \Yii::$app->request->get();
 
         if (\Yii::$app->request->get('InvoiceId')) {
 
-            $data = \Yii::$app->request->get();
             if ($order = Payments::find()->where(['orderId' => $data['InvoiceId']])->one()) {
                 if ($data['Status'] == "Completed" && (int)$order->amount == (int)$data['Amount']) {
                     $order->status = Payments::PAYED;
@@ -187,21 +187,21 @@ class Payments extends \yii\db\ActiveRecord
                         $mailer->sendPaymentMessage($user, $countDay, date("d.m.Y", $user->untildate));
                     }
                 }
-            } else {
-                $accs = Accs::find()->where(['email' => $data['AccountId']])->one();
-                if(!empty($accs)) {
-                    $countDay = Tariff::getPeriod($accs->subscribe);
-                    $time = $countDay * (3600 * 24);
-                    $accs->untildate = $accs->untildate < time() ? (time() + $time) : $accs->untildate + $time;
-                    $accs->tariff = "Premium";
-                    $accs->background_work = 1;
-                    $accs->save(false);
-                    $this->saveEvent($accs->user_id, $order->amount . " руб. " . $countDay . ' дней');
-                    $mailer->sendPaymentMessage($accs, $countDay, date("d.m.Y", $accs->untildate));
-
-                }
+            }
+        } else {
+            $accs = Accs::find()->where(['email' => $data['AccountId']])->one();
+            if(!empty($accs)) {
+                $countDay = Tariff::getPeriod($accs->subscribe);
+                $time = $countDay * (3600 * 24);
+                $accs->untildate = $accs->untildate < time() ? (time() + $time) : $accs->untildate + $time;
+                $accs->tariff = "Premium";
+                $accs->background_work = 1;
+                $accs->save(false);
+                $this->saveEvent($accs->user_id, $order->amount . " руб. " . $countDay . ' дней');
+                $mailer->sendPaymentMessage($accs, $countDay, date("d.m.Y", $accs->untildate));
 
             }
+
         }
         return true;
     }
