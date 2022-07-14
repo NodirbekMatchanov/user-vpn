@@ -187,6 +187,20 @@ class Payments extends \yii\db\ActiveRecord
                         $mailer->sendPaymentMessage($user, $countDay, date("d.m.Y", $user->untildate));
                     }
                 }
+            } else {
+                $accs = Accs::find()->orWhere(['email' => \Yii::$app->request->get('AccountId')])->orWhere(['chatId' => \Yii::$app->request->get('AccountId')])->one();
+                if(!empty($accs)) {
+                    $countDay = Tariff::getPeriod($accs->subscribe);
+                    $time = $countDay * (3600 * 24);
+                    $accs->untildate = $accs->untildate < time() ? (time() + $time) : $accs->untildate + $time;
+                    $accs->tariff = "Premium";
+                    $accs->background_work = 1;
+                    $accs->save(false);
+                    $this->saveEvent($accs->user_id, $order->amount . " руб. " . $countDay . ' дней');
+                    $mailer->sendPaymentMessage($accs, $countDay, date("d.m.Y", $accs->untildate));
+
+                }
+
             }
         }
         return true;
