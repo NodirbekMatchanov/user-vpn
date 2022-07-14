@@ -188,7 +188,7 @@ class Payments extends \yii\db\ActiveRecord
                     }
                 }
             } else {
-                $accs = Accs::find()->orWhere(['email' => \Yii::$app->request->get('AccountId')])->orWhere(['chatId' => \Yii::$app->request->get('AccountId')])->one();
+                $accs = Accs::find()->where(['email' => $data['AccountId']])->one();
                 if(!empty($accs)) {
                     $countDay = Tariff::getPeriod($accs->subscribe);
                     $time = $countDay * (3600 * 24);
