@@ -11,6 +11,10 @@ class UserPasswordHash
 {
     public function actionUpdatePassword()
     {
+        echo Yii::$app->security->generatePasswordHash('1234567');
+        echo Yii::$app->security->validatePassword('1234567','$2y$13$6bV8w8WlNawHTJ5ym1P64eZYqfaOil/7o9dicH6Eu8P4aQHSn5e2q');
+        echo Yii::$app->security->validatePassword('1234567','$2y$13$WrhHs63FCRiuBpARDHCDC.J6pvN3riF5hyLZRCg.sxYPNvnvfneO2');
+            die;
         $users = \app\models\User::find()->all();
         foreach ($users as $user) {
             $accs = \app\models\Accs::find()->where(['user_id' => $user->id])->one();

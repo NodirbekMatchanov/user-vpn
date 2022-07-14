@@ -73,6 +73,7 @@ $script = <<<JS
         amount: price, //сумма
         currency: 'RUB', //валюта
         TestMode: true,
+         accountId: email,
         invoiceId: orderId, //номер заказа  (необязательно)
         data: data
     },
