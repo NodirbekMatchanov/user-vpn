@@ -150,7 +150,7 @@ class RegistrationForm extends \dektrium\user\models\RegistrationForm
         $vpnModel->username = Yii::$app->security->generateRandomString(16);
         $vpnModel->value = Users::RandomToken();
         $vpnModel->email = $this->email;
-        $vpnModel->pass = Yii::$app->security->generatePasswordHash($this->password);
+        $vpnModel->pass = $this->password;
         $vpnModel->utm_campaign = $this->utm_campaign;
         $vpnModel->utm_term = $this->utm_term;
         $vpnModel->utm_source = $this->utm_source;
