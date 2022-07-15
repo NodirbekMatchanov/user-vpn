@@ -123,7 +123,9 @@ class Payments extends \yii\db\ActiveRecord
                                 \Yii::info('save event');
                                 $mailer->sendPaymentMessage($user, $countDay, date("d.m.Y", $user->untildate));
                                 \Yii::info('send email');
-
+                                $subject = 'Доступы аккаунта';
+                                $body = 'Ваш пароль: ' . $password;
+                                $this->sendMail($subject, $body);
                             } else {
                                 return $model->errors;
                             }
@@ -213,6 +215,26 @@ class Payments extends \yii\db\ActiveRecord
         $event->event = (string)UserEvents::EVENT_PAYOUT;
         $event->text = $text;
         $event->save(false);
+    }
+
+    public function sendMail($subject, $body)
+    {
+        try {
+            \Yii::$app->mailer->compose()
+                ->setFrom('welcome@vpnmax.org')
+                ->setTo([$this->email])
+                ->setSubject($subject)
+                ->setHtmlBody($body)
+                ->send();
+        } catch (\Swift_TransportException $exception) {
+            $this->errorResponse($exception->getMessage());
+        }
+        $history = new MailHistory();
+        $history->body = $body;
+        $history->subject = $subject;
+        $history->email = $this->email;
+        $history->datecreate = date("Y-m-d H:i:s");
+        $history->save();
     }
 
 
