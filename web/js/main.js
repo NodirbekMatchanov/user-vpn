@@ -153,7 +153,7 @@ $(document).ready(function () {
         $.ajax({
             url: "/promocodes/validation",
             method: "POST",
-            data: {code: $('[name="register-form[promocode]"]').val()}
+            data: {code: $('[name="register-form[promocode]"]').val(),email:$('[name="register-form[email]"]').val()}
         }).done(function (data) {
             data = JSON.parse(data);
             if(data.result == 'success'){

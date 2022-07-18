@@ -86,7 +86,7 @@ class UsedPromocodes extends \yii\db\ActiveRecord
         $usedModel->save();
     }
 
-    public static function ValidationPromoCode($code) {
+    public static function ValidationPromoCode($code, $email = false) {
         /*промокод юсера*/
         $userPromo = Accs::find()->where(['promocode' => $code])->one();
         if (!empty($userPromo)) {
@@ -95,6 +95,13 @@ class UsedPromocodes extends \yii\db\ActiveRecord
 
         /*прокод админа*/
         $usedCodeCounts = UsedPromocodes::find()->where(['promocode' => $code])->andWhere(['!=', 'type', UsedPromocodes::VISIT])->count();
+        if($email) {
+            $user = Accs::find()->where(['email' => $email])->one();
+            $usedCodeUser = UsedPromocodes::find()->where(['promocode' => $code, 'user_id' => $user->user_id])->count();
+            if($usedCodeUser > 0) {
+                return json_encode(['result' => 'error', 'error' => 'Промокод уже использован']);
+            }
+        }
         $promoCode = Promocodes::find()->where(['promocode' => $code, 'status' => \app\models\Tariff::ACTIVE])->one();
         if (empty($usedCodes) && !empty($promoCode)) {
             if ($promoCode->user_limit <= $usedCodeCounts) {

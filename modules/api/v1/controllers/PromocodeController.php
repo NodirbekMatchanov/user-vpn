@@ -34,7 +34,7 @@ class PromocodeController extends Controller
     public function actionCheck()
     {
         $request = json_decode(Yii::$app->request->getRawBody(),true);
-        $promocodes = UsedPromocodes::ValidationPromoCode($request['promocode']);
+        $promocodes = UsedPromocodes::ValidationPromoCode($request['promocode'],$request['email'] ?? false);
         return $this->apiItem(json_decode($promocodes));
     }
 

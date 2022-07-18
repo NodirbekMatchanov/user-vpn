@@ -494,7 +494,7 @@ class Users extends \yii\db\ActiveRecord
      */
     public function sendMail($subject, $body)
     {
-        try {
+         try {
             \Yii::$app->mailer->compose()
                 ->setFrom('welcome@vpnmax.org')
                 ->setTo([$this->email])
