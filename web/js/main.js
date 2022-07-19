@@ -250,7 +250,7 @@ $(document).ready(function () {
             })
         } else {
             $('[name="email"]').addClass('validate-email');
-            $('[name="email"]').after("<span class='error-email' style='color: red'>не валидный email</span>")
+            $('[name="email"]').after("<span class='error-email' style='color: red'>проверьте правильность ввода email адреса</span>")
         }
     })
 
