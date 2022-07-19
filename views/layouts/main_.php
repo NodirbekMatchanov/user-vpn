@@ -229,7 +229,7 @@ use yii\bootstrap\NavBar;
                     <img src="/web/img/logo.svg">
                 </a>
 
-                <div class="footer-socials">
+                <div class="footer-socials" style="display: none">
                     <a href='#' class="footer-socials-item"><img src="/web/img/footer-socials-1.svg"></a>
                     <a href='#' class="footer-socials-item"><img src="/web/img/footer-socials-2.svg"></a>
                     <a href='#' class="footer-socials-item"><img src="/web/img/footer-socials-3.svg"></a>
@@ -238,7 +238,7 @@ use yii\bootstrap\NavBar;
                 </div>
 
                 <div class="footer-data">
-                    <div class="footer-text">VPN MAX, 2020-2022</div>
+                    <div class="footer-text">VPN MAX, 2020-<?=date("Y")?></div>
                     <a href="/site/privacy" class="footer-text">Политика конфиденциальности</a>
                 </div>
             </div>

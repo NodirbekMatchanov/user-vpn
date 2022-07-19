@@ -8,6 +8,7 @@ use app\models\Settings;
 use app\models\UsedPromocodes;
 use dektrium\user\helpers\Password;
 use dektrium\user\models\Token;
+use yii\base\NotSupportedException;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 use yii\web\IdentityInterface;
@@ -146,5 +147,10 @@ class User extends \dektrium\user\models\User
         \Yii::$app->session->setFlash($success ? 'success' : 'danger', $message);
 
         return $success;
+    }
+
+    public static function findIdentityByAccessToken($token, $type = null)
+    {
+        return static::findOne(['auth_key' => $token]);
     }
 }

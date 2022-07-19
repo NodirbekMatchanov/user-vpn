@@ -105,6 +105,8 @@ class RecoveryController extends Controller
      */
     public function actionRequest()
     {
+        $this->layout = "@app/views/layouts/main_.php";
+
         if (!$this->module->enablePasswordRecovery) {
             throw new NotFoundHttpException();
         }

@@ -137,7 +137,7 @@ class VpnIps extends \yii\db\ActiveRecord
         $domain = (self::getSettings()['domain'] ?? 'vpn-max.com');
         $request = json_decode(Yii::$app->request->getRawBody(), true);
         $user = new Users();
-        if ($user->load($request, "") && $user->login() && Yii::$app->user->identity->getStatus() == VpnUserSettings::$statuses['ACTIVE']) {
+        if (!Yii::$app->user->isGuest && Yii::$app->user->identity->getStatus()) {
             if(isset($request['vpnLogin']) && VpnUserSettings::find()->where(['username' => $request['vpnLogin']])->one() && !$user->tariff && $user->tariff != 'Free') {
                 $vpnIps = VpnIps::find()->orderBy('type desc')->joinWith('certs')->joinWith('serverLoad')->all();
             } else {

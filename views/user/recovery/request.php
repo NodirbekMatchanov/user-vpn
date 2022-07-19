@@ -21,25 +21,29 @@ use yii\widgets\ActiveForm;
 $this->title = Yii::t('user', 'Recover your password');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="row">
-    <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title"><?= Html::encode($this->title) ?></h3>
-            </div>
-            <div class="panel-body">
-                <?php $form = ActiveForm::begin([
-                    'id' => 'password-recovery-form',
-                    'enableAjaxValidation' => true,
-                    'enableClientValidation' => false,
-                ]); ?>
 
-                <?= $form->field($model, 'email')->textInput(['autofocus' => true]) ?>
+<style>
+    .form-group {
+        width: 100%;
+    }
+</style>
 
-                <?= Html::submitButton(Yii::t('user', 'Continue'), ['class' => 'btn btn-primary btn-block']) ?><br>
+<div class="container">
 
-                <?php ActiveForm::end(); ?>
-            </div>
-        </div>
+    <?php $form = ActiveForm::begin([
+        'id' => 'password-recovery-form',
+        'options' => ['class' => 'form-content'],
+        'enableAjaxValidation' => true,
+        'enableClientValidation' => false,
+    ]); ?>
+    <h3 class="panel-title"><?= Html::encode($this->title) ?></h3>
+
+    <div class="input-2">
+        <label for="" class="input-2-label">E-mail</label>
+        <?= $form->field($model, 'email')->textInput(['autofocus' => true])->label(false) ?>
     </div>
+    <br>
+    <?= Html::submitButton(Yii::t('user', 'Continue'), ['class' => 'btn-2']) ?><br>
+
+    <?php ActiveForm::end(); ?>
 </div>

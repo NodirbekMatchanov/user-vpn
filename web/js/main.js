@@ -223,7 +223,7 @@ $(document).ready(function () {
         $('.email-payer-message').html('');
 
         if(!ValidateEmail($(this)[0])) {
-            $('.email-payer-message').html('не валидный email');
+            $('.email-payer-message').html('проверьте правильность ввода email адреса');
         }
         if($(this).val() == ''){
             $('.email-payer-message').closest('.input-2').addClass('_error');

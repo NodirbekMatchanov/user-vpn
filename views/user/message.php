@@ -22,4 +22,7 @@ if(!empty($redirect) && $redirect){
 },3000) </script>";
 }
 ?>
-<?= $this->render('/_alert', ['module' => $module]);
+<div class="container">
+    <br>
+<?= $this->render('/_alert', ['module' => $module]);?>
+</div>

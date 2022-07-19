@@ -140,7 +140,7 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                     <div class="devices-data">
                         <h3 class="title-4">Установите приложение</h3>
 
-                        <a href="<?=\yii\helpers\Url::to('https://apps.apple.com/app/vpn-max/id1619787851')?>" class="btn-2">Загрузите в App Store</a>
+                        <a  href="<?=\yii\helpers\Url::to('https://apps.apple.com/app/vpn-max/id1619787851')?>" class="btn-2">Загрузите в App Store</a>
 
                         <div class="devices-steps">
 
@@ -192,7 +192,7 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
 
 <div class="steps">
     <div class="container">
-        <h2 class="title-2"><span class="accent">Три шага</span> для подключения к VPN</h2>
+        <h2 class="title-2"><span class="accent">Три шага</span> для подключения к VPN MAX</h2>
         <div class="steps-items">
 
             <div class="steps-item">
@@ -257,6 +257,9 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
 <div class="faq" name='faq'>
     <div class="container">
         <h2 class="title-2">Ответы на <span class="accent">вопросы</span></h2>
+        <div class="faq-btn-wrap">
+            <a href="<?=\yii\helpers\Url::to(['/support/categories'])?>" class="btn-2">База знании</a>
+        </div>
 
         <div class="faq-items">
             <div class="faq-col">
@@ -446,7 +449,6 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                     </div>
                 </div>
             </div>
-
         </div>
 
         <div class="faq-btn-wrap">
