@@ -29,10 +29,11 @@ $(document).on('click', '.pay', function (e) {
          })
     });
     promise.then((amount) =>{
-        console.log(amount);
+          console.log(amount);
+         amount = JSON.parse(amount);
         self.pay = function () {
     var widget = new cp.CloudPayments();
-    var price = parseFloat(amount);
+    var price = parseFloat(amount.totalPrice);
     var receipt = {
             Items: [//товарные позиции
                  {
@@ -54,9 +55,9 @@ $(document).on('click', '.pay', function (e) {
     data.CloudPayments = {
         CustomerReceipt: receipt, //чек для первого платежа
         recurrent: {
-         interval: 'Month',
-         period: monthTariff, 
-         customerReceipt: receipt //чек для регулярных платежей
+            interval: amount.periodType,
+            period: amount.period, 
+            customerReceipt: receipt //чек для регулярных платежей
          }
          }; //создание ежемесячной подписки
 
@@ -65,6 +66,7 @@ $(document).on('click', '.pay', function (e) {
         description: 'Подписка на ежемесячный доступ к сайту https://www.vpnmax.org/', //назначение
         amount: price, //сумма
         currency: 'RUB', //валюта
+        TestMode: false,
         invoiceId: orderId, //номер заказа  (необязательно)
         accountId: '$email', //идентификатор плательщика (обязательно для создания подписки)
         data: data

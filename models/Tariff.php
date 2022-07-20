@@ -133,7 +133,7 @@ class Tariff extends \yii\db\ActiveRecord
             $discount = 0;
             foreach ($tariffs as $tariff) {
                 if ($id == '1_month') {
-                    $periodType = 'Month';
+                    $periodType = 'DAY';
                     $price = $tariff->price_30;
                     $period = 1;
                 } else if ($id == '6_month') {

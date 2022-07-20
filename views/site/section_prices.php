@@ -72,7 +72,7 @@ $script = <<<JS
         description: 'Подписка на ежемесячный доступ к сайту https://www.vpnmax.org/', //назначение
         amount: price, //сумма
         currency: 'RUB', //валюта
-        TestMode: true,
+        TestMode: false,
          accountId: email,
         invoiceId: orderId, //номер заказа  (необязательно)
         data: data
