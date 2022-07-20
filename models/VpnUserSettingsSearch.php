@@ -176,7 +176,7 @@ class VpnUserSettingsSearch extends VpnUserSettings
             'id' => $this->id,
             'username' => $this->username,
             'pass' => $this->pass,
-            'accs.email' => $this->email,
+//            'accs.email' => $this->email,
         ]);
         if(!empty($this->datecreate)){
             $query->andWhere("from_unixtime(`accs`.`datecreate`, '%Y-%m-%d') = '". date("Y-m-d",strtotime(str_replace(".","-",$this->datecreate)))."'");
