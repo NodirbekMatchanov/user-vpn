@@ -49,7 +49,7 @@ class Payments extends \yii\db\ActiveRecord
             [['amount'], 'number'],
             [['tariff', 'source', 'payer_email', 'promocode', 'type', 'orderId'], 'string', 'max' => 50],
             [['orderId'], 'unique'],
-            [['subscription_id'], 'text'],
+            [['subscription_id'], 'string'],
         ];
     }
 
