@@ -82,7 +82,7 @@ class Payments extends \yii\db\ActiveRecord
             if ($order = Payments::find()->where(['orderId' => $data['InvoiceId'],'status' => 0])->one()) {
                 if ($data['Status'] == "Completed" && (int)$order->amount == (int)$data['Amount']) {
                     $order->status = Payments::PAYED;
-                    $order->subscription_id = $data['subscription_id'] ?? '';
+                    $order->subscription_id = $data['SubscriptionId'] ?? '';
                     $order->save();
                     if (!empty($order->payer_email) && $order->source != "telegram") {
                         $hasUser = Accs::find()->where(['email' => $order->payer_email])->one();
