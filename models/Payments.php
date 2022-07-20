@@ -138,6 +138,7 @@ class Payments extends \yii\db\ActiveRecord
                             $time = $countDay * (3600 * 24);
                             $hasUser->untildate = $hasUser->untildate < time() ? (time() + $time) : $hasUser->untildate + $time;
                             $hasUser->tariff = "Premium";
+                            $hasUser->status = VpnUserSettings::$statuses['ACTIVE'];
                             $hasUser->background_work = 1;
                             $hasUser->save(false);
                             $this->saveEvent($hasUser->user_id, $order->amount . " руб. " . Tariff::getPeriod($order->tariff) . ' дней');
@@ -157,6 +158,7 @@ class Payments extends \yii\db\ActiveRecord
                         $countDay = Tariff::getPeriod($order->tariff);
                         $time = $countDay * (3600 * 24);
                         $user->untildate = $user->untildate < time() ? (time() + $time) : $user->untildate + $time;
+                        $user->status = VpnUserSettings::$statuses['ACTIVE'];
                         $user->tariff = "Premium";
                         $user->background_work = 1;
                         $user->save(false);
@@ -167,6 +169,7 @@ class Payments extends \yii\db\ActiveRecord
                             $telegramUsers = TelegramUsers::find()->where(['chat_id' => $order->payer_email])->one();
                             $telegramUsers->tariff = "Premium";
                             $telegramUsers->background_work = 1;
+                            $telegramUsers->status = VpnUserSettings::$statuses['ACTIVE'];
                             $telegramUsers->save();
                             // если первый  покупка и покупка по рефералу
                             if (!empty($telegramUsers->ref) && (Payments::find()->where(['payer_email' => $order->payer_email])->count() == 1)) {
@@ -175,6 +178,7 @@ class Payments extends \yii\db\ActiveRecord
                                 if (!empty($refAccs)) {
                                     $refAccs->tariff = "Premium";
                                     $refAccs->background_work = 1;
+                                    $refAccs->status = VpnUserSettings::$statuses['ACTIVE'];
                                     $refAccs->untildate = $user->untildate < time() ? (time() + 3 * 27 * 3600) : $user->untildate + 3 * 27 * 3600;
                                     $refAccs->save();
                                 }
@@ -200,6 +204,7 @@ class Payments extends \yii\db\ActiveRecord
                 $time = $countDay * (3600 * 24);
                 $accs->untildate = $accs->untildate < time() ? (time() + $time) : $accs->untildate + $time;
                 $accs->tariff = "Premium";
+                $accs->status = VpnUserSettings::$statuses['ACTIVE'];
                 $accs->background_work = 1;
                 $accs->save(false);
                 $this->saveEvent($accs->user_id, $order->amount . " руб. " . $countDay . ' дней');
