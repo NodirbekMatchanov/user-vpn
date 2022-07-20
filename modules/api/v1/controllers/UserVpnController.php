@@ -18,10 +18,13 @@ class UserVpnController extends Controller
     public function behaviors()
     {
         $behaviors = parent::behaviors();
-        $behaviors['authenticator'] = [
-            'class' => HttpBearerAuth::className(),
-            'except' => ['create','activate','recover','check','login','get-verify-code','check-login','push','delete'],
-        ];
+        if(Yii::$app->user->isGuest) {
+            $behaviors['authenticator'] = [
+                'class' => HttpBearerAuth::className(),
+                'except' => ['login','activate','recover','create','get-verify-code'],
+            ];
+        }
+
         $behaviors['contentNegotiator']['formats'] = [
             'application/json' => Response::FORMAT_JSON
         ];
@@ -103,7 +106,7 @@ class UserVpnController extends Controller
     {
         $user = new Users();
         $request = json_decode(Yii::$app->request->getRawBody(),true);
-        if ( $user->load($request,"")  && $userData = $user->login()) {
+        if ( $user->load($request,"") && $userData = $user->login()) {
             return $this->apiItem($userData);
         }
         return $this->apiError($user->errors);
@@ -119,6 +122,7 @@ class UserVpnController extends Controller
         if ( $user->load($request,"")  && $userData = $user->deleteUser()) {
             return $this->apiItem($userData);
         }
+
         return $this->apiError($user->errors);
     }
 

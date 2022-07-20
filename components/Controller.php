@@ -2,6 +2,7 @@
 
 namespace app\components;
 
+use app\modules\api\v1\models\Users;
 use Yii;
 use yii\filters\auth\HttpBearerAuth;
 use yii\web\Response;
@@ -22,15 +23,21 @@ class Controller extends \yii\rest\Controller
      */
     public function behaviors()
     {
+        $user = new Users();
+        $request = json_decode(Yii::$app->request->getRawBody(),true);
+        $user->load($request,"");
         $behaviors = parent::behaviors();
-        $behaviors['authenticator'] = [
-            'class' => HttpBearerAuth::className(),
-//            'except' => ['calculate/index'],
-        ];
+
+        if($user->validate() && !$user->login()) {
+            $behaviors['authenticator'] = [
+               'class' => HttpBearerAuth::className(),
+           ];
+       }
         $behaviors['contentNegotiator']['formats'] = [
             'application/json' => Response::FORMAT_JSON
         ];
         return $behaviors;
+
     }
 
     /**

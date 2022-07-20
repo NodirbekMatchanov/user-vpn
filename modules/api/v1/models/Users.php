@@ -41,7 +41,7 @@ class Users extends \yii\db\ActiveRecord
     {
         return [
             [['email', 'pass'], 'required'],
-            [['role','chatId','country', 'using_promocode', 'promocode', 'source', 'used_promocode', 'fcm_token', 'ios_token', 'phone', 'status', 'email',], 'string', 'max' => 255],
+            [['role', 'chatId', 'country', 'using_promocode', 'promocode', 'source', 'used_promocode', 'fcm_token', 'ios_token', 'phone', 'status', 'email',], 'string', 'max' => 255],
             [['vpnid', 'id', 'promo_share', 'verifyCode', 'user_id'], 'integer'],
 //            ['email', 'unique'],
             ['datecreate', 'safe'],
@@ -162,14 +162,15 @@ class Users extends \yii\db\ActiveRecord
     }
 
 
-    public function updateUser($chatId,$server,$email) {
+    public function updateUser($chatId, $server, $email)
+    {
         $accs = self::find()->where(['chatId' => $chatId])->leftJoin(VpnUserSettings::tableName(), 'radcheck.id = accs.vpnid')->one();
-        if(!empty($accs)) {
+        if (!empty($accs)) {
             $userAccs = Accs::find()->where(['chatId' => $chatId])->one();
-            if($server) {
+            if ($server) {
                 $userAccs->country = $server;
             }
-            if($email) {
+            if ($email) {
                 $userAccs->email = $email;
                 $_SESSION['code'] = $userAccs->verifyCode;
                 $user = Yii::createObject(User::className());
@@ -184,12 +185,12 @@ class Users extends \yii\db\ActiveRecord
                 $user->password = $userAccs->pass;
                 $user->register();
                 $userModel = \app\models\user\User::find()->where(['email' => $email])->one();
-                if(!empty($userModel)) {
+                if (!empty($userModel)) {
                     $userAccs->user_id = $userModel->id;
                 }
             }
             $userAccs->save(false);
-           return  [
+            return [
                 'id' => $accs->user_id,
                 'email' => $accs->email,
                 'pass' => $accs->pass,
@@ -232,13 +233,13 @@ class Users extends \yii\db\ActiveRecord
             $this->chatId = $this->email;
             $this->verifyCode = $code;
             if ($this->save(false)) {
-                if(!empty($telegramUser->ref)) {
+                if (!empty($telegramUser->ref)) {
                     $this->tariff = 'Premium';
                     $usedPromocode = Accs::setPromoShareCount($telegramUser->ref, $this, $this->chatId);
-                    if($usedPromocode === true) {
+                    if ($usedPromocode === true) {
                         $this->used_promocode = $telegramUser->ref;
                     } else {
-                        $this->untildate = time() + 24*3*3600;
+                        $this->untildate = time() + 24 * 3 * 3600;
                     }
                     $this->save(false);
                 }
@@ -289,7 +290,7 @@ class Users extends \yii\db\ActiveRecord
     public function login()
     {
         $user = self::find()->where(['email' => $this->email])->leftJoin(VpnUserSettings::tableName(), 'radcheck.id = accs.vpnid')->one();
-        if(!Yii::$app->security->validatePassword( $this->pass,$user->pass)) {
+        if (!Yii::$app->security->validatePassword($this->pass, $user->pass)) {
             $user = [];
         }
         $model = \Yii::createObject(LoginForm::className());
@@ -312,17 +313,33 @@ class Users extends \yii\db\ActiveRecord
         }
 
         if ($this->fcm_token || $this->ios_token) {
-            $user->fcm_token = $this->fcm_token;
-            $user->ios_token = $this->ios_token;
-            if($user->ios_token) {
-                $user->source = 'ios';
-            }
-            if($user->fcm_token) {
-                $user->source = 'android';
-            }
-            $user->save();
-        }
 
+            if(!$tokens = UserTokens::find()->where(['token' => $this->fcm_token])->one()) {
+                $tokens = UserTokens::find()->where(['token' => $this->ios_token])->one();
+            }
+            if(empty($tokens)) {
+                $tokens = new UserTokens();
+                if ($this->ios_token) {
+                    $tokens->token = $this->ios_token;
+                    $user->source = 'ios';
+                    $tokens->source = 'ios';
+                }
+                if ($this->fcm_token) {
+                    $tokens->token = $this->fcm_token;
+                    $user->source = 'android';
+                    $tokens->source = 'android';
+
+                }
+                $tokens->status = 1;
+                $tokens->user_id = $user->user_id;
+                $tokens->auth_key = self::RandomToken(32);
+                $user->save();
+            }
+            $tokens->last_login = date("Y-m-d H:i:s");
+            $tokens->save();
+
+        }
+        $userModel = User::findOne($user->user_id);
         $userData = [
             'id' => $user->user_id,
             'email' => $user->email,
@@ -337,6 +354,7 @@ class Users extends \yii\db\ActiveRecord
             'untildate' => $user->untildate,
             'vpnLogin' => $user->radcheck->username,
             'vpnPassword' => $user->radcheck->value,
+            'auth_key' => !empty($tokens->auth_key) ? $tokens->auth_key : ($userModel->auth_key ?? "")
         ];
 
         return $userData;
@@ -347,7 +365,9 @@ class Users extends \yii\db\ActiveRecord
      */
     public function check()
     {
+
         $user = self::find()->where(['username' => $this->vpnLogin, 'value' => $this->vpnPassword])->leftJoin(VpnUserSettings::tableName(), 'radcheck.id = accs.vpnid')->one();
+
         if (empty($user)) {
             $this->addError('username', 'Пользователь не найдено или пароль не верный');
             return false;
@@ -369,9 +389,11 @@ class Users extends \yii\db\ActiveRecord
 
     public function push()
     {
-        $user = self::find()->where(['id' => $this->id])->one();
-        if(!Yii::$app->security->validatePassword( $this->pass,$user->pass)) {
+        $user = self::find()->orWhere(['id' => $this->id])->orWhere(['user_id' => $this->id])->one();
+        if (Yii::$app->user->isGuest && !Yii::$app->security->validatePassword($this->pass, $user->pass)) {
             $user = [];
+        } elseif(!Yii::$app->user->isGuest) {
+            $user = self::find()->where(['user_id' => Yii::$app->user->identity->getId()])->one();
         }
         if (!empty($user)) {
             $user->fcm_token = $this->fcm_token;
@@ -409,9 +431,10 @@ class Users extends \yii\db\ActiveRecord
         $this->errorResponse('не удалось восстановить пароль');
     }
 
-    public function getUserDataByChatId($chatId) {
+    public function getUserDataByChatId($chatId)
+    {
         $user = self::find()->where(['chatId' => $chatId])->leftJoin(VpnUserSettings::tableName(), 'radcheck.id = accs.vpnid')->one();
-        if(empty($user)) return false;
+        if (empty($user)) return false;
         $userData = [
             'id' => $user->id,
             'email' => $user->email,
@@ -420,7 +443,7 @@ class Users extends \yii\db\ActiveRecord
             'tariff' => $user->tariff,
             'country' => $user->country,
             'untildate' => $user->untildate,
-            'countDay' => (\app\components\DateFormat::countDays($user->untildate) ),
+            'countDay' => (\app\components\DateFormat::countDays($user->untildate)),
             'user_id' => $user->user_id,
             'vpnLogin' => $user->radcheck->username,
             'vpnPassword' => $user->radcheck->value,
@@ -431,8 +454,13 @@ class Users extends \yii\db\ActiveRecord
 
     public function deleteUser()
     {
-        $user = self::find()->where(['email' => $this->email, 'pass' => $this->pass])->leftJoin(VpnUserSettings::tableName(), 'radcheck.id = accs.vpnid')->one();
-        if (!empty($user)) {
+
+        $user = self::find()->where(['email' => $this->email])->leftJoin(VpnUserSettings::tableName(), 'radcheck.id = accs.vpnid')->one();
+        if(empty($user)) {
+            $user = self::find()->where(['user_id' => Yii::$app->user->identity->getId()])->leftJoin(VpnUserSettings::tableName(), 'radcheck.id = accs.vpnid')->one();
+        }
+
+        if (!Yii::$app->user->isGuest || (!empty($user) && Yii::$app->security->validatePassword( $this->pass,$user->pass))) {
             $user->status = VpnUserSettings::$statuses['DELETED'];
             $user->save();
             $userData = [
@@ -494,7 +522,7 @@ class Users extends \yii\db\ActiveRecord
      */
     public function sendMail($subject, $body)
     {
-         try {
+        try {
             \Yii::$app->mailer->compose()
                 ->setFrom('welcome@vpnmax.org')
                 ->setTo([$this->email])

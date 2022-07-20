@@ -14,6 +14,7 @@ use Yii;
  * @property string $auth_key
  * @property int $status
  * @property string $last_login
+ * @property string $user_id
  */
 class UserTokens extends \yii\db\ActiveRecord
 {
@@ -31,7 +32,7 @@ class UserTokens extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['token', 'auth_key', 'status', 'last_login'], 'required'],
+            [['token','user_id', 'auth_key', 'status', 'last_login'], 'required'],
             [['token'], 'string'],
             [['status'], 'integer'],
             [['last_login'], 'safe'],

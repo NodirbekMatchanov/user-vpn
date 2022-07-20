@@ -6,6 +6,7 @@ use app\models\Accs;
 use app\models\Promocodes;
 use app\models\Settings;
 use app\models\UsedPromocodes;
+use app\modules\api\v1\models\UserTokens;
 use dektrium\user\helpers\Password;
 use dektrium\user\models\Token;
 use yii\base\NotSupportedException;
@@ -151,6 +152,14 @@ class User extends \dektrium\user\models\User
 
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        return static::findOne(['auth_key' => $token]);
+        $user = UserTokens::find()->where(['auth_key' => $token,'status' => 1])->one();
+
+        if(empty($user) && $token) {
+            $user = static::findOne(['auth_key' => $token]);
+        } else {
+            $user = static::findOne([$user->user_id]);
+        }
+
+        return $user;
     }
 }

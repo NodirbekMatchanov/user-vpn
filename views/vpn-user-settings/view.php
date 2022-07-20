@@ -258,4 +258,42 @@ if(!empty($model->accs->user_id)) {
             'text:ntext',
         ],
     ]); ?>
+    <h3>Токены</h3>
+    <?= \yii\grid\GridView::widget([
+        'dataProvider' => $dataProviderTokens,
+        'filterModel' => $searchModel,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            [
+                'attribute' => 'name',
+                'format' => 'raw',
+                'value' => function ($data) {
+                    return $data->name;
+                }
+            ],
+            [
+                'attribute' => 'source',
+                'format' => 'raw',
+                'value' => function ($data) {
+                    return $data->source;
+                }
+            ],
+            [
+                'attribute' => 'token',
+                'format' => 'raw',
+                'value' => function ($data) {
+                    return $data->token;
+                }
+            ],
+            [
+                'attribute' => 'last_login',
+                'format' => 'raw',
+                'value' => function ($data) {
+                    return $data->last_login;
+                }
+            ]
+
+        ],
+    ]) ?>
 </div>

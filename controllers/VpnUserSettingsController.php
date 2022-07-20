@@ -6,6 +6,7 @@ use app\models\Accs;
 use app\models\User;
 use app\models\user\Profile;
 use app\models\UserEventsSearch;
+use app\models\UserTokensSearch;
 use app\models\VpnUserSettings;
 use app\models\VpnUserSettingsSearch;
 use yii\filters\AccessControl;
@@ -99,13 +100,18 @@ class VpnUserSettingsController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
         $searchModel = new UserEventsSearch();
-        $dataProviderEvents = $searchModel->searchByUserId($this->request->queryParams, $id);
+        $dataProviderEvents = $searchModel->searchByUserId($this->request->queryParams, $model->user_id);
+        $searchModelTokens = new UserTokensSearch();
+        $dataProviderTokens = $searchModelTokens->search($this->request->queryParams,$model->user_id);
 
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'dataProviderEvents' => $dataProviderEvents,
+            'dataProviderTokens' => $dataProviderTokens,
             'searchModel' => $searchModel,
+            'searchModelTokens' => $searchModelTokens,
         ]);
     }
 
@@ -189,6 +195,7 @@ class VpnUserSettingsController extends Controller
                 $model->status = $accs->status;
                 $model->email = $accs->email;
                 $model->pass = $accs->pass;
+                $model->user_id = $accs->user_id;
                 $model->sccId = $accs->id;
                 $model->promocode = $accs->promocode;
                 $model->test_user = $accs->test_user;
