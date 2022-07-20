@@ -21,6 +21,7 @@ use app\models\Mailer;
  * @property int $source
  * @property string $promocode
  * @property int $app_transaction_id
+ * @property int $subscription_id
  */
 class Payments extends \yii\db\ActiveRecord
 {
@@ -48,6 +49,7 @@ class Payments extends \yii\db\ActiveRecord
             [['amount'], 'number'],
             [['tariff', 'source', 'payer_email', 'promocode', 'type', 'orderId'], 'string', 'max' => 50],
             [['orderId'], 'unique'],
+            [['subscription_id'], 'text'],
         ];
     }
 
@@ -77,9 +79,10 @@ class Payments extends \yii\db\ActiveRecord
 
         if (\Yii::$app->request->get('InvoiceId')) {
 
-            if ($order = Payments::find()->where(['orderId' => $data['InvoiceId']])->one()) {
+            if ($order = Payments::find()->where(['orderId' => $data['InvoiceId'],'status' => 0])->one()) {
                 if ($data['Status'] == "Completed" && (int)$order->amount == (int)$data['Amount']) {
                     $order->status = Payments::PAYED;
+                    $order->subscription_id = $data['subscription_id'] ?? '';
                     $order->save();
                     if (!empty($order->payer_email) && $order->source != "telegram") {
                         $hasUser = Accs::find()->where(['email' => $order->payer_email])->one();
@@ -236,6 +239,32 @@ class Payments extends \yii\db\ActiveRecord
         $history->datecreate = date("Y-m-d H:i:s");
         $history->save();
     }
+
+    public static function cancelSubscribe() {
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://api.cloudpayments.ru/',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: Basic cGtfMTY0MjRjNTc4N2RkN2ViZmJiYTQ3ZTY2YWFmYTg6ZDAxZWUxNGM0ZDhjMzJiOTI0Y2ZiOGY0OTljMWQwZTc='
+            ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+        echo $response;
+    }
+
+
 
 
 }
