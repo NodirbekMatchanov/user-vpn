@@ -229,7 +229,7 @@ class Payments extends \yii\db\ActiveRecord
     {
         try {
             \Yii::$app->mailer->compose()
-                ->setFrom('welcome@vpnmax.org')
+                ->setFrom('welcome@vpn-max.com')
                 ->setTo([$this->email])
                 ->setSubject($subject)
                 ->setHtmlBody($body)
@@ -245,7 +245,7 @@ class Payments extends \yii\db\ActiveRecord
         $history->save();
     }
 
-    public static function cancelSubscribe() {
+    public static function cancelSubscribe($params) {
 
 
         $curl = curl_init();
@@ -256,7 +256,7 @@ class Payments extends \yii\db\ActiveRecord
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($curl, CURLOPT_POST, 1);
-//curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($params));
 //curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, $this->enableSSL);
 //curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, $this->enableSSL);
 

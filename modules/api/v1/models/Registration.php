@@ -562,7 +562,7 @@ class Registration extends \yii\db\ActiveRecord
     {
         try {
             \Yii::$app->mailer->compose()
-                ->setFrom('welcome@vpnmax.org')
+                ->setFrom('welcome@vpn-max.com')
                 ->setTo([$this->email])
                 ->setSubject($subject)
                 ->setHtmlBody($body)
