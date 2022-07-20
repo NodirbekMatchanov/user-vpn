@@ -247,26 +247,24 @@ class Payments extends \yii\db\ActiveRecord
 
     public static function cancelSubscribe() {
 
+
         $curl = curl_init();
 
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://api.cloudpayments.ru/',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_HTTPHEADER => array(
-                'Authorization: Basic cGtfMTY0MjRjNTc4N2RkN2ViZmJiYTQ3ZTY2YWFmYTg6ZDAxZWUxNGM0ZDhjMzJiOTI0Y2ZiOGY0OTljMWQwZTc='
-            ),
-        ));
+        curl_setopt($curl, CURLOPT_URL, 'https://api.cloudpayments.ru' . '/test');
+        curl_setopt($curl, CURLOPT_USERPWD, sprintf('%s:%s', 'pk_16424c5787dd7ebfbba47e66aafa8', 'd01ee14c4d8c32b924cfb8f499c1d0e7'));
+        curl_setopt($curl, CURLOPT_TIMEOUT, 20);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($curl, CURLOPT_POST, 1);
+//curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
+//curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, $this->enableSSL);
+//curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, $this->enableSSL);
 
-        $response = curl_exec($curl);
+        $result = curl_exec($curl);
 
         curl_close($curl);
-        echo $response;
+
+        return ((array)json_decode($result, true));
     }
 
 
