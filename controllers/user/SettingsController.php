@@ -356,6 +356,6 @@ class SettingsController extends Controller
                print_r($result);
             }
         }
-        $this->redirect(['/user/settings/account']);
+//        $this->redirect(['/user/settings/account']);
     }
 }
