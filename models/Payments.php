@@ -229,7 +229,7 @@ class Payments extends \yii\db\ActiveRecord
     {
         try {
             \Yii::$app->mailer->compose()
-                ->setFrom('welcome@vpn-max.com')
+                ->setFrom(Yii::$app->params['adminEmail'])
                 ->setTo([$this->email])
                 ->setSubject($subject)
                 ->setHtmlBody($body)
