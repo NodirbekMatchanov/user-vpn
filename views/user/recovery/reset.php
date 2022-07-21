@@ -46,8 +46,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <label for="" class="input-2-label">Повторный пароль</label>
         <?= $form->field($model, 'password_repeat')->passwordInput()->label(false) ?>
     </div>
-
-    <?= Html::submitButton(Yii::t('user', 'Finish'), ['class' => 'btn btn-success btn-block']) ?><br>
+    <br>
+    <?= Html::submitButton(Yii::t('user', 'Finish'), ['class' => 'btn-2']) ?><br>
 
     <?php ActiveForm::end(); ?>
 </div>
