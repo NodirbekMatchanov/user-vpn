@@ -12,6 +12,7 @@
 namespace app\controllers\user;
 
 use app\models\Accs;
+use app\models\Payments;
 use app\models\UsedPromocodes;
 use app\models\VpnUserSettings;
 use dektrium\user\Finder;
@@ -133,7 +134,7 @@ class SettingsController extends Controller
                 'rules' => [
                     [
                         'allow'   => true,
-                        'actions' => ['profile', 'account', 'networks', 'disconnect', 'delete','tariff'],
+                        'actions' => ['profile', 'account','cancel-subscribe', 'networks', 'disconnect', 'delete','tariff'],
                         'roles'   => ['@'],
                     ],
                     [
@@ -191,6 +192,10 @@ class SettingsController extends Controller
 
         $this->performAjaxValidation($model);
         $accs = Accs::find()->where(['user_id' => \Yii::$app->user->identity->getId()])->joinWith('vpn')->one();
+
+        $subscribe = Payments::find()->where(['user_id' => \Yii::$app->user->identity->getId(), 'status' => 2])
+            ->andWhere(['IS NOT','subscription_id', null])->orderBy('id desc')->one();
+
         $this->trigger(self::EVENT_BEFORE_ACCOUNT_UPDATE, $event);
         if ($model->load(\Yii::$app->request->post()) && $model->save()) {
             \Yii::$app->session->setFlash('success', \Yii::t('user', 'Your account details have been updated'));
@@ -216,6 +221,7 @@ class SettingsController extends Controller
         return $this->render('account', [
             'model' => $model,
             'accs' => $accs,
+            'subscribe' => $subscribe,
             'registratedCount' => $registratedCount,
             'payoutCount' => $payoutCount,
             'visitedCount' => $visitedCount,
@@ -332,5 +338,23 @@ class SettingsController extends Controller
         \Yii::$app->session->setFlash('info', \Yii::t('user', 'Your account has been completely deleted'));
 
         return $this->goHome();
+    }
+
+    /**
+     * Completely deletes user's account.
+     *
+     * @return \yii\web\Response
+     * @throws \Exception
+     */
+    public function actionCancelSubscribe()
+    {
+        $user  = \Yii::$app->user->identity;
+        $subscribe = Payments::find()->where(['user_id' => \Yii::$app->user->identity->getId(), 'status' => 2])
+            ->andWhere(['IS NOT','subscription_id', null])->orderBy('id desc')->all();
+        if(!empty($subscribe)) {
+            foreach ($subscribe as $item) {
+                Payments::cancelSubscribe(['Id' => $item->subscription_id]);
+            }
+        }
     }
 }
