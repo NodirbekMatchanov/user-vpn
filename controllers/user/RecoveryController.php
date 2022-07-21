@@ -186,7 +186,7 @@ class RecoveryController extends Controller
         if ($model->load(\Yii::$app->getRequest()->post()) && $model->resetPassword($token)) {
             $userApp = Accs::find()->where(['user_id' => $id])->one();
             if(!empty($userApp)){
-                $userApp->pass = $model->password;
+                $userApp->pass = \Yii::$app->security->generatePasswordHash($model->password);
                 $userApp->save();
             }
             $this->trigger(self::EVENT_AFTER_RESET, $event);
