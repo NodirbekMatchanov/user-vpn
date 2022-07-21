@@ -256,7 +256,7 @@ class Payments extends \yii\db\ActiveRecord
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($curl, CURLOPT_POST, 1);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($params));
+        curl_setopt($curl, CURLOPT_POSTFIELDS, ($params));
 //curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, $this->enableSSL);
 //curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, $this->enableSSL);
 
