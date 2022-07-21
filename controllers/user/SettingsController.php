@@ -352,6 +352,7 @@ class SettingsController extends Controller
             ->andWhere(['IS NOT','subscription_id', null])->orderBy('id desc')->all();
         if(!empty($subscribe)) {
             foreach ($subscribe as $item) {
+                echo $item->subscription_id;
                $result = Payments::cancelSubscribe(['Id' => $item->subscription_id]);
                print_r($result);
             }
