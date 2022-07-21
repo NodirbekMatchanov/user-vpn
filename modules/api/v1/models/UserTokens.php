@@ -15,6 +15,8 @@ use Yii;
  * @property int $status
  * @property string $last_login
  * @property string $user_id
+ * @property string $language
+ * @property string $version
  */
 class UserTokens extends \yii\db\ActiveRecord
 {
@@ -36,8 +38,8 @@ class UserTokens extends \yii\db\ActiveRecord
             [['token'], 'string'],
             [['status'], 'integer'],
             [['last_login'], 'safe'],
-            [['source', 'name'], 'string', 'max' => 50],
-            [['auth_key'], 'string', 'max' => 255],
+            [['source', 'name','version'], 'string', 'max' => 50],
+            [['auth_key','language'], 'string', 'max' => 255],
         ];
     }
 

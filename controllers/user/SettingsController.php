@@ -353,6 +353,8 @@ class SettingsController extends Controller
         if(!empty($subscribe)) {
             foreach ($subscribe as $item) {
                $result = Payments::cancelSubscribe(['Id' => $item->subscription_id]);
+               $item->status = 3;
+               $item->save();
             }
         }
         $this->redirect(['/user/settings/account']);

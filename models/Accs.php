@@ -25,6 +25,7 @@ use Yii;
  * @property string $country
  * @property string $source
  * @property string $subscribe
+ * @property string $tmp_pass
  */
 class Accs extends \yii\db\ActiveRecord
 {
@@ -54,7 +55,7 @@ class Accs extends \yii\db\ActiveRecord
         return [
             [['email', 'pass', 'vpnid', 'untildate', 'datecreate', 'status'], 'required'],
             [['vpnid','background_work', 'untildate', 'datecreate','promo_share', 'test_user','user_id', 'use_android', 'visit_count', 'use_ios', 'verifyCode'], 'integer'],
-            [['comment','used_promocode', 'use_ios', 'fcm_token'], 'string'],
+            [['comment','used_promocode','tmp_pass', 'use_ios', 'fcm_token'], 'string'],
             [['email','utm_term','source','utm_campaign','chatId','utm_medium','utm_source', 'pass', 'role', 'tariff', 'promocode'], 'string', 'max' => 255],
             [['status', 'reset_pass','subscribe','country'], 'string', 'max' => 50],
             [['last_date_visit'], 'safe'],

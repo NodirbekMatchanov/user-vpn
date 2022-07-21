@@ -22,6 +22,9 @@ class Users extends \yii\db\ActiveRecord
     public $vpnLogin;
     public $vpnPassword;
     public $phone;
+    public $language;
+    public $version;
+    public $source_name;
     public $using_promocode;
 
     /**
@@ -41,7 +44,7 @@ class Users extends \yii\db\ActiveRecord
     {
         return [
             [['email', 'pass'], 'required'],
-            [['role', 'chatId', 'country', 'using_promocode', 'promocode', 'source', 'used_promocode', 'fcm_token', 'ios_token', 'phone', 'status', 'email',], 'string', 'max' => 255],
+            [['role', 'chatId', 'country','language','version','source_name', 'using_promocode', 'promocode', 'source', 'used_promocode', 'fcm_token', 'ios_token', 'phone', 'status', 'email',], 'string', 'max' => 255],
             [['vpnid', 'id', 'promo_share', 'verifyCode', 'user_id'], 'integer'],
 //            ['email', 'unique'],
             ['datecreate', 'safe'],
@@ -290,7 +293,7 @@ class Users extends \yii\db\ActiveRecord
     public function login()
     {
         $user = self::find()->where(['email' => $this->email])->leftJoin(VpnUserSettings::tableName(), 'radcheck.id = accs.vpnid')->one();
-        if (!Yii::$app->security->validatePassword($this->pass, $user->pass)) {
+        if (!empty($user) && !Yii::$app->security->validatePassword($this->pass, $user->pass)) {
             $user = [];
         }
         $model = \Yii::createObject(LoginForm::className());
@@ -335,6 +338,9 @@ class Users extends \yii\db\ActiveRecord
                 $tokens->auth_key = self::RandomToken(32);
                 $user->save();
             }
+            $tokens->name = $this->source_name ? $this->source_name : $tokens->name;
+            $tokens->language = $this->language ? $this->language : $tokens->language;
+            $tokens->version = $this->version ? $this->version : $tokens->version;
             $tokens->last_login = date("Y-m-d H:i:s");
             $tokens->save();
 
