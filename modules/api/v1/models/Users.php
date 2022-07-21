@@ -152,6 +152,8 @@ class Users extends \yii\db\ActiveRecord
                         "datecreate" => (int)$accs->datecreate,
                         "untildate" => (int)$accs->untildate,
                         "used_promocode" => $accs->used_promocode,
+                        'vpnLogin' => $this->vpnLogin,
+                        'vpnPassword' => $this->vpnPassword,
                     ];
                 } else {
                     return false;
