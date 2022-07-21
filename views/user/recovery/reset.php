@@ -31,6 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="container">
     <?php $form = ActiveForm::begin([
         'id' => 'password-recovery-form',
+        'options' => ['class' => 'form-content'],
         'enableAjaxValidation' => true,
         'enableClientValidation' => true,
     ]); ?>
