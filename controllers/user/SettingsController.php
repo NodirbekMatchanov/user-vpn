@@ -348,7 +348,6 @@ class SettingsController extends Controller
      */
     public function actionCancelSubscribe()
     {
-        $user  = \Yii::$app->user->identity;
         $subscribe = Payments::find()->where(['user_id' => \Yii::$app->user->identity->getId(), 'status' => 2])
             ->andWhere(['IS NOT','subscription_id', null])->orderBy('id desc')->all();
         if(!empty($subscribe)) {
@@ -356,5 +355,6 @@ class SettingsController extends Controller
                 Payments::cancelSubscribe(['Id' => $item->subscription_id]);
             }
         }
+        $this->redirect(['/user/settings/account']);
     }
 }

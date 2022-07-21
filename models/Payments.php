@@ -250,7 +250,7 @@ class Payments extends \yii\db\ActiveRecord
 
         $curl = curl_init();
 
-        curl_setopt($curl, CURLOPT_URL, 'https://api.cloudpayments.ru' . '/test');
+        curl_setopt($curl, CURLOPT_URL, 'https://api.cloudpayments.ru' . '/subscriptions/cancel');
         curl_setopt($curl, CURLOPT_USERPWD, sprintf('%s:%s', 'pk_16424c5787dd7ebfbba47e66aafa8', 'd01ee14c4d8c32b924cfb8f499c1d0e7'));
         curl_setopt($curl, CURLOPT_TIMEOUT, 20);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
