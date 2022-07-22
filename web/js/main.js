@@ -147,6 +147,17 @@ $(document).ready(function () {
         })
     })
 
+    $(document).on('click', '.logout_user', function () {
+        let id = $(this).data('id');
+        $.ajax({
+            url: "/user-tokens/logout",
+            method: "POST",
+            data: {id: id}
+        }).done(function (data) {
+          alert('токен отключен');
+        })
+    })
+
     $(document).on('focusout', '[name="register-form[promocode]"]', function () {
         $('.valid-promocode').text('');
         $('.field-register-form-promocode').removeClass('has-error');

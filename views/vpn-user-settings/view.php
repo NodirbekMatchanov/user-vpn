@@ -266,33 +266,40 @@ if(!empty($model->accs->user_id)) {
             ['class' => 'yii\grid\SerialColumn'],
 
             [
-                'attribute' => 'name',
+                'attribute' => 'Название устройства',
                 'format' => 'raw',
                 'value' => function ($data) {
                     return $data->name;
                 }
             ],
             [
-                'attribute' => 'source',
+                'attribute' => 'Операционная система',
                 'format' => 'raw',
                 'value' => function ($data) {
                     return $data->source;
                 }
             ],
             [
-                'attribute' => 'token',
+                'attribute' => 'токен',
                 'format' => 'raw',
                 'value' => function ($data) {
                     return $data->token;
                 }
             ],
             [
-                'attribute' => 'last_login',
+                'attribute' => '',
                 'format' => 'raw',
                 'value' => function ($data) {
-                    return $data->last_login;
+                    return "<button id='' class='btn btn-default logout_user' data-id='".$data->id."'>Разлогинить юзера</button>";
                 }
-            ]
+            ],
+//            [
+//                'attribute' => 'last_login',
+//                'format' => 'raw',
+//                'value' => function ($data) {
+//                    return $data->last_login;
+//                }
+//            ]
 
         ],
     ]) ?>

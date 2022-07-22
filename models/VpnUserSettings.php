@@ -102,6 +102,7 @@ class VpnUserSettings extends \yii\db\ActiveRecord
                 $user = User::find()->where(['email' => $this->email])->one();
                 $acc->user_id = $user->id;
             }
+            $acc->tmp_pass = $this->pass;
         }
         $user =  User::find()->where(['id' => $acc->user_id])->one();
         if(!empty($user)){

@@ -27,7 +27,7 @@ $template = \app\models\MailTemplate::find()->where(['tmp_key' => 'activate'])->
 <p>Пароль : <?=$user->pass?></p>
 <?php else:
     $templateStr = str_replace('$email',$user->email,$template->body);
-    $templateStr = str_replace('$pass',$user->pass,$templateStr);
+    $templateStr = str_replace('$pass',$user->tmp_pass,$templateStr);
     ?>
     <?= $templateStr?>
 <?php endif;?>

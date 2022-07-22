@@ -45,7 +45,7 @@ class Users extends \yii\db\ActiveRecord
     {
         return [
             [['email', 'pass'], 'required'],
-            [['role', 'chatId', 'country', 'deviceId', 'language', 'version', 'source_name', 'using_promocode', 'promocode', 'source', 'used_promocode', 'fcm_token', 'ios_token', 'phone', 'status', 'email',], 'string', 'max' => 255],
+            [['role', 'chatId','tmp_pass', 'country', 'deviceId', 'language', 'version', 'source_name', 'using_promocode', 'promocode', 'source', 'used_promocode', 'fcm_token', 'ios_token', 'phone', 'status', 'email',], 'string', 'max' => 255],
             [['vpnid', 'id', 'promo_share', 'verifyCode', 'user_id'], 'integer'],
 //            ['email', 'unique'],
             ['datecreate', 'safe'],
@@ -114,6 +114,7 @@ class Users extends \yii\db\ActiveRecord
                 $this->promocode = Yii::$app->security->generateRandomString(6);
                 $this->verifyCode = $code;
                 $this->pass = Yii::$app->security->generatePasswordHash($this->pass);
+                $this->tmp_pass = $this->pass;
                 if ($this->phone) {
                     if (!($profile = Profile::find()->where(['user_id' => $user->id])->one())) {
                         $profile = new Profile();
@@ -330,16 +331,24 @@ class Users extends \yii\db\ActiveRecord
 
         if ($this->deviceId) {
 
-            if (!$tokens = UserTokens::find()->where(['token' => $this->deviceId])->one()) {
-                $tokens = UserTokens::find()->where(['token' => $this->deviceId])->one();
+            if (!$tokens = UserTokens::find()->where(['deviceid' => $this->deviceId])->one()) {
+                $tokens = UserTokens::find()->where(['deviceid' => $this->deviceId])->one();
             }
             if (empty($tokens)) {
                 $tokens = new UserTokens();
                 $tokens->status = 1;
-                $tokens->token = $this->deviceId;
+                $tokens->deviceid = $this->deviceId;
                 $tokens->user_id = $user->user_id;
                 $tokens->auth_key = self::RandomToken(32);
                 $user->save();
+            }
+            if ($this->fcm_token || $this->ios_token) {
+                if ($this->ios_token) {
+                    $tokens->token = $this->ios_token;
+                }
+                if ($this->fcm_token) {
+                    $tokens->token = $this->fcm_token;
+                }
             }
             $tokens->source = $this->source ? $this->source : $tokens->source;
             $tokens->name = $this->source_name ? $this->source_name : $tokens->name;

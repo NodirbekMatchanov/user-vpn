@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\modules\api\v1\models\UserTokens;
 use app\models\UserTokensSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -18,17 +19,29 @@ class UserTokensController extends Controller
      */
     public function behaviors()
     {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['index','create', 'update', 'delete','logout'],
+                        'allow' => \Yii::$app->user->identity->checkAccess(),
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['list'],
+                        'allow' => true,
+                        'roles' => ['@'],
                     ],
                 ],
-            ]
-        );
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['post'],
+                ],
+            ],
+        ];
     }
 
     /**
@@ -58,6 +71,16 @@ class UserTokensController extends Controller
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
+    }
+
+
+    public function actionLogout()
+    {
+        if(\Yii::$app->request->isAjax && $id = \Yii::$app->request->post('id')) {
+           $token = UserTokens::find()->where(['id' =>  $id])->one();
+           $token->status = 0;
+           $token->save();
+        }
     }
 
     /**

@@ -66,9 +66,13 @@ class TariffController extends Controller
      */
     public function actionIndex()
     {
+        $this->layout = 'main_';
         $tariffs = Tariff::find()->where(['tariff.status' => Tariff::ACTIVE])->all();
+        $subscribe = Payments::find()->where(['user_id' => \Yii::$app->user->identity->getId(), 'status' => 2])
+            ->andWhere(['IS NOT','subscription_id', null])->orderBy('id desc')->one();
         return $this->render('index', [
-            'model' => $tariffs
+            'tariffs' => $tariffs,
+            'subscribe' => $subscribe,
         ]);
     }
 
