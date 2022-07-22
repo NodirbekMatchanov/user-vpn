@@ -102,7 +102,7 @@ class UserController extends Controller
      */
     public function actionLogin()
     {
-        $user = new Users();
+        $user = new Registration();
         $request = json_decode(Yii::$app->request->getRawBody(),true);
         if ( $user->load($request,"")  && $userData = $user->login()) {
             return $this->apiItem($userData);

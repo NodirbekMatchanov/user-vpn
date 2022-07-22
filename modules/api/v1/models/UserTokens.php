@@ -35,7 +35,7 @@ class UserTokens extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['token','user_id', 'auth_key', 'status', 'last_login'], 'required'],
+            [['deviceid','user_id', 'auth_key', 'status', 'last_login'], 'required'],
             [['token','deviceid'], 'string'],
             [['status'], 'integer'],
             [['last_login'], 'safe'],
