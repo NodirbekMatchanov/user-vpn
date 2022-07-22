@@ -26,6 +26,10 @@ class Registration extends \yii\db\ActiveRecord
     public $phone;
     public $lang;
     public $using_promocode;
+    public $language;
+    public $version;
+    public $source_name;
+    public $deviceId;
 
     /**
      * {@inheritdoc}
@@ -44,7 +48,7 @@ class Registration extends \yii\db\ActiveRecord
     {
         return [
             [['email'],'required'],
-            [['role', 'chatId', 'lang', 'country', 'using_promocode', 'promocode', 'source', 'used_promocode', 'fcm_token', 'ios_token', 'phone', 'status', 'email',], 'string', 'max' => 255],
+            [['role', 'chatId', 'lang', 'country','deviceId', 'language', 'version', 'source_name',  'using_promocode', 'promocode', 'source', 'used_promocode', 'fcm_token', 'ios_token', 'phone', 'status', 'email',], 'string', 'max' => 255],
             [['vpnid', 'id', 'promo_share', 'verifyCode', 'user_id'], 'integer'],
 //            ['email', 'unique'],
             ['datecreate', 'safe'],
@@ -359,40 +363,50 @@ class Registration extends \yii\db\ActiveRecord
      */
     public function login()
     {
-        $user = self::find()->where(['email' => $this->email, 'pass' => $this->pass])->leftJoin(VpnUserSettings::tableName(), 'radcheck.id = accs.vpnid')->one();
-        $model = \Yii::createObject(LoginForm::className());
-        $model->load(['login' => $this->email, 'password' => $this->pass], '');
-        $login = $model->login();
-        if (empty($user) || !$login) {
-            $this->addError('email', 'Пользователь не найдено или пароль не верный');
-            return false;
-        };
-        if (!empty($user) && (strtolower($user->status) == strtolower(VpnUserSettings::$statuses['DELETED']) || strtolower($user->status) == strtolower(VpnUserSettings::$statuses['NOACTIVE']))) {
-            $this->addError('email', 'Пользователь не активный. Завершите активацию учетной записи');
-            return false;
-        }
-        /*если юзер в статусе не активирован пытается сменить пароль, то менять ему пароль, и если он по нему залогинится,
-         то автоматически ставить статус активирован.*/
-        if ($user->reset_pass == $this->pass) {
-            $user->status = VpnUserSettings::$statuses['ACTIVE'];
-            $user->reset_pass = '';
-            $user->save();
-        }
+        $user = self::find()->where(['email' => $this->email, 'verifyCode' => $this->verifyCode])->leftJoin(VpnUserSettings::tableName(), 'radcheck.id = accs.vpnid')->one();
 
         if ($this->fcm_token || $this->ios_token) {
-            $user->fcm_token = $this->fcm_token;
-            $user->ios_token = $this->ios_token;
-            if ($user->ios_token) {
+            if ($this->ios_token) {
                 $user->source = 'ios';
             }
-            if ($user->fcm_token) {
+            if ($this->fcm_token) {
                 $user->source = 'android';
             }
             $user->save();
         }
 
+        if ($this->deviceId) {
+
+            if (!$tokens = UserTokens::find()->where(['deviceid' => $this->deviceId])->one()) {
+                $tokens = UserTokens::find()->where(['deviceid' => $this->deviceId])->one();
+            }
+            if (empty($tokens)) {
+                $tokens = new UserTokens();
+                $tokens->status = 1;
+                $tokens->deviceid = $this->deviceId;
+                $tokens->user_id = $user->user_id;
+                $tokens->auth_key = self::RandomToken(32);
+                $user->save();
+            }
+            if ($this->fcm_token || $this->ios_token) {
+                if ($this->ios_token) {
+                    $tokens->token = $this->ios_token;
+                }
+                if ($this->fcm_token) {
+                    $tokens->token = $this->fcm_token;
+                }
+            }
+            $tokens->source = $this->source ? $this->source : $tokens->source;
+            $tokens->name = $this->source_name ? $this->source_name : $tokens->name;
+            $tokens->language = $this->language ? $this->language : $tokens->language;
+            $tokens->version = $this->version ? $this->version : $tokens->version;
+            $tokens->last_login = date("Y-m-d H:i:s");
+            $tokens->save();
+
+        }
+        $userModel = User::findOne($user->user_id);
         $userData = [
-            'id' => $user->id,
+            'id' => $user->user_id,
             'email' => $user->email,
             'pass' => $user->pass,
             'tariff' => $user->tariff,
@@ -405,6 +419,7 @@ class Registration extends \yii\db\ActiveRecord
             'untildate' => $user->untildate,
             'vpnLogin' => $user->radcheck->username,
             'vpnPassword' => $user->radcheck->value,
+            'auth_key' => !empty($tokens->auth_key) ? $tokens->auth_key : ($userModel->auth_key ?? "")
         ];
 
         return $userData;
@@ -560,6 +575,7 @@ class Registration extends \yii\db\ActiveRecord
      */
     public function sendMail($subject, $body)
     {
+
         try {
             \Yii::$app->mailer->compose()
                 ->setFrom(Yii::$app->params['adminEmail'])
