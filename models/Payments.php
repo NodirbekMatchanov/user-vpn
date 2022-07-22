@@ -229,7 +229,7 @@ class Payments extends \yii\db\ActiveRecord
     {
         try {
             \Yii::$app->mailer->compose()
-                ->setFrom(Yii::$app->params['adminEmail'])
+                ->setFrom([Yii::$app->params['senderEmail'] => Yii::$app->params['senderName']])
                 ->setTo([$this->email])
                 ->setSubject($subject)
                 ->setHtmlBody($body)
