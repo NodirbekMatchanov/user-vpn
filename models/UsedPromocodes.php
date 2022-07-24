@@ -195,4 +195,19 @@ class UsedPromocodes extends \yii\db\ActiveRecord
         return [];
     }
 
+    public function getStatByPromocode($data) {
+//        if(!empty($data['email'])) {
+//            $accs = Accs::find()->where(['email' => $data['email']])->one();
+//            $usedSignup = \app\models\UsedPromocodes::find()->where(['user_id' => $accs->user_id,'promocode' => $data['promocode'], 'type' => \app\models\UsedPromocodes::SIGNUP])->count();
+//            $usedPayout = \app\models\UsedPromocodes::find()->where(['user_id' => $accs->user_id, 'promocode' => $data['promocode'], 'type' => \app\models\UsedPromocodes::PAYOUT])->count();
+//        } else {
+            $usedSignup = \app\models\UsedPromocodes::find()->where(['promocode' => $data['promocode'], 'type' => \app\models\UsedPromocodes::SIGNUP])->count();
+            $usedPayout = \app\models\UsedPromocodes::find()->where(['promocode' => $data['promocode'], 'type' => \app\models\UsedPromocodes::PAYOUT])->count();
+//        }
+         return [
+            'signupCount' => $usedSignup,
+            'payoutCount' => $usedPayout,
+        ];
+    }
+
 }

@@ -22,7 +22,7 @@ class PromocodeController extends Controller
         $behaviors = parent::behaviors();
         $behaviors['authenticator'] = [
             'class' => HttpBearerAuth::className(),
-            'except' => ['check','history'],
+            'except' => ['check','history','get-stat'],
         ];
         $behaviors['contentNegotiator']['formats'] = [
             'application/json' => Response::FORMAT_JSON
@@ -43,6 +43,14 @@ class PromocodeController extends Controller
     {
         $request = json_decode(Yii::$app->request->getRawBody(),true);
         $promocodes = UsedPromocodes::getHistory($request);
+        return $this->apiItem($promocodes);
+    }
+
+    /* метод  возвращает  ифно по промокоду */
+    public function actionGetStat()
+    {
+        $request = json_decode(Yii::$app->request->getRawBody(),true);
+        $promocodes = UsedPromocodes::getStatByPromocode($request);
         return $this->apiItem($promocodes);
     }
 
