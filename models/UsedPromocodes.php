@@ -19,6 +19,8 @@ class UsedPromocodes extends \yii\db\ActiveRecord
     const VISIT = 'visit';
     const SIGNUP = 'signup';
     const PAYOUT = 'payout';
+    const USED = 'used';
+
 
     /**
      * {@inheritdoc}
@@ -79,7 +81,7 @@ class UsedPromocodes extends \yii\db\ActiveRecord
     public static function saveUsePromo($userId, $promocode)
     {
         $usedModel = new UsedPromocodes();
-        $usedModel->type = UsedPromocodes::SIGNUP;
+        $usedModel->type = UsedPromocodes::USED;
         $usedModel->user_id = $userId;
         $usedModel->promocode = $promocode;
         $usedModel->date = date("Y-m-d");

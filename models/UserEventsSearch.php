@@ -69,7 +69,7 @@ class UserEventsSearch extends UserEvents
         return $dataProvider;
     }
 
-    public function searchByUserId($params, $userId)
+    public function searchByUserId($params, $userId = false)
     {
         $query = UserEvents::find();
 
@@ -79,7 +79,9 @@ class UserEventsSearch extends UserEvents
             'query' => $query,
         ]);
 
-        $query->andWhere(['user_id' => $userId]);
+        if($userId) {
+            $query->andWhere(['user_id' => $userId]);
+        }
         $this->load($params);
 
         if (!$this->validate()) {
