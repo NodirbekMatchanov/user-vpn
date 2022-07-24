@@ -69,7 +69,7 @@ class PromocodeController extends Controller
             $user = User::find()->where(['email' => $request['email']])->one();
             $promocodes = Accs::setPromoShareCount($request['promocode'],$user,null,'use');
         } else {
-            $this->apiItem($result);
+           return $this->apiItem($result);
         }
         return $this->apiItem(['result' => 'used']);
     }
