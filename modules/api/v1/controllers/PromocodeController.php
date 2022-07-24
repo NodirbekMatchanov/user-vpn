@@ -59,7 +59,7 @@ class PromocodeController extends Controller
     public function actionUse()
     {
         $request = json_decode(Yii::$app->request->getRawBody(),true);
-        if(empty($request['promocode']) || $request['email']) {
+        if(empty($request['promocode']) || empty($request['email'])) {
             return $this->apiItem(['result' => 'error','error' => 'promocode and email require field']);
         }
         $valid = UsedPromocodes::ValidationPromoCode($request['promocode'],$request['email']);
