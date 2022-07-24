@@ -7,6 +7,7 @@ use app\models\Accs;
 use app\models\Promocodes;
 use app\models\Support;
 use app\models\UsedPromocodes;
+use app\models\User;
 use app\models\VpnIps;
 use app\modules\api\v1\models\Users;
 use yii;
@@ -65,7 +66,7 @@ class PromocodeController extends Controller
         $valid = UsedPromocodes::ValidationPromoCode($request['promocode'],$request['email']);
         $result = json_decode($valid,true);
         if($result['result'] != 'error') {
-            $user = Accs::find()->where(['email' => $request['email']])->one();
+            $user = User::find()->where(['email' => $request['email']])->one();
             $promocodes = Accs::setPromoShareCount($request['promocode'],$user,null,'use');
         } else {
             $this->apiItem($result);
