@@ -38,7 +38,7 @@ class UserEventsSearch extends UserEvents
      *
      * @return ActiveDataProvider
      */
-    public function search($params,$id)
+    public function search($params,$id = false)
     {
         $query = UserEvents::find();
 
