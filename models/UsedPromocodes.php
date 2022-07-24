@@ -178,7 +178,7 @@ class UsedPromocodes extends \yii\db\ActiveRecord
                 $event = new UserEvents();
                 $event->event = (string)UserEvents::EVENT_USER_USED_PROMOCODE;
                 $event->user_id = $userId;
-                $event->text = 'регистрация по промо-коду : ' . $promocode;
+                $event->text = 'Юсер применил промо-код : ' . $promocode;
                 $event->save(false);
                 self::saveUsePromo($userId,$promocode);
             }
