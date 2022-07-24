@@ -76,6 +76,16 @@ class UsedPromocodes extends \yii\db\ActiveRecord
         $usedModel->save();
     }
 
+    public static function saveUsePromo($userId, $promocode)
+    {
+        $usedModel = new UsedPromocodes();
+        $usedModel->type = UsedPromocodes::SIGNUP;
+        $usedModel->user_id = $userId;
+        $usedModel->promocode = $promocode;
+        $usedModel->date = date("Y-m-d");
+        $usedModel->save();
+    }
+
     public static function savePayout($userId, $promocode)
     {
         $usedModel = new UsedPromocodes();
@@ -154,14 +164,22 @@ class UsedPromocodes extends \yii\db\ActiveRecord
             }
             $mailer->sendUsedPromocode($accs,$promocodeModel->free_day);
 
-
-            /* add event */
-            $event = new UserEvents();
-            $event->event = (string)UserEvents::EVENT_REGISTRATION_PROMOCODE;
-            $event->user_id = $userId;
-            $event->text = 'регистрация по промо-коду : ' . $promocode;
-            $event->save(false);
-
+            if(!$type) {
+                /* add event */
+                $event = new UserEvents();
+                $event->event = (string)UserEvents::EVENT_REGISTRATION_PROMOCODE;
+                $event->user_id = $userId;
+                $event->text = 'регистрация по промо-коду : ' . $promocode;
+                $event->save(false);
+                self::saveSignup($userId,$promocode);
+            } else {
+                $event = new UserEvents();
+                $event->event = (string)UserEvents::EVENT_USER_USED_PROMOCODE;
+                $event->user_id = $userId;
+                $event->text = 'регистрация по промо-коду : ' . $promocode;
+                $event->save(false);
+                self::saveUsePromo($userId,$promocode);
+            }
 
             /* add event */
             $event = new UserEvents();
@@ -170,7 +188,6 @@ class UsedPromocodes extends \yii\db\ActiveRecord
             $event->text = 'Начислено бесплатные дни : ' . $promocodeModel->free_day .' дней';
             $event->save(false);
 
-            self::saveSignup($userId,$promocode);
             return true;
         } else {
             return 'expire';
@@ -208,6 +225,10 @@ class UsedPromocodes extends \yii\db\ActiveRecord
             'signupCount' => $usedSignup,
             'payoutCount' => $usedPayout,
         ];
+    }
+
+    public function savePromocode($data) {
+
     }
 
 }

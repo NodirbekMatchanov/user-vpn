@@ -281,7 +281,7 @@ class Users extends \yii\db\ActiveRecord
      * @param $code
      * @return bool
      */
-    public function checkVerifyCode($email, $code)
+        public function checkVerifyCode($email, $code)
     {
         $user = self::find()->where(['email' => $email, 'verifyCode' => $code])->one();
         if (empty($user)) return false;

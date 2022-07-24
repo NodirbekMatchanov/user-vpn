@@ -34,6 +34,7 @@ class Accs extends \yii\db\ActiveRecord
     const SOURCE_TELEGRAM = 'telegram';
     const SOURCE_IOS = 'ios';
     const SOURCE_ANDROID = 'android';
+
     /**
      * {@inheritdoc}
      */
@@ -54,10 +55,10 @@ class Accs extends \yii\db\ActiveRecord
     {
         return [
             [['email', 'pass', 'vpnid', 'untildate', 'datecreate', 'status'], 'required'],
-            [['vpnid','background_work', 'untildate', 'datecreate','promo_share', 'test_user','user_id', 'use_android', 'visit_count', 'use_ios', 'verifyCode'], 'integer'],
-            [['comment','used_promocode','tmp_pass', 'use_ios', 'fcm_token'], 'string'],
-            [['email','utm_term','source','utm_campaign','chatId','utm_medium','utm_source', 'pass', 'role', 'tariff', 'promocode'], 'string', 'max' => 255],
-            [['status', 'reset_pass','subscribe','country'], 'string', 'max' => 50],
+            [['vpnid', 'background_work', 'untildate', 'datecreate', 'promo_share', 'test_user', 'user_id', 'use_android', 'visit_count', 'use_ios', 'verifyCode'], 'integer'],
+            [['comment', 'used_promocode', 'tmp_pass', 'use_ios', 'fcm_token'], 'string'],
+            [['email', 'utm_term', 'source', 'utm_campaign', 'chatId', 'utm_medium', 'utm_source', 'pass', 'role', 'tariff', 'promocode'], 'string', 'max' => 255],
+            [['status', 'reset_pass', 'subscribe', 'country'], 'string', 'max' => 50],
             [['last_date_visit'], 'safe'],
         ];
     }
@@ -84,6 +85,7 @@ class Accs extends \yii\db\ActiveRecord
         $accs = Accs::find()->where(['user_id' => $userId])->one();
         return $accs;
     }
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -91,6 +93,7 @@ class Accs extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Profile::className(), ['user_id' => 'user_id']);
     }
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -100,26 +103,27 @@ class Accs extends \yii\db\ActiveRecord
         return $this->hasOne(VpnUserSettings::className(), ['id' => 'vpnid']);
     }
 
-    public static function setPromoShareCount($promocode, $user, $chatId = null){
-        if($promocode == "") return false;
+    public static function setPromoShareCount($promocode, $user, $chatId = null, $type = null)
+    {
+        if ($promocode == "") return false;
         $accs = Accs::find()->where(['promocode' => $promocode])->one();
-        if($user) {
+        if ($user) {
             $usedCodeUser = UsedPromocodes::find()->where(['promocode' => $promocode, 'user_id' => ($user->id ?? $user->user_id)])->count();
-            if($usedCodeUser > 0) {
+            if ($usedCodeUser > 0) {
                 return false;
             }
         }
-        if(!empty($accs)) {
-           $count = $accs->promo_share;
-           $accs->promo_share = $count + 1;
-           $accs->background_work = 1;
-           $accs->untildate = $accs->untildate < time() ? time() + (3600*24*1) : $accs->untildate + (3600*24*1);
-           UsedPromocodes::saveSignup(($user->user_id ?? $user->id),$promocode);
-           $mailer = new Mailer();
-           $mailer->sendUsedPromocode($accs, 1);
+        if (!empty($accs)) {
+            $count = $accs->promo_share;
+            $accs->promo_share = $count + 1;
+            $accs->background_work = 1;
+            $accs->untildate = $accs->untildate < time() ? time() + (3600 * 24 * 1) : $accs->untildate + (3600 * 24 * 1);
+            UsedPromocodes::saveSignup(($user->user_id ?? $user->id), $promocode);
+            $mailer = new Mailer();
+            $mailer->sendUsedPromocode($accs, 1);
 
-           $mailer = new Mailer();
-           $mailer->sendUsedPromocode($user,1);
+            $mailer = new Mailer();
+            $mailer->sendUsedPromocode($user, 1);
 
             /* add event */
             $event = new UserEvents();
@@ -137,10 +141,10 @@ class Accs extends \yii\db\ActiveRecord
 
             return $accs->save();
         } else {
-            if($chatId) {
-                return UsedPromocodes::usePromocode($chatId,$promocode);
+            if ($chatId) {
+                return UsedPromocodes::usePromocode($chatId, $promocode, $type);
             }
-           return UsedPromocodes::usePromocode(($user->id),$promocode);
+            return UsedPromocodes::usePromocode(($user->id), $promocode, $type);
         }
         return false;
     }
