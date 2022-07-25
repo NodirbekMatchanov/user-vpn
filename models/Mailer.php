@@ -232,7 +232,7 @@ class Mailer extends \dektrium\user\Mailer
     {
         return $this->sendMessage(
             $user->email,
-            $this->getWelcomeSubject(),
+            'Оплата за тариф',
             'errorPayment',
             ['user' => $user]
         );

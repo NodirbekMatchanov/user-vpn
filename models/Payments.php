@@ -108,8 +108,9 @@ class Payments extends \yii\db\ActiveRecord
                                 $countDay = Tariff::getPeriod($order->tariff);
                                 $time = $countDay * (3600 * 24);
                                 $user->untildate = ($user->untildate < time()) ? (time() + $time) : ($user->untildate + $time);
-                                $user->tariff = "Premium";
+                                $user->tariff = Tariff::PREMIUM;
                                 $user->background_work = 1;
+                                $user->subscribe = $order->tariff;
                                 $user->save(false);
                                 \Yii::info('save premium tariff for user');
 
@@ -137,14 +138,19 @@ class Payments extends \yii\db\ActiveRecord
                             $countDay = Tariff::getPeriod($order->tariff);
                             $time = $countDay * (3600 * 24);
                             $hasUser->untildate = $hasUser->untildate < time() ? (time() + $time) : $hasUser->untildate + $time;
-                            $hasUser->tariff = "Premium";
+                            $hasUser->tariff = Tariff::PREMIUM;
                             $hasUser->status = VpnUserSettings::$statuses['ACTIVE'];
                             $hasUser->background_work = 1;
+                            $hasUser->subscribe = $order->tariff;
                             $hasUser->save(false);
                             $this->saveEvent($hasUser->user_id, $order->amount . " руб. " . Tariff::getPeriod($order->tariff) . ' дней');
                             $mailer->sendPaymentMessage($hasUser, $countDay, date("d.m.Y", $hasUser->untildate));
                             $userModel = User::findOne($hasUser->user_id);
                             $usedPromocode = Accs::setPromoShareCount($order->promocode, $userModel);
+
+                            $order->user_id = (int)$hasUser->user_id;
+                            $order->save(false);
+
                             if ($order->promocode) {
                                 UsedPromocodes::savePayout($hasUser->user_id, $order->promocode);
                             }
@@ -159,16 +165,18 @@ class Payments extends \yii\db\ActiveRecord
                         $time = $countDay * (3600 * 24);
                         $user->untildate = $user->untildate < time() ? (time() + $time) : $user->untildate + $time;
                         $user->status = VpnUserSettings::$statuses['ACTIVE'];
-                        $user->tariff = "Premium";
+                        $user->tariff = Tariff::PREMIUM;
                         $user->background_work = 1;
+                        $user->subscribe = $order->tariff;
                         $user->save(false);
                         if ($order->promocode) {
                             UsedPromocodes::savePayout($user->user_id, $order->promocode);
                         }
                         if ($order->source == "telegram") {
                             $telegramUsers = TelegramUsers::find()->where(['chat_id' => $order->payer_email])->one();
-                            $telegramUsers->tariff = "Premium";
+                            $telegramUsers->tariff = Tariff::PREMIUM;
                             $telegramUsers->background_work = 1;
+                            $telegramUsers->subscribe = $order->tariff;
                             $telegramUsers->status = VpnUserSettings::$statuses['ACTIVE'];
                             $telegramUsers->save();
                             // если первый  покупка и покупка по рефералу
@@ -176,8 +184,9 @@ class Payments extends \yii\db\ActiveRecord
                                 \Yii::$app->telegram->sendMessage(['chat_id' => $telegramUsers->ref, 'text' => 'По вашему промокоду покупали подписку. Мы дарим вам 3 дня VIP подписки']);
                                 $refAccs = Accs::find()->where(['chatId' => $telegramUsers->ref])->one();
                                 if (!empty($refAccs)) {
-                                    $refAccs->tariff = "Premium";
+                                    $refAccs->tariff = Tariff::PREMIUM;
                                     $refAccs->background_work = 1;
+                                    $refAccs->subscribe = $order->tariff;
                                     $refAccs->status = VpnUserSettings::$statuses['ACTIVE'];
                                     $refAccs->untildate = $user->untildate < time() ? (time() + 3 * 27 * 3600) : $user->untildate + 3 * 27 * 3600;
                                     $refAccs->save();
@@ -203,11 +212,11 @@ class Payments extends \yii\db\ActiveRecord
                 $countDay = Tariff::getPeriod($accs->subscribe);
                 $time = $countDay * (3600 * 24);
                 $accs->untildate = $accs->untildate < time() ? (time() + $time) : $accs->untildate + $time;
-                $accs->tariff = "Premium";
+                $accs->tariff = Tariff::PREMIUM;
                 $accs->status = VpnUserSettings::$statuses['ACTIVE'];
                 $accs->background_work = 1;
                 $accs->save(false);
-                $this->saveEvent($accs->user_id, $order->amount . " руб. " . $countDay . ' дней');
+                $this->saveEvent($accs->user_id, $data['Amount'] . " руб. " . $countDay . ' дней');
                 $mailer->sendPaymentMessage($accs, $countDay, date("d.m.Y", $accs->untildate));
 
             }

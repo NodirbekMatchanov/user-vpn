@@ -22,7 +22,8 @@ class Tariff extends \yii\db\ActiveRecord
 {
     const ACTIVE = 1;
     const ARCHIVE = 0;
-
+    const PREMIUM = 'Premium';
+    const FREE = 'Free';
     /**
      * {@inheritdoc}
      */
