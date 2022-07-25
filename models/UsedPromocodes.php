@@ -207,7 +207,7 @@ class UsedPromocodes extends \yii\db\ActiveRecord
 
     public function getHistory($data) {
         $accs = Accs::find()->where(['email' => $data['email']])->one();
-        if(!Yii::$app->user->isGuest && !empty($accs)) {
+        if(!empty($accs)) {
             $query = UsedPromocodes::find();
             $query->andWhere(['user_id' => $accs->user_id]);
             $history = $query->all();
