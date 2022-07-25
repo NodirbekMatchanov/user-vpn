@@ -31,11 +31,11 @@ if (!empty($cabinet)): ?>
 					</div>
 				</div>
 				<div class="dropdown-content">
-					<a href='#' class="dropdown-item">Тарифы</a>
-					<a href='#' class="dropdown-item">Аккаунт</a>
-					<a href='#' class="dropdown-item">Серверы</a>
-					<a href='#' class="dropdown-item">Конфигурация</a>
-					<a href='#' class="dropdown-item">Справочник</a>
+					<a href='<?=Url::to(['/tariff'])?>' class="dropdown-item">Тарифы</a>
+					<a href='<?=Url::to(['/user/settings/account'])?>' class="dropdown-item">Аккаунт</a>
+					<a href='<?=Url::to(['/vpn-ips/list'])?>' class="dropdown-item">Серверы</a>
+					<a href='<?=Url::to(['/tariff'])?>' class="dropdown-item">Конфигурация</a>
+					<a href='<?=Url::to(['/support/categories'])?>' class="dropdown-item">Справочник</a>
 				</div>
 			</div>
 		</div>
