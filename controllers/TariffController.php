@@ -175,7 +175,7 @@ class TariffController extends Controller
                     return false;
                 }
             }
-            return false;
+            return true;
         }
     }
 
