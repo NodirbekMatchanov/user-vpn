@@ -209,7 +209,9 @@ use yii\bootstrap\NavBar;
                 </div>
             </div>
         </div>
-        <?php if ((Yii::$app->controller->id == 'tariff' || Yii::$app->controller->action->id == 'account' || Yii::$app->controller->id == 'vpn-ips' || Yii::$app->controller->action->id == 'config' || Yii::$app->controller->id == 'tariff')): ?>
+        <?php if ((Yii::$app->controller->id == 'tariff' || Yii::$app->controller->action->id == 'account' || Yii::$app->controller->id == 'vpn-ips' || Yii::$app->controller->action->id == 'config' || Yii::$app->controller->id == 'tariff' ||
+            (Yii::$app->controller->id == 'categories' && !Yii::$app->user->isGuest)
+        )): ?>
             <?php echo $this->render('account_nav', ['cabinet' => true]); ?>
         <?php endif; ?>
         <?= $content ?>
