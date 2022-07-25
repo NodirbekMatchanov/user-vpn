@@ -4,6 +4,7 @@
 /** @var yii\web\View $this */
 
 $url = \yii\helpers\Url::to(['tariff/get-price?id=']);
+$checkEmail = \yii\helpers\Url::to(['tariff/check-email']);
 $paymentSuccessUrl = \yii\helpers\Url::to(['tariff/payment-success']);
 $paymentErrorUrl = \yii\helpers\Url::to(['tariff/payment-error']);
 $script = <<<JS
@@ -129,26 +130,37 @@ $(document).on('click', '.pay', function (e) {
      promocode = getCookie('promocode') ?? $('[name="payer-promocode"]').val();
      orderId = orderNumber();
      email = $('[name="email-payer"]').val()
-     if(email) {
-         if(!ValidateEmail($('[name="email-payer"]')[0])) {
-             $('.email-payer-message').html('не валидный email');
-             return false;
-         }
-        // типы оплаты
-        switch (method) {
-            case "card" : cardPay(e);
-            break;
-            case "qiwi" : cardPay();
-            break;
-            case "yomaney" : cardPay();
-            break;
-            case "bitcoin" : cardPay();
-            break;
-        } 
-     } else {
-         $('.email-payer-message').closest('.input-2').addClass('_error');
-         $('.email-payer-message').html('не заполнено поле e-mail');
-     }
+     $.ajax({
+        url: '$checkEmail?email='+ email 
+     }).done(function(data) {
+       if(data) {
+           if(email) {
+                 if(!ValidateEmail($('[name="email-payer"]')[0])) {
+                     $('.email-payer-message').html('не валидный email');
+                     return false;
+                 }
+                // типы оплаты
+                switch (method) {
+                    case "card" : cardPay(e);
+                    break;
+                    case "qiwi" : cardPay();
+                    break;
+                    case "yomaney" : cardPay();
+                    break;
+                    case "bitcoin" : cardPay();
+                    break;
+                } 
+             } else {
+                 $('.email-payer-message').closest('.input-2').addClass('_error');
+                 $('.email-payer-message').html('не заполнено поле e-mail');
+             }
+       } else {
+           $('.email-payer-message').html('у пользователя есть активный подписка');
+       }
+     }).fail(function() {
+       
+     })
+     
      
     });
 $(document).ready(function() {

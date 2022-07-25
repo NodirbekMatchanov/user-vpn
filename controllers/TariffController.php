@@ -39,9 +39,9 @@ class TariffController extends Controller
                         'roles' => ['@'],
                     ],
                     [
-                        'actions' => [ 'payment', 'get-price', 'payment-success', 'payment-error'],
+                        'actions' => ['payment', 'check-email', 'get-price', 'payment-success', 'payment-error'],
                         'allow' => true,
-                        'roles' => ['@','?'],
+                        'roles' => ['@', '?'],
                     ],
                 ],
             ],
@@ -69,7 +69,7 @@ class TariffController extends Controller
         $this->layout = 'main_';
         $tariffs = Tariff::find()->where(['tariff.status' => Tariff::ACTIVE])->all();
         $subscribe = Payments::find()->where(['user_id' => \Yii::$app->user->identity->getId(), 'status' => 2])
-            ->andWhere(['IS NOT','subscription_id', null])->orderBy('id desc')->one();
+            ->andWhere(['IS NOT', 'subscription_id', null])->orderBy('id desc')->one();
         return $this->render('index', [
             'tariffs' => $tariffs,
             'subscribe' => $subscribe,
@@ -158,6 +158,25 @@ class TariffController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    /**
+     * @return string
+     */
+    public function actionCheckEmail()
+    {
+        if (\Yii::$app->request->isAjax) {
+            $email = \Yii::$app->request->get('email');
+            $accs = Accs::find()->where(['email' => $email])->one();
+            if(!empty($accs)) {
+                $subscribe = Payments::find()->where(['user_id' => $accs->user_id, 'status' => 2])
+                    ->andWhere(['IS NOT', 'subscription_id', null])->orderBy('id desc')->one();
+                if(empty($subscribe)) {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 
     /**

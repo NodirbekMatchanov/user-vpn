@@ -1,23 +1,23 @@
 $(document).ready(function () {
 
-    var URLToArray = function(url){
-        function parse_mdim(name, val, data){
+    var URLToArray = function (url) {
+        function parse_mdim(name, val, data) {
             let params = name.match(/(\[\])|(\[.+?\])/g);
-            if(!params)params = new Array();
+            if (!params) params = new Array();
             let tg_id = name.split('[')[0];
 
 
-            if(!(tg_id in data)) data[tg_id] = [];
+            if (!(tg_id in data)) data[tg_id] = [];
             var prev_data = data[tg_id];
 
-            for(var i=0;i<params.length;i++){
-                if(params[i]!='[]'){
+            for (var i = 0; i < params.length; i++) {
+                if (params[i] != '[]') {
                     let tparam = params[i].match(/\[(.+)\]/i)[1];
-                    if(!(tparam in prev_data)) prev_data[tparam] = [];
+                    if (!(tparam in prev_data)) prev_data[tparam] = [];
                     prev_data = prev_data[tparam];
-                }else{
+                } else {
                     prev_data.push([]);
-                    prev_data = prev_data[prev_data.length-1];
+                    prev_data = prev_data[prev_data.length - 1];
                 }
 
             }
@@ -31,7 +31,7 @@ $(document).ready(function () {
 
         for (var i = 0; i < pairs.length; i++) {
             var pair = pairs[i].split('=');
-            if(decodeURIComponent(pair[0]).indexOf('[')!=-1)
+            if (decodeURIComponent(pair[0]).indexOf('[') != -1)
                 parse_mdim(decodeURIComponent(pair[0]), decodeURIComponent(pair[1]), request);
             else
                 request[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
@@ -44,13 +44,13 @@ $(document).ready(function () {
 
     var getParams = URLToArray(window.location.href);
 
-    if(getParams.hasOwnProperty("promocode") && getCookie('promocode') === undefined) {
-        setCookie('promocode', getParams.promocode, {secure: true, 'max-age': 3600 *24*30});
+    if (getParams.hasOwnProperty("promocode") && getCookie('promocode') === undefined) {
+        setCookie('promocode', getParams.promocode, {secure: true, 'max-age': 3600 * 24 * 30});
         setPromo(getParams.promocode)
         console.log(getCookie('promocode'))
     }
-    if(getParams.hasOwnProperty("ref") && getCookie('promocode') === undefined) {
-        setCookie('promocode', getParams.ref, {secure: true, 'max-age': 3600 *24*30});
+    if (getParams.hasOwnProperty("ref") && getCookie('promocode') === undefined) {
+        setCookie('promocode', getParams.ref, {secure: true, 'max-age': 3600 * 24 * 30});
         setPromo(getParams.ref)
         console.log(getCookie('promocode'))
     }
@@ -84,17 +84,17 @@ $(document).ready(function () {
             }
         });
     }
-    
-    $(document).on('click','#7days',function () {
+
+    $(document).on('click', '#7days', function () {
         setQuickDate(7);
     })
-    $(document).on('click','#30days',function () {
+    $(document).on('click', '#30days', function () {
         setQuickDate(30);
     })
-    $(document).on('click','#90days',function () {
+    $(document).on('click', '#90days', function () {
         setQuickDate(90);
     })
-    $(document).on('click','#365days',function () {
+    $(document).on('click', '#365days', function () {
         setQuickDate(365);
     })
 
@@ -103,9 +103,10 @@ $(document).ready(function () {
         daysAgo.setDate(date.getDate() + numOfDays);
         return daysAgo;
     }
+
     function setQuickDate(day) {
         const date = new Date();
-        $('[name="Promocodes[expire]"]').val(getDateXDaysAgo(day,date).toISOString().split('T')[0])
+        $('[name="Promocodes[expire]"]').val(getDateXDaysAgo(day, date).toISOString().split('T')[0])
         $('[name="Promocodes[date_start]"]').val(date.toISOString().split('T')[0])
     }
 
@@ -115,8 +116,8 @@ $(document).ready(function () {
             method: "POST",
             data: {code: $('[name="promocode"]').val()}
         }).done(function (data) {
-            data =  JSON.parse(data)
-            if(data.result == 'error'){
+            data = JSON.parse(data)
+            if (data.result == 'error') {
                 alert(data.error);
                 return false;
             } else {
@@ -134,8 +135,8 @@ $(document).ready(function () {
             method: "POST",
             data: {code: $('[name="promocode"]').val()}
         }).done(function (data) {
-            data =  JSON.parse(data)
-            if(data.result == 'error'){
+            data = JSON.parse(data)
+            if (data.result == 'error') {
                 alert(data.error);
                 return false;
             } else {
@@ -154,7 +155,7 @@ $(document).ready(function () {
             method: "POST",
             data: {id: id}
         }).done(function (data) {
-          alert('токен отключен');
+            alert('токен отключен');
         })
     })
 
@@ -164,16 +165,16 @@ $(document).ready(function () {
         $.ajax({
             url: "/promocodes/validation",
             method: "POST",
-            data: {code: $('[name="register-form[promocode]"]').val(),email:$('[name="register-form[email]"]').val()}
+            data: {code: $('[name="register-form[promocode]"]').val(), email: $('[name="register-form[email]"]').val()}
         }).done(function (data) {
             data = JSON.parse(data);
-            if(data.result == 'success'){
-                $('.valid-promocode').html("<i>"+data.description+"</i>");
+            if (data.result == 'success') {
+                $('.valid-promocode').html("<i>" + data.description + "</i>");
             }
-            if(data.result == 'error'){
-               setTimeout(function (){
-                   $('.field-register-form-promocode').addClass('has-error');
-               },500)
+            if (data.result == 'error') {
+                setTimeout(function () {
+                    $('.field-register-form-promocode').addClass('has-error');
+                }, 500)
                 $('.valid-promocode').text(data.error);
             }
         })
@@ -189,11 +190,11 @@ $(document).ready(function () {
         }).done(function (data) {
             data = JSON.parse(data);
             // Промокод успешно применен
-            if(data.result == 'success'){
+            if (data.result == 'success') {
                 $('.promocode-payer-message._success').html("Промокод успешно применен");
                 $('.prices-item._active').trigger('click');
             }
-            if(data.result == 'error'){
+            if (data.result == 'error') {
                 $('.promocode-payer-message._error').html(data.error);
                 $('.prices-item._active').trigger('click');
             }
@@ -229,33 +230,33 @@ $(document).ready(function () {
         return matches ? decodeURIComponent(matches[1]) : undefined;
     }
 
-    $(document).on("change",'[name="email-payer"]',function (){
+    $(document).on("change", '[name="email-payer"]', function () {
         $('.email-payer-message').closest('.input-2').removeClass('_error');
         $('.email-payer-message').html('');
 
-        if(!ValidateEmail($(this)[0])) {
+        if (!ValidateEmail($(this)[0])) {
             $('.email-payer-message').html('проверьте правильность ввода email адреса');
         }
-        if($(this).val() == ''){
+        if ($(this).val() == '') {
             $('.email-payer-message').closest('.input-2').addClass('_error');
             $('.email-payer-message').html('не заполнено поле e-mail');
         }
-     })
+    })
 
-    $(document).on("click",'.auto-signup',function (){
+    $(document).on("click", '.auto-signup', function () {
         let element = $('[name="email"]')[0];
         $('[name="email"]').removeClass('validate-email');
         $('.error-email').remove();
-        if(ValidateEmail(element)){
+        if (ValidateEmail(element)) {
             let password = Password.generate(8);
             $.ajax({
                 url: "/user/registration/auto-register",
                 method: "GET",
                 data: {password: password, password_repeat: password, email: element.value}
             }).done(function (data) {
-                    if(data) {
-                        alert('registrated')
-                    }
+                if (data) {
+                    alert('registrated')
+                }
             }).fail(function () {
                 alert('ошибка регистрации')
             })
@@ -287,41 +288,31 @@ $(document).ready(function () {
 
     var Password = {
 
-        _pattern : /[a-zA-Z0-9_\-\+\.]/,
+        _pattern: /[a-zA-Z0-9_\-\+\.]/,
 
 
-        _getRandomByte : function()
-        {
+        _getRandomByte: function () {
             // http://caniuse.com/#feat=getrandomvalues
-            if(window.crypto && window.crypto.getRandomValues)
-            {
+            if (window.crypto && window.crypto.getRandomValues) {
                 var result = new Uint8Array(1);
                 window.crypto.getRandomValues(result);
                 return result[0];
-            }
-            else if(window.msCrypto && window.msCrypto.getRandomValues)
-            {
+            } else if (window.msCrypto && window.msCrypto.getRandomValues) {
                 var result = new Uint8Array(1);
                 window.msCrypto.getRandomValues(result);
                 return result[0];
-            }
-            else
-            {
+            } else {
                 return Math.floor(Math.random() * 256);
             }
         },
 
-        generate : function(length)
-        {
+        generate: function (length) {
             return Array.apply(null, {'length': length})
-                .map(function()
-                {
+                .map(function () {
                     var result;
-                    while(true)
-                    {
+                    while (true) {
                         result = String.fromCharCode(this._getRandomByte());
-                        if(this._pattern.test(result))
-                        {
+                        if (this._pattern.test(result)) {
                             return result;
                         }
                     }
@@ -333,7 +324,7 @@ $(document).ready(function () {
 
     /* отправить вопрос */
 
-    $(document).on('click','.send-question',function () {
+    $(document).on('click', '.send-question', function () {
         let email = "", question = "", name = "";
         name = $('[name="Questions[name]"]').val();
         email = $('[name="Questions[email]"]').val();
@@ -343,31 +334,31 @@ $(document).ready(function () {
         $('.question-question').text('');
 
         validate = true;
-        if(name === '') {
+        if (name === '') {
             validate = false;
             $('.question-name').text('Необходимо заполнить «Имя».')
         }
-        if(email === '') {
+        if (email === '') {
             validate = false;
             $('.question-email').text('Необходимо заполнить «email».')
         }
-        if(question === '') {
+        if (question === '') {
             validate = false;
             $('.question-question').text('Необходимо заполнить «Вопрос».')
         }
-        if(validate) {
+        if (validate) {
 
             $.ajax({
                 url: "/site/question",
                 method: "POST",
                 data: {email: email, name: name, text: question}
-            }).done(function (data){
+            }).done(function (data) {
                 $('.mfp-close').trigger('click')
-                if(data) {
+                if (data) {
                     swal({
                         title: "Ваш вопрос отправлен",
-                        text:"Ваш запрос отправлен!",
-                        icon:"success",
+                        text: "Ваш запрос отправлен!",
+                        icon: "success",
                     });
                 } else {
 
