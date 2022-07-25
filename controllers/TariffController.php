@@ -171,8 +171,8 @@ class TariffController extends Controller
             if(!empty($accs)) {
                 $subscribe = Payments::find()->where(['user_id' => $accs->user_id, 'status' => 2])
                     ->andWhere(['IS NOT', 'subscription_id', null])->orderBy('id desc')->one();
-                if(empty($subscribe)) {
-                    return true;
+                if(!empty($subscribe)) {
+                    return false;
                 }
             }
             return false;
