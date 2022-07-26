@@ -138,8 +138,9 @@ class RegistrationForm extends \dektrium\user\models\RegistrationForm
         $regUser->promocode = $this->promocode;
         $regUser->phone = $this->phone;
         $regUser->verifyCode = $this->getVeriFyCode();
-
-        return $regUser->save();
+        $regUser->save();
+        print_r($regUser->errors); die();
+        return true;
     }
 
     public function register()
