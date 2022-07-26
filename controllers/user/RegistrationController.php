@@ -189,7 +189,7 @@ class RegistrationController extends Controller
         $verifyCode = new VerifyCode();
 
         if ($verifyCode->load(\Yii::$app->request->post()) && $verifyCode->validate()) {
-            $user = RegistrationUsers::find()->where(['verifyCode' => \Yii::$app->request->post('VerifyCode[code]')])->orderBy('id desc')->one();
+            $user = RegistrationUsers::find()->where(['verifyCode' => $verifyCode->code])->orderBy('id desc')->one();
             if(!empty($user)) {
                 \Yii::$app->getSession()->setFlash('success', 'Ваш аккаунт успешно активирован!');
 
