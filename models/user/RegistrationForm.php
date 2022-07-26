@@ -129,9 +129,9 @@ class RegistrationForm extends \dektrium\user\models\RegistrationForm
      * @return bool
      */
     public function temporaryRegister() {
-        if (!$this->validate()) {
-            return false;
-        }
+//        if (!$this->validate()) {
+//            return false;
+//        }
         $regUser = new RegistrationUsers();
         $regUser->email = $this->email;
         $regUser->password = $this->password;
