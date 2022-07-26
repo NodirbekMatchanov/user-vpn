@@ -211,7 +211,7 @@ class RegistrationController extends Controller
                     'password' => $user->password,
                     'promocode' => $user->promocode,
                     'phone' => $user->phone,
-                    'password_repeat' => $user->password_repeat,
+                    'password_repeat' => $user->password,
                 ];
                 if ($model->load($data, '') && $model->register()) {
                     $accs = Accs::find()->where(['email' => $user->email])->one();
