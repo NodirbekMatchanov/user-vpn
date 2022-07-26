@@ -26,7 +26,22 @@ class UserPasswordHash
             }
         }
     }
+
+    public function actionDeleteNoActive() {
+        $accs = \app\models\Accs::find()->where(['status' => \app\models\VpnUserSettings::$statuses['NOACTIVE']])
+            ->andWhere(['<','datecreate',strtotime(date("2022-07-20"))])->all();
+        foreach ($accs as $acc) {
+            $redcheck = \app\models\VpnUserSettings::find()->where(['id' => $acc->vpnid])->one();
+            if(!empty($redcheck)) {
+                $redcheck->delete();
+            }
+            $user = \app\models\User::find()->where(['id' => $acc->user_id])->one();
+            if(!empty($user)) {
+                $user->delete();
+            }
+        }
+    }
 }
 
 $run = new UserPasswordHash();
-$run->actionUpdatePassword();
+$run->actionDeleteNoActive();
