@@ -14,6 +14,7 @@ namespace app\models\user;
 use app\controllers\SiteController;
 use app\controllers\user\RegistrationController;
 use app\models\Accs;
+use app\models\RegistrationUsers;
 use app\models\UserEvents;
 use app\models\VpnUserSettings;
 use app\modules\api\v1\models\Users;
@@ -127,6 +128,20 @@ class RegistrationForm extends \dektrium\user\models\RegistrationForm
      *
      * @return bool
      */
+    public function temporaryRegister() {
+        if (!$this->validate()) {
+            return false;
+        }
+        $regUser = new RegistrationUsers();
+        $regUser->email = $this->email;
+        $regUser->password = $this->password;
+        $regUser->promocode = $this->promocode;
+        $regUser->phone = $this->phone;
+        $regUser->verifyCode = $this->getVeriFyCode();
+
+        return $regUser->save();
+    }
+
     public function register()
     {
         $this->username = $this->email;

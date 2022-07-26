@@ -3,6 +3,7 @@
 namespace app\models\user;
 
 use app\models\Accs;
+use app\models\RegistrationUsers;
 use app\modules\api\v1\models\Users;
 use app\modules\api\v1\models\VpnUserSettings;
 use Yii;
@@ -46,17 +47,11 @@ class VerifyCode extends Model
     }
 
     function check() {
-        $this->user = Accs::find()->where([ 'verifyCode' => $this->code])->one();
+        $this->user = RegistrationUsers::find()->where([ 'verifyCode' => $this->code])->one();
         if(empty($this->user)){
            $this->addError('code','Не корректный код');
             return false;
         }
-        $this->user->status = VpnUserSettings::$statuses['ACTIVE'];
-        if($this->user->untildate < time()) {
-            $this->user->untildate = strtotime('+ 3 days');
-        }
-        $this->user->save();
-
         return true;
     }
 

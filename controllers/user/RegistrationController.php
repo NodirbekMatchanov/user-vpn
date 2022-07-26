@@ -14,6 +14,7 @@ namespace app\controllers\user;
 use app\models\Accs;
 use app\models\LoginForm;
 use app\models\Mailer;
+use app\models\RegistrationUsers;
 use app\models\user\VerifyCode;
 use app\modules\api\v1\models\VpnUserSettings;
 use dektrium\user\Finder;
@@ -110,8 +111,8 @@ class RegistrationController extends Controller
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
-                    ['allow' => true, 'actions' => ['register','auto-register', 'connect','verify-code'], 'roles' => ['?']],
-                    ['allow' => true, 'actions' => ['confirm', 'auto-register','resend'], 'roles' => ['?', '@']],
+                    ['allow' => true, 'actions' => ['register', 'auto-register', 'connect', 'verify-code'], 'roles' => ['?']],
+                    ['allow' => true, 'actions' => ['confirm', 'auto-register', 'resend'], 'roles' => ['?', '@']],
                 ],
             ],
 
@@ -142,14 +143,13 @@ class RegistrationController extends Controller
         $this->performAjaxValidation($model);
 
         /*если в куки есть промокод то передаем в модель*/
-        if(isset($_COOKIE['promocode'])){
+        if (isset($_COOKIE['promocode'])) {
             $model->promocode = $_COOKIE['promocode'];
         }
 
-        if ($model->load(\Yii::$app->request->post()) && $model->register()) {
-            $this->trigger(self::EVENT_AFTER_REGISTER, $event);
-
-            return $this->redirect(['registration/verify-code']);
+        if ($model->load(\Yii::$app->request->post()) && $model->temporaryRegister()) {
+//            $this->trigger(self::EVENT_AFTER_REGISTER, $event);
+            $this->redirect(['registration/verify-code']);
         }
 
         return $this->render('register', [
@@ -169,15 +169,15 @@ class RegistrationController extends Controller
         $this->performAjaxValidation($model);
 
         /*если в куки есть промокод то передаем в модель*/
-        if(isset($_COOKIE['promocode'])){
+        if (isset($_COOKIE['promocode'])) {
             $model->promocode = $_COOKIE['promocode'];
         }
 
-        if ($model->load(\Yii::$app->request->get(),'') && $model->register()) {
+        if ($model->load(\Yii::$app->request->get(), '') && $model->register()) {
             $this->trigger(self::EVENT_AFTER_REGISTER, $event);
             return true;
         } else {
-            return  json_encode($model->errors);
+            return json_encode($model->errors);
         }
 
     }
@@ -187,18 +187,47 @@ class RegistrationController extends Controller
 
         $this->layout = "@app/views/layouts/main_.php";
         $verifyCode = new VerifyCode();
-        $model = new LoginForm();
 
-        if($verifyCode->load(\Yii::$app->request->post()) && $verifyCode->validate()){
-            \Yii::$app->getSession()->setFlash('success', 'Ваш аккаунт успешно активирован!');
-            if($model->load(['username' => $verifyCode->user->email, 'password' => $verifyCode->user->pass],'') && $model->login()){
+        if ($verifyCode->load(\Yii::$app->request->post()) && $verifyCode->validate()) {
+            $user = RegistrationUsers::find()->where(['registration_users' => \Yii::$app->request->post('code')])->orderBy('id desc')->one();
+            if(!empty($user)) {
+                \Yii::$app->getSession()->setFlash('success', 'Ваш аккаунт успешно активирован!');
 
-                $accs = Accs::find()->where(['email' => $verifyCode->user->email])->one();
-                $accs->status = VpnUserSettings::$statuses['ACTIVE'];
-                $accs->untildate = date("Y-m-d",$accs->untildate) <= date("Y-m-d") ?  strtotime('+ 3 days') : ($accs->untildate + (24*3600*3));
-                $accs->save();
-                return $this->redirect('/user/settings/account', 303);
+                $model = \Yii::createObject(RegistrationForm::className());
+                $event = $this->getFormEvent($model);
+
+                $this->trigger(self::EVENT_BEFORE_REGISTER, $event);
+
+                $this->performAjaxValidation($model);
+
+                /*если в куки есть промокод то передаем в модель*/
+                if (isset($_COOKIE['promocode'])) {
+                    $model->promocode = $_COOKIE['promocode'];
+                }
+
+                $data = [
+                    'email' => $user->email,
+                    'username' => $user->email,
+                    'password' => $user->password,
+                    'promocode' => $user->promocode,
+                    'phone' => $user->phone,
+                    'password_repeat' => $user->password_repeat,
+                ];
+                if ($model->load($data, '') && $model->register()) {
+                    $accs = Accs::find()->where(['email' => $user->email])->one();
+                    $accs->status = VpnUserSettings::$statuses['ACTIVE'];
+                    $accs->save();
+                }
+                $model = new LoginForm();
+                if ($model->load(['username' => $user->email, 'password' => $user->password], '') && $model->login()) {
+
+                    $accs = Accs::find()->where(['email' => $verifyCode->user->email])->one();
+                    $accs->untildate = date("Y-m-d", $accs->untildate) <= date("Y-m-d") ? strtotime('+ 3 days') : ($accs->untildate + (24 * 3600 * 3));
+                    $accs->save();
+                    return $this->redirect('/user/settings/account', 303);
+                }
             }
+
             $this->redirect(['/user/settings/account']);
         }
         return $this->render('veriFyCode', [
@@ -274,7 +303,7 @@ class RegistrationController extends Controller
 
         $accs = Accs::find()->where(['user_id' => $user->id])->one();
         $accs->status = VpnUserSettings::$statuses['ACTIVE'];
-        $accs->untildate = date("Y-m-d",$accs->untildate) <= date("Y-m-d") ?  strtotime('+ 3 days') : ($accs->untildate + (24*3600*3));
+        $accs->untildate = date("Y-m-d", $accs->untildate) <= date("Y-m-d") ? strtotime('+ 3 days') : ($accs->untildate + (24 * 3600 * 3));
         $accs->save();
 
         $this->trigger(self::EVENT_AFTER_CONFIRM, $event);

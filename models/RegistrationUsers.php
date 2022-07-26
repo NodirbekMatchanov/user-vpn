@@ -15,6 +15,7 @@ use Yii;
  * @property string|null $lang
  * @property string|null $country
  * @property string $created
+ * @property string $phone
  * @property string|null $verifyCode
  */
 class RegistrationUsers extends \yii\db\ActiveRecord
@@ -35,7 +36,7 @@ class RegistrationUsers extends \yii\db\ActiveRecord
         return [
             [['email'], 'required'],
             [['created'], 'safe'],
-            [['password','email', 'country'], 'string', 'max' => 255],
+            [['password','email','phone', 'country'], 'string', 'max' => 255],
             [[ 'source', 'promocode', 'lang', 'verifyCode'], 'string', 'max' => 50],
         ];
     }
