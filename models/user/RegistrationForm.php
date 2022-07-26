@@ -14,6 +14,7 @@ namespace app\models\user;
 use app\controllers\SiteController;
 use app\controllers\user\RegistrationController;
 use app\models\Accs;
+use app\models\MailHistory;
 use app\models\RegistrationUsers;
 use app\models\UserEvents;
 use app\models\VpnUserSettings;
@@ -129,18 +130,41 @@ class RegistrationForm extends \dektrium\user\models\RegistrationForm
      * @return bool
      */
     public function temporaryRegister() {
-//        if (!$this->validate()) {
-//            return false;
-//        }
+        if (!$this->validate()) {
+            return false;
+        }
+
         $regUser = new RegistrationUsers();
         $regUser->email = $this->email;
         $regUser->password = $this->password;
         $regUser->promocode = $this->promocode;
         $regUser->phone = $this->phone;
         $regUser->verifyCode = (string)$this->getVeriFyCode();
-
+        $this->sendMail('Код активации', 'код активации: ' . $regUser->verifyCode);
         return $regUser->save(false);
     }
+
+    public function sendMail($subject, $body)
+    {
+
+        try {
+            \Yii::$app->mailer->compose()
+                ->setFrom([Yii::$app->params['senderEmail'] => Yii::$app->params['senderName']])
+                ->setTo([$this->email])
+                ->setSubject($subject)
+                ->setHtmlBody($body)
+                ->send();
+        } catch (\Swift_TransportException $exception) {
+            $this->errorResponse($exception->getMessage());
+        }
+        $history = new MailHistory();
+        $history->body = $body;
+        $history->subject = $subject;
+        $history->email = $this->email;
+        $history->datecreate = date("Y-m-d H:i:s");
+        $history->save();
+    }
+
 
     public function register()
     {
