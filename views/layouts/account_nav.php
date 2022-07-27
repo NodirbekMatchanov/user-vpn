@@ -1,6 +1,20 @@
 
 <?php
 use \yii\helpers\Url;
+
+$mobMenu = "";
+switch (Yii::$app->controller->id) {
+    case "tariff" : $mobMenu = "Тарифы";
+    break;
+    case "settings" : $mobMenu = "Аккаунт";
+    break;
+    case "vpn-ips" : $mobMenu = "Серверы";
+    break;
+    case "support" : $mobMenu = "Справочник";
+    break;
+    default: $mobMenu = "Тарифы";
+}
+
 if (!empty($cabinet)): ?>
 <style>
     .nav-item._active a:hover {
@@ -21,14 +35,14 @@ if (!empty($cabinet)): ?>
 		<div class="_mob">
 			<div class="dropdown">
 				<div class="dropdown-header">
-					<div class="dropdown-current">Серверы</div>
+					<div class="dropdown-current"><?=$mobMenu?></div>
 					<div class="dropdown-icon">
 						<img src="/web/img/icons/dropdown-2.svg">
 					</div>
 				</div>
 				<div class="dropdown-content">
-                    <a href='<?=Url::to(['/tariff'])?>' class="dropdown-item">Тарифы</a>
-                    <a href='<?=Url::to(['/user/settings/account'])?>' class="dropdown-item">Аккаунт</a>
+                    <a href='<?=Url::to(['/tariff'])?>' class="dropdown-item ">Тарифы</a>
+                    <a href='<?=Url::to(['/user/settings/account'])?>' class="dropdown-item ">Аккаунт</a>
                     <a href='<?=Url::to(['/vpn-ips/list'])?>' class="dropdown-item">Серверы</a>
                     <a href='<?=Url::to(['/support/categories'])?>' class="dropdown-item">Справочник</a>
                 </div>

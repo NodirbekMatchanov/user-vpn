@@ -93,7 +93,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                     </div>
                 </div>
-            <?php endif; ?>
 
             <button class="btn-2">Сбросить учетные данные</button>
 
@@ -323,6 +322,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
         </div>
     </div>
+<?php endif; ?>
+
 <?php if (!empty($subscribe)): ?>
     <div class="settings">
         <div class="container">
