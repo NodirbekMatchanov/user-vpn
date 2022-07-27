@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
     box-shadow: 0px 4px 16px rgb(0 0 0 / 10%);
     background: #00bdd7c9;
     padding: 40px 40px;
-    margin-top: auto;
+    margin: auto;
     color: white;
     max-width: 700px;">
             <?php foreach (Yii::$app->session->getAllFlashes() as $type => $message): ?>
