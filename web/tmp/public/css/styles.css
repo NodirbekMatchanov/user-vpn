@@ -3005,6 +3005,9 @@ body .mfp-close {
 .nav-item:last-child {
     border-top-right-radius: 50px;
     border-bottom-right-radius: 50px; }
+.nav-wrap {
+    position: relative;
+    z-index: 10; }
 .nav-wrap._space {
     margin-top: 80px;
     margin-bottom: 55px; }
@@ -3260,7 +3263,8 @@ body .mfp-close {
 .prices-sale-text {
     font-size: 18px;
     font-weight: 500;
-    text-decoration: line-through; }
+    text-decoration: line-through;
+    white-space: nowrap; }
 .prices-sale-percent {
     font-size: 18px;
     font-weight: 500;
@@ -5161,7 +5165,18 @@ input:checked + .slider:before {
         font-size: 10px;
         text-align: right; }
     .prices-sale {
+        position: absolute;
+        top: 0;
+        right: 20px;
+        margin-top: 0;
+        -webkit-transform: translate(0, -50%);
+        transform: translate(0, -50%); }
+    .prices-sale-text {
         display: none; }
+    .prices-sale-percent {
+        height: 22px;
+        font-size: 13px;
+        padding: 0 10px; }
     .prices-tags {
         justify-content: flex-start; }
     .questions-items {
@@ -5333,6 +5348,7 @@ input:checked + .slider:before {
 @media (max-width: 370px) {
     .title-3 {
         font-size: 25px; } }
+
 
 .has-error .help-block {
     color: firebrick;

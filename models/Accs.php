@@ -106,9 +106,9 @@ class Accs extends \yii\db\ActiveRecord
     public static function setPromoShareCount($promocode, $user, $chatId = null, $type = null)
     {
         if ($promocode == "") return false;
-        $accs = Accs::find()->where(['promocode' => $promocode])->one();
+        $accs = Accs::find()->where('LOWER(promocode) =' . strtolower($promocode))->one();
         if ($user) {
-            $usedCodeUser = UsedPromocodes::find()->where(['promocode' => $promocode, 'user_id' => ($user->id ?? $user->user_id)])->count();
+            $usedCodeUser = UsedPromocodes::find()->where('LOWER(promocode) =' . strtolower($promocode))->andWhere(['user_id' => ($user->id ?? $user->user_id)])->count();
             if ($usedCodeUser > 0) {
                 return false;
             }

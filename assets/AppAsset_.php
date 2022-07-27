@@ -20,7 +20,6 @@ class AppAsset_ extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-//        'css/site.css',
         'web/tmp/public/css/styles.css',
         'https://cdn.rawgit.com/t4t5/sweetalert/v0.2.0/lib/sweet-alert.css',
     ];

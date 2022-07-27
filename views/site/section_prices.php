@@ -70,7 +70,7 @@ $script = <<<JS
 
     widget.charge({ // options
         publicId: 'pk_16424c5787dd7ebfbba47e66aafa8', //id из личного кабинета
-        description: 'Подписка на ежемесячный доступ к сайту https://www.vpnmax.org/', //назначение
+        description: 'Подписка для '+ email +' на доступ к сайту https://www.vpn-max.com', //назначение
         amount: price, //сумма
         currency: 'RUB', //валюта
         TestMode: false,

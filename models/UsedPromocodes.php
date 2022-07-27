@@ -100,11 +100,11 @@ class UsedPromocodes extends \yii\db\ActiveRecord
 
     public static function ValidationPromoCode($code, $email = false) {
         /*промокод юсера*/
-        $userPromo = Accs::find()->where(['promocode' => $code])->one();
+        $userPromo = Accs::find()->where('LOWER(promocode) = "' . strtolower($code).'"')->one();
 
         if($email) {
             $user = Accs::find()->where(['email' => $email])->one();
-            $usedCodeUser = UsedPromocodes::find()->where(['promocode' => $code, 'user_id' => $user->user_id])->count();
+            $usedCodeUser = UsedPromocodes::find()->where('LOWER(promocode) = "' . strtolower($code).'"')->andWhere( ['user_id' => $user->user_id])->count();
             if($usedCodeUser > 0) {
                 return json_encode(['result' => 'error', 'error' => 'Промокод уже использован']);
             }
@@ -114,9 +114,9 @@ class UsedPromocodes extends \yii\db\ActiveRecord
         }
 
         /*прокод админа*/
-        $usedCodeCounts = UsedPromocodes::find()->where(['promocode' => $code])->andWhere(['!=', 'type', UsedPromocodes::VISIT])->count();
+        $usedCodeCounts = UsedPromocodes::find()->where('LOWER(promocode) = "' . strtolower($code).'"')->andWhere(['!=', 'type', UsedPromocodes::VISIT])->count();
 
-        $promoCode = Promocodes::find()->where(['promocode' => $code, 'status' => \app\models\Tariff::ACTIVE])->one();
+        $promoCode = Promocodes::find()->where('LOWER(promocode) = "' . strtolower($code).'"')->andWhere(['status' => \app\models\Tariff::ACTIVE])->one();
         if (empty($usedCodes) && !empty($promoCode)) {
             if ($promoCode->user_limit <= $usedCodeCounts) {
                 return json_encode(['result' => 'error', 'error' => 'Промокод уже использован']);
@@ -132,14 +132,14 @@ class UsedPromocodes extends \yii\db\ActiveRecord
     {
         $isTelegram = false;
 
-        $promocodeModel = Promocodes::find()->where(['promocode' => $promocode])->one();
+        $promocodeModel = Promocodes::find()->where('LOWER(promocode) = "' . strtolower($promocode).'"')->one();
         if (strtotime($promocodeModel->expire) >= time()) {
             $accs = Accs::find()->where(['user_id' => $userId])->one();
             if(empty($accs)) {
                 $accs = Accs::find()->where(['chatId' => $userId])->one();
                 $isTelegram = true;
             }
-            $usedCodeCounts = UsedPromocodes::find()->where(['promocode' => $promocode])->andWhere(['!=', 'type', UsedPromocodes::VISIT])->count();
+            $usedCodeCounts = UsedPromocodes::find()->where('LOWER(promocode) = "' . strtolower($promocode).'"')->andWhere(['!=', 'type', UsedPromocodes::VISIT])->count();
             if ($promocodeModel->user_limit <= $usedCodeCounts) {
                 return json_encode(['result' => 'error', 'error' => 'Промокод уже использован']);
             }

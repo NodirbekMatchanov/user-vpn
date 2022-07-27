@@ -14,7 +14,6 @@ if (!empty($cabinet)): ?>
 				<div class="nav-item <?=Yii::$app->controller->id == 'tariff' ? '_active' : ''?>"><a href="<?=Url::to(['/tariff'])?>">Тарифы</a></div>
                 <div class="nav-item <?=Yii::$app->controller->action->id == 'account' ? '_active' : ''?>"><a href="<?=Url::to(['/user/settings/account'])?>">Аккаунт</a></div>
                 <div class="nav-item <?=Yii::$app->controller->id == 'vpn-ips' ? '_active' : ''?>"><a href="<?=Url::to(['/vpn-ips/list'])?>">Серверы</a></div>
-                <div class="nav-item <?=Yii::$app->controller->action->id == 'config' ? '_active' : ''?>"><a href="<?=Url::to(['/tariff'])?>">Конфигурация</a></div>
                 <div class="nav-item <?=Yii::$app->controller->id == 'support' ? '_active' : ''?>"><a href="<?=Url::to(['/support/categories'])?>">Справочник</a></div>
 			</div>
 		</div>
@@ -31,7 +30,6 @@ if (!empty($cabinet)): ?>
                     <a href='<?=Url::to(['/tariff'])?>' class="dropdown-item">Тарифы</a>
                     <a href='<?=Url::to(['/user/settings/account'])?>' class="dropdown-item">Аккаунт</a>
                     <a href='<?=Url::to(['/vpn-ips/list'])?>' class="dropdown-item">Серверы</a>
-                    <a href='<?=Url::to(['/tariff'])?>' class="dropdown-item">Конфигурация</a>
                     <a href='<?=Url::to(['/support/categories'])?>' class="dropdown-item">Справочник</a>
                 </div>
 			</div>
