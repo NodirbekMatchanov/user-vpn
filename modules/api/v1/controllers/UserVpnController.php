@@ -21,7 +21,7 @@ class UserVpnController extends Controller
         if(Yii::$app->user->isGuest) {
             $behaviors['authenticator'] = [
                 'class' => HttpBearerAuth::className(),
-                'except' => ['login','activate','recover','create','get-verify-code'],
+                'except' => ['activate','recover','create','get-verify-code'],
             ];
         }
 

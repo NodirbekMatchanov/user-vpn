@@ -300,13 +300,10 @@ class Users extends \yii\db\ActiveRecord
         if (!empty($user) && $this->pass && !Yii::$app->security->validatePassword($this->pass, $user->pass)) {
             $user = [];
         }
-        if (Yii::$app->user->isGuest) {
-            $model = \Yii::createObject(LoginForm::className());
-            $model->load(['login' => $this->email, 'password' => $this->pass], '');
-            $login = $model->login();
-        } else {
-            $login = true;
-        }
+        $model = \Yii::createObject(LoginForm::className());
+        $model->load(['login' => $this->email, 'password' => $this->pass], '');
+        $login = $model->login();
+
         if (empty($user) || !$login) {
             $this->addError('email', 'Пользователь не найдено или пароль не верный');
             return false;
