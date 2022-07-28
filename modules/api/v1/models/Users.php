@@ -45,7 +45,7 @@ class Users extends \yii\db\ActiveRecord
     {
         return [
             [['email', 'pass'], 'required'],
-            [['role', 'chatId','tmp_pass', 'country', 'deviceId', 'language', 'version', 'source_name', 'using_promocode', 'promocode', 'source', 'used_promocode', 'fcm_token', 'ios_token', 'phone', 'status', 'email',], 'string', 'max' => 255],
+            [['role', 'chatId', 'tmp_pass', 'country', 'deviceId', 'language', 'version', 'source_name', 'using_promocode', 'promocode', 'source', 'used_promocode', 'fcm_token', 'ios_token', 'phone', 'status', 'email',], 'string', 'max' => 255],
             [['vpnid', 'id', 'promo_share', 'verifyCode', 'user_id'], 'integer'],
 //            ['email', 'unique'],
             ['datecreate', 'safe'],
@@ -281,7 +281,7 @@ class Users extends \yii\db\ActiveRecord
      * @param $code
      * @return bool
      */
-        public function checkVerifyCode($email, $code)
+    public function checkVerifyCode($email, $code)
     {
         $user = self::find()->where(['email' => $email, 'verifyCode' => $code])->one();
         if (empty($user)) return false;
@@ -300,9 +300,13 @@ class Users extends \yii\db\ActiveRecord
         if (!empty($user) && $this->pass && !Yii::$app->security->validatePassword($this->pass, $user->pass)) {
             $user = [];
         }
-        $model = \Yii::createObject(LoginForm::className());
-        $model->load(['login' => $this->email, 'password' => $this->pass], '');
-        $login = $model->login();
+        if (Yii::$app->user->isGuest) {
+            $model = \Yii::createObject(LoginForm::className());
+            $model->load(['login' => $this->email, 'password' => $this->pass], '');
+            $login = $model->login();
+        } else {
+            $login = true;
+        }
         if (empty($user) || !$login) {
             $this->addError('email', 'Пользователь не найдено или пароль не верный');
             return false;
