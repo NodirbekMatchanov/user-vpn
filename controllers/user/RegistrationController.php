@@ -191,8 +191,13 @@ class RegistrationController extends Controller
         if ($verifyCode->load(\Yii::$app->request->post()) && $verifyCode->validate()) {
             $user = RegistrationUsers::find()->where(['verifyCode' => $verifyCode->code])->orderBy('id desc')->one();
             if(!empty($user)) {
+                $accs = Accs::find()->where(['email' => $user->email])->one();
+                if(!empty($accs)) {
+                    $finder = new Finder();
+                    \Yii::$app->getUser()->login($finder->findUserByUsernameOrEmail($user->email), 0);
+                    return $this->goBack();
+                }
                 \Yii::$app->getSession()->setFlash('success', 'Ваш аккаунт успешно активирован!');
-
                 $model = \Yii::createObject(RegistrationForm::className());
                 $event = $this->getFormEvent($model);
 
