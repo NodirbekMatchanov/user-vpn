@@ -160,9 +160,9 @@ class Mailer extends \dektrium\user\Mailer
     /**
      * Sends an email to a user after registration.
      *
-     * @param User  $user
+     * @param User $user
      * @param Token $token
-     * @param bool  $showPassword
+     * @param bool $showPassword
      *
      * @return bool
      */
@@ -184,6 +184,16 @@ class Mailer extends \dektrium\user\Mailer
             $this->getWelcomeSubject(),
             'activate',
             ['user' => $user]
+        );
+    }
+
+    public function sendVerifyCode($user, $verifyCode)
+    {
+        return $this->sendMessage(
+            $user->email,
+            'Код активации',
+            'verifycode',
+            ['user' => $user, 'verifyCode' => $verifyCode]
         );
     }
 
@@ -213,17 +223,17 @@ class Mailer extends \dektrium\user\Mailer
             $user->email,
             'Нначислены бесплатные дни',
             'usedpromocode',
-            ['user' => $user,'countDay' => $countDay]
+            ['user' => $user, 'countDay' => $countDay]
         );
     }
 
-    public function sendPaymentMessage($user,$expireDay, $expireDate)
+    public function sendPaymentMessage($user, $expireDay, $expireDate)
     {
         return $this->sendMessage(
             $user->email,
             'Оплата за тариф',
             'payment',
-            ['expireDay' => $expireDay,'expireDate' => $expireDate]
+            ['expireDay' => $expireDay, 'expireDate' => $expireDate]
         );
     }
 
@@ -242,7 +252,7 @@ class Mailer extends \dektrium\user\Mailer
     /**
      * Sends a new generated password to a user.
      *
-     * @param User  $user
+     * @param User $user
      * @param Password $password
      *
      * @return bool
@@ -260,7 +270,7 @@ class Mailer extends \dektrium\user\Mailer
     /**
      * Sends an email to a user with confirmation link.
      *
-     * @param User  $user
+     * @param User $user
      * @param Token $token
      *
      * @return bool
@@ -278,7 +288,7 @@ class Mailer extends \dektrium\user\Mailer
     /**
      * Sends an email to a user with reconfirmation link.
      *
-     * @param User  $user
+     * @param User $user
      * @param Token $token
      *
      * @return bool
@@ -302,7 +312,7 @@ class Mailer extends \dektrium\user\Mailer
     /**
      * Sends an email to a user with recovery link.
      *
-     * @param User  $user
+     * @param User $user
      * @param Token $token
      *
      * @return bool
@@ -321,7 +331,7 @@ class Mailer extends \dektrium\user\Mailer
      * @param string $to
      * @param string $subject
      * @param string $view
-     * @param array  $params
+     * @param array $params
      *
      * @return bool
      */

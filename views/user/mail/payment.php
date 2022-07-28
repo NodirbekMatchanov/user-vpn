@@ -18,12 +18,15 @@ use yii\helpers\Html;
 $template = \app\models\MailTemplate::find()->where(['tmp_key' => 'payment'])->one();
 
 ?>
-<?php if(empty($template)): ?>
-
-<p>Здравствуйте, у вас активирован Premium тариф со сроком <?=$expireDay?> дней до <?=$expireDate?></p>
+<?php if (empty($template)): ?>
+    <div class="content"
+         style="box-sizing: border-box; font-size: 26px; max-width: 100%; outline: none; padding: 45px 50px 70px;">
+        <h2>Здравствуйте,</h2>
+        <p>у вас активирован Premium тариф со сроком <?= $expireDay ?> дней до <?= $expireDate ?></p>
+    </div>
 <?php else:
-    $templateStr = str_replace('$expireDay',$expireDay,$template->body);
-    $templateStr = str_replace('$expireDate',$expireDate,$templateStr);
-?>
-    <?= $templateStr?>
-<?php endif;?>
+    $templateStr = str_replace('$expireDay', $expireDay, $template->body);
+    $templateStr = str_replace('$expireDate', $expireDate, $templateStr);
+    ?>
+    <?= $templateStr ?>
+<?php endif; ?>

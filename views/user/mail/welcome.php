@@ -19,13 +19,13 @@ use yii\helpers\Html;
  */
 $template = \app\models\MailTemplate::find()->where(['tmp_key' => 'welcome'])->one();
 $accs = \app\models\Accs::find()->where(['email' => $user->email])->one();
-
+$registrationUsers = \app\models\RegistrationUsers::find()->where(['email' => $accs->email])->one();
 ?>
-<?php if ($accs->status == \app\models\VpnUserSettings::$statuses['ACTIVE']):
+<?php if (!empty($registrationUsers)):
     $template = \app\models\MailTemplate::find()->where(['tmp_key' => 'welcome_without_code'])->one();
     ?>
     <?php if (!empty($template)) : ?>
-        <?= $templateStr ?>
+        <?= $template->body ?>
     <?php else: ?>
     <div class="content" style="box-sizing: border-box; font-size: 26px; max-width: 100%; outline: none; padding: 45px 50px 70px;">
         <h2>Здравствуйте,</h2>

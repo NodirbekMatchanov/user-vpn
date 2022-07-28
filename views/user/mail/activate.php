@@ -20,14 +20,16 @@ use yii\helpers\Html;
 $template = \app\models\MailTemplate::find()->where(['tmp_key' => 'activate'])->one();
 
 ?>
-<?php if(empty($template)): ?>
-
-<p>Здравствуйте, Ваш аккаунт успешно активирован.</p>
-<p>Впнлогином: <?=$user->email?></p>
-<p>Пароль : <?=$user->pass?></p>
+<?php if (empty($template)): ?>
+    <div class="content"  style="box-sizing: border-box; font-size: 26px; max-width: 100%; outline: none; padding: 45px 50px 70px;">
+        <h2>Здравствуйте,</h2>
+        <p>Ваш аккаунт успешно активирован.</p>
+        <p>Впнлогином: <?= $user->email ?></p>
+        <p>Пароль : <?= $user->pass ?></p>
+    </div>
 <?php else:
-    $templateStr = str_replace('$email',$user->email,$template->body);
-    $templateStr = str_replace('$pass',$user->tmp_pass,$templateStr);
+    $templateStr = str_replace('$email', $user->email, $template->body);
+    $templateStr = str_replace('$pass', $user->tmp_pass, $templateStr);
     ?>
-    <?= $templateStr?>
-<?php endif;?>
+    <?= $templateStr ?>
+<?php endif; ?>

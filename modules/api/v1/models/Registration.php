@@ -63,11 +63,13 @@ class Registration extends \yii\db\ActiveRecord
 
     public function checkUser()
     {
+        $mailer = new Mailer();
+
         $user = Accs::find()->where(['email' => $this->email])->one();
         if (!empty($user->email) && $user->email == $this->email) {
             $user->verifyCode = $this->getVeriFyCode();
             $user->save();
-            $this->sendMail('Код авторизации', 'Код авторизации: ' . $user->verifyCode);
+            $mailer->sendVerifyCode($user, $user->verifyCode);
             return ['code' => $user->verifyCode];
         } else {
             $registration = new RegistrationUsers();
@@ -79,7 +81,7 @@ class Registration extends \yii\db\ActiveRecord
             $registration->country = $this->country;
             $registration->verifyCode = (string)$this->getVeriFyCode();
             if ($registration->save()) {
-                $this->sendMail('Код авторизации', 'Код авторизации: ' . $registration->verifyCode);
+                $mailer->sendVerifyCode($registration, $registration->verifyCode);
             } else {
                 return $registration->errors;
             }

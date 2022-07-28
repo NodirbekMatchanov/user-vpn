@@ -14,6 +14,7 @@ namespace app\models\user;
 use app\controllers\SiteController;
 use app\controllers\user\RegistrationController;
 use app\models\Accs;
+use app\models\Mailer;
 use app\models\MailHistory;
 use app\models\RegistrationUsers;
 use app\models\UserEvents;
@@ -69,7 +70,7 @@ class RegistrationForm extends \dektrium\user\models\RegistrationForm
         return [
             // username rules
             'usernameLength' => [['username', 'utm_source', 'utm_term', 'utm_campaign', 'utm_medium', 'phone', 'promocode'], 'string', 'min' => 3, 'max' => 255],
-            'password_repeat' => ['password_repeat', 'compare','compareAttribute' => 'password'],
+            'password_repeat' => ['password_repeat', 'compare', 'compareAttribute' => 'password'],
             // email rules
             'emailValidate' => ['email', function ($attribute) {
                 $error = Yii::t('user', 'This email address has already been taken');
@@ -129,7 +130,8 @@ class RegistrationForm extends \dektrium\user\models\RegistrationForm
      *
      * @return bool
      */
-    public function temporaryRegister() {
+    public function temporaryRegister()
+    {
         if (!$this->validate()) {
             return false;
         }
@@ -140,7 +142,9 @@ class RegistrationForm extends \dektrium\user\models\RegistrationForm
         $regUser->promocode = $this->promocode;
         $regUser->phone = $this->phone;
         $regUser->verifyCode = (string)$this->getVeriFyCode();
-        $this->sendMail('Код активации', 'код активации: ' . $regUser->verifyCode);
+
+        $mailer = new Mailer();
+        $mailer->sendVerifyCode($regUser, $regUser->verifyCode);
         return $regUser->save(false);
     }
 
@@ -202,7 +206,7 @@ class RegistrationForm extends \dektrium\user\models\RegistrationForm
         $vpnModel->createAdmin = false;
         if ($vpnModel->save()) {
             /* +1 promocode */
-            $usedPromocode = Accs::setPromoShareCount($this->promocode,$user);
+            $usedPromocode = Accs::setPromoShareCount($this->promocode, $user);
         }
         $user = User::find()->where(['email' => $this->email])->one();
         $profile = Profile::findOne($user->id);
@@ -217,7 +221,7 @@ class RegistrationForm extends \dektrium\user\models\RegistrationForm
                 $event = new UserEvents();
                 $event->event = "6";
                 $event->user_id = $user->id;
-                $event->text = 'регистрация по промо-коду : '. $this->promocode;
+                $event->text = 'регистрация по промо-коду : ' . $this->promocode;
                 $event->save();
             }
             $accs->verifyCode = $code;
@@ -233,7 +237,8 @@ class RegistrationForm extends \dektrium\user\models\RegistrationForm
         return true;
     }
 
-    public function checkUser() {
+    public function checkUser()
+    {
         $user = Accs::find()->where(['email' => $this->email])->one();
         if (!empty($user->email) && $user->email == $this->email) {
             if ($user->status == VpnUserSettings::$statuses['DELETED']) {
@@ -246,7 +251,7 @@ class RegistrationForm extends \dektrium\user\models\RegistrationForm
 
                 $model = \Yii::createObject(LoginForm::className());
 
-                $model->load(['password' => $this->password, 'login' => $this->email],'');
+                $model->load(['password' => $this->password, 'login' => $this->email], '');
                 $model->login();
                 Yii::$app->getResponse()->redirect(["/user/settings/account"]);
             }

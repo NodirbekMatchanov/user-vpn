@@ -20,11 +20,14 @@ use yii\helpers\Html;
 $template = \app\models\MailTemplate::find()->where(['tmp_key' => 'usedpromo'])->one();
 $day = $countDay ?? 0;
 ?>
-<?php if(empty($template)): ?>
-
-<p>Здравствуйте, Вам начислены бесплатные <?=$day?> дни</p>
+<?php if (empty($template)): ?>
+    <div class="content"
+         style="box-sizing: border-box; font-size: 26px; max-width: 100%; outline: none; padding: 45px 50px 70px;">
+        <h2>Здравствуйте,</h2>
+        <p>Вам начислены бесплатные <?= $day ?> дни</p>
+    </div>
 <?php else:
-    $templateStr = str_replace('$day',$day,$template->body);
+    $templateStr = str_replace('$day', $day, $template->body);
     ?>
-    <?= $templateStr?>
-<?php endif;?>
+    <?= $templateStr ?>
+<?php endif; ?>

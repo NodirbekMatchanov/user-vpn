@@ -20,11 +20,14 @@ use yii\helpers\Html;
 $template = \app\models\MailTemplate::find()->where(['tmp_key' => 'activate'])->one();
 $day = 0;
 ?>
-<?php if(empty($template)): ?>
-
-<p>Здравствуйте, Ваша Premium подписка закончится через 24 часа</p>
+<?php if (empty($template)): ?>
+    <div class="content"
+         style="box-sizing: border-box; font-size: 26px; max-width: 100%; outline: none; padding: 45px 50px 70px;">
+        <h2>Здравствуйте,</h2>
+        <p>Ваша Premium подписка закончится через 24 часа</p>
+    </div>
 <?php else:
-    $templateStr = str_replace('$day',$day,$template->body);
+    $templateStr = str_replace('$day', $day, $template->body);
     ?>
-    <?= $templateStr?>
-<?php endif;?>
+    <?= $templateStr ?>
+<?php endif; ?>
