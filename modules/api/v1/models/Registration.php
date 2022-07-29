@@ -393,6 +393,8 @@ class Registration extends \yii\db\ActiveRecord
 
             }
             $user = self::find()->where(['email' => $result['email']])->leftJoin(VpnUserSettings::tableName(), 'radcheck.id = accs.vpnid')->one();
+            $user->untildate = date("Y-m-d", $user->untildate) > date("Y-m-d") ? ($user->untildate + (3600 * 24 * 3)) : strtotime('+ 3 days');
+            $user->save();
         };
 
         if ($this->fcm_token || $this->ios_token) {
