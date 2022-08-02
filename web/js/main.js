@@ -186,7 +186,7 @@ $(document).ready(function () {
         $('.promocode-payer-message._error').html('');
         $.ajax({
             url: BACKURL + "/promocodes/validation",
-            method: "POST",
+            method: "GET",
             data: {code: $(this).val()}
         }).done(function (data) {
             data = JSON.parse(data);
