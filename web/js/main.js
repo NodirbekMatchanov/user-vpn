@@ -165,7 +165,7 @@ $(document).ready(function () {
         $('.field-register-form-promocode').removeClass('has-error');
         $.ajax({
             url: BACKURL + "/promocodes/validation",
-            method: "POST",
+            method: "GET",
             data: {code: $('[name="register-form[promocode]"]').val(), email: $('[name="register-form[email]"]').val()}
         }).done(function (data) {
             data = JSON.parse(data);
