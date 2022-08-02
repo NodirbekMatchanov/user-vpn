@@ -1,3 +1,4 @@
+const BACKURL = 'https://app.vpn-max.com';
 $(document).ready(function () {
 
     var URLToArray = function (url) {
@@ -112,7 +113,7 @@ $(document).ready(function () {
 
     $(document).on('click', '#usePromocode', function () {
         $.ajax({
-            url: "/promocodes/use-code",
+            url: BACKURL + "/promocodes/use-code",
             method: "POST",
             data: {code: $('[name="promocode"]').val()}
         }).done(function (data) {
@@ -131,7 +132,7 @@ $(document).ready(function () {
 
     $(document).on('click', '#cancelPromocode', function () {
         $.ajax({
-            url: "/promocodes/cancel-code",
+            url: BACKURL + "/promocodes/cancel-code",
             method: "POST",
             data: {code: $('[name="promocode"]').val()}
         }).done(function (data) {
@@ -151,7 +152,7 @@ $(document).ready(function () {
     $(document).on('click', '.logout_user', function () {
         let id = $(this).data('id');
         $.ajax({
-            url: "/user-tokens/logout",
+            url: BACKURL + "/user-tokens/logout",
             method: "POST",
             data: {id: id}
         }).done(function (data) {
@@ -163,7 +164,7 @@ $(document).ready(function () {
         $('.valid-promocode').text('');
         $('.field-register-form-promocode').removeClass('has-error');
         $.ajax({
-            url: "/promocodes/validation",
+            url: BACKURL + "/promocodes/validation",
             method: "POST",
             data: {code: $('[name="register-form[promocode]"]').val(), email: $('[name="register-form[email]"]').val()}
         }).done(function (data) {
@@ -184,7 +185,7 @@ $(document).ready(function () {
         $('.promocode-payer-message._success').html('');
         $('.promocode-payer-message._error').html('');
         $.ajax({
-            url: "/promocodes/validation",
+            url: BACKURL + "/promocodes/validation",
             method: "POST",
             data: {code: $(this).val()}
         }).done(function (data) {
@@ -250,7 +251,7 @@ $(document).ready(function () {
         if (ValidateEmail(element)) {
             let password = Password.generate(8);
             $.ajax({
-                url: "/user/registration/auto-register",
+                url: BACKURL + "/user/registration/auto-register",
                 method: "GET",
                 data: {password: password, password_repeat: password, email: element.value}
             }).done(function (data) {
@@ -349,7 +350,7 @@ $(document).ready(function () {
         if (validate) {
 
             $.ajax({
-                url: "/site/question",
+                url: BACKURL + "/site/question",
                 method: "POST",
                 data: {email: email, name: name, text: question}
             }).done(function (data) {

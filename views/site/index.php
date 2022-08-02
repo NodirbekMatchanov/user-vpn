@@ -258,7 +258,7 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
     <div class="container">
         <h2 class="title-2">Ответы на <span class="accent">вопросы</span></h2>
         <div class="faq-btn-wrap">
-            <a href="<?=\yii\helpers\Url::to(['/support/categories'])?>" class="btn-2">База знании</a>
+            <a href="<?=\yii\helpers\Url::to(Yii::$app->params['backendUrl'].'/support/categories')?>" class="btn-2">База знании</a>
         </div>
 
         <div class="faq-items">

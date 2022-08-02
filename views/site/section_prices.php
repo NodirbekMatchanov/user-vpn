@@ -3,10 +3,10 @@
 
 /** @var yii\web\View $this */
 
-$url = \yii\helpers\Url::to(['tariff/get-price?id=']);
-$checkEmail = \yii\helpers\Url::to(['tariff/check-email']);
-$paymentSuccessUrl = \yii\helpers\Url::to(['tariff/payment-success']);
-$paymentErrorUrl = \yii\helpers\Url::to(['tariff/payment-error']);
+$url = \yii\helpers\Url::to(Yii::$app->params['backendUrl'].'/tariff/get-price?id=');
+$checkEmail = \yii\helpers\Url::to(Yii::$app->params['backendUrl'].'/tariff/check-email');
+$paymentSuccessUrl = \yii\helpers\Url::to(Yii::$app->params['backendUrl'].'/tariff/payment-success');
+$paymentErrorUrl = \yii\helpers\Url::to(Yii::$app->params['backendUrl'].'/tariff/payment-error');
 $script = <<<JS
   function getCookie(name) {
         let matches = document.cookie.match(new RegExp(

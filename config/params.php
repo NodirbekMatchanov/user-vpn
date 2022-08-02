@@ -3,6 +3,7 @@ Yii::setAlias('@console', realpath(dirname(__FILE__).'/../'));
 return [
     'adminEmail' => 'welcome@vpn-max.com',
     'senderEmail' => 'welcome@vpn-max.com',
+    'backendUrl' => 'https://app.vpn-max.com',
     'senderName' => 'Vpn Max',
     'iosCertPath' => implode(DIRECTORY_SEPARATOR, [
         __DIR__,

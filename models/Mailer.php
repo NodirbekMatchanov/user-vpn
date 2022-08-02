@@ -346,7 +346,7 @@ class Mailer extends \dektrium\user\Mailer
                 Yii::$app->params['adminEmail']
                 : 'no-reply@example.com';
         }
-//        $sign = new \Swift_Signers_DKIMSigner(__DIR__.'/../', 'vpn-max.com', 'mail');
+        $sign = new \Swift_Signers_DKIMSigner(__DIR__.'/../web/dkim.private', 'vpn-max.com', 'mail');
         return $mailer->compose(['html' => $view, 'text' => 'text/' . $view], $params)
             ->setTo($to)
             ->setFrom([Yii::$app->params['senderEmail'] => Yii::$app->params['senderName']])

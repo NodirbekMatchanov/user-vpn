@@ -76,13 +76,13 @@ use yii\bootstrap\NavBar;
                         <div class="header-buttons">
                             <a href="#" class="btn">Скачать</a>
                             <?php if (Yii::$app->user->isGuest): ?>
-                                <a href="<?= \yii\helpers\Url::to(['/site/login']) ?>"
+                                <a href="<?= \yii\helpers\Url::to(Yii::$app->params['backendUrl'].'/site/login') ?>"
                                    class="btn">Войти</a>
                             <?php else: ?>
 
                                 <?php $userId = Yii::$app->user->identity->getId();
                                 if (!empty(Yii::$app->authManager->getRolesByUser($userId)['admin'])): ?>
-                                    <a href="<?= \yii\helpers\Url::to(['/vpn-user-settings/']) ?>"
+                                    <a href="<?= \yii\helpers\Url::to(Yii::$app->params['backendUrl'].'/vpn-user-settings/') ?>"
                                        class="btn">Профиль</a>
                                 <?php else: ?>
                                     <?php if ((Yii::$app->controller->id != 'site')): ?>
