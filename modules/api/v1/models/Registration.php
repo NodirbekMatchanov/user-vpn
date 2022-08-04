@@ -8,6 +8,7 @@ use app\models\Mailer;
 use app\models\MailHistory;
 use app\models\RegistrationUsers;
 use app\models\TelegramUsers;
+use app\models\UnioneMailer;
 use app\models\user\Profile;
 use app\models\user\LoginForm;
 use app\models\UserEvents;
@@ -48,7 +49,7 @@ class Registration extends \yii\db\ActiveRecord
     {
         return [
             [['email'],'required'],
-            [['role', 'chatId', 'lang', 'country','deviceId', 'language', 'version', 'source_name',  'using_promocode', 'promocode', 'source', 'used_promocode', 'fcm_token', 'ios_token', 'phone', 'status', 'email',], 'string', 'max' => 255],
+            [['role', 'pass','chatId', 'lang', 'country','deviceId', 'language', 'version', 'source_name',  'using_promocode', 'promocode', 'source', 'used_promocode', 'fcm_token', 'ios_token', 'phone', 'status', 'email',], 'string', 'max' => 255],
             [['vpnid', 'id', 'promo_share', 'verifyCode', 'user_id'], 'integer'],
 //            ['email', 'unique'],
             ['datecreate', 'safe'],
@@ -63,7 +64,7 @@ class Registration extends \yii\db\ActiveRecord
 
     public function checkUser()
     {
-        $mailer = new Mailer();
+        $mailer = new UnioneMailer();
 
         $user = Accs::find()->where(['email' => $this->email])->one();
         if (!empty($user->email) && $user->email == $this->email) {
@@ -366,20 +367,21 @@ class Registration extends \yii\db\ActiveRecord
     public function login()
     {
         $user = self::find()->where(['email' => $this->email, 'verifyCode' => $this->verifyCode])->leftJoin(VpnUserSettings::tableName(), 'radcheck.id = accs.vpnid')->one();
-
+        $login = [];
         $model = \Yii::createObject(LoginForm::className());
         if ($this->pass) {
             $model->load(['login' => $this->email, 'password' => $this->pass], '');
             $login = $model->login();
+            $user = self::find()->where(['email' => $this->email])->leftJoin(VpnUserSettings::tableName(), 'radcheck.id = accs.vpnid')->one();
             if (!$login) {
-                $this->addError('email', 'Пользователь не найдено или пароль не верный');
+                $this->addError('email', 'Пользователь не найдено или пароль не верный3');
                 return false;
             }
         }
-        if (empty($user)) {
+        if (empty($user) && empty($login)) {
             $registration = RegistrationUsers::find()->where(['email' => $this->email, 'verifyCode' => $this->verifyCode])->one();
             if (empty($registration)) {
-                $this->addError('email', 'Пользователь не найдено или пароль не верный');
+                $this->addError('email', 'Пользователь не найдено или пароль не верный_');
                 return false;
             }
             $model = new self();
