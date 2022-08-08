@@ -164,9 +164,9 @@ $config = [
             ],
         ],
         'rbac' => 'dektrium\rbac\RbacWebModule',
-        'api' => [
-            'class' => 'app\modules\api\v1\api',
-        ],
+//        'api' => [
+//            'class' => 'app\modules\api\v1\api',
+//        ],
     ],
     'controllerMap' => [
         'elfinder' => [
