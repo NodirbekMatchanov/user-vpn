@@ -118,25 +118,113 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
             <h2 class="title-2">Для <span class="accent">любого</span> устройства</h2>
 
             <div class="nav">
-                <div class='nav-item _active' data-tab='1'>Windows</div>
+                <div class='nav-item ' data-tab='1'>Windows</div>
                 <div class='nav-item' data-tab='2'>Android</div>
-                <div class='nav-item' data-tab='3'>iOS</div>
+                <div class='nav-item _active'  data-tab='3'>iOS</div>
                 <div class='nav-item' data-tab='4'>macOS</div>
                 <div class='nav-item' data-tab='5'>Linux</div>
                 <div class='nav-item' data-tab='6'>Роутер</div>
             </div>
 
-            <div class="_active _tabs" data-content='1'>
+            <div class=" _tabs" data-content='1'>
                 <div class="devices-content">
                     <div class="devices-preview _active" data-content='1'>
                         <img src="/web/img/devices-phone.png">
                     </div>
-                    <div class="devices-preview" data-content='2'>
+
+                    <div class="devices-data">
+
+                        <div class="devices-steps">
+
+                            <div class="devices-steps-item " >
+                                <div class="devices-steps-number">1.</div>
+                                <div class="devices-steps-wrap">
+                                    <div class="devices-steps-title"><a href="https://app.vpn-max.com/ru/user/register" style="color: #0090F8!important;">Зарегистрируйтесь</a></div>
+                                    <div class="devices-steps-text">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="devices-steps-item" >
+                                <div class="devices-steps-number">2.</div>
+                                <div class="devices-steps-wrap">
+                                    <div class="devices-steps-title">Введите код из письма</div>
+                                    <div class="devices-steps-text">
+                                        Код приходит после оплаты<br>
+                                        или запроса пробного периода
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="devices-steps-item" >
+                                <div class="devices-steps-number">3.</div>
+                                <div class="devices-steps-wrap">
+                                    <div class="devices-steps-title"><a href="https://app.vpn-max.com/ru/support/categories" style="color: #0090F8!important;">Настройте подключение</a></div>
+                                    <div class="devices-steps-text">
+                                        Ваш IP-адрес стал анонимным,<br>
+                                        а соединение зашифровано
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="_tabs" data-content='2'>
+                <div class="devices-content">
+                    <div class="devices-preview _active" data-content='2'>
                         <img src="/web/img/devices-phone.png">
                     </div>
-                    <div class="devices-preview" data-content='3'>
-                        TEST
+
+                    <div class="devices-data">
+
+                        <div class="devices-steps">
+
+                            <div class="devices-steps-item " >
+                                <div class="devices-steps-number">1.</div>
+                                <div class="devices-steps-wrap">
+                                    <div class="devices-steps-title"><a href="https://app.vpn-max.com/ru/user/register" style="color: #0090F8!important;">Зарегистрируйтесь</a></div>
+                                    <div class="devices-steps-text">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="devices-steps-item" >
+                                <div class="devices-steps-number">2.</div>
+                                <div class="devices-steps-wrap">
+                                    <div class="devices-steps-title">Введите код из письма</div>
+                                    <div class="devices-steps-text">
+                                        Код приходит после оплаты<br>
+                                        или запроса пробного периода
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="devices-steps-item" >
+                                <div class="devices-steps-number">3.</div>
+                                <div class="devices-steps-wrap">
+                                    <div class="devices-steps-title"><a href="https://app.vpn-max.com/ru/support/categories" style="color: #0090F8!important;">Настройте подключение</a></div>
+                                    <div class="devices-steps-text">
+                                        Ваш IP-адрес стал анонимным,<br>
+                                        а соединение зашифровано
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
+                </div>
+            </div>
+            <div class="_active _tabs" data-content='3'>
+                <div class="devices-content">
+                    <div class="devices-preview _active" data-content='3'>
+                        <img src="/web/img/devices-phone.png">
+                    </div>
+
                     <div class="devices-data">
                         <h3 class="title-4">Установите приложение</h3>
 
@@ -181,11 +269,145 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                     </div>
                 </div>
             </div>
-
-            <div class="_active" data-content='2'>
+            <div class=" _tabs" data-content='4'>
                 <div class="devices-content">
+                    <div class="devices-preview _active" data-content='4'>
+                        <img src="/web/img/devices-phone.png">
+                    </div>
+
+                    <div class="devices-data">
+
+                        <div class="devices-steps">
+
+                            <div class="devices-steps-item " >
+                                <div class="devices-steps-number">1.</div>
+                                <div class="devices-steps-wrap">
+                                    <div class="devices-steps-title"><a href="https://app.vpn-max.com/ru/user/register" style="color: #0090F8!important;">Зарегистрируйтесь</a></div>
+                                    <div class="devices-steps-text">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="devices-steps-item" >
+                                <div class="devices-steps-number">2.</div>
+                                <div class="devices-steps-wrap">
+                                    <div class="devices-steps-title">Введите код из письма</div>
+                                    <div class="devices-steps-text">
+                                        Код приходит после оплаты<br>
+                                        или запроса пробного периода
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="devices-steps-item" >
+                                <div class="devices-steps-number">3.</div>
+                                <div class="devices-steps-wrap">
+                                    <div class="devices-steps-title"><a href="https://app.vpn-max.com/ru/support/categories" style="color: #0090F8!important;">Настройте подключение</a></div>
+                                    <div class="devices-steps-text">
+                                        Ваш IP-адрес стал анонимным,<br>
+                                        а соединение зашифровано
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
             </div>
+            <div class=" _tabs" data-content='5'>
+                <div class="devices-content">
+                    <div class="devices-preview _active" data-content='5'>
+                        <img src="/web/img/devices-phone.png">
+                    </div>
+
+                    <div class="devices-data">
+
+                        <div class="devices-steps">
+
+                            <div class="devices-steps-item " >
+                                <div class="devices-steps-number">1.</div>
+                                <div class="devices-steps-wrap">
+                                    <div class="devices-steps-title"><a href="https://app.vpn-max.com/ru/user/register" style="color: #0090F8!important;">Зарегистрируйтесь</a></div>
+                                    <div class="devices-steps-text">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="devices-steps-item" >
+                                <div class="devices-steps-number">2.</div>
+                                <div class="devices-steps-wrap">
+                                    <div class="devices-steps-title">Введите код из письма</div>
+                                    <div class="devices-steps-text">
+                                        Код приходит после оплаты<br>
+                                        или запроса пробного периода
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="devices-steps-item" >
+                                <div class="devices-steps-number">3.</div>
+                                <div class="devices-steps-wrap">
+                                    <div class="devices-steps-title"><a href="https://app.vpn-max.com/ru/support/categories" style="color: #0090F8!important;">Настройте подключение</a></div>
+                                    <div class="devices-steps-text">
+                                        Ваш IP-адрес стал анонимным,<br>
+                                        а соединение зашифровано
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class=" _tabs" data-content='6'>
+                <div class="devices-content">
+                    <div class="devices-preview _active" data-content='6'>
+                        <img src="/web/img/devices-phone.png">
+                    </div>
+
+                    <div class="devices-data">
+
+                        <div class="devices-steps">
+
+                            <div class="devices-steps-item " >
+                                <div class="devices-steps-number">1.</div>
+                                <div class="devices-steps-wrap">
+                                    <div class="devices-steps-title"><a href="https://app.vpn-max.com/ru/user/register" style="color: #0090F8!important;">Зарегистрируйтесь</a></div>
+                                    <div class="devices-steps-text">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="devices-steps-item" >
+                                <div class="devices-steps-number">2.</div>
+                                <div class="devices-steps-wrap">
+                                    <div class="devices-steps-title">Введите код из письма</div>
+                                    <div class="devices-steps-text">
+                                        Код приходит после оплаты<br>
+                                        или запроса пробного периода
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="devices-steps-item" >
+                                <div class="devices-steps-number">3.</div>
+                                <div class="devices-steps-wrap">
+                                    <div class="devices-steps-title"><a href="https://app.vpn-max.com/ru/support/categories" style="color: #0090F8!important;">Настройте подключение</a></div>
+                                    <div class="devices-steps-text">
+                                        Ваш IP-адрес стал анонимным,<br>
+                                        а соединение зашифровано
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
