@@ -7,6 +7,17 @@ $url = \yii\helpers\Url::to(Yii::$app->params['backendUrl'].'/tariff/get-price?i
 $checkEmail = \yii\helpers\Url::to(Yii::$app->params['backendUrl'].'/tariff/check-email');
 $paymentSuccessUrl = \yii\helpers\Url::to(Yii::$app->params['backendUrl'].'/tariff/payment-success');
 $paymentErrorUrl = \yii\helpers\Url::to(Yii::$app->params['backendUrl'].'/tariff/payment-error');
+$selectTariff = Yii::$app->request->get('period');
+if($selectTariff) {
+    switch ($selectTariff) {
+        case 1: $selectTariff = "1_month";
+            break;
+        case 6: $selectTariff = "6_month";
+            break;
+        case 12: $selectTariff = "12_month";
+            break;
+    }
+}
 $script = <<<JS
   function getCookie(name) {
         let matches = document.cookie.match(new RegExp(
@@ -160,11 +171,19 @@ $(document).on('click', '.pay', function (e) {
      }).fail(function() {
        
      })
-     
+
      
     });
 $(document).ready(function() {
       $('.prices-item._active').trigger('click');
+      $('[data-id="$selectTariff"]').trigger('click');
+      var selectTariff = "$selectTariff";
+      if (selectTariff) {
+          document.querySelector('.prices-item').scrollIntoView({
+              behavior: 'smooth'
+          });
+      }
+
 })
 $('.prices-item, .prices-item._active').on('click',function () {
         id = $(this).closest('.prices-item').data('id') ;
@@ -310,7 +329,7 @@ $this->registerJs($script, $this::POS_END);
 
             <div class="input-2 ">
                 <label for="" class="input-2-label">Электронный адрес (отправим на него квитанцию)*</label>
-                <input type="email" name="email-payer" placeholder='Ваш e-mail'>
+                <input type="email" name="email-payer" value="<?=Yii::$app->request->get('email')?>"  placeholder='Ваш e-mail'>
                 				<div class="email-payer-message input-2-message _error"></div>
             </div>
 
