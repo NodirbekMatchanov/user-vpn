@@ -179,7 +179,7 @@ $(document).ready(function() {
       $('[data-id="$selectTariff"]').trigger('click');
       var selectTariff = "$selectTariff";
       if (selectTariff) {
-          document.querySelector('.prices-item').scrollIntoView({
+          document.querySelector('.prices-header').scrollIntoView({
               behavior: 'smooth'
           });
       }
