@@ -107,6 +107,8 @@ class RegistrationController extends Controller
     /** @inheritdoc */
     public function behaviors()
     {
+        $params = http_build_query(\Yii::$app->request->get());
+        header('Location: '. \Yii::$app->params['backendUrl'].'/user/register?'.$params); die();
         return [
             'access' => [
                 'class' => AccessControl::className(),
