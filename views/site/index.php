@@ -228,7 +228,7 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                     <div class="devices-data">
                         <h3 class="title-4">Установите приложение</h3>
 
-                        <a  href="<?=\yii\helpers\Url::to('https://apps.apple.com/app/vpn-max/id1619787851')?>" class="btn-2">Загрузите в App Store</a>
+                        <a  href="<?=\yii\helpers\Url::to('https://apps.apple.com/app/vpn-max/id1619787851')?>" target="_blank" class="btn-2">Загрузите в App Store</a>
 
                         <div class="devices-steps">
 
