@@ -245,10 +245,6 @@ use yii\bootstrap\NavBar;
                 </div>
             </div>
 
-            <div class="footer-developer">
-                <div class="footer-developer-text">Разработка и создание сайта</div>
-                <a href='#' class="footer-developer-logo"><img src="/web/img/footer-developer-logo.svg"></a>
-            </div>
         </div>
     </footer>
 </div>
