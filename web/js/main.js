@@ -256,7 +256,7 @@ $(document).ready(function () {
                 data: {password: password, password_repeat: password, email: element.value}
             }).done(function (data) {
                 if (data) {
-                    alert('registrated')
+                    window.location.href = BACKURL + "/user/registration/verify-code";
                 }
             }).fail(function () {
                 alert('ошибка регистрации')
