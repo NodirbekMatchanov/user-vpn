@@ -459,7 +459,7 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
 
             <div class="test-title">
                 Тестовый доступ<br>
-                к VPN на 24 часа
+                к VPN на 72 часа
             </div>
 
             <form class="test-form">
