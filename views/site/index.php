@@ -7,7 +7,7 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
 <div class="about" name='features'>
     <div class="container">
         <div class="about-content">
-            <h2 class="title-2">Что такое <span class="accent">VPN MAX</span></h2>
+            <h1 class="title-2">Что такое <span class="accent">VPN MAX</span></h1>
             <div class="about-items">
 
                 <div class="about-item">

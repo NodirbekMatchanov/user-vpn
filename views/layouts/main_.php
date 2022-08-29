@@ -131,11 +131,11 @@ use yii\bootstrap\NavBar;
                         <img src="/web/img/header-intro-img.svg">
                     </div>
 
-                    <h1 class="title-1">
+                    <span class="title-1">
                         Быстрый и <br>
                         анонимный доступ <br>
                         к любым сайтам
-                    </h1>
+                    </span>
 
                     <a href="#sign" style="text-decoration: none; color: #fff; ">
                         <button style="margin-top: 30px;" class="btn-2">Попробовать бесплатно</button>
