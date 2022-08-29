@@ -235,7 +235,7 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                             <div class="devices-steps-item _active" data-tab='1'>
                                 <div class="devices-steps-number">1.</div>
                                 <div class="devices-steps-wrap">
-                                    <div class="devices-steps-title">Введите код из письма</div>
+                                    <div class="devices-steps-title">Введите код из письма в мобильном приложении</div>
                                     <div class="devices-steps-text">
                                         Код приходит после оплаты<br>
                                         или запроса пробного периода
