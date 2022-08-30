@@ -99,6 +99,14 @@ $(document).ready(function () {
         setQuickDate(365);
     })
 
+    $(document).mouseup( function(e){ // событие клика по веб-документу
+        var div = $( ".header-mob" ); // тут указываем ID элемента
+        if ( !div.is(e.target) // если клик был не по нашему блоку
+            && div.has(e.target).length === 0 ) { // и не по его дочерним элементам
+            div.hide(); // скрываем его
+        }
+    });
+
     function getDateXDaysAgo(numOfDays, date = new Date()) {
         const daysAgo = new Date(date.getTime());
         daysAgo.setDate(date.getDate() + numOfDays);
@@ -351,7 +359,7 @@ $(document).ready(function () {
 
             $.ajax({
                 url: BACKURL + "/site/question",
-                method: "POST",
+                method: "GET",
                 data: {email: email, name: name, text: question}
             }).done(function (data) {
                 $('.mfp-close').trigger('click')
