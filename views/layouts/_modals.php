@@ -11,7 +11,7 @@ use yii\widgets\ActiveForm;
 <div class="mfp-hide">
     <div class="modal modal-contact" data-mfp='question'>
         <div class="modal-content">
-            <?php $form = ActiveForm::begin(); ?>
+            <?php $form = ActiveForm::begin(['method' => 'get']); ?>
 
             <h3 class="title-3">Задать вопрос</h3>
 
