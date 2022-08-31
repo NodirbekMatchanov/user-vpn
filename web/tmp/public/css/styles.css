@@ -5374,3 +5374,25 @@ input:checked + .slider:before {
 .info-value {
     font-size: 18px;
     width: auto!important; }
+.prices-form .input-2 input,.prices-form .input-2 textarea {
+    color: inherit;
+    background: none;
+    height: 50px;
+    border: 1px solid #2a94f7!important;
+    font-size: 14px;
+    border-radius: 12px;
+    width: 100%;
+    padding: 0 10px;
+    transition: border 300ms;
+}
+.prices-form .input-2 input:focus,.prices-form .input-2 textarea:focus {
+    color: inherit;
+    background: none;
+    height: 50px;
+    border: 2px solid #2a94f7!important;
+    font-size: 14px;
+    border-radius: 12px;
+    width: 100%;
+    padding: 0 10px;
+    transition: border 300ms;
+}
