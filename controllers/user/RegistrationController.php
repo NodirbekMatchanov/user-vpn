@@ -228,9 +228,9 @@ class RegistrationController extends Controller
                 $model = new LoginForm();
                 if ($model->load(['username' => $user->email, 'password' => $user->password], '') && $model->login()) {
 
-                    $accs = Accs::find()->where(['email' => $verifyCode->user->email])->one();
-                    $accs->untildate = date("Y-m-d", $accs->untildate) <= date("Y-m-d") ? strtotime('+ 3 days') : ($accs->untildate + (24 * 3600 * 3));
-                    $accs->save();
+//                    $accs = Accs::find()->where(['email' => $verifyCode->user->email])->one();
+//                    $accs->untildate = date("Y-m-d", $accs->untildate) <= date("Y-m-d") ? strtotime('+ 3 days') : ($accs->untildate + (24 * 3600 * 3));
+//                    $accs->save();
                     return $this->redirect('/user/settings/account', 303);
                 }
             }

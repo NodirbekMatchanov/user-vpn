@@ -55,6 +55,11 @@ $(document).ready(function () {
         setPromo(getParams.ref)
         console.log(getCookie('promocode'))
     }
+    if(Object.keys(getParams).length) {
+        Object.entries(getParams).forEach(function (v,k) {
+            setCookie(v[0], v[1], {secure: true, 'max-age': 3600 * 24 * 30});
+        })
+    }
 
     function setPromo(promocode) {
         $.ajax({
