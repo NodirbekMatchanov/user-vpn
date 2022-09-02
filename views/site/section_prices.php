@@ -19,6 +19,48 @@ if($selectTariff) {
     }
 }
 $script = <<<JS
+    var getParams = URLToArray(window.location.href);
+   var URLToArray = function (url) {
+        function parse_mdim(name, val, data) {
+            let params = name.match(/(\[\])|(\[.+?\])/g);
+            if (!params) params = new Array();
+            let tg_id = name.split('[')[0];
+
+
+            if (!(tg_id in data)) data[tg_id] = [];
+            var prev_data = data[tg_id];
+
+            for (var i = 0; i < params.length; i++) {
+                if (params[i] != '[]') {
+                    let tparam = params[i].match(/\[(.+)\]/i)[1];
+                    if (!(tparam in prev_data)) prev_data[tparam] = [];
+                    prev_data = prev_data[tparam];
+                } else {
+                    prev_data.push([]);
+                    prev_data = prev_data[prev_data.length - 1];
+                }
+
+            }
+            prev_data.push(val);
+
+        }
+
+        var request = {};
+        var arr = [];
+        var pairs = url.substring(url.indexOf('?') + 1).split('&');
+
+        for (var i = 0; i < pairs.length; i++) {
+            var pair = pairs[i].split('=');
+            if (decodeURIComponent(pair[0]).indexOf('[') != -1)
+                parse_mdim(decodeURIComponent(pair[0]), decodeURIComponent(pair[1]), request);
+            else
+                request[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
+        }
+
+        //To-do here check array and simplifity it: if parameter end with one index in array replace it by value [0]
+
+        return request;
+    }
   function getCookie(name) {
         let matches = document.cookie.match(new RegExp(
             "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
