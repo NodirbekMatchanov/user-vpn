@@ -264,7 +264,7 @@ $(document).ready(function () {
         if (ValidateEmail(element)) {
             let password = Password.generate(8);
             $.ajax({
-                url: BACKURL + "/user/registration/auto-register",
+                url: BACKURL + "/user/registration/auto-register?" + $.param(getParams),
                 method: "GET",
                 data: {password: password, password_repeat: password, email: element.value}
             }).done(function (data) {
