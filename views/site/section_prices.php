@@ -36,7 +36,7 @@ $script = <<<JS
     function cardPay(e) {
     promise = new Promise((resolve, reject) =>{
         $.ajax({
-           url: "$url" + id + "&promocode=" + promocode + "&orderId=" + orderId+"&email="+email
+           url: "$url" + id + "&promocode=" + promocode + "&orderId=" + orderId+"&email="+email+ $.param(getParams)
          }).done(function(data){
              resolve(data);
          }).fail(function(err){
@@ -193,7 +193,7 @@ $('.prices-item, .prices-item._active').on('click',function () {
 
         promise = new Promise((resolve, reject) => {
             $.ajax({
-                url: "$url" + id + "&promocode=" + promocode + "&orderId=" + orderId
+                url: "$url" + id + "&promocode=" + promocode + "&orderId=" + orderId+ $.param(getParams)
             }).done(function(data){
                 resolve(data);
             }).fail(function(err){
