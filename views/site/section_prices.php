@@ -19,7 +19,6 @@ if($selectTariff) {
     }
 }
 $script = <<<JS
-    var getParams = URLToArray(window.location.href);
    var URLToArray = function (url) {
         function parse_mdim(name, val, data) {
             let params = name.match(/(\[\])|(\[.+?\])/g);
@@ -74,7 +73,8 @@ $script = <<<JS
       // format
       return  [now.slice(0, 4), now.slice(4, 10), now.slice(10, 14)].join('-')
     }
-    
+        var getParams = URLToArray(window.location.href);
+
     function cardPay(e) {
     promise = new Promise((resolve, reject) =>{
         $.ajax({
