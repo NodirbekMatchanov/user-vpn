@@ -63,7 +63,7 @@ $(document).ready(function () {
 
     function setPromo(promocode) {
         $.ajax({
-            url: "/used-promocodes/visit-save",
+            url: BACKURL +"/used-promocodes/visit-save",
             method: "GET",
             data: {
                 visit: true,
