@@ -106,9 +106,12 @@ $(document).ready(function () {
 
     $(document).mouseup( function(e){ // событие клика по веб-документу
         var div = $( ".header-mob" ); // тут указываем ID элемента
-        if ( !div.is(e.target) // если клик был не по нашему блоку
-            && div.has(e.target).length === 0 ) { // и не по его дочерним элементам
-            div.hide(); // скрываем его
+        var divActive = $( ".header-mob.active" ); // тут указываем ID элемента
+        var div2 = $( "#mob-menu-btn" ); // тут указываем ID элемента
+        if ( (divActive.length) && (!div.is(e.target) // если клик был не по нашему блоку
+            && div.has(e.target).length === 0) && (!div2.is(e.target) // если клик был не по нашему блоку
+            && div2.has(e.target).length === 0) ) { // и не по его дочерним элементам
+            $(div2).trigger('click');
         }
     });
 
