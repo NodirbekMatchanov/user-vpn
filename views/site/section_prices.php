@@ -220,11 +220,13 @@ $(document).ready(function() {
       $('.prices-item._active').trigger('click');
       $('[data-id="$selectTariff"]').trigger('click');
       var selectTariff = "$selectTariff";
-      if (selectTariff) {
+      setTimeout(function() {
+        if (selectTariff) {
           document.querySelector('.prices-header').scrollIntoView({
               behavior: 'smooth'
           });
       }
+      },1000)
 
 })
 $('.prices-item, .prices-item._active').on('click',function () {
