@@ -104,7 +104,7 @@ $(document).ready(function () {
         setQuickDate(365);
     })
 
-    $(document).mouseup( function(e){ // событие клика по веб-документу
+    $(document).mouseup( function(e) { // событие клика по веб-документу
         var div = $( ".header-mob" ); // тут указываем ID элемента
         var divActive = $( ".header-mob.active" ); // тут указываем ID элемента
         var div2 = $( "#mob-menu-btn" ); // тут указываем ID элемента

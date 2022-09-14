@@ -170,7 +170,7 @@ use yii\bootstrap\NavBar;
                     <div class="header-buttons">
                         <a href="#" class="btn">Скачать</a>
                         <?php if (Yii::$app->user->isGuest): ?>
-                            <a href="<?= \yii\helpers\Url::to(['/site/login']) ?>"
+                            <a href="<?= \yii\helpers\Url::to(Yii::$app->params['backendUrl'].'/site/login') ?>"
                                class="btn">Войти</a>
                         <?php else: ?>
 
