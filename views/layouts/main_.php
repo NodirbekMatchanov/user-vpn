@@ -19,6 +19,29 @@ use yii\bootstrap\NavBar;
 <html lang="<?= Yii::$app->language ?>" class="h-100">
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" id="metaViewport">
+
+    <title>VPNMAX - Быстрый и анонимный доступ к любым сайтам через VPN</title>
+    <meta name="twitter:title" content="VPNMAX - Быстрый и анонимный доступ к любым сайтам через VPN">
+    <meta property="og:title" content="VPNMAX - Быстрый и анонимный доступ к любым сайтам через VPN">
+
+    <meta name="description" content="VPNMAX - Быстрый и анонимный доступ к любым сайтам через VPN">
+    <meta property="og:description" content="VPNMAX - Быстрый и анонимный доступ к любым сайтам через VPN">
+    <meta property="og:image" content="/web/img/logo.png">
+    <meta property="vk:image" content="/web/img/logo.png">
+    <meta name="twitter:image" content="/web/img/logo.png">
+    <link rel="shortcut icon" href="/web/img/favicon/favicon.ico" type="image/x-icon">
+
+
+    <link rel="manifest" href="/web/img/favicon/site.webmanifest">
+    <link rel="mask-icon" href="/web/img/favicon/safari-pinned-tab.svg" color="#00bdd7">
+    <meta name="msapplication-TileColor" content="#008CF2">
+
+    <meta name="theme-color" content="#008CF2">
+    <meta name="msapplication-navbutton-color" content="#008CF2">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#008CF2">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
           id="metaViewport">
     <meta name="apple-mobile-web-app-status-bar-style">
@@ -28,15 +51,7 @@ use yii\bootstrap\NavBar;
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
           id="metaViewport">
-    <meta name="twitter:title" content="VPNMAX - Быстрый и анонимный доступ к любым сайтам через VPN">
-    <meta property="og:title" content="VPNMAX - Быстрый и анонимный доступ к любым сайтам через VPN">
 
-    <meta name="description" content="">
-    <meta property="og:description" content="">
-    <meta property="og:image" content="/web/img/logo.png">
-    <meta property="vk:image" content="/web/img/logo.png">
-    <meta name="twitter:image" content="/web/img/logo.png">
-    <link rel="shortcut icon" href="/web/img/favicon/favicon.ico" type="image/x-icon">
 
     <link rel="apple-touch-icon" sizes="180x180" href="/web/img/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/web/img/favicon/favicon-32x32.png">
