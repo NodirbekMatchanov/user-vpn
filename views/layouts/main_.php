@@ -33,21 +33,21 @@ use yii\bootstrap\NavBar;
 
     <meta name="description" content="">
     <meta property="og:description" content="">
-    <meta property="og:image" content="img/logo.png">
-    <meta property="vk:image" content="img/logo.png">
-    <meta name="twitter:image" content="img/logo.png">
-    <link rel="shortcut icon" href="img/favicon/favicon.ico" type="image/x-icon">
+    <meta property="og:image" content="/web/img/logo.png">
+    <meta property="vk:image" content="/web/img/logo.png">
+    <meta name="twitter:image" content="/web/img/logo.png">
+    <link rel="shortcut icon" href="/web/img/favicon/favicon.ico" type="image/x-icon">
 
-    <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">
-    <link rel="manifest" href="img/favicon/site.webmanifest">
-    <link rel="mask-icon" href="img/favicon/safari-pinned-tab.svg" color="#00bdd7">
+    <link rel="apple-touch-icon" sizes="180x180" href="/web/img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/web/img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/web/img/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/web/img/favicon/site.webmanifest">
+    <link rel="mask-icon" href="/web/img/favicon/safari-pinned-tab.svg" color="#00bdd7">
     <meta name="msapplication-TileColor" content="#008CF2">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="shortcut icon" href="/web/img/favicon/favicon.ico" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="shortcut icon" href="/web//web/img//favicon/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/web/img/favicon/favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon" sizes="180x180" href="/web/img/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/web/img/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/web/img/favicon/favicon-16x16.png">
