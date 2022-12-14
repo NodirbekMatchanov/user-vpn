@@ -192,7 +192,7 @@ use yii\bootstrap\NavBar;
 
                 <div class="header-actions">
                     <div class="header-buttons">
-                        <a href="#" class="btn">Скачать</a>
+                        <a href="<?=\yii\helpers\Url::to('https://apps.apple.com/app/vpn-max/id1619787851')?>" class="btn">Скачать</a>
                         <?php if (Yii::$app->user->isGuest): ?>
                             <a href="<?= \yii\helpers\Url::to(Yii::$app->params['backendUrl'].'/site/login') ?>"
                                class="btn">Войти</a>
