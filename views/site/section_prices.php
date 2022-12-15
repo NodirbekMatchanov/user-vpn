@@ -394,7 +394,7 @@ $this->registerJs($script, $this::POS_END);
             <div class="prices-form-total">Итоговая сумма: <span class="total-price">3 948</span> р.</div>
             <p style="text-align: center">данная сумма будет списываться ежемесячно</p>
             <div class="prices-methods">
-                <h3 class="title-4">Способы оплаты</h3>
+<!--                <h3 class="title-4">Способы оплаты</h3>-->
                 <div class="prices-methods-items " style="display: none">
                     <label class="prices-methods-item">
                         <input type="radio" name='method' value="card" checked hidden>
