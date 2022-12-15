@@ -187,6 +187,8 @@ $(document).ready(function () {
             data = JSON.parse(data);
             if (data.result == 'success') {
                 $('.valid-promocode').html("<i>" + data.description + "</i>");
+            } else if (data.result == 'user-promocode') {
+                $('.valid-promocode').html("<i>Дополнительно три дня в подарок</i>");
             }
             if (data.result == 'error') {
                 setTimeout(function () {
@@ -210,6 +212,9 @@ $(document).ready(function () {
             if (data.result == 'success') {
                 $('.promocode-payer-message._success').html("Промокод успешно применен");
                 $('.prices-item._active').trigger('click');
+            }
+            else if (data.result == 'user-promocode') {
+                $('.valid-promocode').html("<i>Дополнительно три дня в подарок</i>");
             }
             if (data.result == 'error') {
                 $('.promocode-payer-message._error').html(data.error);

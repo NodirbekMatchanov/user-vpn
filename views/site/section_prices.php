@@ -258,6 +258,13 @@ $('.prices-item, .prices-item._active').on('click',function () {
         if($('.prices-form').hasClass('hidden')) {
             $('.prices-form').removeClass('hidden');
         }
+        if(id == '1_month') {
+           $('.payout_info').text("данная сумма будет списываться ежемесячно");
+        } else if(id == '6_month') {
+           $('.payout_info').text("данная сумма будет списываться раз в 6 месяцев");
+        } else if(id == '12_month') {
+           $('.payout_info').text("данная сумма будет списываться раз в 12 месяцев");            
+        }
     })
 JS;
 $this->registerJs($script, $this::POS_END);
@@ -287,7 +294,7 @@ $this->registerJs($script, $this::POS_END);
             <?php foreach ($tariffs as $tariff): ?>
 
                 <?php if (!empty($tariff) && $tariff->day_30): ?>
-                    <div class="prices-item" data-id="1_month">
+                    <div class="prices-item _active" data-id="1_month">
                         <h3 class="title-3 tariff-title">1 месяц</h3>
 
                         <div class="spacer"></div>
@@ -295,9 +302,6 @@ $this->registerJs($script, $this::POS_END);
                         <div>
                             <div class="prices-price">
                                 <?= Yii::$app->formatter->asDecimal($tariff->price_30, 0) ?> ₽ / мес
-                            </div>
-                            <div class="prices-price-note">
-                                +НДС
                             </div>
                         </div>
 
@@ -316,9 +320,6 @@ $this->registerJs($script, $this::POS_END);
                             <div class="prices-price">
                                 <?= Yii::$app->formatter->asDecimal($tariff->price_180, 0) ?> ₽
                             </div>
-                            <div class="prices-price-note">
-                                +НДС
-                            </div>
                         </div>
 
                         <div class="prices-check"></div>
@@ -326,7 +327,7 @@ $this->registerJs($script, $this::POS_END);
 
                 <?php endif; ?>
                 <?php if (!empty($tariff) && $tariff->price_365): ?>
-                    <div class="prices-item _active" data-id="12_month">
+                    <div class="prices-item " data-id="12_month">
                         <div class="prices-best">
                             <div class="prices-best-img">
                                 <img src="/web/img/logo-3.svg">
@@ -347,9 +348,6 @@ $this->registerJs($script, $this::POS_END);
                         <div>
                             <div class="prices-price">
                                 <?= Yii::$app->formatter->asDecimal($tariff->price_365, 0) ?> ₽
-                            </div>
-                            <div class="prices-price-note">
-                                +НДС, оплата раз в год
                             </div>
                         </div>
 
@@ -392,7 +390,7 @@ $this->registerJs($script, $this::POS_END);
             <div class="prices-form-coupon hidden">Вы применили купон со скидкой <span class="discount">0 </span>%</div>
 
             <div class="prices-form-total">Итоговая сумма: <span class="total-price">3 948</span> р.</div>
-            <p style="text-align: center">данная сумма будет списываться ежемесячно</p>
+            <p class="payout_info" style="text-align: center">данная сумма будет списываться ежемесячно</p>
             <div class="prices-methods">
 <!--                <h3 class="title-4">Способы оплаты</h3>-->
                 <div class="prices-methods-items " style="display: none">
