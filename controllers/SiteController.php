@@ -147,6 +147,7 @@ class SiteController extends Controller
     public function actionQuestion()
     {
         $model = new Questions();
+        echo "asd";
         if ($model->load(Yii::$app->request->post(),'') && $model->contact(Yii::$app->params['adminEmail'])) {
             Yii::$app->session->setFlash('contactFormSubmitted');
 
