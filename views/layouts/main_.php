@@ -185,6 +185,7 @@ use yii\bootstrap\NavBar;
                         <li><a href="#faq">Вопросы</a></li>
                         <li><a href="#feedbacks">Отзывы</a></li>
                         <li><a href="#prices">Цены</a></li>
+                        <li><a href="#" data-mfp-src="question">Связаться с нами</a></li>
                     </ul>
                 </div>
 
@@ -248,6 +249,15 @@ use yii\bootstrap\NavBar;
     </div>
 
     <footer class="footer">
+        <script
+                data-text="Мы используем cookies и другие технологии, чтобы обеспечить безопасность и надежность нашего сайта. Я согласен и могу отозвать или изменить свое согласие в любое время с вступлением в силу в будущем. "
+                data-button="Разрешить"
+                data-expire="30"
+                data-style="#cookieWarnBox a {}"
+                type="text/javascript"
+                id="cookieWarn"
+                src="js/cookie-warn.min.js">
+        </script>
         <div class="container">
 
             <div class="footer-top">
@@ -266,6 +276,7 @@ use yii\bootstrap\NavBar;
                 <div class="footer-data">
                     <div class="footer-text">VPN MAX, 2020-<?=date("Y")?></div>
                     <a href="/site/privacy" class="footer-text">Политика конфиденциальности</a>
+                    <a href="#" data-mfp-src="question" class="footer-text">Связаться с нами</a>
                 </div>
             </div>
 
