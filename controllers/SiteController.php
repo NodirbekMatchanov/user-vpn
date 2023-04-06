@@ -30,7 +30,7 @@ class SiteController extends Controller
                         'roles' => ['@'],
                     ],
                     [
-                        'actions' => ['pay','index','error','login','privacy','question','success'],
+                        'actions' => ['pay','index','error','login','termsofservice','privacy','question','success'],
                         'allow' => true,
                         'roles' => ['?','@'],
                     ],
@@ -191,6 +191,17 @@ class SiteController extends Controller
     {
         $this->layout = 'main_';
         return $this->render('privacy');
+    }
+
+    /**
+     * Displays termsofservice page.
+     *
+     * @return string
+     */
+    public function actionTermsofservice()
+    {
+        $this->layout = 'main_';
+        return $this->render('termsofservice');
     }
 
     public function actionQuestions()

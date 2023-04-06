@@ -109,6 +109,9 @@ $config = [
             "class" => \skeeks\yii2\multiLanguage\MultiLangUrlManager::class,
             'enablePrettyUrl' => true,
             'showScriptName' => false,
+            'rules' => [
+                '/tos' => '/site/termsofservice',
+            ],
         ],
         "multiLanguage" => [
             "class" => \skeeks\yii2\multiLanguage\MultiLangComponent::class,
