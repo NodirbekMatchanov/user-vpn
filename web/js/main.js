@@ -363,6 +363,11 @@ $(document).ready(function () {
         if (email === '') {
             validate = false;
             $('.question-email').text('Необходимо заполнить «email».')
+        } else {
+            if (!ValidateEmail($(this)[0])) {
+                $('.question-email').text('проверьте правильность ввода email адреса')
+                validate = false;
+            }
         }
         if (question === '') {
             validate = false;

@@ -256,6 +256,7 @@ use yii\bootstrap\NavBar;
                 data-style="#cookieWarnBox a {}"
                 type="text/javascript"
                 id="cookieWarn"
+                style="display: flex;justify-content: center;"
                 src="js/cookie-warn.min.js">
         </script>
         <div class="container">
