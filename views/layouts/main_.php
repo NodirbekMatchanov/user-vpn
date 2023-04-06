@@ -253,10 +253,9 @@ use yii\bootstrap\NavBar;
                 data-text="Мы используем cookies и другие технологии, чтобы обеспечить безопасность и надежность нашего сайта. Я согласен и могу отозвать или изменить свое согласие в любое время с вступлением в силу в будущем. "
                 data-button="Разрешить"
                 data-expire="30"
-                data-style="#cookieWarnBox a {}"
+                data-style="display: flex;justify-content: center;"
                 type="text/javascript"
                 id="cookieWarn"
-                style="display: flex;justify-content: center;"
                 src="js/cookie-warn.min.js">
         </script>
         <div class="container">
