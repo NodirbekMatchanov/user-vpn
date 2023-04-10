@@ -100,14 +100,14 @@ use yii\bootstrap\NavBar;
                         <div class="header-buttons">
                             <a href="<?=\yii\helpers\Url::to('https://apps.apple.com/app/vpn-max/id1619787851')?>" target="_blank" class="btn"><?=\Yii::t('app', 'Скачать');?></a>
                             <?php if (Yii::$app->user->isGuest): ?>
-                                <a href="<?= \yii\helpers\Url::to(Yii::$app->params['backendUrl'].'/site/login') ?>"
+                                <a href="<?= \yii\helpers\Url::to(Yii::$app->params['backendUrl'].'/site/login?language='. Yii::$app->language) ?>"
                                    class="btn"><?=\Yii::t('app', 'Войти');?></a>
                             <?php else: ?>
 
                                 <?php $userId = Yii::$app->user->identity->getId();
                                 if (!empty(Yii::$app->authManager->getRolesByUser($userId)['admin'])): ?>
                                     <a href="<?= \yii\helpers\Url::to(Yii::$app->params['backendUrl'].'/vpn-user-settings/') ?>"
-                                       class="btn">Профиль</a>
+                                       class="btn"><?=\Yii::t('app', 'Профиль');?></a>
                                 <?php else: ?>
                                     <?php if ((Yii::$app->controller->id != 'site')): ?>
                                         <?php echo Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline my-2 my-lg-0'])
@@ -118,7 +118,7 @@ use yii\bootstrap\NavBar;
                                             . Html::endForm(); ?>
                                     <?php else: ?>
                                         <a href="<?= \yii\helpers\Url::to(['/user/settings/account']) ?>"
-                                           class="btn">Профиль</a>
+                                           class="btn"><?=\Yii::t('app', 'Профиль');?></a>
                                     <?php endif; ?>
                                 <?php endif; ?>
 
@@ -193,27 +193,27 @@ use yii\bootstrap\NavBar;
 
                 <div class="header-actions">
                     <div class="header-buttons">
-                        <a href="<?=\yii\helpers\Url::to('https://apps.apple.com/app/vpn-max/id1619787851')?>" class="btn">Скачать</a>
+                        <a href="<?=\yii\helpers\Url::to('https://apps.apple.com/app/vpn-max/id1619787851')?>" class="btn"><?=\Yii::t('app', 'Скачать');?></a>
                         <?php if (Yii::$app->user->isGuest): ?>
-                            <a href="<?= \yii\helpers\Url::to(Yii::$app->params['backendUrl'].'/site/login') ?>"
-                               class="btn">Войти</a>
+                            <a href="<?= \yii\helpers\Url::to(Yii::$app->params['backendUrl'].'/site/login?language='. Yii::$app->language) ?>"
+                               class="btn"><?=\Yii::t('app', 'Войти');?></a>
                         <?php else: ?>
 
                             <?php $userId = Yii::$app->user->identity->getId();
                             if (!empty(Yii::$app->authManager->getRolesByUser($userId)['admin'])): ?>
                                 <a href="<?= \yii\helpers\Url::to(['/vpn-user-settings/']) ?>"
-                                   class="btn">Профиль</a>
+                                   class="btn"><?=\Yii::t('app', 'Профиль');?></a>
                             <?php else: ?>
                                 <?php if (!Yii::$app->controller->id == 'site'): ?>
                                     <?php echo Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline my-2 my-lg-0'])
                                         . Html::submitButton(
-                                            'Выйти',
+                                            \Yii::t('app', 'Выйти'),
                                             ['class' => 'btn btn-link logout']
                                         )
                                         . Html::endForm(); ?>
                                 <?php else: ?>
                                     <a href="<?= \yii\helpers\Url::to(['/user/settings/account']) ?>"
-                                       class="btn">Профиль</a>
+                                       class="btn"><?=\Yii::t('app', 'Профиль');?></a>
                                 <?php endif; ?>
                             <?php endif; ?>
 
@@ -223,11 +223,11 @@ use yii\bootstrap\NavBar;
 
                     <div class="header-langs">
                         <div class="header-langs-current">
-                            <img src="/web/img/langs-ru.svg">
+                            <img src="/web/img/langs-<?=Yii::$app->language?>.png">
                         </div>
                         <div class="header-langs-items">
-                            <a href="#" class="header-langs-item">
-                                <img src="/web/img/langs-en.png">
+                            <a href="<?='/site/change-language?language='.(Yii::$app->language == 'ru' ? 'en' : 'ru')?>" class="header-langs-item">
+                                <img src="/web/img/langs-<?=(Yii::$app->language == 'ru') ? 'en' : 'ru'?>.png">
                             </a>
                         </div>
                     </div>
