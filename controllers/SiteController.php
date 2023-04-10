@@ -30,7 +30,7 @@ class SiteController extends Controller
                         'roles' => ['@'],
                     ],
                     [
-                        'actions' => ['pay','index','error','login','termsofservice','privacy','question','success'],
+                        'actions' => ['pay','index','error','login','termsofservice','privacy','change-language','question','success'],
                         'allow' => true,
                         'roles' => ['?','@'],
                     ],
@@ -218,5 +218,10 @@ class SiteController extends Controller
         return $this->render('questions', [
             'model' => $model,
         ]);
+    }
+
+    public function actionChangeLanguage() {
+        Yii::$app->session->set('language', Yii::$app->request->get('language'));
+        return $this->goBack();
     }
 }

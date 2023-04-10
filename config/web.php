@@ -29,6 +29,7 @@ $config = [
 //            // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
 //            'cookieValidationKey' => 'b1I97EHuHiX4cVlK6Wp96pRVr-1cLf5O',
 //        ],
+
         'telegram' => [
             'class' => 'aki\telegram\Telegram',
             'botToken' => '5599707945:AAGpyC42hsbNmDyce8le1aNFbXtDiqBj0Ko',
@@ -47,6 +48,18 @@ $config = [
                 'apiAccessKey' => 'YOUR_GCM_API_KEY'
             ]
         ],
+
+        'i18n' => [
+            'translations' => [
+                'app*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'fileMap' => [
+                        'app' => 'app.php'
+                    ],
+                ],
+            ],
+        ],
+
         "request" => [
             'cookieValidationKey' => 'b1I97EHuHiX4cVlK6Wp96pRVr-1cLf5O',
             'baseUrl'=> '',
@@ -183,6 +196,9 @@ $config = [
             ],
         ]
     ],
+    'on beforeRequest' => function ($event) {
+        Yii::$app->language = Yii::$app->session->get('language', 'ru');
+    },
     'params' => $params,
 
 ];

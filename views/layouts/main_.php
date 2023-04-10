@@ -89,19 +89,19 @@ use yii\bootstrap\NavBar;
 
                     <div class="header-menu">
                         <ul>
-                            <li><a href="#features">Особенности</a></li>
-                            <li><a href="#faq">Вопросы</a></li>
-                            <li><a href="#feedbacks">Отзывы</a></li>
-                            <li><a href="#prices">Цены</a></li>
+                            <li><a href="#features"><?=\Yii::t('app', 'Особенности');?></a></li>
+                            <li><a href="#faq"><?=\Yii::t('app', 'Вопросы');?></a></li>
+                            <li><a href="#feedbacks"><?=\Yii::t('app', 'Отзывы');?></a></li>
+                            <li><a href="#prices"><?=\Yii::t('app', 'Цены');?></a></li>
                         </ul>
                     </div>
 
                     <div class="header-actions">
                         <div class="header-buttons">
-                            <a href="<?=\yii\helpers\Url::to('https://apps.apple.com/app/vpn-max/id1619787851')?>" target="_blank" class="btn">Скачать</a>
+                            <a href="<?=\yii\helpers\Url::to('https://apps.apple.com/app/vpn-max/id1619787851')?>" target="_blank" class="btn"><?=\Yii::t('app', 'Скачать');?></a>
                             <?php if (Yii::$app->user->isGuest): ?>
                                 <a href="<?= \yii\helpers\Url::to(Yii::$app->params['backendUrl'].'/site/login') ?>"
-                                   class="btn">Войти</a>
+                                   class="btn"><?=\Yii::t('app', 'Войти');?></a>
                             <?php else: ?>
 
                                 <?php $userId = Yii::$app->user->identity->getId();
@@ -112,7 +112,7 @@ use yii\bootstrap\NavBar;
                                     <?php if ((Yii::$app->controller->id != 'site')): ?>
                                         <?php echo Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline my-2 my-lg-0'])
                                             . Html::submitButton(
-                                                'Выйти',
+                                                \Yii::t('app', 'Выйти'),
                                                 ['class' => 'btn btn-link logout']
                                             )
                                             . Html::endForm(); ?>
@@ -128,11 +128,11 @@ use yii\bootstrap\NavBar;
 
                         <div class="header-langs">
                             <div class="header-langs-current">
-                                <img src="/web/img/langs-ru.svg">
+                                 <img src="/web/img/langs-<?=Yii::$app->language?>.png">
                             </div>
                             <div class="header-langs-items">
-                                <a href="#" class="header-langs-item">
-                                    <img src="/web/img/langs-en.png">
+                                <a href="<?='/site/change-language?language='.(Yii::$app->language == 'ru' ? 'en' : 'ru')?>" class="header-langs-item">
+                                    <img src="/web/img/langs-<?=(Yii::$app->language == 'ru') ? 'en' : 'ru'?>.png">
                                 </a>
                             </div>
                         </div>
@@ -156,13 +156,13 @@ use yii\bootstrap\NavBar;
                     </div>
 
                     <span class="title-1">
-                        Быстрый и <br>
-                        анонимный доступ <br>
-                        к любым сайтам
+                       <?=\Yii::t('app', 'Быстрый и');?>  <br>
+                        <?=\Yii::t('app', 'анонимный доступ');?> <br>
+                        <?=\Yii::t('app', 'к любым сайтам');?>
                     </span>
 
                     <a href="#sign" style="text-decoration: none; color: #fff; ">
-                        <button style="margin-top: 30px;" class="btn-2">Попробовать бесплатно</button>
+                        <button style="margin-top: 30px;" class="btn-2"><?=\Yii::t('app', 'Попробовать бесплатно');?></button>
                     </a>
 
                 </div>
@@ -181,11 +181,11 @@ use yii\bootstrap\NavBar;
 
                 <div class="header-menu">
                     <ul>
-                        <li><a href="#features">Особенности</a></li>
-                        <li><a href="#faq">Вопросы</a></li>
-                        <li><a href="#feedbacks">Отзывы</a></li>
-                        <li><a href="#prices">Цены</a></li>
-                        <li><a href="#" data-mfp-src="question">Связаться с нами</a></li>
+                        <li><a href="#features"><?=\Yii::t('app', 'Особенности');?></a></li>
+                        <li><a href="#faq"><?=\Yii::t('app', 'Вопросы');?></a></li>
+                        <li><a href="#feedbacks"><?=\Yii::t('app', 'Отзывы');?></a></li>
+                        <li><a href="#prices"><?=\Yii::t('app', 'Цены');?></a></li>
+                        <li><a href="#" data-mfp-src="question"><?=\Yii::t('app', 'Связаться с нами');?></a></a></li>
                     </ul>
                 </div>
 
@@ -275,9 +275,9 @@ use yii\bootstrap\NavBar;
 
                 <div class="footer-data">
                     <div class="footer-text">VPN MAX, 2020-<?=date("Y")?></div>
-                    <a href="/site/privacy" class="footer-text">Политика конфиденциальности</a>
-                    <a href="/tos" class="footer-text">Условия обслуживания и Политика конфиденциальности</a>
-                    <a href="#" data-mfp-src="question" class="footer-text">Связаться с нами</a>
+                    <a href="/site/privacy" class="footer-text"><?=\Yii::t('app', 'Политика конфиденциальности');?></a>
+                    <a href="/tos" class="footer-text"><?=\Yii::t('app', 'Условия обслуживания и Политика конфиденциальности');?></a>
+                    <a href="#" data-mfp-src="question" class="footer-text"><?=\Yii::t('app', 'Связаться с нами');?></a>
 
                 </div>
             </div>
