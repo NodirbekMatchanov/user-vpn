@@ -276,7 +276,7 @@ use yii\bootstrap\NavBar;
                 <div class="footer-data">
                     <div class="footer-text">VPN MAX, 2020-<?=date("Y")?></div>
                     <a href="/site/privacy" class="footer-text"><?=\Yii::t('app', 'Политика конфиденциальности');?></a>
-                    <a href="/tos" class="footer-text"><?=\Yii::t('app', 'Условия обслуживания и Политика конфиденциальности');?></a>
+                    <a href="/tos" class="footer-text"><?=\Yii::t('app', 'Условия обслуживания');?></a>
                     <a href="#" data-mfp-src="question" class="footer-text"><?=\Yii::t('app', 'Связаться с нами');?></a>
 
                 </div>
