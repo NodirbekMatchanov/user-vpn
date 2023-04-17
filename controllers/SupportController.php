@@ -59,13 +59,7 @@ class SupportController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new SupportSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+        return $this->redirect('https://app.vpn-max.com/support/categories');
     }
 
     /**
@@ -75,20 +69,7 @@ class SupportController extends Controller
      */
     public function actionCategories()
     {
-        $this->layout = 'main_';
-        $searchModel = new SupportSearch();
-        $data = $searchModel->searchByCategory($this->request->queryParams);
-        $dataProvider = $searchModel->search($this->request->queryParams);
-        $model = null;
-        if($id = \Yii::$app->request->get('id')){
-            $model = Support::findOne($id);
-        }
-        return $this->render('user/index', [
-            'searchModel' => $searchModel,
-            'data' => $data,
-            'model' => $model,
-            'dataProvider' => $dataProvider,
-        ]);
+        return $this->redirect('https://app.vpn-max.com/support/categories');
     }
 
     /**
