@@ -186,6 +186,8 @@ use yii\bootstrap\NavBar;
                         <li><a href="#feedbacks"><?=\Yii::t('app', 'Отзывы');?></a></li>
                         <li><a href="#prices"><?=\Yii::t('app', 'Цены');?></a></li>
                         <li><a href="#" data-mfp-src="question"><?=\Yii::t('app', 'Связаться с нами');?></a></a></li>
+                        <li><a href="/support/categories"><?=\Yii::t('app', 'База знаний');?></a></li>
+
                     </ul>
                 </div>
 
@@ -278,6 +280,7 @@ use yii\bootstrap\NavBar;
                     <a href="/site/privacy" class="footer-text"><?=\Yii::t('app', 'Политика конфиденциальности');?></a>
                     <a href="/tos" class="footer-text"><?=\Yii::t('app', 'Условия обслуживания');?></a>
                     <a href="#" data-mfp-src="question" class="footer-text"><?=\Yii::t('app', 'Связаться с нами');?></a>
+                    <a href="/support/categories"  class="footer-text"><?=\Yii::t('app', 'База знаний');?></a>
 
                 </div>
             </div>
