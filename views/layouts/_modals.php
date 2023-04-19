@@ -19,7 +19,9 @@ $script = <<<JS
         }
 
     }
-function sendQuestion() {
+$(document).ready(function() {
+  
+$(document).on('click', '.send-question', function () {
     let email = "", question = "", name = "";
         name = $('[name="Questions[name]"]').val();
         email = $('[name="Questions[email]"]').val();
@@ -67,8 +69,8 @@ function sendQuestion() {
                 $('.mfp-close').trigger('click')
             })
         }
-}
-
+})
+})
 JS;
 $this->registerJs($script, $this::POS_END);
 ?>
@@ -103,7 +105,7 @@ $this->registerJs($script, $this::POS_END);
                 <div class="question-question input-2-message _error"></div>
             </div>
 
-            <button type="button" onclick="sendQuestion()" class="btn-2 send-question"><?=\Yii::t('app', 'web-button-send');?></button>
+            <button type="button"  class="btn-2 send-question"><?=\Yii::t('app', 'web-button-send');?></button>
             <div class="modal-politic">
                 <?=\Yii::t('app', 'web-home-text-29');?>
             </div>
