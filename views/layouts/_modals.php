@@ -1,6 +1,76 @@
 <?php
 use yii\widgets\ActiveForm;
 
+$successTitle = \Yii::t('app', 'web-question-success');
+$emailNovalidTitle =  \Yii::t('app', 'web-question-error-1');
+$emailNoFilled  =  \Yii::t('app', 'web-question-error-2');
+$questionNoFilled  =  \Yii::t('app', 'web-question-error-3');
+$nameNoFilled  =  \Yii::t('app', 'web-question-error-4');
+
+$script = <<<JS
+ function ValidateEmail(input) {
+        var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+        if (input.value.match(validRegex)) {
+
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+function sendQuestion() {
+    let email = "", question = "", name = "";
+        name = $('[name="Questions[name]"]').val();
+        email = $('[name="Questions[email]"]').val();
+        question = $('[name="Questions[text]"]').val();
+        $('.question-name').text('');
+        $('.question-email').text('');
+        $('.question-question').text('');
+
+        validate = true;
+        if (name === '') {
+            validate = false;
+            $('.question-name').text("$nameNoFilled")
+        }
+        if (email === '') {
+            validate = false;
+            $('.question-email').text("$emailNoFilled")
+        } else {
+            if (!ValidateEmail($('[name="Questions[email]"]')[0])) {
+                $('.question-email').text("$emailNovalidTitle")
+                validate = false;
+            }
+        }
+        if (question === '') {
+            validate = false;
+            $('.question-question').text("$questionNoFilled")
+        }
+        if (validate) {
+
+            $.ajax({
+                url: BACKURL + "/site/question",
+                method: "GET",
+                data: {email: email, name: name, text: question}
+            }).done(function (data) {
+                $('.mfp-close').trigger('click')
+                if (data) {
+                    swal({
+                        title: "$successTitle",
+                        text: "$successTitle",
+                        icon: "success",
+                    });
+                } else {
+
+                }
+            }).fail(function () {
+                $('.mfp-close').trigger('click')
+            })
+        }
+}
+
+JS;
+$this->registerJs($script, $this::POS_END);
 ?>
 
 <style>
@@ -33,7 +103,7 @@ use yii\widgets\ActiveForm;
                 <div class="question-question input-2-message _error"></div>
             </div>
 
-            <button type="button" class="btn-2 send-question"><?=\Yii::t('app', 'web-button-send');?></button>
+            <button type="button" onclick="sendQuestion()" class="btn-2 send-question"><?=\Yii::t('app', 'web-button-send');?></button>
             <div class="modal-politic">
                 <?=\Yii::t('app', 'web-home-text-29');?>
             </div>
