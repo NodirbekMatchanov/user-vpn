@@ -1,8 +1,14 @@
 <?php
 
+//$translations = \app\models\Translations::find()->where(['device' => 'web'])->asArray()->all();
+//$translationsMap = [];
+//
+//foreach ($translations as $translation) {
+//    $translationsMap[] = [$translation[''] => $translation['']];
+//}
 return [
-    'Особенности' => 'Features',
-    'Вопросы' => 'FAQ',
+    'web-menu-menu-1' => 'Features',
+    'web-menu-menu-2' => 'FAQ',
     'Отзывы' => 'Feedback',
     'Цены' => 'Prices',
     'Скачать' => 'Download',

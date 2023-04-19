@@ -18,7 +18,28 @@ if($selectTariff) {
             break;
     }
 }
+
+$titleDebited = \Yii::t('app', 'web-home-text-54');
+$titleDebited6 = \Yii::t('app', 'web-home-text-56');
+$titleDebited12 = \Yii::t('app', 'web-home-text-57');
+$novalidemail = \Yii::t('app', 'web-home-error-1');
+$notfilledemail = \Yii::t('app', 'web-home-error-2');
+$hassubscribe = \Yii::t('app', 'web-home-error-3');
+$validateEmail = \Yii::t('app', 'web-home-error-4');
 $script = <<<JS
+
+    function validateEmailPayer(field) {
+      $('.email-payer-message').closest('.input-2').removeClass('_error');
+        $('.email-payer-message').html('');
+
+        if (!ValidateEmail($(field)[0])) {
+            $('.email-payer-message').html("$validateEmail");
+        }
+        if ($(field).val() == '') {
+            $('.email-payer-message').closest('.input-2').addClass('_error');
+            $('.email-payer-message').html("$notfilledemail");
+        }
+    }
    var URLToArray = function (url) {
         function parse_mdim(name, val, data) {
             let params = name.match(/(\[\])|(\[.+?\])/g);
@@ -189,7 +210,7 @@ $(document).on('click', '.pay', function (e) {
        if(data) {
            if(email) {
                  if(!ValidateEmail($('[name="email-payer"]')[0])) {
-                     $('.email-payer-message').html('не валидный email');
+                     $('.email-payer-message').html("$novalidemail");
                      return false;
                  }
                 // типы оплаты
@@ -205,10 +226,10 @@ $(document).on('click', '.pay', function (e) {
                 } 
              } else {
                  $('.email-payer-message').closest('.input-2').addClass('_error');
-                 $('.email-payer-message').html('не заполнено поле e-mail');
+                 $('.email-payer-message').html("$notfilledemail");
              }
        } else {
-           $('.email-payer-message').html('у пользователя есть активный подписка');
+           $('.email-payer-message').html("$hassubscribe");
        }
      }).fail(function() {
        
@@ -259,11 +280,11 @@ $('.prices-item, .prices-item._active').on('click',function () {
             $('.prices-form').removeClass('hidden');
         }
         if(id == '1_month') {
-           $('.payout_info').text("данная сумма будет списываться ежемесячно");
+           $('.payout_info').text("$titleDebited");
         } else if(id == '6_month') {
-           $('.payout_info').text("данная сумма будет списываться раз в 6 месяцев");
+           $('.payout_info').text("$titleDebited6");
         } else if(id == '12_month') {
-           $('.payout_info').text("данная сумма будет списываться раз в 12 месяцев");            
+           $('.payout_info').text("$titleDebited12");            
         }
     })
 JS;
@@ -274,18 +295,13 @@ $this->registerJs($script, $this::POS_END);
         <div class="prices-header">
             <?php if (empty($vars->simple)): ?>
                 <h2 class="title-2">
-                    Получите
-                    <span>
-					<span class="accent">анонимный</span><br>
-					<span class="accent">доступ</span>
-					</span>
-                    к любым сайтам
+                    <?=\Yii::t('app', 'web-home-subtitle-8');?>
                 </h2>
 
-                <div class="prices-note">30 дневная гарантия возврата средств</div>
+                <div class="prices-note"><?=\Yii::t('app', 'web-home-text-44');?></div>
             <?php else: ?>
                 <h2 class="title-3 _bold">
-                    Тарифы
+                    <?=\Yii::t('app', 'web-home-text-45');?>
                 </h2>
             <?php endif; ?>
         </div>
@@ -295,13 +311,13 @@ $this->registerJs($script, $this::POS_END);
 
                 <?php if (!empty($tariff) && $tariff->day_30): ?>
                     <div class="prices-item _active" data-id="1_month">
-                        <h3 class="title-3 tariff-title">1 месяц</h3>
+                        <h3 class="title-3 tariff-title">1 <?=\Yii::t('app', 'web-home-text-46');?></h3>
 
                         <div class="spacer"></div>
 
                         <div>
                             <div class="prices-price">
-                                <?= Yii::$app->formatter->asDecimal($tariff->price_30, 0) ?> ₽ / мес
+                                <?= Yii::$app->formatter->asDecimal($tariff->price_30, 0) ?> ₽ / <?=\Yii::t('app', 'web-home-text-46');?>
                             </div>
                         </div>
 
@@ -311,7 +327,7 @@ $this->registerJs($script, $this::POS_END);
                 <?php endif; ?>
                 <?php if (!empty($tariff) && $tariff->day_180): ?>
                     <div class="prices-item" data-id="6_month">
-                        <h3 class="title-3 tariff-title">6 месяцев</h3>
+                        <h3 class="title-3 tariff-title">6 <?=\Yii::t('app', 'web-home-text-47');?></h3>
 
                         <div class="spacer"></div>
                         <div class="prices-sale-percent">-5%</div>
@@ -335,7 +351,7 @@ $this->registerJs($script, $this::POS_END);
                             <div class="prices-best-text">Лучший выбор</div>
                         </div>
 
-                        <h3 class="title-3 tariff-title">1 год</h3>
+                        <h3 class="title-3 tariff-title">1 <?=\Yii::t('app', 'web-home-text-48');?></h3>
 
                         <div class="spacer"></div>
 
@@ -361,22 +377,22 @@ $this->registerJs($script, $this::POS_END);
         </div>
 
         <div class="prices-tags">
-            <div class="prices-tags-item">Неограниченная скорость</div>
-            <div class="prices-tags-item">Все локации</div>
-            <div class="prices-tags-item">До 6 устройств</div>
-            <div class="prices-tags-item">Безлимитный трафик</div>
+            <div class="prices-tags-item"><?=\Yii::t('app', 'web-home-text-49');?></div>
+            <div class="prices-tags-item"><?=\Yii::t('app', 'web-home-text-50');?></div>
+            <div class="prices-tags-item"><?=\Yii::t('app', 'web-home-text-51');?></div>
+            <div class="prices-tags-item"><?=\Yii::t('app', 'web-home-text-52');?></div>
         </div>
 
         <div class="prices-form hidden">
 
             <div class="input-2 ">
-                <label for="" class="input-2-label">Электронный адрес (отправим на него квитанцию)*</label>
-                <input type="email" name="email-payer" value="<?=Yii::$app->request->get('email')?>"  placeholder='Ваш e-mail'>
+                <label for="" class="input-2-label"><?=\Yii::t('app', 'web-home-title-1');?></label>
+                <input type="email" name="email-payer" value="<?=Yii::$app->request->get('email')?>" onchange="validateEmailPayer(this)"  placeholder='Ваш e-mail'>
                 				<div class="email-payer-message input-2-message _error"></div>
             </div>
 
             <div class="input-2 ">
-                <label for="" class="input-2-label">Введите промокод</label>
+                <label for="" class="input-2-label"><?=\Yii::t('app', 'web-home-title-2');?></label>
                 <input type="text" value="<?= Yii::$app->request->get('ref') ?? Yii::$app->request->get('promocode') ?>" name="payer-promocode">
                 				<div class="promocode-payer-message input-2-message _success"></div>
                                 <div class="promocode-payer-message input-2-message _error"></div>
@@ -387,10 +403,10 @@ $this->registerJs($script, $this::POS_END);
                         class="tariff-price">11 864</span> р.
             </div>
 
-            <div class="prices-form-coupon hidden">Вы применили купон со скидкой <span class="discount">0 </span>%</div>
+            <div class="prices-form-coupon hidden"><?=\Yii::t('app', 'web-home-text-58');?> <span class="discount">0 </span>%</div>
 
-            <div class="prices-form-total">Итоговая сумма: <span class="total-price">3 948</span> р.</div>
-            <p class="payout_info" style="text-align: center">данная сумма будет списываться ежемесячно</p>
+            <div class="prices-form-total"><?=\Yii::t('app', 'web-home-text-53');?>: <span class="total-price">3 948</span> р.</div>
+            <p class="payout_info" style="text-align: center"><?=\Yii::t('app', 'web-home-text-54');?></p>
             <div class="prices-methods">
 <!--                <h3 class="title-4">Способы оплаты</h3>-->
                 <div class="prices-methods-items " style="display: none">
@@ -417,10 +433,10 @@ $this->registerJs($script, $this::POS_END);
                 </div>
             </div>
 
-            <button type="button" class="btn-2 pay">Купить</button>
+            <button type="button" class="btn-2 pay"><?=\Yii::t('app', 'web-button-buy');?></button>
 
             <div class="form-politic">
-                Нажимая на кнопку Купить, вы подтверждаете согласие с условиями оферты рекуррентных платежей и даете согласие на обработку персональных данных и соглашаетесь c <a href="<?=\yii\helpers\Url::to(['/site/privacy'])?>">политикой конфиденциальности</a>
+                <?=\Yii::t('app', 'web-home-text-55');?>
              </div>
 
         </div>

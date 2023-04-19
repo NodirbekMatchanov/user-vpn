@@ -252,18 +252,18 @@ $(document).ready(function () {
         return matches ? decodeURIComponent(matches[1]) : undefined;
     }
 
-    $(document).on("change", '[name="email-payer"]', function () {
-        $('.email-payer-message').closest('.input-2').removeClass('_error');
-        $('.email-payer-message').html('');
-
-        if (!ValidateEmail($(this)[0])) {
-            $('.email-payer-message').html('проверьте правильность ввода email адреса');
-        }
-        if ($(this).val() == '') {
-            $('.email-payer-message').closest('.input-2').addClass('_error');
-            $('.email-payer-message').html('не заполнено поле e-mail');
-        }
-    })
+    // $(document).on("change", '[name="email-payer"]', function () {
+    //     $('.email-payer-message').closest('.input-2').removeClass('_error');
+    //     $('.email-payer-message').html('');
+    //
+    //     if (!ValidateEmail($(this)[0])) {
+    //         $('.email-payer-message').html('проверьте правильность ввода email адреса');
+    //     }
+    //     if ($(this).val() == '') {
+    //         $('.email-payer-message').closest('.input-2').addClass('_error');
+    //         $('.email-payer-message').html('не заполнено поле e-mail');
+    //     }
+    // })
 
     $(document).on("click", '.auto-signup', function () {
         let element = $('[name="email"]')[0];

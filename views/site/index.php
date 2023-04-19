@@ -7,70 +7,62 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
 <div class="about" name='features'>
     <div class="container">
         <div class="about-content">
-            <h1 class="title-2">Что такое <span class="accent">VPN MAX</span></h1>
+            <h1 class="title-2"><?=\Yii::t('app', 'web-home-subtitle-2');?></h1>
             <div class="about-items">
 
                 <div class="about-item">
                     <div class="about-icon"><img src="/web/img/about-1.svg"></div>
                     <div class="about-text">
-                        Сверх быстрые сервера<br>
-                        по всему миру
+                        <?=\Yii::t('app', 'web-home-text-1');?>
                     </div>
                 </div>
 
                 <div class="about-item">
                     <div class="about-icon"><img src="/web/img/about-2.svg"></div>
                     <div class="about-text">
-                        Фоновый авто<br>
-                        запуск VPN
+                        <?=\Yii::t('app', 'web-home-text-2');?>
                     </div>
                 </div>
 
                 <div class="about-item">
                     <div class="about-icon"><img src="/web/img/about-3.svg"></div>
                     <div class="about-text">
-                        Большой выбор<br>
-                        стран
+                        <?=\Yii::t('app', 'web-home-text-3');?>
                     </div>
                 </div>
 
                 <div class="about-item">
                     <div class="about-icon"><img src="/web/img/about-4.svg"></div>
                     <div class="about-text">
-                        Скрытие реального<br>
-                        ip адреса
+                        <?=\Yii::t('app', 'web-home-text-4');?>
                     </div>
                 </div>
 
                 <div class="about-item">
                     <div class="about-icon"><img src="/web/img/about-5.svg"></div>
                     <div class="about-text">
-                        Шифрование<br>
-                        трафика
+                        <?=\Yii::t('app', 'web-home-text-5');?>
                     </div>
                 </div>
 
                 <div class="about-item">
                     <div class="about-icon"><img src="/web/img/about-6.svg"></div>
                     <div class="about-text">
-                        Доступ к любым<br>
-                        сайтам
+                        <?=\Yii::t('app', 'web-home-text-6');?>
                     </div>
                 </div>
 
                 <div class="about-item">
                     <div class="about-icon"><img src="/web/img/about-7.svg"></div>
                     <div class="about-text">
-                        Нет логов<br>
-                        на серверах
+                        <?=\Yii::t('app', 'web-home-text-7');?>
                     </div>
                 </div>
 
                 <div class="about-item">
                     <div class="about-icon"><img src="/web/img/about-8.svg"></div>
                     <div class="about-text">
-                        Безлимитный<br>
-                        трафик
+                        <?=\Yii::t('app', 'web-home-text-8');?>
                     </div>
                 </div>
 
@@ -87,24 +79,21 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
             <div class="features-item">
                 <div class="features-number">30</div>
                 <div class="features-text">
-                    дней гарантия<br>
-                    возврата денег
+                    <?=\Yii::t('app', 'web-home-text-9');?>
                 </div>
             </div>
 
             <div class="features-item">
                 <div class="features-number">60</div>
                 <div class="features-text">
-                    стран для выхода <br>
-                    в интернет
+                    <?=\Yii::t('app', 'web-home-text-10');?>
                 </div>
             </div>
 
             <div class="features-item">
                 <div class="features-number">6</div>
                 <div class="features-text">
-                    устройств <br>
-                    одновременно
+                    <?=\Yii::t('app', 'web-home-text-11');?>
                 </div>
             </div>
 
@@ -115,7 +104,9 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
 <div class="devices">
     <div class="container">
         <div class="devices-wrap _tabs">
-            <h2 class="title-2">Для <span class="accent">любого</span> устройства</h2>
+            <h2 class="title-2">
+                <?=\Yii::t('app', 'web-home-subtitle-3');?>
+            </h2>
 
             <div class="nav">
                 <div class='nav-item ' data-tab='1'>Windows</div>
@@ -139,7 +130,7 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                             <div class="devices-steps-item " >
                                 <div class="devices-steps-number">1.</div>
                                 <div class="devices-steps-wrap">
-                                    <div class="devices-steps-title"><a href="https://app.vpn-max.com/ru/user/register" style="color: #0090F8!important;">Зарегистрируйтесь</a></div>
+                                    <div class="devices-steps-title"><a href="https://app.vpn-max.com/ru/user/register" style="color: #0090F8!important;"><?=\Yii::t('app', 'web-home-text-13');?></a></div>
                                     <div class="devices-steps-text">
 
                                     </div>
@@ -149,10 +140,9 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                             <div class="devices-steps-item" >
                                 <div class="devices-steps-number">2.</div>
                                 <div class="devices-steps-wrap">
-                                    <div class="devices-steps-title">Введите код из письма</div>
+                                    <div class="devices-steps-title"><?=\Yii::t('app', 'web-home-text-14');?></div>
                                     <div class="devices-steps-text">
-                                        Код приходит после оплаты<br>
-                                        или запроса пробного периода
+                                    <?=\Yii::t('app', 'web-home-text-15');?>
                                     </div>
                                 </div>
                             </div>
@@ -160,10 +150,9 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                             <div class="devices-steps-item" >
                                 <div class="devices-steps-number">3.</div>
                                 <div class="devices-steps-wrap">
-                                    <div class="devices-steps-title"><a href="https://app.vpn-max.com/ru/support/categories" style="color: #0090F8!important;">Настройте подключение</a></div>
+                                    <div class="devices-steps-title"><a href="https://app.vpn-max.com/ru/support/categories" style="color: #0090F8!important;"><?=\Yii::t('app', 'web-home-text-17');?></a></div>
                                     <div class="devices-steps-text">
-                                        Ваш IP-адрес стал анонимным,<br>
-                                        а соединение зашифровано
+                                    <?=\Yii::t('app', 'web-home-text-16');?>
                                     </div>
                                 </div>
                             </div>
@@ -186,7 +175,7 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                             <div class="devices-steps-item " >
                                 <div class="devices-steps-number">1.</div>
                                 <div class="devices-steps-wrap">
-                                    <div class="devices-steps-title"><a href="https://app.vpn-max.com/ru/user/register" style="color: #0090F8!important;">Зарегистрируйтесь</a></div>
+                                    <div class="devices-steps-title"><a href="https://app.vpn-max.com/ru/user/register" style="color: #0090F8!important;"><?=\Yii::t('app', 'web-home-text-13');?></a></div>
                                     <div class="devices-steps-text">
 
                                     </div>
@@ -196,10 +185,9 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                             <div class="devices-steps-item" >
                                 <div class="devices-steps-number">2.</div>
                                 <div class="devices-steps-wrap">
-                                    <div class="devices-steps-title">Введите код из письма</div>
+                                    <div class="devices-steps-title"><?=\Yii::t('app', 'web-home-text-14');?></div>
                                     <div class="devices-steps-text">
-                                        Код приходит после оплаты<br>
-                                        или запроса пробного периода
+                                    <?=\Yii::t('app', 'web-home-text-15');?>
                                     </div>
                                 </div>
                             </div>
@@ -207,10 +195,9 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                             <div class="devices-steps-item" >
                                 <div class="devices-steps-number">3.</div>
                                 <div class="devices-steps-wrap">
-                                    <div class="devices-steps-title"><a href="https://app.vpn-max.com/ru/support/categories" style="color: #0090F8!important;">Настройте подключение</a></div>
+                                    <div class="devices-steps-title"><a href="https://app.vpn-max.com/ru/support/categories" style="color: #0090F8!important;"><?=\Yii::t('app', 'web-home-text-17');?></a></div>
                                     <div class="devices-steps-text">
-                                        Ваш IP-адрес стал анонимным,<br>
-                                        а соединение зашифровано
+                                    <?=\Yii::t('app', 'web-home-text-16');?>
                                     </div>
                                 </div>
                             </div>
@@ -226,19 +213,18 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                     </div>
 
                     <div class="devices-data">
-                        <h3 class="title-4">Установите приложение</h3>
+                        <h3 class="title-4"><?=\Yii::t('app', 'web-home-text-12');?></h3>
 
-                        <a  href="<?=\yii\helpers\Url::to('https://apps.apple.com/app/vpn-max/id1619787851')?>" target="_blank" class="btn-2">Загрузите в App Store</a>
+                        <a  href="<?=\yii\helpers\Url::to('https://apps.apple.com/app/vpn-max/id1619787851')?>" target="_blank" class="btn-2"><?=\Yii::t('app', 'web-home-text-19');?></a>
 
                         <div class="devices-steps">
 
                             <div class="devices-steps-item _active" data-tab='1'>
                                 <div class="devices-steps-number">1.</div>
                                 <div class="devices-steps-wrap">
-                                    <div class="devices-steps-title">Введите код из письма в мобильном приложении</div>
+                                    <div class="devices-steps-title"><?=\Yii::t('app', 'web-home-text-18');?></div>
                                     <div class="devices-steps-text">
-                                        Код приходит после оплаты<br>
-                                        или запроса пробного периода
+                                    <?=\Yii::t('app', 'web-home-text-15');?>
                                     </div>
                                 </div>
                             </div>
@@ -246,10 +232,9 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                             <div class="devices-steps-item" data-tab='2'>
                                 <div class="devices-steps-number">2.</div>
                                 <div class="devices-steps-wrap">
-                                    <div class="devices-steps-title">Выберите сервер</div>
+                                    <div class="devices-steps-title"><?=\Yii::t('app', 'web-home-text-20');?></div>
                                     <div class="devices-steps-text">
-                                        Автоматически или тот, где<br>
-                                        точно работает нужный вам сайт
+                                        <?=\Yii::t('app', 'web-home-text-21');?>
                                     </div>
                                 </div>
                             </div>
@@ -257,10 +242,9 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                             <div class="devices-steps-item" data-tab='3'>
                                 <div class="devices-steps-number">3.</div>
                                 <div class="devices-steps-wrap">
-                                    <div class="devices-steps-title">Нажмите «Подключиться»</div>
+                                    <div class="devices-steps-title"><?=\Yii::t('app', 'web-home-text-22');?></div>
                                     <div class="devices-steps-text">
-                                        Ваш IP-адрес стал анонимным,<br>
-                                        а соединение зашифровано
+                                    <?=\Yii::t('app', 'web-home-text-16');?>
                                     </div>
                                 </div>
                             </div>
@@ -282,7 +266,7 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                             <div class="devices-steps-item " >
                                 <div class="devices-steps-number">1.</div>
                                 <div class="devices-steps-wrap">
-                                    <div class="devices-steps-title"><a href="https://app.vpn-max.com/ru/user/register" style="color: #0090F8!important;">Зарегистрируйтесь</a></div>
+                                    <div class="devices-steps-title"><a href="https://app.vpn-max.com/ru/user/register" style="color: #0090F8!important;"><?=\Yii::t('app', 'web-home-text-13');?></a></div>
                                     <div class="devices-steps-text">
 
                                     </div>
@@ -292,10 +276,9 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                             <div class="devices-steps-item" >
                                 <div class="devices-steps-number">2.</div>
                                 <div class="devices-steps-wrap">
-                                    <div class="devices-steps-title">Введите код из письма</div>
+                                    <div class="devices-steps-title"><?=\Yii::t('app', 'web-home-text-14');?></div>
                                     <div class="devices-steps-text">
-                                        Код приходит после оплаты<br>
-                                        или запроса пробного периода
+                                    <?=\Yii::t('app', 'web-home-text-15');?>
                                     </div>
                                 </div>
                             </div>
@@ -303,10 +286,9 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                             <div class="devices-steps-item" >
                                 <div class="devices-steps-number">3.</div>
                                 <div class="devices-steps-wrap">
-                                    <div class="devices-steps-title"><a href="https://app.vpn-max.com/ru/support/categories" style="color: #0090F8!important;">Настройте подключение</a></div>
+                                    <div class="devices-steps-title"><a href="https://app.vpn-max.com/ru/support/categories" style="color: #0090F8!important;"><?=\Yii::t('app', 'web-home-text-17');?></a></div>
                                     <div class="devices-steps-text">
-                                        Ваш IP-адрес стал анонимным,<br>
-                                        а соединение зашифровано
+                                    <?=\Yii::t('app', 'web-home-text-16');?>
                                     </div>
                                 </div>
                             </div>
@@ -328,7 +310,7 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                             <div class="devices-steps-item " >
                                 <div class="devices-steps-number">1.</div>
                                 <div class="devices-steps-wrap">
-                                    <div class="devices-steps-title"><a href="https://app.vpn-max.com/ru/user/register" style="color: #0090F8!important;">Зарегистрируйтесь</a></div>
+                                    <div class="devices-steps-title"><a href="https://app.vpn-max.com/ru/user/register" style="color: #0090F8!important;"><?=\Yii::t('app', 'web-home-text-13');?></a></div>
                                     <div class="devices-steps-text">
 
                                     </div>
@@ -338,10 +320,9 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                             <div class="devices-steps-item" >
                                 <div class="devices-steps-number">2.</div>
                                 <div class="devices-steps-wrap">
-                                    <div class="devices-steps-title">Введите код из письма</div>
+                                    <div class="devices-steps-title"><?=\Yii::t('app', 'web-home-text-14');?></div>
                                     <div class="devices-steps-text">
-                                        Код приходит после оплаты<br>
-                                        или запроса пробного периода
+                                    <?=\Yii::t('app', 'web-home-text-15');?>
                                     </div>
                                 </div>
                             </div>
@@ -349,10 +330,9 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                             <div class="devices-steps-item" >
                                 <div class="devices-steps-number">3.</div>
                                 <div class="devices-steps-wrap">
-                                    <div class="devices-steps-title"><a href="https://app.vpn-max.com/ru/support/categories" style="color: #0090F8!important;">Настройте подключение</a></div>
+                                    <div class="devices-steps-title"><a href="https://app.vpn-max.com/ru/support/categories" style="color: #0090F8!important;"><?=\Yii::t('app', 'web-home-text-17');?></a></div>
                                     <div class="devices-steps-text">
-                                        Ваш IP-адрес стал анонимным,<br>
-                                        а соединение зашифровано
+                                    <?=\Yii::t('app', 'web-home-text-16');?>
                                     </div>
                                 </div>
                             </div>
@@ -374,7 +354,7 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                             <div class="devices-steps-item " >
                                 <div class="devices-steps-number">1.</div>
                                 <div class="devices-steps-wrap">
-                                    <div class="devices-steps-title"><a href="https://app.vpn-max.com/ru/user/register" style="color: #0090F8!important;">Зарегистрируйтесь</a></div>
+                                    <div class="devices-steps-title"><a href="https://app.vpn-max.com/ru/user/register" style="color: #0090F8!important;"><?=\Yii::t('app', 'web-home-text-13');?></a></div>
                                     <div class="devices-steps-text">
 
                                     </div>
@@ -384,10 +364,9 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                             <div class="devices-steps-item" >
                                 <div class="devices-steps-number">2.</div>
                                 <div class="devices-steps-wrap">
-                                    <div class="devices-steps-title">Введите код из письма</div>
+                                    <div class="devices-steps-title"><?=\Yii::t('app', 'web-home-text-14');?></div>
                                     <div class="devices-steps-text">
-                                        Код приходит после оплаты<br>
-                                        или запроса пробного периода
+                                    <?=\Yii::t('app', 'web-home-text-15');?>
                                     </div>
                                 </div>
                             </div>
@@ -395,10 +374,9 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                             <div class="devices-steps-item" >
                                 <div class="devices-steps-number">3.</div>
                                 <div class="devices-steps-wrap">
-                                    <div class="devices-steps-title"><a href="https://app.vpn-max.com/ru/support/categories" style="color: #0090F8!important;">Настройте подключение</a></div>
+                                    <div class="devices-steps-title"><a href="https://app.vpn-max.com/ru/support/categories" style="color: #0090F8!important;"><?=\Yii::t('app', 'web-home-text-17');?></a></div>
                                     <div class="devices-steps-text">
-                                        Ваш IP-адрес стал анонимным,<br>
-                                        а соединение зашифровано
+                                    <?=\Yii::t('app', 'web-home-text-16');?>
                                     </div>
                                 </div>
                             </div>
@@ -414,27 +392,21 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
 
 <div class="steps">
     <div class="container">
-        <h2 class="title-2"><span class="accent">Три шага</span> для подключения к VPN MAX</h2>
+        <h2 class="title-2"><?=\Yii::t('app', 'web-home-subtitle-4');?></h2>
         <div class="steps-items">
 
             <div class="steps-item">
-                <div class="steps-title">Скачайте приложение</div>
+                <div class="steps-title"> <?=\Yii::t('app', 'web-home-text-23');?></div>
                 <div class="steps-text">
-                    После установки приложения откройте <br>
-                    его и войдите в систему, используя свое <br>
-                    имя пользователя и пароль. Чтобы <br>
-                    получить учетную запись VPN MAX, <br>
-                    <a href="#">зарегистрируйтесь здесь</a>
+                    <?=\Yii::t('app', 'web-home-text-24');?>
                 </div>
                 <div class="steps-number">01</div>
             </div>
 
             <div class="steps-item">
-                <div class="steps-title">Настройте авто запуск VPN</div>
+                <div class="steps-title"> <?=\Yii::t('app', 'web-home-text-25');?></div>
                 <div class="steps-text">
-                    и не нужно будет каждый раз включать <br>
-                    и выключать VPN он будет запускаться <br>
-                    автоматически для нужных приложений
+                    <?=\Yii::t('app', 'web-home-text-26');?>
                 </div>
                 <div class="steps-number">02</div>
             </div>
@@ -442,8 +414,7 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
             <div class="steps-item _accent">
                 <div class="steps-img"><img src="/web/img/steps-img.svg"></div>
                 <div class="steps-text">
-                    Теперь вам доступны<br>
-                    все ресурсы анонимно
+                    <?=\Yii::t('app', 'web-home-text-27');?>
                 </div>
                 <div class="steps-number">03</div>
             </div>
@@ -458,8 +429,7 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
         <div class="test-content">
 
             <div class="test-title">
-                Тестовый доступ<br>
-                к VPN на 72 часа
+                <?=\Yii::t('app', 'web-home-text-28');?>
             </div>
 
             <form class="test-form">
@@ -467,9 +437,9 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                     <div class="input _dark">
                         <input type="email" name='email' placeholder="Ваш e-mail">
                     </div>
-                    <button type="button" class="btn-2 auto-signup">Попробовать бесплатно</button>
+                    <button type="button" class="btn-2 auto-signup"><?=\Yii::t('app', 'web-button-try-free');?></button>
                 </div>
-                <div class="test-politic">Нажимая на кнопку, вы даете согласие на обработку персональных данных и соглашаетесь c <a href="#">политикой конфиденциальности</a></div>
+                <div class="test-politic"><?=\Yii::t('app', 'web-home-text-29');?></div>
             </form>
 
         </div>
@@ -478,16 +448,16 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
 
 <div class="faq" name='faq'>
     <div class="container">
-        <h2 class="title-2">Ответы на <span class="accent">вопросы</span></h2>
+        <h2 class="title-2"><?=\Yii::t('app', 'web-home-subtitle-5');?></h2>
         <div class="faq-btn-wrap">
-            <a href="<?=\yii\helpers\Url::to(Yii::$app->params['backendUrl'].'/support/categories')?>" class="btn-2">База знании</a>
+            <a href="<?=\yii\helpers\Url::to(Yii::$app->params['backendUrl'].'/support/categories')?>" class="btn-2"><?=\Yii::t('app', 'web-button-knowledge');?></a>
         </div>
 
         <div class="faq-items">
             <div class="faq-col">
                 <div class="faq-item">
                     <div class="faq-header">
-                        <div class="faq-title">Что такое VPN MAX?</div>
+                        <div class="faq-title"><?=\Yii::t('app', 'web-home-text-30');?></div>
                         <div class="faq-thumb">
                             <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M1.37869 14.9809C0.848308 14.9809 0.406993 14.5396 0.397789 14C0.407129 13.4603 0.83928 13.0281 1.37894 13.0188L13.1624 13.0272L13.1639 1.23387C13.1639 0.703483 13.6054 0.262058 14.1351 0.262609C14.6841 0.26254 15.126 0.704472 15.116 1.24351L15.1152 13.0177L26.8986 13.0261C27.4383 13.0168 27.8796 13.4581 27.8795 14.007C27.8795 14.5374 27.438 14.9788 26.9083 14.9783L15.1149 14.9797L15.1233 26.7632C15.114 27.3029 14.6818 27.735 14.1422 27.7443C13.6025 27.7351 13.1606 27.2932 13.1613 26.7634L13.1529 14.98L1.37869 14.9809Z" fill="#F5F8FB"/>
@@ -495,13 +465,13 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                         </div>
                     </div>
                     <div class="faq-content">
-                        Перейдите на страницу оплаты и выберите подходящий для вас план подписки. У нас есть варианты на один месяц, один или 2 года.
+                        <?=\Yii::t('app', 'web-home-text-31');?>
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-header">
-                        <div class="faq-title">Зачем мне нужен VPN?</div>
+                        <div class="faq-title"><?=\Yii::t('app', 'web-home-text-32');?></div>
                         <div class="faq-thumb">
                             <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M1.37869 14.9809C0.848308 14.9809 0.406993 14.5396 0.397789 14C0.407129 13.4603 0.83928 13.0281 1.37894 13.0188L13.1624 13.0272L13.1639 1.23387C13.1639 0.703483 13.6054 0.262058 14.1351 0.262609C14.6841 0.26254 15.126 0.704472 15.116 1.24351L15.1152 13.0177L26.8986 13.0261C27.4383 13.0168 27.8796 13.4581 27.8795 14.007C27.8795 14.5374 27.438 14.9788 26.9083 14.9783L15.1149 14.9797L15.1233 26.7632C15.114 27.3029 14.6818 27.735 14.1422 27.7443C13.6025 27.7351 13.1606 27.2932 13.1613 26.7634L13.1529 14.98L1.37869 14.9809Z" fill="#F5F8FB"/>
@@ -509,14 +479,14 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                         </div>
                     </div>
                     <div class="faq-content">
-                        Перейдите на страницу оплаты и выберите подходящий для вас план подписки. У нас есть варианты на один месяц, один или 2 года.
+                        <?=\Yii::t('app', 'web-home-text-31');?>
                     </div>
                 </div>
 
 
                 <div class="faq-item">
                     <div class="faq-header">
-                        <div class="faq-title">Почему VPN MAX лучше своизх конкурентов?</div>
+                        <div class="faq-title"><?=\Yii::t('app', 'web-home-text-31');?></div>
                         <div class="faq-thumb">
                             <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M1.37869 14.9809C0.848308 14.9809 0.406993 14.5396 0.397789 14C0.407129 13.4603 0.83928 13.0281 1.37894 13.0188L13.1624 13.0272L13.1639 1.23387C13.1639 0.703483 13.6054 0.262058 14.1351 0.262609C14.6841 0.26254 15.126 0.704472 15.116 1.24351L15.1152 13.0177L26.8986 13.0261C27.4383 13.0168 27.8796 13.4581 27.8795 14.007C27.8795 14.5374 27.438 14.9788 26.9083 14.9783L15.1149 14.9797L15.1233 26.7632C15.114 27.3029 14.6818 27.735 14.1422 27.7443C13.6025 27.7351 13.1606 27.2932 13.1613 26.7634L13.1529 14.98L1.37869 14.9809Z" fill="#F5F8FB"/>
@@ -524,13 +494,13 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                         </div>
                     </div>
                     <div class="faq-content">
-                        Перейдите на страницу оплаты и выберите подходящий для вас план подписки. У нас есть варианты на один месяц, один или 2 года.
+                        <?=\Yii::t('app', 'web-home-text-31');?>
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-header">
-                        <div class="faq-title">Как установить VPN MAX?</div>
+                        <div class="faq-title"><?=\Yii::t('app', 'web-home-text-35');?></div>
                         <div class="faq-thumb">
                             <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M1.37869 14.9809C0.848308 14.9809 0.406993 14.5396 0.397789 14C0.407129 13.4603 0.83928 13.0281 1.37894 13.0188L13.1624 13.0272L13.1639 1.23387C13.1639 0.703483 13.6054 0.262058 14.1351 0.262609C14.6841 0.26254 15.126 0.704472 15.116 1.24351L15.1152 13.0177L26.8986 13.0261C27.4383 13.0168 27.8796 13.4581 27.8795 14.007C27.8795 14.5374 27.438 14.9788 26.9083 14.9783L15.1149 14.9797L15.1233 26.7632C15.114 27.3029 14.6818 27.735 14.1422 27.7443C13.6025 27.7351 13.1606 27.2932 13.1613 26.7634L13.1529 14.98L1.37869 14.9809Z" fill="#F5F8FB"/>
@@ -538,13 +508,13 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                         </div>
                     </div>
                     <div class="faq-content">
-                        Перейдите на страницу оплаты и выберите подходящий для вас план подписки. У нас есть варианты на один месяц, один или 2 года.
+                        <?=\Yii::t('app', 'web-home-text-31');?>
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-header">
-                        <div class="faq-title">Как выбрать сервер?</div>
+                        <div class="faq-title"><?=\Yii::t('app', 'web-home-text-36');?></div>
                         <div class="faq-thumb">
                             <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M1.37869 14.9809C0.848308 14.9809 0.406993 14.5396 0.397789 14C0.407129 13.4603 0.83928 13.0281 1.37894 13.0188L13.1624 13.0272L13.1639 1.23387C13.1639 0.703483 13.6054 0.262058 14.1351 0.262609C14.6841 0.26254 15.126 0.704472 15.116 1.24351L15.1152 13.0177L26.8986 13.0261C27.4383 13.0168 27.8796 13.4581 27.8795 14.007C27.8795 14.5374 27.438 14.9788 26.9083 14.9783L15.1149 14.9797L15.1233 26.7632C15.114 27.3029 14.6818 27.735 14.1422 27.7443C13.6025 27.7351 13.1606 27.2932 13.1613 26.7634L13.1529 14.98L1.37869 14.9809Z" fill="#F5F8FB"/>
@@ -552,13 +522,13 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                         </div>
                     </div>
                     <div class="faq-content">
-                        Перейдите на страницу оплаты и выберите подходящий для вас план подписки. У нас есть варианты на один месяц, один или 2 года.
+                        <?=\Yii::t('app', 'web-home-text-31');?>
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-header">
-                        <div class="faq-title">Вы собираете данные?</div>
+                        <div class="faq-title"><?=\Yii::t('app', 'web-home-text-37');?></div>
                         <div class="faq-thumb">
                             <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M1.37869 14.9809C0.848308 14.9809 0.406993 14.5396 0.397789 14C0.407129 13.4603 0.83928 13.0281 1.37894 13.0188L13.1624 13.0272L13.1639 1.23387C13.1639 0.703483 13.6054 0.262058 14.1351 0.262609C14.6841 0.26254 15.126 0.704472 15.116 1.24351L15.1152 13.0177L26.8986 13.0261C27.4383 13.0168 27.8796 13.4581 27.8795 14.007C27.8795 14.5374 27.438 14.9788 26.9083 14.9783L15.1149 14.9797L15.1233 26.7632C15.114 27.3029 14.6818 27.735 14.1422 27.7443C13.6025 27.7351 13.1606 27.2932 13.1613 26.7634L13.1529 14.98L1.37869 14.9809Z" fill="#F5F8FB"/>
@@ -566,13 +536,13 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                         </div>
                     </div>
                     <div class="faq-content">
-                        Перейдите на страницу оплаты и выберите подходящий для вас план подписки. У нас есть варианты на один месяц, один или 2 года.
+                        <?=\Yii::t('app', 'web-home-text-31');?>
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-header">
-                        <div class="faq-title">Я могу использовать VPN MAX только на определенных сайтах?</div>
+                        <div class="faq-title"><?=\Yii::t('app', 'web-home-text-38');?></div>
                         <div class="faq-thumb">
                             <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M1.37869 14.9809C0.848308 14.9809 0.406993 14.5396 0.397789 14C0.407129 13.4603 0.83928 13.0281 1.37894 13.0188L13.1624 13.0272L13.1639 1.23387C13.1639 0.703483 13.6054 0.262058 14.1351 0.262609C14.6841 0.26254 15.126 0.704472 15.116 1.24351L15.1152 13.0177L26.8986 13.0261C27.4383 13.0168 27.8796 13.4581 27.8795 14.007C27.8795 14.5374 27.438 14.9788 26.9083 14.9783L15.1149 14.9797L15.1233 26.7632C15.114 27.3029 14.6818 27.735 14.1422 27.7443C13.6025 27.7351 13.1606 27.2932 13.1613 26.7634L13.1529 14.98L1.37869 14.9809Z" fill="#F5F8FB"/>
@@ -580,7 +550,7 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                         </div>
                     </div>
                     <div class="faq-content">
-                        Перейдите на страницу оплаты и выберите подходящий для вас план подписки. У нас есть варианты на один месяц, один или 2 года.
+                        <?=\Yii::t('app', 'web-home-text-31');?>
                     </div>
                 </div>
             </div>
@@ -588,7 +558,7 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
             <div class="faq-col">
                 <div class="faq-item">
                     <div class="faq-header">
-                        <div class="faq-title">Как купить VPN MAX?</div>
+                        <div class="faq-title"><?=\Yii::t('app', 'web-home-text-39');?></div>
                         <div class="faq-thumb">
                             <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M1.37869 14.9809C0.848308 14.9809 0.406993 14.5396 0.397789 14C0.407129 13.4603 0.83928 13.0281 1.37894 13.0188L13.1624 13.0272L13.1639 1.23387C13.1639 0.703483 13.6054 0.262058 14.1351 0.262609C14.6841 0.26254 15.126 0.704472 15.116 1.24351L15.1152 13.0177L26.8986 13.0261C27.4383 13.0168 27.8796 13.4581 27.8795 14.007C27.8795 14.5374 27.438 14.9788 26.9083 14.9783L15.1149 14.9797L15.1233 26.7632C15.114 27.3029 14.6818 27.735 14.1422 27.7443C13.6025 27.7351 13.1606 27.2932 13.1613 26.7634L13.1529 14.98L1.37869 14.9809Z" fill="#F5F8FB"/>
@@ -596,14 +566,14 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                         </div>
                     </div>
                     <div class="faq-content">
-                        Перейдите на страницу оплаты и выберите подходящий для вас план подписки. У нас есть варианты на один месяц, один или 2 года.
+                        <?=\Yii::t('app', 'web-home-text-31');?>
                     </div>
                 </div>
 
 
                 <div class="faq-item">
                     <div class="faq-header">
-                        <div class="faq-title">В чем разница между платной и бесплатной версиями VPN MAX?</div>
+                        <div class="faq-title"><?=\Yii::t('app', 'web-home-text-40');?></div>
                         <div class="faq-thumb">
                             <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M1.37869 14.9809C0.848308 14.9809 0.406993 14.5396 0.397789 14C0.407129 13.4603 0.83928 13.0281 1.37894 13.0188L13.1624 13.0272L13.1639 1.23387C13.1639 0.703483 13.6054 0.262058 14.1351 0.262609C14.6841 0.26254 15.126 0.704472 15.116 1.24351L15.1152 13.0177L26.8986 13.0261C27.4383 13.0168 27.8796 13.4581 27.8795 14.007C27.8795 14.5374 27.438 14.9788 26.9083 14.9783L15.1149 14.9797L15.1233 26.7632C15.114 27.3029 14.6818 27.735 14.1422 27.7443C13.6025 27.7351 13.1606 27.2932 13.1613 26.7634L13.1529 14.98L1.37869 14.9809Z" fill="#F5F8FB"/>
@@ -611,13 +581,13 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                         </div>
                     </div>
                     <div class="faq-content">
-                        Перейдите на страницу оплаты и выберите подходящий для вас план подписки. У нас есть варианты на один месяц, один или 2 года.
+                        <?=\Yii::t('app', 'web-home-text-31');?>
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-header">
-                        <div class="faq-title">У меня истекает подписка, как ее продлить?</div>
+                        <div class="faq-title"> <?=\Yii::t('app', 'web-home-text-33');?></div>
                         <div class="faq-thumb">
                             <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M1.37869 14.9809C0.848308 14.9809 0.406993 14.5396 0.397789 14C0.407129 13.4603 0.83928 13.0281 1.37894 13.0188L13.1624 13.0272L13.1639 1.23387C13.1639 0.703483 13.6054 0.262058 14.1351 0.262609C14.6841 0.26254 15.126 0.704472 15.116 1.24351L15.1152 13.0177L26.8986 13.0261C27.4383 13.0168 27.8796 13.4581 27.8795 14.007C27.8795 14.5374 27.438 14.9788 26.9083 14.9783L15.1149 14.9797L15.1233 26.7632C15.114 27.3029 14.6818 27.735 14.1422 27.7443C13.6025 27.7351 13.1606 27.2932 13.1613 26.7634L13.1529 14.98L1.37869 14.9809Z" fill="#F5F8FB"/>
@@ -625,14 +595,14 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                         </div>
                     </div>
                     <div class="faq-content">
-                        Перейдите на страницу оплаты и выберите подходящий для вас план подписки. У нас есть варианты на один месяц, один или 2 года.
+                        <?=\Yii::t('app', 'web-home-text-31');?>
                     </div>
                 </div>
 
 
                 <div class="faq-item">
                     <div class="faq-header">
-                        <div class="faq-title">Как оформить подписку на VPN MAX больше чем на 2 года?</div>
+                        <div class="faq-title"><?=\Yii::t('app', 'web-home-text-41');?></div>
                         <div class="faq-thumb">
                             <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M1.37869 14.9809C0.848308 14.9809 0.406993 14.5396 0.397789 14C0.407129 13.4603 0.83928 13.0281 1.37894 13.0188L13.1624 13.0272L13.1639 1.23387C13.1639 0.703483 13.6054 0.262058 14.1351 0.262609C14.6841 0.26254 15.126 0.704472 15.116 1.24351L15.1152 13.0177L26.8986 13.0261C27.4383 13.0168 27.8796 13.4581 27.8795 14.007C27.8795 14.5374 27.438 14.9788 26.9083 14.9783L15.1149 14.9797L15.1233 26.7632C15.114 27.3029 14.6818 27.735 14.1422 27.7443C13.6025 27.7351 13.1606 27.2932 13.1613 26.7634L13.1529 14.98L1.37869 14.9809Z" fill="#F5F8FB"/>
@@ -640,12 +610,12 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                         </div>
                     </div>
                     <div class="faq-content">
-                        Перейдите на страницу оплаты и выберите подходящий для вас план подписки. У нас есть варианты на один месяц, один или 2 года.
+                        <?=\Yii::t('app', 'web-home-text-31');?>
                     </div>
                 </div>
                 <div class="faq-item">
                     <div class="faq-header">
-                        <div class="faq-title">Как работает 30-дневная гарантия возврата денег?</div>
+                        <div class="faq-title"><?=\Yii::t('app', 'web-home-text-42');?></div>
                         <div class="faq-thumb">
                             <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M1.37869 14.9809C0.848308 14.9809 0.406993 14.5396 0.397789 14C0.407129 13.4603 0.83928 13.0281 1.37894 13.0188L13.1624 13.0272L13.1639 1.23387C13.1639 0.703483 13.6054 0.262058 14.1351 0.262609C14.6841 0.26254 15.126 0.704472 15.116 1.24351L15.1152 13.0177L26.8986 13.0261C27.4383 13.0168 27.8796 13.4581 27.8795 14.007C27.8795 14.5374 27.438 14.9788 26.9083 14.9783L15.1149 14.9797L15.1233 26.7632C15.114 27.3029 14.6818 27.735 14.1422 27.7443C13.6025 27.7351 13.1606 27.2932 13.1613 26.7634L13.1529 14.98L1.37869 14.9809Z" fill="#F5F8FB"/>
@@ -653,13 +623,13 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                         </div>
                     </div>
                     <div class="faq-content">
-                        Перейдите на страницу оплаты и выберите подходящий для вас план подписки. У нас есть варианты на один месяц, один или 2 года.
+                        <?=\Yii::t('app', 'web-home-text-31');?>
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-header">
-                        <div class="faq-title">Как много устройств можно подключить к VPN MAX одновременно?</div>
+                        <div class="faq-title"><?=\Yii::t('app', 'web-home-text-43');?></div>
                         <div class="faq-thumb">
                             <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M1.37869 14.9809C0.848308 14.9809 0.406993 14.5396 0.397789 14C0.407129 13.4603 0.83928 13.0281 1.37894 13.0188L13.1624 13.0272L13.1639 1.23387C13.1639 0.703483 13.6054 0.262058 14.1351 0.262609C14.6841 0.26254 15.126 0.704472 15.116 1.24351L15.1152 13.0177L26.8986 13.0261C27.4383 13.0168 27.8796 13.4581 27.8795 14.007C27.8795 14.5374 27.438 14.9788 26.9083 14.9783L15.1149 14.9797L15.1233 26.7632C15.114 27.3029 14.6818 27.735 14.1422 27.7443C13.6025 27.7351 13.1606 27.2932 13.1613 26.7634L13.1529 14.98L1.37869 14.9809Z" fill="#F5F8FB"/>
@@ -667,14 +637,14 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                         </div>
                     </div>
                     <div class="faq-content">
-                        Перейдите на страницу оплаты и выберите подходящий для вас план подписки. У нас есть варианты на один месяц, один или 2 года.
+                        <?=\Yii::t('app', 'web-home-text-31');?>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="faq-btn-wrap">
-            <button class="btn-2" data-mfp-src="question">Задать вопрос</button>
+            <button class="btn-2" data-mfp-src="question"><?=\Yii::t('app', 'web-button-ask');?></button>
         </div>
     </div>
 </div>
@@ -682,7 +652,7 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
 
 <div class="feedbacks" name='feedbacks'>
     <div class="container">
-        <h2 class="title-2"><span class="accent">Отзывы</span> наших пользователей</h2>
+        <h2 class="title-2"><?=\Yii::t('app', 'web-home-subtitle-6');?></h2>
 
         <div class="feedbacks-rating-wrap hidden">
 
@@ -783,7 +753,7 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                         <div class="feedbacks-item">
                             <a href='#' class="feedbacks-link">@IgorKurok</a>
                             <div class="feedbacks-text">
-                                Отличный ВПН. Учитывая, что сейчас все блокируют, этот меня ни разу не подвел. Рекомендую. Если проблемы с настройкой, есть понятные инструкции, по которым все сделаете на раз-два.
+                                <?=\Yii::t('app', 'web-feedback-1');?>
                             </div>
                         </div>
                     </div>
@@ -792,7 +762,7 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                         <div class="feedbacks-item">
                             <a href='#' class="feedbacks-link">@Esenya5594</a>
                             <div class="feedbacks-text">
-                                Испробовала кучу впн и рекомендую именно VPN MAX - безопасный, надежный, удобный сервис. С ним можно легко сделать свою почту конфиденциальной, обходить блокировку и не переживать за свои данные.
+                                <?=\Yii::t('app', 'web-feedback-2');?>
                             </div>
                         </div>
                     </div>
@@ -801,7 +771,7 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                         <div class="feedbacks-item">
                             <a href='#' class="feedbacks-link">@k_mokrova</a>
                             <div class="feedbacks-text">
-                                Приложение работает стабильно, за что огромное спасибо разработчикам. Подключается быстро и не тормозит, как аналоги. VPN MAX на все 100% обходит блокировки и позволяет защитить свою информацию.
+                                <?=\Yii::t('app', 'web-feedback-3');?>
                             </div>
                         </div>
                     </div>
@@ -810,7 +780,7 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                         <div class="feedbacks-item">
                             <a href='#' class="feedbacks-link">@kripto98</a>
                             <div class="feedbacks-text">
-                                Безопасно, конфиденциально, удобно, универсально. Супер впн. Есть для android, windows, iphone и macos, даже для ubuntu. Меня все устраивает в работе. Устанавливается быстро, есть понятные инструкции. Рекомендую однозначно.
+                                <?=\Yii::t('app', 'web-feedback-4');?>
                             </div>
                         </div>
                     </div>
@@ -819,7 +789,7 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                         <div class="feedbacks-item">
                             <a href='#' class="feedbacks-link">@gattabruna</a>
                             <div class="feedbacks-text">
-                                Рекомендую. Нормальный ВПН для анонимной и безопасной работы в сети. Помогает легко обойти блокировки, шифровать передаваемые данные, подключаться к стриминговым сервисам и т.д. Сервис соблюдает политику No Log, так что никто не узнает о действиях в интернете. Подходит для компьютеров (Windows, MacOS), смартфонов (Android, iOS) и пр.
+                                <?=\Yii::t('app', 'web-feedback-5');?>
                             </div>
                         </div>
                     </div>
@@ -828,14 +798,10 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                         <div class="feedbacks-item">
                             <a href='#' class="feedbacks-link">@Mr.Aleks</a>
                             <div class="feedbacks-text">
-                                Мое мнение о VPN MAX - пользуюсь не так давно, но доволен. При сравнении с аналогами огромный плюс - не глючит. Обходит блокировки, защищает данные от взлома и многое другое. Серфинг в интернете становится безопасным. А что еще нужно. Скачивайте.
+                                <?=\Yii::t('app', 'web-feedback-6');?>
                             </div>
                         </div>
                     </div>
-
-
-
-
 
                 </div>
 
@@ -854,13 +820,13 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
         <div class="auto-wrap">
             <div class="auto-img"><img src="/web/img/auto-img.svg"></div>
             <div class="auto-content">
-                <h2 class="title-3">Фоновый авто запуск VPN</h2>
-                <div class="auto-text">Вам больше не нужно включать и выключать VPN</div>
+                <h2 class="title-3"><?=\Yii::t('app', 'web-home-subtitle-7');?></h2>
+                <div class="auto-text"><?=\Yii::t('app', 'web-banner-text-1');?></div>
 
                 <h3 class="title-4">VPN MAX</h3>
                 <ul class="auto-list">
-                    <li>автоматически включается при входе в нужные программы</li>
-                    <li>автоматически выключается при выходе</li>
+                    <li><?=\Yii::t('app', 'web-banner-text-2');?></li>
+                    <li><?=\Yii::t('app', 'web-banner-text-3');?></li>
                 </ul>
             </div>
         </div>

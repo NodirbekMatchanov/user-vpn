@@ -11,6 +11,7 @@ use yii\widgets\Breadcrumbs;
 use yii\bootstrap\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
+use \yii\helpers\Url;
 
 \app\assets\AppAsset_::register($this);
 ?>
@@ -89,36 +90,36 @@ use yii\bootstrap\NavBar;
 
                     <div class="header-menu">
                         <ul>
-                            <li><a href="#features"><?=\Yii::t('app', 'Особенности');?></a></li>
-                            <li><a href="#faq"><?=\Yii::t('app', 'Вопросы');?></a></li>
-                            <li><a href="#feedbacks"><?=\Yii::t('app', 'Отзывы');?></a></li>
-                            <li><a href="#prices"><?=\Yii::t('app', 'Цены');?></a></li>
+                            <li><a href="#features"><?=\Yii::t('app', 'web-menu-menu-1');?></a></li>
+                            <li><a href="#faq"><?=\Yii::t('app', 'web-menu-menu-2');?></a></li>
+                            <li><a href="#feedbacks"><?=\Yii::t('app', 'web-menu-menu-3');?></a></li>
+                            <li><a href="#prices"><?=\Yii::t('app', 'web-menu-menu-4');?></a></li>
                         </ul>
                     </div>
 
                     <div class="header-actions">
                         <div class="header-buttons">
-                            <a href="<?=\yii\helpers\Url::to('https://apps.apple.com/app/vpn-max/id1619787851')?>" target="_blank" class="btn"><?=\Yii::t('app', 'Скачать');?></a>
+                            <a href="<?=Url::to('https://apps.apple.com/app/vpn-max/id1619787851')?>" target="_blank" class="btn"><?=\Yii::t('app', 'web-button-download');?></a>
                             <?php if (Yii::$app->user->isGuest): ?>
-                                <a href="<?= \yii\helpers\Url::to(Yii::$app->params['backendUrl'].'/site/login?language='. Yii::$app->language) ?>"
-                                   class="btn"><?=\Yii::t('app', 'Войти');?></a>
+                                <a href="<?= Url::to(Yii::$app->params['backendUrl'].'/site/login?language='. Yii::$app->language) ?>"
+                                   class="btn"><?=\Yii::t('app', 'web-login-title');?></a>
                             <?php else: ?>
 
                                 <?php $userId = Yii::$app->user->identity->getId();
                                 if (!empty(Yii::$app->authManager->getRolesByUser($userId)['admin'])): ?>
-                                    <a href="<?= \yii\helpers\Url::to(Yii::$app->params['backendUrl'].'/vpn-user-settings/') ?>"
-                                       class="btn"><?=\Yii::t('app', 'Профиль');?></a>
+                                    <a href="<?= Url::to(Yii::$app->params['backendUrl'].'/vpn-user-settings/') ?>"
+                                       class="btn"><?=\Yii::t('app', 'web-profile-button');?></a>
                                 <?php else: ?>
                                     <?php if ((Yii::$app->controller->id != 'site')): ?>
                                         <?php echo Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline my-2 my-lg-0'])
                                             . Html::submitButton(
-                                                \Yii::t('app', 'Выйти'),
+                                                \Yii::t('app', 'web-button-logout'),
                                                 ['class' => 'btn btn-link logout']
                                             )
                                             . Html::endForm(); ?>
                                     <?php else: ?>
-                                        <a href="<?= \yii\helpers\Url::to(['/user/settings/account']) ?>"
-                                           class="btn"><?=\Yii::t('app', 'Профиль');?></a>
+                                        <a href="<?= Url::to(['/user/settings/account']) ?>"
+                                           class="btn"><?=\Yii::t('app', 'web-profile-button');?></a>
                                     <?php endif; ?>
                                 <?php endif; ?>
 
@@ -156,13 +157,11 @@ use yii\bootstrap\NavBar;
                     </div>
 
                     <span class="title-1">
-                       <?=\Yii::t('app', 'Быстрый и');?>  <br>
-                        <?=\Yii::t('app', 'анонимный доступ');?> <br>
-                        <?=\Yii::t('app', 'к любым сайтам');?>
+                       <?=\Yii::t('app', 'web-home-subtitle-1');?>
                     </span>
 
                     <a href="#sign" style="text-decoration: none; color: #fff; ">
-                        <button style="margin-top: 30px;" class="btn-2"><?=\Yii::t('app', 'Попробовать бесплатно');?></button>
+                        <button style="margin-top: 30px;" class="btn-2"><?=\Yii::t('app', 'web-button-try-free');?></button>
                     </a>
 
                 </div>
@@ -181,10 +180,10 @@ use yii\bootstrap\NavBar;
 
                 <div class="header-menu">
                     <ul>
-                        <li><a href="#features"><?=\Yii::t('app', 'Особенности');?></a></li>
-                        <li><a href="#faq"><?=\Yii::t('app', 'Вопросы');?></a></li>
-                        <li><a href="#feedbacks"><?=\Yii::t('app', 'Отзывы');?></a></li>
-                        <li><a href="#prices"><?=\Yii::t('app', 'Цены');?></a></li>
+                        <li><a href="#features"><?=\Yii::t('app', 'web-menu-menu-1');?></a></li>
+                        <li><a href="#faq"><?=\Yii::t('app', 'web-menu-menu-2');?></a></li>
+                        <li><a href="#feedbacks"><?=\Yii::t('app', 'web-menu-menu-3');?></a></li>
+                        <li><a href="#prices"><?=\Yii::t('app', 'web-menu-menu-4');?></a></li>
                         <li><a href="#" data-mfp-src="question"><?=\Yii::t('app', 'Связаться с нами');?></a></a></li>
                         <li><a href="/support/categories"><?=\Yii::t('app', 'База знаний');?></a></li>
 
@@ -195,27 +194,27 @@ use yii\bootstrap\NavBar;
 
                 <div class="header-actions">
                     <div class="header-buttons">
-                        <a href="<?=\yii\helpers\Url::to('https://apps.apple.com/app/vpn-max/id1619787851')?>" class="btn"><?=\Yii::t('app', 'Скачать');?></a>
+                        <a href="<?=Url::to('https://apps.apple.com/app/vpn-max/id1619787851')?>" class="btn"><?=\Yii::t('app', 'web-button-download');?></a>
                         <?php if (Yii::$app->user->isGuest): ?>
-                            <a href="<?= \yii\helpers\Url::to(Yii::$app->params['backendUrl'].'/site/login?language='. Yii::$app->language) ?>"
-                               class="btn"><?=\Yii::t('app', 'Войти');?></a>
+                            <a href="<?= Url::to(Yii::$app->params['backendUrl'].'/site/login?language='. Yii::$app->language) ?>"
+                               class="btn"><?=\Yii::t('app', 'web-login-title');?></a>
                         <?php else: ?>
 
                             <?php $userId = Yii::$app->user->identity->getId();
                             if (!empty(Yii::$app->authManager->getRolesByUser($userId)['admin'])): ?>
-                                <a href="<?= \yii\helpers\Url::to(['/vpn-user-settings/']) ?>"
-                                   class="btn"><?=\Yii::t('app', 'Профиль');?></a>
+                                <a href="<?= Url::to(['/vpn-user-settings/']) ?>"
+                                   class="btn"><?=\Yii::t('app', 'web-profile-button');?></a>
                             <?php else: ?>
                                 <?php if (!Yii::$app->controller->id == 'site'): ?>
                                     <?php echo Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline my-2 my-lg-0'])
                                         . Html::submitButton(
-                                            \Yii::t('app', 'Выйти'),
+                                            \Yii::t('app', 'web-button-logout'),
                                             ['class' => 'btn btn-link logout']
                                         )
                                         . Html::endForm(); ?>
                                 <?php else: ?>
-                                    <a href="<?= \yii\helpers\Url::to(['/user/settings/account']) ?>"
-                                       class="btn"><?=\Yii::t('app', 'Профиль');?></a>
+                                    <a href="<?= Url::to(['/user/settings/account']) ?>"
+                                       class="btn"><?=\Yii::t('app', 'web-profile-button');?></a>
                                 <?php endif; ?>
                             <?php endif; ?>
 
@@ -252,8 +251,8 @@ use yii\bootstrap\NavBar;
 
     <footer class="footer">
         <script
-                data-text="Мы используем cookies и другие технологии, чтобы обеспечить безопасность и надежность нашего сайта. Я согласен и могу отозвать или изменить свое согласие в любое время с вступлением в силу в будущем. "
-                data-button="Разрешить"
+                data-text="<?=\Yii::t('app', 'web-configuration-text-1');?>"
+                data-button="<?=\Yii::t('app', 'button-accept');?>"
                 data-expire="30"
                 data-style="display: flex;justify-content: center;"
                 type="text/javascript"
@@ -277,10 +276,10 @@ use yii\bootstrap\NavBar;
 
                 <div class="footer-data">
                     <div class="footer-text">VPN MAX, 2020-<?=date("Y")?></div>
-                    <a href="/site/privacy" class="footer-text"><?=\Yii::t('app', 'Политика конфиденциальности');?></a>
-                    <a href="/tos" class="footer-text"><?=\Yii::t('app', 'Условия обслуживания');?></a>
-                    <a href="#" data-mfp-src="question" class="footer-text"><?=\Yii::t('app', 'Связаться с нами');?></a>
-                    <a href="/support/categories"  class="footer-text"><?=\Yii::t('app', 'База знаний');?></a>
+                    <a href="/site/privacy" class="footer-text"><?=\Yii::t('app', 'web-link-footer-1');?></a>
+                    <a href="/tos" class="footer-text"><?=\Yii::t('app', 'web-link-footer-2');?></a>
+                    <a href="#" data-mfp-src="question" class="footer-text"><?=\Yii::t('app', 'web-link-footer-3');?></a>
+                    <a href="/support/categories"  class="footer-text"><?=\Yii::t('app', 'web-button-knowledge');?></a>
 
                 </div>
             </div>

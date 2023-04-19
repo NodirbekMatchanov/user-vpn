@@ -3,6 +3,7 @@
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 $db2 = require __DIR__ . '/db2.php';
+require '../components/TranslationsData.php';
 
 $config = [
     'id' => 'basic',
@@ -13,22 +14,17 @@ $config = [
         '@bower' => '@vendor/bower-asset',
         '@npm' => '@vendor/npm-asset',
     ],
-    'language' => 'ru',
+    'language' => 'en',
 
     'components' => [
         'apns' => [
             'class' => 'bryglen\apnsgcm\Apns',
             'environment' => \bryglen\apnsgcm\Apns::ENVIRONMENT_PRODUCTION,
             'pemFile' => __DIR__.'/ios_token/VPN_MAX_PUSH.pem',
-            // 'retryTimes' => 3,
             'options' => [
                 'sendRetryTimes' => 5
             ]
         ],
-//        'request' => [
-//            // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-//            'cookieValidationKey' => 'b1I97EHuHiX4cVlK6Wp96pRVr-1cLf5O',
-//        ],
 
         'telegram' => [
             'class' => 'aki\telegram\Telegram',
@@ -52,7 +48,7 @@ $config = [
         'i18n' => [
             'translations' => [
                 'app*' => [
-                    'class' => 'yii\i18n\PhpMessageSource',
+                    'class' => 'app\components\PhpMessageSource',
                     'fileMap' => [
                         'app' => 'app.php'
                     ],
@@ -128,8 +124,8 @@ $config = [
         ],
         "multiLanguage" => [
             "class" => \skeeks\yii2\multiLanguage\MultiLangComponent::class,
-            'langs' => ['ru', 'en'],
-            'default_lang' => 'fr',         //Language to which no language settings are added.
+            'langs' => \app\components\TranslationsData::getLanguages(),
+            'default_lang' => 'en',         //Language to which no language settings are added.
             'lang_param_name' => 'lang',
         ]
 
@@ -197,7 +193,7 @@ $config = [
         ]
     ],
     'on beforeRequest' => function ($event) {
-        Yii::$app->language = Yii::$app->session->get('language', 'ru');
+        Yii::$app->language = Yii::$app->session->get('language', 'en');
     },
     'params' => $params,
 

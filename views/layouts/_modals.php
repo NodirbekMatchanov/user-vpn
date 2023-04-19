@@ -13,10 +13,10 @@ use yii\widgets\ActiveForm;
         <div class="modal-content">
             <?php $form = ActiveForm::begin(['method' => 'get']); ?>
 
-            <h3 class="title-3">Задать вопрос</h3>
+            <h3 class="title-3"><?=\Yii::t('app', 'web-button-ask');?></h3>
 
             <div class="input-2">
-                <label for="" class="input-2-label">Ваше имя</label>
+                <label for="" class="input-2-label"><?=\Yii::t('app', 'web-field-name');?></label>
                 <?= $form->field($model, 'name')->label(false) ?>
                 <div class="question-name input-2-message _error"></div>
             </div>
@@ -28,15 +28,14 @@ use yii\widgets\ActiveForm;
             </div>
 
             <div class="input-2">
-                <label for="" class="input-2-label">Вопрос</label>
+                <label for="" class="input-2-label"><?=\Yii::t('app', 'web-field-question');?></label>
                 <?= $form->field($model, 'text')->textarea(['rows' => 6])->label(false) ?>
                 <div class="question-question input-2-message _error"></div>
             </div>
 
-            <button type="button" class="btn-2 send-question">Отправить</button>
+            <button type="button" class="btn-2 send-question"><?=\Yii::t('app', 'web-button-send');?></button>
             <div class="modal-politic">
-                Нажимая на кнопку, вы даете согласие на обработку персональных<br>
-                данных и соглашаетесь c <a href="#">политикой конфиденциальности</a>
+                <?=\Yii::t('app', 'web-home-text-29');?>
             </div>
             <?php ActiveForm::end(); ?>
         </div>
