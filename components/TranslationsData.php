@@ -14,7 +14,7 @@ use GuzzleHttp\Psr7\Request;
 
 class TranslationsData
 {
-    public static $host = 'http://app.vpn-maxa.loc';
+    public static $host = 'https://app.vpn-max.com';
 
     public static function getLanguages()
     {
