@@ -184,8 +184,8 @@ use \yii\helpers\Url;
                         <li><a href="#faq"><?=\Yii::t('app', 'web-menu-menu-2');?></a></li>
                         <li><a href="#feedbacks"><?=\Yii::t('app', 'web-menu-menu-3');?></a></li>
                         <li><a href="#prices"><?=\Yii::t('app', 'web-menu-menu-4');?></a></li>
-                        <li><a href="#" data-mfp-src="question"><?=\Yii::t('app', 'Связаться с нами');?></a></a></li>
-                        <li><a href="/support/categories"><?=\Yii::t('app', 'База знаний');?></a></li>
+                        <li><a href="#" data-mfp-src="question"><?=\Yii::t('app', 'web-link-footer-3');?></a></a></li>
+                        <li><a href="/support/categories"><?=\Yii::t('app', 'web-button-knowledge');?></a></li>
 
                     </ul>
                 </div>
