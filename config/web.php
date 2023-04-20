@@ -15,7 +15,6 @@ $config = [
         '@npm' => '@vendor/npm-asset',
     ],
     'language' => 'en',
-
     'components' => [
         'apns' => [
             'class' => 'bryglen\apnsgcm\Apns',
@@ -58,7 +57,6 @@ $config = [
 
         "request" => [
             'cookieValidationKey' => 'b1I97EHuHiX4cVlK6Wp96pRVr-1cLf5O',
-            'baseUrl'=> '',
             "class" => \skeeks\yii2\multiLanguage\MultiLangRequest::class
         ],
         'cache' => [
@@ -125,7 +123,7 @@ $config = [
         "multiLanguage" => [
             "class" => \skeeks\yii2\multiLanguage\MultiLangComponent::class,
             'langs' => \app\components\TranslationsData::getLanguages(),
-            'default_lang' => 'en',         //Language to which no language settings are added.
+//            'default_lang' => 'ff',         //Language to which no language settings are added.
             'lang_param_name' => 'lang',
         ]
 

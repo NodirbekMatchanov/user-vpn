@@ -84,7 +84,7 @@ use \yii\helpers\Url;
         <div class="header-top">
             <div class="container">
                 <div class="header-top-content">
-                    <a href="/" class="header-logo">
+                    <a href="<?=Url::to(['/', 'lang' => Yii::$app->language])?>" class="header-logo">
                         <img src="/web/img/logo.svg">
                     </a>
 
@@ -101,13 +101,13 @@ use \yii\helpers\Url;
                         <div class="header-buttons">
                             <a href="<?=Url::to('https://apps.apple.com/app/vpn-max/id1619787851')?>" target="_blank" class="btn"><?=\Yii::t('app', 'web-button-download');?></a>
                             <?php if (Yii::$app->user->isGuest): ?>
-                                <a href="<?= Url::to(Yii::$app->params['backendUrl'].'/site/login?language='. Yii::$app->language) ?>"
+                                <a href="<?= Url::to(Yii::$app->params['backendUrl'].'/'.Yii::$app->language.'/site/login?language='. Yii::$app->language) ?>"
                                    class="btn"><?=\Yii::t('app', 'web-login-title');?></a>
                             <?php else: ?>
 
                                 <?php $userId = Yii::$app->user->identity->getId();
                                 if (!empty(Yii::$app->authManager->getRolesByUser($userId)['admin'])): ?>
-                                    <a href="<?= Url::to(Yii::$app->params['backendUrl'].'/vpn-user-settings/') ?>"
+                                    <a href="<?= Url::to(Yii::$app->params['backendUrl'].'/'.Yii::$app->language.'/vpn-user-settings/') ?>"
                                        class="btn"><?=\Yii::t('app', 'web-profile-button');?></a>
                                 <?php else: ?>
                                     <?php if ((Yii::$app->controller->id != 'site')): ?>
@@ -185,8 +185,7 @@ use \yii\helpers\Url;
                         <li><a href="#feedbacks"><?=\Yii::t('app', 'web-menu-menu-3');?></a></li>
                         <li><a href="#prices"><?=\Yii::t('app', 'web-menu-menu-4');?></a></li>
                         <li><a href="#" data-mfp-src="question"><?=\Yii::t('app', 'web-link-footer-3');?></a></a></li>
-                        <li><a href="/support/categories"><?=\Yii::t('app', 'web-button-knowledge');?></a></li>
-
+                        <li><a href="<?= Url::to(['/support/categories', 'lang' => Yii::$app->language]) ?>"><?=\Yii::t('app', 'web-button-knowledge');?></a></li>
                     </ul>
                 </div>
 
@@ -196,7 +195,7 @@ use \yii\helpers\Url;
                     <div class="header-buttons">
                         <a href="<?=Url::to('https://apps.apple.com/app/vpn-max/id1619787851')?>" class="btn"><?=\Yii::t('app', 'web-button-download');?></a>
                         <?php if (Yii::$app->user->isGuest): ?>
-                            <a href="<?= Url::to(Yii::$app->params['backendUrl'].'/site/login?language='. Yii::$app->language) ?>"
+                            <a href="<?= Url::to(Yii::$app->params['backendUrl'].'/'.Yii::$app->language.'/site/login?language='. Yii::$app->language) ?>"
                                class="btn"><?=\Yii::t('app', 'web-login-title');?></a>
                         <?php else: ?>
 
@@ -279,7 +278,7 @@ use \yii\helpers\Url;
                     <a href="/site/privacy" class="footer-text"><?=\Yii::t('app', 'web-link-footer-1');?></a>
                     <a href="/tos" class="footer-text"><?=\Yii::t('app', 'web-link-footer-2');?></a>
                     <a href="#" data-mfp-src="question" class="footer-text"><?=\Yii::t('app', 'web-link-footer-3');?></a>
-                    <a href="/support/categories"  class="footer-text"><?=\Yii::t('app', 'web-button-knowledge');?></a>
+                    <a href="<?= Url::to(['/support/categories', 'lang' => Yii::$app->language]) ?>"  class="footer-text"><?=\Yii::t('app', 'web-button-knowledge');?></a>
 
                 </div>
             </div>

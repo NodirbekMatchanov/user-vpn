@@ -34,7 +34,6 @@ class TranslationsData
                         $langs[] = $expid;
                     }
                 }
-
                 return $langs;
             }
         } catch (\Exception $exception) {
