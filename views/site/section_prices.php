@@ -410,7 +410,7 @@ $this->registerJs($script, $this::POS_END);
 
             <div class="input-2 ">
                 <label for="" class="input-2-label"><?=\Yii::t('app', 'web-home-title-1');?></label>
-                <input type="email" name="email-payer" value="<?=Yii::$app->request->get('email')?>" onchange="validateEmailPayer(this)"  placeholder='Ваш e-mail'>
+                <input type="email" name="email-payer" value="<?=Yii::$app->request->get('email')?>" onchange="validateEmailPayer(this)"  placeholder='<?=\Yii::t('app', 'web-home-text-61');?>'>
                 				<div class="email-payer-message input-2-message _error"></div>
             </div>
 
