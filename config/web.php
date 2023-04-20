@@ -85,8 +85,8 @@ $config = [
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
                 'host' => 'smtp.timeweb.ru',
-                'username' => 'welcome@vpn-max.com',
-                'password' => 'Pt7JHXYn',
+                'username' => 'support@vpn-max.com',
+                'password' => 'Zn7LsqJG',
 //                'username' => 'no-reply@mpclick.ru',
 //                'password' => 'frisky_noreply',
 //                yWK8$c=DT[/w5gp
@@ -152,7 +152,7 @@ $config = [
             ],
             'mailer' => [
                 'class' => 'app\models\Mailer',
-                'sender' => ['welcome@vpn-max.com' => 'Сервис VPN MAX'], // or ['no-reply@myhost.com' => 'Sender name']
+                'sender' => ['support@vpn-max.com' => 'Сервис VPN MAX'], // or ['no-reply@myhost.com' => 'Sender name']
                 'viewPath' => '@app/views/user/mail',
                 'welcomeSubject' => 'Добро пожаловать в VPN MAX',
                 'confirmationSubject' => 'Confirmation subject',
