@@ -222,6 +222,6 @@ class SiteController extends Controller
 
     public function actionChangeLanguage() {
         Yii::$app->session->set('language', Yii::$app->request->get('language'));
-        return $this->goBack();
+        return $this->redirect(Yii::$app->request->referrer ?? "/");
     }
 }
