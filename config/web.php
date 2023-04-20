@@ -56,6 +56,7 @@ $config = [
         ],
 
         "request" => [
+            'baseUrl' => '',
             'cookieValidationKey' => 'b1I97EHuHiX4cVlK6Wp96pRVr-1cLf5O',
             "class" => \skeeks\yii2\multiLanguage\MultiLangRequest::class
         ],

@@ -84,7 +84,7 @@ use \yii\helpers\Url;
         <div class="header-top">
             <div class="container">
                 <div class="header-top-content">
-                    <a href="<?=Url::to(['/', 'lang' => Yii::$app->language])?>" class="header-logo">
+                    <a href="/<?=Yii::$app->language?>" class="header-logo">
                         <img src="/web/img/logo.svg">
                     </a>
 
@@ -185,7 +185,7 @@ use \yii\helpers\Url;
                         <li><a href="#feedbacks"><?=\Yii::t('app', 'web-menu-menu-3');?></a></li>
                         <li><a href="#prices"><?=\Yii::t('app', 'web-menu-menu-4');?></a></li>
                         <li><a href="#" data-mfp-src="question"><?=\Yii::t('app', 'web-link-footer-3');?></a></a></li>
-                        <li><a href="<?= Url::to(['/support/categories', 'lang' => Yii::$app->language]) ?>"><?=\Yii::t('app', 'web-button-knowledge');?></a></li>
+                        <li><a href="<?= Url::to(Yii::$app->params['backendUrl'].'/'.Yii::$app->language.'/support/categories') ?>"><?=\Yii::t('app', 'web-button-knowledge');?></a></li>
                     </ul>
                 </div>
 
@@ -278,7 +278,7 @@ use \yii\helpers\Url;
                     <a href="/site/privacy" class="footer-text"><?=\Yii::t('app', 'web-link-footer-1');?></a>
                     <a href="/tos" class="footer-text"><?=\Yii::t('app', 'web-link-footer-2');?></a>
                     <a href="#" data-mfp-src="question" class="footer-text"><?=\Yii::t('app', 'web-link-footer-3');?></a>
-                    <a href="<?= Url::to(['/support/categories', 'lang' => Yii::$app->language]) ?>"  class="footer-text"><?=\Yii::t('app', 'web-button-knowledge');?></a>
+                    <a href="<?= Url::to(Yii::$app->params['backendUrl'].'/'.Yii::$app->language.'/support/categories') ?>"  class="footer-text"><?=\Yii::t('app', 'web-button-knowledge');?></a>
 
                 </div>
             </div>
