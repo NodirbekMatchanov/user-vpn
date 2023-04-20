@@ -265,28 +265,28 @@ $(document).ready(function () {
     //     }
     // })
 
-    $(document).on("click", '.auto-signup', function () {
-        let element = $('[name="email"]')[0];
-        $('[name="email"]').removeClass('validate-email');
-        $('.error-email').remove();
-        if (ValidateEmail(element)) {
-            let password = Password.generate(8);
-            $.ajax({
-                url: BACKURL + "/user/registration/auto-register?" + $.param(getParams),
-                method: "GET",
-                data: {password: password, password_repeat: password, email: element.value}
-            }).done(function (data) {
-                if (data) {
-                    window.location.href = BACKURL + "/user/registration/verify-code";
-                }
-            }).fail(function () {
-                alert('ошибка регистрации')
-            })
-        } else {
-            $('[name="email"]').addClass('validate-email');
-            $('[name="email"]').after("<span class='error-email' style='color: red; font-size: 14px'>проверьте правильность ввода email адреса</span>")
-        }
-    })
+    // $(document).on("click", '.auto-signup', function () {
+    //     let element = $('[name="email"]')[0];
+    //     $('[name="email"]').removeClass('validate-email');
+    //     $('.error-email').remove();
+    //     if (ValidateEmail(element)) {
+    //         let password = Password.generate(8);
+    //         $.ajax({
+    //             url: BACKURL + "/user/registration/auto-register?" + $.param(getParams),
+    //             method: "GET",
+    //             data: {password: password, password_repeat: password, email: element.value}
+    //         }).done(function (data) {
+    //             if (data) {
+    //                 window.location.href = BACKURL + "/user/registration/verify-code";
+    //             }
+    //         }).fail(function () {
+    //             alert('ошибка регистрации')
+    //         })
+    //     } else {
+    //         $('[name="email"]').addClass('validate-email');
+    //         $('[name="email"]').after("<span class='error-email' style='color: red; font-size: 14px'>проверьте правильность ввода email адреса</span>")
+    //     }
+    // })
 
     /* email validate */
     function ValidateEmail(input) {

@@ -1,6 +1,8 @@
 <?php
 $this->title = 'VPNMAX - Быстрый и анонимный доступ к любым сайтам';
 
+
+
 ?>
 <script src="https://widget.cloudpayments.ru/bundles/cloudpayments.js"></script>
 
@@ -114,13 +116,15 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                 <div class='nav-item _active'  data-tab='3'>iOS</div>
                 <div class='nav-item' data-tab='4'>macOS</div>
                 <div class='nav-item' data-tab='5'>Linux</div>
-                <div class='nav-item' data-tab='6'>Роутер</div>
+                <div class='nav-item' data-tab='6'> <?=\Yii::t('app', 'web-home-text-60');?></div>
             </div>
 
             <div class=" _tabs" data-content='1'>
                 <div class="devices-content">
                     <div class="devices-preview _active" data-content='1'>
-                        <img src="/web/img/devices-phone.png">
+                        <img style="
+    border: 4px solid #c1c1c1;
+    border-radius: 26px;" src="/web/img/app-screen-<?=Yii::$app->language?>.png">
                     </div>
 
                     <div class="devices-data">
@@ -165,7 +169,9 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
             <div class="_tabs" data-content='2'>
                 <div class="devices-content">
                     <div class="devices-preview _active" data-content='2'>
-                        <img src="/web/img/devices-phone.png">
+                        <img style="
+    border: 4px solid #c1c1c1;
+    border-radius: 26px;" src="/web/img/app-screen-<?=Yii::$app->language?>.png">
                     </div>
 
                     <div class="devices-data">
@@ -209,7 +215,9 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
             <div class="_active _tabs" data-content='3'>
                 <div class="devices-content">
                     <div class="devices-preview _active" data-content='3'>
-                        <img src="/web/img/devices-phone.png">
+                        <img style="
+    border: 4px solid #c1c1c1;
+    border-radius: 26px;" src="/web/img/app-screen-<?=Yii::$app->language?>.png">
                     </div>
 
                     <div class="devices-data">
@@ -256,7 +264,9 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
             <div class=" _tabs" data-content='4'>
                 <div class="devices-content">
                     <div class="devices-preview _active" data-content='4'>
-                        <img src="/web/img/devices-phone.png">
+                        <img style="
+    border: 4px solid #c1c1c1;
+    border-radius: 26px;" src="/web/img/app-screen-<?=Yii::$app->language?>.png">
                     </div>
 
                     <div class="devices-data">
@@ -300,7 +310,9 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
             <div class=" _tabs" data-content='5'>
                 <div class="devices-content">
                     <div class="devices-preview _active" data-content='5'>
-                        <img src="/web/img/devices-phone.png">
+                        <img style="
+    border: 4px solid #c1c1c1;
+    border-radius: 26px;" src="/web/img/app-screen-<?=Yii::$app->language?>.png">
                     </div>
 
                     <div class="devices-data">
@@ -344,7 +356,9 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
             <div class=" _tabs" data-content='6'>
                 <div class="devices-content">
                     <div class="devices-preview _active" data-content='6'>
-                        <img src="/web/img/devices-phone.png">
+                        <img style="
+    border: 4px solid #c1c1c1;
+    border-radius: 26px;" src="/web/img/app-screen-<?=Yii::$app->language?>.png">
                     </div>
 
                     <div class="devices-data">
@@ -435,9 +449,9 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
             <form class="test-form">
                 <div class="test-form-content">
                     <div class="input _dark">
-                        <input type="email" name='email' placeholder="Ваш e-mail">
+                        <input type="email" name='email' placeholder="<?=\Yii::t('app', 'web-home-text-61');?>">
                     </div>
-                    <button type="button" class="btn-2 auto-signup"><?=\Yii::t('app', 'web-button-try-free');?></button>
+                    <button type="button" onclick="autoSignup()" class="btn-2 auto-signup"><?=\Yii::t('app', 'web-button-try-free');?></button>
                 </div>
                 <div class="test-politic"><?=\Yii::t('app', 'web-home-text-29');?></div>
             </form>
