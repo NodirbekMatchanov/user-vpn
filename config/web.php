@@ -124,7 +124,7 @@ $config = [
         "multiLanguage" => [
             "class" => \skeeks\yii2\multiLanguage\MultiLangComponent::class,
             'langs' => \app\components\TranslationsData::getLanguages(),
-//            'default_lang' => 'ff',         //Language to which no language settings are added.
+            'default_lang' => 'ff',         //Language to which no language settings are added.
             'lang_param_name' => 'lang',
         ]
 
