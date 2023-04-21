@@ -221,7 +221,14 @@ class SiteController extends Controller
     }
 
     public function actionChangeLanguage() {
-        Yii::$app->session->set('language', Yii::$app->request->get('language'));
-        return $this->redirect(Yii::$app->request->referrer ?? "/");
+        $newLng = Yii::$app->request->get('language');
+
+        Yii::$app->session->set('language', $newLng);
+        $lastUrl = Yii::$app->request->referrer;
+        foreach (Yii::$app->multiLanguage->langs as $lang) {
+            $lastUrl = str_replace('/'.$lang.'/','/'.$newLng.'/',$lastUrl);
+        }
+
+        return $this->redirect($lastUrl ?? "/");
     }
 }
