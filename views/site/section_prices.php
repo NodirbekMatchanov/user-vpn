@@ -371,7 +371,7 @@ $this->registerJs($script, $this::POS_END);
                             <div class="prices-best-img">
                                 <img src="/web/img/logo-3.svg">
                             </div>
-                            <div class="prices-best-text">Лучший выбор</div>
+                            <div class="prices-best-text"><?=\Yii::t('app', 'web-tariff-text-9');?></div>
                         </div>
 
                         <h3 class="title-3 tariff-title">1 <?=\Yii::t('app', 'web-home-text-48');?></h3>
@@ -459,7 +459,7 @@ $this->registerJs($script, $this::POS_END);
             <button type="button" class="btn-2 pay"><?=\Yii::t('app', 'web-button-buy');?></button>
 
             <div class="form-politic">
-                <?=\Yii::t('app', 'web-home-text-55');?>
+                    <?=\Yii::t('app', 'web-home-text-55');?>
              </div>
 
         </div>
