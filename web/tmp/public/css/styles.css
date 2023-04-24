@@ -2696,7 +2696,6 @@ html.not-touched .header-menu a:hover {
     border-radius: 3px;
     overflow: hidden;
     display: block;
-    width: 100%;
     -o-object-fit: cover;
     object-fit: cover; }
 .header-langs-current {
