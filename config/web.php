@@ -119,6 +119,7 @@ $config = [
             'showScriptName' => false,
             'rules' => [
                 '/tos' => '/site/termsofservice',
+                '/privacy' => '/site/privacy',
             ],
         ],
         "multiLanguage" => [

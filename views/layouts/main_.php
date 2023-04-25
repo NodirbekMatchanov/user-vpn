@@ -24,12 +24,12 @@ use \yii\helpers\Url;
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" id="metaViewport">
 
-    <title>VPNMAX - Быстрый и анонимный доступ к любым сайтам через VPN</title>
-    <meta name="twitter:title" content="VPNMAX - Быстрый и анонимный доступ к любым сайтам через VPN">
-    <meta property="og:title" content="VPNMAX - Быстрый и анонимный доступ к любым сайтам через VPN">
+    <title><?=\Yii::t('app', 'web-meta-title');?></title>
+    <meta name="twitter:title" content="<?=\Yii::t('app', 'web-meta-title');?>">
+    <meta property="og:title" content="<?=\Yii::t('app', 'web-meta-title');?>">
 
-    <meta name="description" content="VPNMAX - Быстрый и анонимный доступ к любым сайтам через VPN">
-    <meta property="og:description" content="VPNMAX - Быстрый и анонимный доступ к любым сайтам через VPN">
+    <meta name="description" content="<?=\Yii::t('app', 'web-meta-title');?>">
+    <meta property="og:description" content="<?=\Yii::t('app', 'web-meta-title');?>">
     <meta property="og:image" content="/web/img/logo.png">
     <meta property="vk:image" content="/web/img/logo.png">
     <meta name="twitter:image" content="/web/img/logo.png">
@@ -275,7 +275,7 @@ use \yii\helpers\Url;
 
                 <div class="footer-data">
                     <div class="footer-text">VPN MAX, 2020-<?=date("Y")?></div>
-                    <a href="/site/privacy" class="footer-text"><?=\Yii::t('app', 'web-link-footer-1');?></a>
+                    <a href="/privacy" class="footer-text"><?=\Yii::t('app', 'web-link-footer-1');?></a>
                     <a href="/tos" class="footer-text"><?=\Yii::t('app', 'web-link-footer-2');?></a>
                     <a href="#" data-mfp-src="question" class="footer-text"><?=\Yii::t('app', 'web-link-footer-3');?></a>
                     <a href="<?= Url::to(Yii::$app->params['backendUrl'].'/'.Yii::$app->language.'/support/categories') ?>"  class="footer-text"><?=\Yii::t('app', 'web-button-knowledge');?></a>
