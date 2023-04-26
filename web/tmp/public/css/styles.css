@@ -392,7 +392,21 @@ template {
 
 .swiper-container-3d .swiper-slide-shadow-bottom {
     background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0)); }
-
+#mob-menu-btn-lng .header-langs-items {
+    text-align: center;
+    bottom: unset!important;
+    border: 2px solid!important;
+    background: #008cf2!important;
+    width: 50px!important;
+    /* padding: 15px; */
+    /* border-bottom: 4px solid!important; */
+    text-shadow: -1px -1px 2px #008cf2, 1px -1px 0 #008cf2, 2px 1px 3px #008cf2, 1px 1px 9px #008cf2!important;
+    border-top-left-radius: 0!important;
+    border-top-right-radius: 0!important;
+    border-bottom-left-radius: 0!important;
+    border-bottom-right-radius: 0!important;
+    box-shadow: none;
+}
 /* CSS Mode */
 .swiper-container-css-mode > .swiper-wrapper {
     overflow: auto;

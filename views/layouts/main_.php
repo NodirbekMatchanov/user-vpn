@@ -138,16 +138,12 @@ use \yii\helpers\Url;
                                 </a>
                             </div>
                         </div>
-                        <div id="mob-menu-btn-lng" style="margin-right: 29px;margin-top: -8px;">
-                                 <div class="header-langs" style="display: inline; font-size: 25px; box-shadow: none">
-                                    <div class="header-langs-current" style="text-decoration: none;    outline: none;    color: inherit;">
+                        <div id="mob-menu-btn-lng" style="margin-right:15px;margin-top: -8px;">
+                                 <div class="header-langs" style="display: inline; font-size: 25px; box-shadow: none; text-align: center; ">
+                                    <div class="header-langs-current" style="text-decoration: none;    outline: none;    color: inherit; width: 50px;">
                                         <?=Yii::$app->language?>
                                     </div>
-                                    <div class="header-langs-items" style=" bottom: auto; box-shadow: none; border-bottom: 4px solid;
-     border-top-left-radius: 0;
-     border-top-right-radius: 0;
-     border-bottom-left-radius: 0;
-     border-bottom-right-radius: 0;">
+                                    <div class="header-langs-items" style="">
                                         <a href="<?='/site/change-language?language='.(Yii::$app->language == 'ru' ? 'en' : 'ru')?>" class="header-langs-item">
                                             <?=(Yii::$app->language == 'ru') ? 'en' : 'ru'?>
                                         </a>
