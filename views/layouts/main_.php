@@ -97,7 +97,8 @@ use \yii\helpers\Url;
                         </ul>
                     </div>
 
-                    <div class="header-actions">
+                    <div class="header-actions" style="width: 102px;
+    display: -webkit-inline-box;">
                         <div class="header-buttons">
                             <a href="<?=Url::to('https://apps.apple.com/app/vpn-max/id1619787851')?>" target="_blank" class="btn"><?=\Yii::t('app', 'web-button-download');?></a>
                             <?php if (Yii::$app->user->isGuest): ?>
@@ -137,8 +138,24 @@ use \yii\helpers\Url;
                                 </a>
                             </div>
                         </div>
-
+                        <div id="mob-menu-btn-lng" style="margin-right: 29px;margin-top: -8px;">
+                                 <div class="header-langs" style="display: inline; font-size: 25px; box-shadow: none">
+                                    <div class="header-langs-current" style="text-decoration: none;    outline: none;    color: inherit;">
+                                        <?=Yii::$app->language?>
+                                    </div>
+                                    <div class="header-langs-items" style=" bottom: auto; box-shadow: none; border-bottom: 4px solid;
+     border-top-left-radius: 0;
+     border-top-right-radius: 0;
+     border-bottom-left-radius: 0;
+     border-bottom-right-radius: 0;">
+                                        <a href="<?='/site/change-language?language='.(Yii::$app->language == 'ru' ? 'en' : 'ru')?>" class="header-langs-item">
+                                            <?=(Yii::$app->language == 'ru') ? 'en' : 'ru'?>
+                                        </a>
+                                    </div>
+                                </div>
+                        </div>
                         <div id="mob-menu-btn">
+
                             <button class="hamburger hamburger--elastic" type="button">
 									<span class="hamburger-box">
 										<span class="hamburger-inner"></span>
@@ -192,6 +209,9 @@ use \yii\helpers\Url;
                 <div class="spacer"></div>
 
                 <div class="header-actions">
+
+
+
                     <div class="header-buttons">
                         <a href="<?=Url::to('https://apps.apple.com/app/vpn-max/id1619787851')?>" class="btn"><?=\Yii::t('app', 'web-button-download');?></a>
                         <?php if (Yii::$app->user->isGuest): ?>
@@ -221,16 +241,7 @@ use \yii\helpers\Url;
 
                     </div>
 
-                    <div class="header-langs">
-                        <div class="header-langs-current">
-                            <img src="/web/img/langs-<?=Yii::$app->language?>.png">
-                        </div>
-                        <div class="header-langs-items">
-                            <a href="<?='/site/change-language?language='.(Yii::$app->language == 'ru' ? 'en' : 'ru')?>" class="header-langs-item">
-                                <img src="/web/img/langs-<?=(Yii::$app->language == 'ru') ? 'en' : 'ru'?>.png">
-                            </a>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>

@@ -2737,6 +2737,8 @@ html.not-touched .header-menu a:hover {
     box-shadow: 0 0 0 5px #fff; }
 .header #mob-menu-btn {
     display: none; }
+.header #mob-menu-btn-lng {
+    display: none; }
 .header-mob {
     position: fixed;
     top: 0;
@@ -4200,6 +4202,8 @@ input:checked + .slider:before {
     .header-intro._min .header-intro-img img {
         width: 530px; }
     .header #mob-menu-btn {
+        display: block; }
+    .header #mob-menu-btn-lng {
         display: block; }
     .header-top {
         padding-top: 25px;
