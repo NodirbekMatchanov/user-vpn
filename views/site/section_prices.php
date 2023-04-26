@@ -26,6 +26,9 @@ $novalidemail = \Yii::t('app', 'web-home-error-1');
 $notfilledemail = \Yii::t('app', 'web-home-error-2');
 $hassubscribe = \Yii::t('app', 'web-home-error-3');
 $validateEmail = \Yii::t('app', 'web-home-error-4');
+$usedsuccess = \Yii::t('app', 'web-home-error-5');
+$threedays = \Yii::t('app', 'web-home-error-6');
+$language = Yii::$app->language;
 $script = <<<JS
 
   function autoSignup () {
@@ -272,6 +275,29 @@ $(document).ready(function() {
       }
       },1000)
 
+    $(document).on('focusout', '[name="payer-promocode"]', function () {
+            $('.promocode-payer-message._success').html('');
+            $('.promocode-payer-message._error').html('');
+            $.ajax({
+                url: BACKURL + "/promocodes/validation",
+                method: "GET",
+                data: {code: $(this).val(),language: '$language'}
+            }).done(function (data) {
+                data = JSON.parse(data);
+                // Промокод успешно применен
+                if (data.result == 'success') {
+                    $('.promocode-payer-message._success').html("$usedsuccess");
+                    $('.prices-item._active').trigger('click');
+                }
+                else if (data.result == 'user-promocode') {
+                    $('.valid-promocode').html("<i>$threedays</i>");
+                }
+                if (data.result == 'error') {
+                    $('.promocode-payer-message._error').html(data.error);
+                    $('.prices-item._active').trigger('click');
+                }
+            })
+        })
 })
 $('.prices-item, .prices-item._active').on('click',function () {
         id = $(this).closest('.prices-item').data('id') ;

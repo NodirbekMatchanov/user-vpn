@@ -199,29 +199,29 @@ $(document).ready(function () {
         })
     })
 
-    $(document).on('focusout', '[name="payer-promocode"]', function () {
-        $('.promocode-payer-message._success').html('');
-        $('.promocode-payer-message._error').html('');
-        $.ajax({
-            url: BACKURL + "/promocodes/validation",
-            method: "GET",
-            data: {code: $(this).val()}
-        }).done(function (data) {
-            data = JSON.parse(data);
-            // Промокод успешно применен
-            if (data.result == 'success') {
-                $('.promocode-payer-message._success').html("Промокод успешно применен");
-                $('.prices-item._active').trigger('click');
-            }
-            else if (data.result == 'user-promocode') {
-                $('.valid-promocode').html("<i>Дополнительно три дня в подарок</i>");
-            }
-            if (data.result == 'error') {
-                $('.promocode-payer-message._error').html(data.error);
-                $('.prices-item._active').trigger('click');
-            }
-        })
-    })
+    // $(document).on('focusout', '[name="payer-promocode"]', function () {
+    //     $('.promocode-payer-message._success').html('');
+    //     $('.promocode-payer-message._error').html('');
+    //     $.ajax({
+    //         url: BACKURL + "/promocodes/validation",
+    //         method: "GET",
+    //         data: {code: $(this).val()}
+    //     }).done(function (data) {
+    //         data = JSON.parse(data);
+    //         // Промокод успешно применен
+    //         if (data.result == 'success') {
+    //             $('.promocode-payer-message._success').html("Промокод успешно применен");
+    //             $('.prices-item._active').trigger('click');
+    //         }
+    //         else if (data.result == 'user-promocode') {
+    //             $('.valid-promocode').html("<i>Дополнительно три дня в подарок</i>");
+    //         }
+    //         if (data.result == 'error') {
+    //             $('.promocode-payer-message._error').html(data.error);
+    //             $('.prices-item._active').trigger('click');
+    //         }
+    //     })
+    // })
 
     function setCookie(name, value, options = {}) {
 
