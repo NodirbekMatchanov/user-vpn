@@ -489,7 +489,7 @@ $this->registerJs($script, $this::POS_END);
                 </div>
             </div>
 
-            <button type="button" class="btn-2 pay"><?=\Yii::t('app', 'web-button-buy');?></button>
+            <button type="button" <?= ($language == 'en') ? 'disabled="true"' : ''?> class="btn-2 pay"><?=\Yii::t('app', 'web-button-buy');?></button>
 
             <div class="form-politic">
                     <?=\Yii::t('app', 'web-home-text-55');?>
