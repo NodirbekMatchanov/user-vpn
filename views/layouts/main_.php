@@ -97,7 +97,7 @@ use \yii\helpers\Url;
                         </ul>
                     </div>
 
-                    <div class="header-actions" style="width: 102px;
+                    <div class="header-actions" style="
     display: -webkit-inline-box;">
                         <div class="header-buttons">
                             <a href="<?=Url::to('https://apps.apple.com/app/vpn-max/id1619787851')?>" target="_blank" class="btn"><?=\Yii::t('app', 'web-button-download');?></a>
