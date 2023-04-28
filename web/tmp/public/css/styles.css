@@ -2723,6 +2723,8 @@ html.not-touched .header-menu a:hover {
     opacity: 0;
     pointer-events: none;
     position: absolute;
+    background: #008cf2!important;
+    border: 2px solid!important;
     top: 100%;
     right: 0;
     left: 0;
@@ -2741,14 +2743,12 @@ html.not-touched .header-menu a:hover {
     text-decoration: none;
     color: inherit; }
 .header-langs._active {
-    box-shadow: 0 0 0 5px #fff;
-    background: #fff; }
+   }
 .header-langs._active .header-langs-items {
     opacity: 1;
     pointer-events: auto;
     -webkit-transform: none;
-    transform: none;
-    box-shadow: 0 0 0 5px #fff; }
+    transform: none; }
 .header #mob-menu-btn {
     display: none; }
 .header #mob-menu-btn-lng {
@@ -4248,6 +4248,8 @@ input:checked + .slider:before {
         position: absolute;
         top: auto;
         right: 0;
+        background: #008cf2!important;
+        border: 2px solid!important;
         bottom: 100%;
         left: 0;
         border-top-left-radius: 8px;

@@ -128,13 +128,13 @@ use \yii\helpers\Url;
 
                         </div>
 
-                        <div class="header-langs">
-                            <div class="header-langs-current">
-                                 <img src="/web/img/langs-<?=Yii::$app->language?>.png">
+                        <div class="header-langs" style=" font-size: 25px; box-shadow: none; text-align: center; ">
+                            <div class="header-langs-current" style="text-decoration: none;    outline: none;    color: inherit; width: 50px;">
+                                <?=Yii::$app->language?>
                             </div>
                             <div class="header-langs-items">
                                 <a href="<?='/site/change-language?language='.(Yii::$app->language == 'ru' ? 'en' : 'ru')?>" class="header-langs-item">
-                                    <img src="/web/img/langs-<?=(Yii::$app->language == 'ru') ? 'en' : 'ru'?>.png">
+                                    <?=(Yii::$app->language == 'ru') ? 'en' : 'ru'?>
                                 </a>
                             </div>
                         </div>
