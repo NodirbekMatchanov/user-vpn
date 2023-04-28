@@ -420,7 +420,7 @@ $this->registerJs($script, $this::POS_END);
 
                         <div>
                             <div class="prices-price">
-                                <?= Yii::$app->formatter->asDecimal($tariff->price_365, 0) ?> <?=$tariff->currency?>
+                                <?= Yii::$app->formatter->asDecimal($tariff->price_365, 2) ?> <?=$tariff->currency?>
                             </div>
                         </div>
 
@@ -456,12 +456,12 @@ $this->registerJs($script, $this::POS_END);
             </div>
 
             <div class="prices-form-variant">VPN MAX (<span class="choose-tariff-label"></span>): <span
-                        class="tariff-price">11 864</span> р.
+                        class="tariff-price">0</span> <?=$tariff->currency ?? 'р'?>.
             </div>
 
             <div class="prices-form-coupon hidden"><?=\Yii::t('app', 'web-home-text-58');?> <span class="discount">0 </span>%</div>
 
-            <div class="prices-form-total"><?=\Yii::t('app', 'web-home-text-53');?>: <span class="total-price">3 948</span> р.</div>
+            <div class="prices-form-total"><?=\Yii::t('app', 'web-home-text-53');?>: <span class="total-price">0</span> <?=$tariff->currency ?? 'р'?>.</div>
             <p class="payout_info" style="text-align: center"><?=\Yii::t('app', 'web-home-text-54');?></p>
             <div class="prices-methods">
 <!--                <h3 class="title-4">Способы оплаты</h3>-->
