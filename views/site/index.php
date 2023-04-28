@@ -847,4 +847,4 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
     </div>
 </div>
 
-<?php echo $this->render('section_prices', ['space' => true,'tariffs' => $tariffs]); ?>
+<?php echo $this->render('section_prices', ['space' => true,'tariff' => $tariff]); ?>

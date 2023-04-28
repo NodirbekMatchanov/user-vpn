@@ -125,7 +125,7 @@ $script = <<<JS
     function cardPay(e) {
     promise = new Promise((resolve, reject) =>{
         $.ajax({
-           url: "$url" + id + "&promocode=" + promocode + "&orderId=" + orderId+"&email="+email+'&'+ $.param(getParams)
+           url: "$url" + id + "&promocode="   + promocode  + "&orderId=" + orderId+"&email="+email+'&'+ $.param(getParams)
          }).done(function(data){
              resolve(data);
          }).fail(function(err){
@@ -307,7 +307,7 @@ $('.prices-item, .prices-item._active').on('click',function () {
 
         promise = new Promise((resolve, reject) => {
             $.ajax({
-                url: "$url" + id + "&promocode=" + promocode + "&orderId=" + orderId +'&'+ $.param(getParams)
+                url: "$url" + id + "&promocode="  + promocode + "&language=" + '$language'  + "&orderId=" + orderId +'&'+ $.param(getParams)
             }).done(function(data){
                 resolve(data);
             }).fail(function(err){
@@ -356,7 +356,7 @@ $this->registerJs($script, $this::POS_END);
         </div>
 
         <div class="prices-items">
-            <?php foreach ($tariffs as $tariff): ?>
+
 
                 <?php if (!empty($tariff) && $tariff->day_30): ?>
                     <div class="prices-item _active" data-id="1_month">
@@ -364,9 +364,13 @@ $this->registerJs($script, $this::POS_END);
 
                         <div class="spacer"></div>
 
+                        <?php if($tariff->discount_30):?>
+                           <div class="prices-sale-percent">-<?=$tariff->discount_30?>%</div>
+                        <?php endif; ?>
+
                         <div>
                             <div class="prices-price">
-                                <?= Yii::$app->formatter->asDecimal($tariff->price_30, 0) ?> ₽ / <?=\Yii::t('app', 'web-home-text-46');?>
+                                <?= Yii::$app->formatter->asDecimal($tariff->price_30, 0) ?> <?=$tariff->currency?> / <?=\Yii::t('app', 'web-home-text-46');?>
                             </div>
                         </div>
 
@@ -379,11 +383,13 @@ $this->registerJs($script, $this::POS_END);
                         <h3 class="title-3 tariff-title">6 <?=\Yii::t('app', 'web-home-text-47');?></h3>
 
                         <div class="spacer"></div>
-                        <div class="prices-sale-percent">-5%</div>
+                        <?php if($tariff->discount_180):?>
+                            <div class="prices-sale-percent">-<?=$tariff->discount_180?>%</div>
+                        <?php endif; ?>
 
                         <div>
                             <div class="prices-price">
-                                <?= Yii::$app->formatter->asDecimal($tariff->price_180, 0) ?> ₽
+                                <?= Yii::$app->formatter->asDecimal($tariff->price_180, 0) ?> <?=$tariff->currency?>
                             </div>
                         </div>
 
@@ -407,12 +413,14 @@ $this->registerJs($script, $this::POS_END);
                         <div class="prices-sale">
                             <div class="prices-sale-text">
                             </div>
-                            <div class="prices-sale-percent">-35%</div>
+                            <?php if($tariff->discount_365):?>
+                                <div class="prices-sale-percent">-<?=$tariff->discount_365?>%</div>
+                            <?php endif; ?>
                         </div>
 
                         <div>
                             <div class="prices-price">
-                                <?= Yii::$app->formatter->asDecimal($tariff->price_365, 0) ?> ₽
+                                <?= Yii::$app->formatter->asDecimal($tariff->price_365, 0) ?> <?=$tariff->currency?>
                             </div>
                         </div>
 
@@ -420,7 +428,6 @@ $this->registerJs($script, $this::POS_END);
                     </div>
                 <?php endif; ?>
 
-            <?php endforeach; ?>
 
 
         </div>

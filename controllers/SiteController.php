@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Country;
+use app\models\LanguageDisplay;
 use app\models\Questions;
 use app\models\Tariff;
 use Yii;
@@ -67,9 +68,14 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $this->layout = 'main_';
-        $tariffs = Tariff::find()->all();
+        $language = LanguageDisplay::getCurrentLanguage();
+
+        $tariff = Tariff::find()->where(['language' => $language])->one();
+        if(empty($tariff)) {
+            $tariff = Tariff::find()->one();
+        }
         return $this->render('index',[
-            'tariffs' => $tariffs,
+            'tariff' => $tariff,
         ]);
     }
 

@@ -40,7 +40,7 @@ class Tariff extends \yii\db\ActiveRecord
         return [
             [['status', 'price'], 'required'],
             [['status', 'period', 'day_7', 'day_30', 'day_180', 'day_365'], 'integer'],
-            [['price', 'price_7', 'price_30', 'price_180', 'price_365'], 'number'],
+            [['price','discount_30','discount_180','discount_365', 'price_7', 'price_30', 'price_180', 'price_365'], 'number'],
             [['expire'], 'safe'],
             [['country', 'name'], 'string', 'max' => 255],
             [['currency'], 'string', 'max' => 10],
