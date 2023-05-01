@@ -32,7 +32,7 @@ $registrationUsers = \app\models\RegistrationUsers::find()->where(['email' => $a
 
         <p>Ваш аккаунт на сайте &laquo;VPN MAX&raquo; был успешно создан.</p>
 
-        <a href="https://apps.apple.com/app/vpn-max/id1619787851 ">Наше приложение для iOS </a>
+        <a href="https://vpnmax.onelink.me/LdpN/chckzqmm">Наше приложение для iOS </a>
 
         <p>P.S. Если вы получили это сообщение по ошибке, просто удалите его.</p>
     </div>

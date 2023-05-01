@@ -223,7 +223,7 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                     <div class="devices-data">
                         <h3 class="title-4"><?=\Yii::t('app', 'web-home-text-12');?></h3>
 
-                        <a  href="<?=\yii\helpers\Url::to('https://apps.apple.com/app/vpn-max/id1619787851')?>" target="_blank" class="btn-2"><?=\Yii::t('app', 'web-home-text-19');?></a>
+                        <a  href="<?=\yii\helpers\Url::to('https://vpnmax.onelink.me/LdpN/chckzqmm')?>" target="_blank" class="btn-2"><?=\Yii::t('app', 'web-home-text-19');?></a>
 
                         <div class="devices-steps">
 

@@ -19,7 +19,7 @@ $this->title = 'Настройка автозапуска VPN MAX';
         <div class="container">
             <div class="success-app-wrap">
                 <h2 class="title-2">Установите приложение</h2>
-                <a href="<?=\yii\helpers\Url::to('https://apps.apple.com/app/vpn-max/id1619787851')?>" class="btn-2">Загрузите в App Store</a>
+                <a href="<?=\yii\helpers\Url::to('https://vpnmax.onelink.me/LdpN/chckzqmm')?>" class="btn-2">Загрузите в App Store</a>
 
                 <div class="success-app-steps">
                     <div class="success-app-step">

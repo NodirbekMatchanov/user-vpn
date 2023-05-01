@@ -100,7 +100,7 @@ use \yii\helpers\Url;
                     <div class="header-actions" style="
     display: -webkit-inline-box;">
                         <div class="header-buttons">
-                            <a href="<?=Url::to('https://apps.apple.com/app/vpn-max/id1619787851')?>" target="_blank" class="btn"><?=\Yii::t('app', 'web-button-download');?></a>
+                            <a href="<?=Url::to('https://vpnmax.onelink.me/LdpN/chckzqmm')?>" target="_blank" class="btn"><?=\Yii::t('app', 'web-button-download');?></a>
                             <?php if (Yii::$app->user->isGuest): ?>
                                 <a href="<?= Url::to(Yii::$app->params['backendUrl'].'/'.Yii::$app->language.'/site/login?language='. Yii::$app->language) ?>"
                                    class="btn"><?=\Yii::t('app', 'web-login-title');?></a>
@@ -209,7 +209,7 @@ use \yii\helpers\Url;
 
 
                     <div class="header-buttons">
-                        <a href="<?=Url::to('https://apps.apple.com/app/vpn-max/id1619787851')?>" class="btn"><?=\Yii::t('app', 'web-button-download');?></a>
+                        <a href="<?=Url::to('https://vpnmax.onelink.me/LdpN/chckzqmm')?>" class="btn"><?=\Yii::t('app', 'web-button-download');?></a>
                         <?php if (Yii::$app->user->isGuest): ?>
                             <a href="<?= Url::to(Yii::$app->params['backendUrl'].'/'.Yii::$app->language.'/site/login?language='. Yii::$app->language) ?>"
                                class="btn"><?=\Yii::t('app', 'web-login-title');?></a>
