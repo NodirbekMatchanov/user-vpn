@@ -5,6 +5,13 @@ $db = require __DIR__ . '/db.php';
 $db2 = require __DIR__ . '/db2.php';
 require '../components/TranslationsData.php';
 
+preg_match('/^\w{2}/', $_SERVER['HTTP_ACCEPT_LANGUAGE'], $m);
+$deflanguage = 'en';
+if (!empty(strtolower($m[0]))) {
+    $deflanguage = $m[0];
+}
+
+
 $config = [
     'id' => 'basic',
     'name' => 'VPN MAX',
@@ -14,7 +21,7 @@ $config = [
         '@bower' => '@vendor/bower-asset',
         '@npm' => '@vendor/npm-asset',
     ],
-    'language' => 'en',
+    'language' => $deflanguage,
     'components' => [
         'apns' => [
             'class' => 'bryglen\apnsgcm\Apns',
@@ -192,11 +199,11 @@ $config = [
             ],
         ]
     ],
-    'on beforeRequest' => function ($event) {
+    'on beforeRequest' => function ($event) use ($deflanguage) {
         if (Yii::$app->request->get('language')) {
             Yii::$app->session->set('language', Yii::$app->request->get('language'));
         }
-        Yii::$app->language = Yii::$app->session->get('language', 'en');
+        Yii::$app->language = Yii::$app->session->get('language', $deflanguage);
     },
     'params' => $params,
 
