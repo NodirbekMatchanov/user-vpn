@@ -53,6 +53,9 @@ class TranslationsData
         $data = json_decode($res->getBody(), true);
         if (!empty($data['data']) && $data['statusCode'] == 200) {
             $translations = [];
+            if(!empty($data['data'][0]['locale_id'])) {
+                \Yii::$app->language = $data['data'][0]['locale_id'];
+            }
             foreach ($data['data'] as $item) {
                 $translations[$item['element_id']] = $item['descriptions'];
             }
