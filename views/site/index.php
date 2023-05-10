@@ -479,7 +479,7 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                         </div>
                     </div>
                     <div class="faq-content">
-                        <?=\Yii::t('app', 'web-home-text-31');?>
+                        <?=\Yii::t('app', 'web-home-text-80');?>
                     </div>
                 </div>
 
@@ -493,24 +493,10 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                         </div>
                     </div>
                     <div class="faq-content">
-                        <?=\Yii::t('app', 'web-home-text-31');?>
+                        <?=\Yii::t('app', 'web-home-text-81');?>
                     </div>
                 </div>
 
-
-                <div class="faq-item">
-                    <div class="faq-header">
-                        <div class="faq-title"><?=\Yii::t('app', 'web-home-text-31');?></div>
-                        <div class="faq-thumb">
-                            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M1.37869 14.9809C0.848308 14.9809 0.406993 14.5396 0.397789 14C0.407129 13.4603 0.83928 13.0281 1.37894 13.0188L13.1624 13.0272L13.1639 1.23387C13.1639 0.703483 13.6054 0.262058 14.1351 0.262609C14.6841 0.26254 15.126 0.704472 15.116 1.24351L15.1152 13.0177L26.8986 13.0261C27.4383 13.0168 27.8796 13.4581 27.8795 14.007C27.8795 14.5374 27.438 14.9788 26.9083 14.9783L15.1149 14.9797L15.1233 26.7632C15.114 27.3029 14.6818 27.735 14.1422 27.7443C13.6025 27.7351 13.1606 27.2932 13.1613 26.7634L13.1529 14.98L1.37869 14.9809Z" fill="#F5F8FB"/>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="faq-content">
-                        <?=\Yii::t('app', 'web-home-text-31');?>
-                    </div>
-                </div>
 
                 <div class="faq-item">
                     <div class="faq-header">
@@ -522,7 +508,7 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                         </div>
                     </div>
                     <div class="faq-content">
-                        <?=\Yii::t('app', 'web-home-text-31');?>
+                        <?=\Yii::t('app', 'web-home-text-82');?>
                     </div>
                 </div>
 
@@ -536,7 +522,7 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                         </div>
                     </div>
                     <div class="faq-content">
-                        <?=\Yii::t('app', 'web-home-text-31');?>
+                        <?=\Yii::t('app', 'web-home-text-83');?>
                     </div>
                 </div>
 
@@ -550,7 +536,7 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                         </div>
                     </div>
                     <div class="faq-content">
-                        <?=\Yii::t('app', 'web-home-text-31');?>
+                        <?=\Yii::t('app', 'web-home-text-84');?>
                     </div>
                 </div>
 
@@ -564,7 +550,7 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                         </div>
                     </div>
                     <div class="faq-content">
-                        <?=\Yii::t('app', 'web-home-text-31');?>
+                        <?=\Yii::t('app', 'web-home-text-85');?>
                     </div>
                 </div>
             </div>
@@ -580,7 +566,7 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                         </div>
                     </div>
                     <div class="faq-content">
-                        <?=\Yii::t('app', 'web-home-text-31');?>
+                        <?=\Yii::t('app', 'web-home-text-86');?>
                     </div>
                 </div>
 
@@ -595,7 +581,7 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                         </div>
                     </div>
                     <div class="faq-content">
-                        <?=\Yii::t('app', 'web-home-text-31');?>
+                        <?=\Yii::t('app', 'web-home-text-87');?>
                     </div>
                 </div>
 
@@ -609,7 +595,7 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                         </div>
                     </div>
                     <div class="faq-content">
-                        <?=\Yii::t('app', 'web-home-text-31');?>
+                        <?=\Yii::t('app', 'web-home-text-88');?>
                     </div>
                 </div>
 
@@ -624,7 +610,7 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                         </div>
                     </div>
                     <div class="faq-content">
-                        <?=\Yii::t('app', 'web-home-text-31');?>
+                        <?=\Yii::t('app', 'web-home-text-89');?>
                     </div>
                 </div>
                 <div class="faq-item">
@@ -637,7 +623,7 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                         </div>
                     </div>
                     <div class="faq-content">
-                        <?=\Yii::t('app', 'web-home-text-31');?>
+                        <?=\Yii::t('app', 'web-home-text-90');?>
                     </div>
                 </div>
 
@@ -651,7 +637,7 @@ $this->title = 'VPNMAX - Быстрый и анонимный доступ к л
                         </div>
                     </div>
                     <div class="faq-content">
-                        <?=\Yii::t('app', 'web-home-text-31');?>
+                        <?=\Yii::t('app', 'web-home-text-91');?>
                     </div>
                 </div>
             </div>
