@@ -373,7 +373,7 @@ $this->registerJs($script, $this::POS_END);
                                 <?php if ($tariff->position_currency == 'rtl'): ?>
                                     <?= Yii::$app->formatter->asDecimal($tariff->price_30, 0) ?> <?=$tariff->currency?> / мес
                                 <?php else: ?>
-                                    <?=$tariff->currency?><?= Yii::$app->formatter->asDecimal($tariff->price_30, 2) ?>  / мес
+                                    <?=$tariff->currency?><?= Yii::$app->formatter->asDecimal($tariff->price_30, 1) ?>  / мес
                                 <?php endif; ?>
                             </div>
                         </div>
@@ -396,7 +396,7 @@ $this->registerJs($script, $this::POS_END);
                                 <?php if ($tariff->position_currency == 'rtl'): ?>
                                     <?= Yii::$app->formatter->asDecimal($tariff->price_180, 0) ?> <?=$tariff->currency?>
                                 <?php else: ?>
-                                    <?=$tariff->currency?><?= Yii::$app->formatter->asDecimal($tariff->price_180, 2) ?>
+                                    <?=$tariff->currency?><?= Yii::$app->formatter->asDecimal($tariff->price_180, 1) ?>
                                 <?php endif; ?>
                             </div>
                         </div>
@@ -431,7 +431,7 @@ $this->registerJs($script, $this::POS_END);
                                 <?php if ($tariff->position_currency == 'rtl'): ?>
                                     <?= Yii::$app->formatter->asDecimal($tariff->price_365, 0) ?> <?=$tariff->currency?>
                                 <?php else: ?>
-                                    <?=$tariff->currency?><?= Yii::$app->formatter->asDecimal($tariff->price_365, 2) ?>
+                                    <?=$tariff->currency?><?= Yii::$app->formatter->asDecimal($tariff->price_365, 1) ?>
                                 <?php endif; ?>
                             </div>
                         </div>
