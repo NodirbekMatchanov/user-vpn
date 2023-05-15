@@ -43,7 +43,7 @@ class Tariff extends \yii\db\ActiveRecord
             [['price','discount_30','discount_180','discount_365', 'price_7', 'price_30', 'price_180', 'price_365'], 'number'],
             [['expire'], 'safe'],
             [['country', 'name'], 'string', 'max' => 255],
-            [['currency'], 'string', 'max' => 10],
+            [['currency','position_currency'], 'string', 'max' => 10],
         ];
     }
 

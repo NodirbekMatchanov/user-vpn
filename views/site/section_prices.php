@@ -370,7 +370,11 @@ $this->registerJs($script, $this::POS_END);
 
                         <div>
                             <div class="prices-price">
-                                <?= Yii::$app->formatter->asDecimal($tariff->price_30, 0) ?> <?=$tariff->currency?> / <?=\Yii::t('app', 'web-home-text-46');?>
+                                <?php if ($tariff->position_currency == 'rtl'): ?>
+                                    <?= Yii::$app->formatter->asDecimal($tariff->price_30, 0) ?> <?=$tariff->currency?> / мес
+                                <?php else: ?>
+                                    <?=$tariff->currency?><?= Yii::$app->formatter->asDecimal($tariff->price_30, 0) ?>  / мес
+                                <?php endif; ?>
                             </div>
                         </div>
 
@@ -389,7 +393,11 @@ $this->registerJs($script, $this::POS_END);
 
                         <div>
                             <div class="prices-price">
-                                <?= Yii::$app->formatter->asDecimal($tariff->price_180, 0) ?> <?=$tariff->currency?>
+                                <?php if ($tariff->position_currency == 'rtl'): ?>
+                                    <?= Yii::$app->formatter->asDecimal($tariff->price_180, 0) ?> <?=$tariff->currency?>
+                                <?php else: ?>
+                                    <?=$tariff->currency?><?= Yii::$app->formatter->asDecimal($tariff->price_180, 0) ?>
+                                <?php endif; ?>
                             </div>
                         </div>
 
@@ -420,7 +428,11 @@ $this->registerJs($script, $this::POS_END);
 
                         <div>
                             <div class="prices-price">
-                                <?= Yii::$app->formatter->asDecimal($tariff->price_365, 2) ?> <?=$tariff->currency?>
+                                <?php if ($tariff->position_currency == 'rtl'): ?>
+                                    <?= Yii::$app->formatter->asDecimal($tariff->price_365, 0) ?> <?=$tariff->currency?>
+                                <?php else: ?>
+                                    <?=$tariff->currency?><?= Yii::$app->formatter->asDecimal($tariff->price_365, 0) ?>
+                                <?php endif; ?>
                             </div>
                         </div>
 
@@ -455,13 +467,27 @@ $this->registerJs($script, $this::POS_END);
 
             </div>
 
-            <div class="prices-form-variant">VPN MAX (<span class="choose-tariff-label"></span>): <span
-                        class="tariff-price">0</span> <?=$tariff->currency ?? 'р'?>.
+            <div class="prices-form-variant">VPN MAX (<span class="choose-tariff-label"></span>):
+
+                <?php if ($tariff->position_currency == 'rtl'): ?>
+                    <span class="total-price">0</span> <?=$tariff->currency ?? 'р'?>.
+                <?php else: ?>
+                    <?=$tariff->currency ?? 'р'?><span class="total-price">0</span>
+                <?php endif; ?>
+
             </div>
 
             <div class="prices-form-coupon hidden"><?=\Yii::t('app', 'web-home-text-58');?> <span class="discount">0 </span>%</div>
 
-            <div class="prices-form-total"><?=\Yii::t('app', 'web-home-text-53');?>: <span class="total-price">0</span> <?=$tariff->currency ?? 'р'?>.</div>
+            <div class="prices-form-total"><?=\Yii::t('app', 'web-home-text-53');?>:
+
+                <?php if ($tariff->position_currency == 'rtl'): ?>
+                    <span class="tariff-price">0</span> <?=$tariff->currency ?? 'р'?>.
+                <?php else: ?>
+                    <?=$tariff->currency ?? 'р'?><span class="tariff-price">0</span>
+                <?php endif; ?>
+
+            </div>
             <p class="payout_info" style="text-align: center"><?=\Yii::t('app', 'web-home-text-54');?></p>
             <div class="prices-methods">
 <!--                <h3 class="title-4">Способы оплаты</h3>-->
