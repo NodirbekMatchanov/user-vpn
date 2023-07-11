@@ -73,6 +73,15 @@ use \yii\helpers\Url;
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DDF2FPPK56"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-DDF2FPPK56');
+</script>
 <body class="d-flex flex-column h-100">
 <?php $this->beginBody() ?>
 
