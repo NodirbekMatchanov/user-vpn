@@ -27,6 +27,7 @@ class AppAsset_ extends AssetBundle
         'web/tmp/public/js/base.js',
         'web/tmp/public/js/ready.js',
         'js/main.js',
+        'js/stacktable.js',
         'https://cdn.rawgit.com/t4t5/sweetalert/v0.2.0/lib/sweet-alert.min.js',
     ];
     public $depends = [

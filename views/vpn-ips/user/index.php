@@ -104,3 +104,11 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 </div>
+
+<?php
+$this->registerJs("
+  $(document).ready(function () {
+        $('table').stacktable();
+    }) 
+    ", \yii\web\View::POS_END);
+?>
